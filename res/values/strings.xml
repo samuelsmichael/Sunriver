@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- default settings -->
+    <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>
+    <string name="urlcalendar">http://www.srfeed.com/service1.asmx/Calendar</string>
+    <string name="urlactivity">http://www.srfeed.com/service1.asmx/Activity</string>
+    <string name="urlmap">http://www.srfeed.com/service1.asmx/Map</string>
+    <string name="urlalert">http://www.srfeed.com/service1.asmx/Alert</string>
+    <string name="urlupdate">http://www.srfeed.com/service1.asmx/Update</string>
+    <string name="urlwelcome">http://www.srfeed.com/service1.asmx/Welcome</string>
+    <string name="urlfindhomeother">http://www.srfeed.com/service1.asmx/FindCountyAddress</string>
+    <string name="urldidyouknow">http://www.srfeed.com/service1.asmx/DidYouKnow</string>
+    <string name="urlselfie">http://www.srfeed.com/service1.asmx/Overlay</string>
+    <string name="urlallhomes">http://www.srfeed.com/service1.asmx/addConvert</string>
+    <string name="urlservicesother">http://listplus.no-ip.org/Sunriver/service1.asmx/Services</string>
+    <string name="urlcalendarother">http://listplus.no-ip.org/Sunriver/service1.asmx/Calendar</string>
+    <string name="urlactivityother">http://listplus.no-ip.org/Sunriver/service1.asmx/Activity</string>
+    <string name="urlmapother">http://listplus.no-ip.org/Sunriver/service1.asmx/Map</string>
+    <string name="urlalertother">http://listplus.no-ip.org/Sunriver/service1.asmx/Alert</string>
+    <string name="urlupdateother">http://listplus.no-ip.org/Sunriver/service1.asmx/Update</string>
+    <string name="urlwelcomeother">http://listplus.no-ip.org/Sunriver/service1.asmx/Welcome</string>
+    <string name="urlselfieother">http://listplus.no-ip.org/Sunriver/service1.asmx/Overlay</string>
+    <string name="urlfindhome">http://listplus.no-ip.org/Sunriver/service1.asmx/FindCountyAddress</string>
+    
+    <!-- ArcGIS UserCredentials -->
+    <string name="arcgis_userid">seabaseballfan</string>
+    <string name="arcgis_password">Wp_p18mm</string>
+    <string name="map_offline_url4">http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer</string>
+    <string name="wtf">wtf</string>
+    <string name="gotourl">Open URL?</string> 
+    <string name="wunderground_api_conditions">http://api.wunderground.com/api/bc2f8db95e1b5405/conditions/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_forcast">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_forcast10days">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast10days/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_hourly">http://api.wunderground.com/api/bc2f8db95e1b5405/hourly/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_conditionsprior">http://api.wunderground.com/api/2ba3560f9d0306dd/conditions/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_forcastprior">http://api.wunderground.com/api/2ba3560f9d0306dd/forecast/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_forcast10daysprior">http://api.wunderground.com/api/2ba3560f9d0306dd/forecast10days/q/OR/Sunriver.json</string>
+    <string name="wunderground_api_hourlyprior">http://api.wunderground.com/api/2ba3560f9d0306dd/hourly/q/OR/Sunriver.json</string>
+    <string name="app_name">Sunriver</string>
+    <string name="location_layers">Location layers</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="btn_tryagain">Try again</string>
+    <string name="resortnamehint">Resort name</string>
+    <string name="title_activity_maps">Sunriver Maps</string>
+    <string name="title_activity_services">Sunriver Services</string>
+    <string name="title_activity_servicesdetail">Sunriver Services Detail</string>
+    <string name="title_activity_activitiesdetail">Sunriver Activity Detail</string>
+    <string name="location_popup_restaurants">Restaurants</string>
+    <string name="location_popup_retail">Retail</string>
+    <string name="key_in_your_resort_address">Key in your Resort Address</string>
+    <string name="location_popup_pools">Pools</string>
+    <string name="location_popup_tennis_courts">Tennis courts</string>
+    <string name="location_popup_gas">Gas</string>
+    <string name="location_popup_perfect_picture_spots">Perfect picture spots</string>
+    <string name="location_popup_bike_paths">Bike paths</string>
+    <string name="location_popup_close_button">Close</string>
+    <string name="location_popup_showonmap_button">Show on map</string>
+    <string name="application_settings">Settings</string>
+    <string name="callout_close">Close</string>
+    <string name="map_arcgis_url1">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer</string>
+    <string name="map_arcgis_url2">http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer</string>
+    <string name="map_arcgis_url3">http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer</string>
+    <string name="map_arcgis_url4">http://services.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer</string>
+    <string name="bike_path_layer">http://tiles.arcgis.com/tiles/PPpMbTaRDuKoF0e4/arcgis/rest/services/SRPathways/MapServer</string>
+    
+    <string name="title_activity_web_site">WebSite</string>
+    <string name="title_activity_MainActivity">Welcome to Sunriver, OR!</string>
+    <string name="action_settingsx">Settings</string>
+    <string name="title_activity_website">Website</string>
+    <string name="service_popup_contentDescripton"></string>
+    <string name="location_popup_contentDescripton"></string>
+    <string name="activity_main_contentDescripton"></string>
+    <string name="activity_eatsandtreats_contentDescripton"></string>
+    <string name="activity_calendar_contentDescription"></string>
+    <string name="activity_activities_contentDescription"></string>
+    <string name="activity_services_contentDescripton"></string>
+    <string name="visit_the_web_link">Visit the website</string>
+    <string name="visit_the_web_link_lowercase">visit the website</string>
+    <string name="title_activity_calendar">Sunriver Calendar</string>
+    <string name="title_activity_eatsandtreats">Sunriver Eats &amp; Treats</string>
+    <string name="search_go_button">Refresh</string>
+    <string name="search_hint">Search</string>
+    <string name="invalid_searchdateafter_msg">Invalid date. Please key the date in mm-dd-yyyy format</string>
+    <string name="title_activity_sr">Sunriver Activities</string>
+    <string name="title_activity_weather">Sunriver Weather</string>
+    <string name="title_activity_scanner">Sunriver QR Code Reader</string>
+
+</resources>

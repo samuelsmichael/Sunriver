@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:id="@+id/background"
+   android:orientation="vertical"
+   android:layout_width="fill_parent"
+   android:layout_height="fill_parent"
+   >
+		<RelativeLayout
+		   android:id="@+id/background"
+		   android:orientation="vertical"
+		   android:layout_width="fill_parent"
+		   android:layout_height="fill_parent"
+		   android:gravity="top"
+		   >  
+				<Button
+					 android:id="@+id/zoomout" 
+					 android:layout_width="wrap_content"
+					 android:layout_height="wrap_content"
+					 android:text=" - "
+					 android:layout_alignParentLeft="true"
+					 android:layout_margin="10px"
+					 />
+				<Button
+					 android:id="@+id/zoomin" 
+					 android:layout_width="wrap_content"
+					 android:layout_height="wrap_content"
+					 android:text=" + "
+					 android:layout_toRightOf="@+id/zoomout"
+					 android:layout_margin="10px"
+					 />		
+				<ImageButton
+				    android:id="@+id/lastpicturetaken"
+				    android:layout_width="50dp"
+				    android:layout_height="50dp"
+				    android:layout_margin="10px"
+				    android:layout_toLeftOf="@+id/flipperspective"
+				    android:visibility="invisible"
+				    >				    
+				</ImageButton>
+				<ImageButton
+					 android:id="@+id/flipperspective" 
+					 android:layout_width="wrap_content"
+					 android:layout_height="wrap_content"
+					 android:src="@drawable/camerafacefliptransparent"
+					 android:layout_alignParentRight="true"
+					 android:layout_margin="10px"
+					 />
+				
+ 
+		 </RelativeLayout> 		
+   		 <RelativeLayout 
+		   android:id="@+id/background"
+		   android:orientation="vertical"
+		   android:layout_width="fill_parent"
+		   android:layout_height="fill_parent"
+		   android:gravity="bottom"
+		   >
+			<Button
+			 android:id="@+id/takepicture" 
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text=" * Take Picture "
+			 android:layout_alignParentRight="true"
+			 android:layout_margin="10px"
+			 />
+			<Button
+			 android:id="@+id/pickselfie" 
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:text=" * Pick Overlay "
+			 android:layout_alignParentLeft="true"
+			 android:layout_margin="10px"
+			 />
+			</RelativeLayout>
+</RelativeLayout>

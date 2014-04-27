@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="NewApi">
+        <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/GeofenceReceiver.java" />
+    </issue>
+    <issue id="StringFormatMatches">
+        <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/GeofenceReceiver.java" />
+    </issue>
+    <issue id="ValidFragment">
+        <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/AndroidCamera.java" />
+        <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/MainActivity.java" />
+    </issue>
+</lint>

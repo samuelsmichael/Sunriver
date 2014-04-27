@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+		<PreferenceCategory
+			android:title="Urls"
+		>
+			  <EditTextPreference
+			  	android:key="urlcalendar"
+			  	android:defaultValue="@string/urlcalendar"
+			  	android:title="Calendar Data URL"
+			  	android:summary="URL used to fetch the Calendar data"
+			  ></EditTextPreference>
+			  <EditTextPreference
+			  	android:key="urlactivity"
+			  	android:defaultValue="@string/urlactivity"
+			  	android:title="Calendar Data URL"
+			  	android:summary="URL used to fetch the Activity data"
+			  ></EditTextPreference>
+			  <EditTextPreference
+			    android:key="urlmap"
+			  	android:defaultValue="@string/urlmap"
+			  	android:title="Map Data URL"
+			  	android:summary="URL used to fetch the Map data"			      
+			      >
+			  </EditTextPreference>			  			  			  			  
+		</PreferenceCategory>    
+
+</PreferenceScreen>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<allservices>
+    <services>
+        <serviceID>1</serviceID>
+        <serviceName>Mandie's Large Animal Hospital</serviceName>
+        <serviceWebURl>wadsworthanimalhospital.com‎</serviceWebURl>
+        <servicePictureURL>http://www.catahoulacreek.info/wp-content/uploads/2013/10/become-vet.jpg</servicePictureURL>
+        <serviceIconURL>http://www.chrb.ca.gov/images/slideshow/01_veterinary.jpg</serviceIconURL>
+        <serviceDescription>At Mandie's Large Animal Hospital, we can services all of your horse's needs ... from showing to shoeing. We also can transport your horse via helecopter.</serviceDescription>
+        <servicePhone>(303) 321-4151</servicePhone>
+        <serviceAddress>105 South Wadsworth Boulevard Lakewood, CO 80226</serviceAddress>
+        <serviceLat>39.718015</serviceLat>
+        <serviceLong>-105.080853</serviceLong>
+        <serviceCategory>1</serviceCategory>
+        <serviceCategoryName>Veteranarians</serviceCategoryName>
+        <serviceCategoryIconURL>veticon</serviceCategoryIconURL>
+    </services>
+    <services>
+        <serviceID>2</serviceID>
+        <serviceName>West Cedar Vet</serviceName>
+        <serviceWebURl>wadsworthanimalhospital.com‎</serviceWebURl>
+        <servicePictureURL>http://www.catahoulacreek.info/wp-content/uploads/2013/10/become-vet.jpg</servicePictureURL>
+        <serviceIconURL>http://www.chrb.ca.gov/images/slideshow/01_veterinary.jpg</serviceIconURL>
+        <serviceDescription>We are the most popular dog, cat, and bird animal hospital in the area.  Been in business since 1939.</serviceDescription>
+        <servicePhone>(303) 321-4151</servicePhone>
+        <serviceAddress>105 South Wadsworth Boulevard Lakewood, CO 80226</serviceAddress>
+        <serviceLat>39.718015</serviceLat>
+        <serviceLong>-105.080853</serviceLong>
+        <serviceCategory>1</serviceCategory>
+        <serviceCategoryName>Veteranarians</serviceCategoryName>
+        <serviceCategoryIconURL>veticon</serviceCategoryIconURL>
+    </services>
+    <services>
+        <serviceID>3</serviceID>
+        <serviceName>Sunriver Chiropractic Medicine</serviceName>
+        <serviceWebURl>http://www.denverback.com/‎</serviceWebURl>
+        <servicePictureURL>http://www.denverback.com/wp-content/uploads/2013/09/4.jpg</servicePictureURL>
+        <serviceIconURL>http://www.carechiropractic.com/wp-content/uploads/2012/01/relieftodayjump.jpg</serviceIconURL>
+        <serviceDescription>We specialize in lower back and neck injuries.  Come experience our micro-electronic charing facilities.</serviceDescription>
+        <servicePhone>(303) 321-4151</servicePhone>
+        <serviceAddress>105 South Wadsworth Boulevard Lakewood, CO 80226</serviceAddress>
+        <serviceLat>39.718015</serviceLat>
+        <serviceLong>-105.080853</serviceLong>
+        <serviceCategory>2</serviceCategory>
+        <serviceCategoryName>Health</serviceCategoryName>
+        <serviceCategoryIconURL>healthtransparent</serviceCategoryIconURL>
+    </services>
+</allservices>

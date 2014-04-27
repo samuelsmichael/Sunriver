@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_selector"
+    android:orientation="horizontal"
+    android:padding="5dip"
+    android:paddingLeft="9dip" >
+ 
+    <!--  ListRow Left side Thumbnail image -->
+    <LinearLayout android:id="@+id/calendar_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:padding="3dip"
+        android:layout_centerVertical="true"
+        android:background="@drawable/image_bg" >
+ 
+        <ImageView
+            android:id="@+id/calendar_list_image"
+            android:layout_width="50dip"
+            android:layout_height="50dip" />
+ 
+    </LinearLayout>
+    <LinearLayout    
+        android:id="@+id/calendar_middleblock"
+		android:layout_centerVertical="true"
+        android:layout_width="58sp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/calendar_thumbnail"        
+        android:layout_marginLeft="3dip"
+        android:orientation="vertical" >
+	    <!--  Date  -->
+	    <TextView
+	        android:id="@+id/calendar_date"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#040404"
+	        android:typeface="sans"
+	        android:textSize="12sp"
+	        android:textStyle="bold"
+	        android:gravity="top|center_horizontal"
+	        android:layout_gravity="top|center_horizontal" />
+	 
+	    <!-- Time -->
+	    <TextView
+	        android:id="@+id/calendar_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#812622"
+	        android:layout_gravity="center_vertical|center_horizontal"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:textSize="12sp"
+			/>
+	
+	    <!-- Address -->
+	    <TextView
+	        android:id="@+id/calendar_address"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#040404"
+	        android:textSize="12sp"
+	        android:gravity="bottom|center_horizontal"
+	        android:layout_gravity="bottom|center_horizontal" />
+     </LinearLayout>
+    
+	<LinearLayout    
+        android:id="@+id/calendar_rightblock"
+        android:layout_toRightOf="@+id/calendar_middleblock"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dip"
+        android:paddingRight="4dip"
+        android:layout_marginRight="4dip"
+        
+        android:orientation="horizontal" >		    
+        
+	    <LinearLayout    
+	        android:id="@+id/calendar_rightblocktext"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="vertical" >		    
+	    
+		    <!-- Name -->
+		    <TextView
+		        android:id="@+id/calendar_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="top"
+		        android:textColor="#ac332d"
+		        android:typeface="sans"
+		        android:textSize="14sp"
+		        android:textStyle="bold"/>
+		 
+		    <!-- Description -->
+		    <RelativeLayout 
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:background="@drawable/list_selector"
+			    android:orientation="horizontal"
+				 >
+    
+			    <TextView
+			        android:id="@+id/calendar_description"
+			        android:layout_width="200dip"
+			        android:layout_height="wrap_content"
+			        android:textColor="#040404"
+			        android:textSize="11sp"
+			        android:layout_marginTop="3dip" />
+			    <!-- Rightend Arrow -->
+			    <ImageView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_toRightOf="@+id/calendar_description"
+			        android:src="@drawable/arrow"
+			        android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+			        />
+			</RelativeLayout>		    
+		</LinearLayout>
+    </LinearLayout>
+    <!-- Dummy spacer 
+    <TextView
+        android:id="@+id/dummy_spacer"
+	     android:layout_width="wrap_content"
+	     android:layout_height="wrap_content"
+	     android:text="   "
+		 />
+		 -->
+
+		 
+ 
+</RelativeLayout>

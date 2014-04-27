@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_bg_2"
+    android:orientation="vertical"
+	>
+	<ScrollView 
+		    android:id="@+id/location_scrollable"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"	 
+		    
+	    >
+		<RelativeLayout 
+	    android:id="@+id/location_upperscrollablepart"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:background="@drawable/custom_bg_2"
+	    android:orientation="vertical"
+	    >
+	    <!--  ListRow Left side Thumbnail image -->
+	    <LinearLayout android:id="@+id/location_image_layout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+		>	 
+	        <ImageView
+	            android:id="@+id/location_image"
+	            android:contentDescription="@string/location_popup_contentDescripton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            
+	            />
+	 
+	    </LinearLayout>
+	    <TextView 
+			android:id="@+id/location_name"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content" 
+			android:layout_centerHorizontal="true"
+			android:textSize="26sp" 
+			android:layout_below="@+id/location_image_layout"
+			android:textColor="#FFFFFF"
+		></TextView>
+	    
+	    <TextView 
+			android:id="@+id/location_address"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:layout_centerHorizontal="true"
+			android:layout_below="@+id/location_name" 
+			android:textSize="16sp" 
+			android:linksClickable="false"		
+			android:textColor="#FFFFFF"
+			></TextView>
+	    
+	    <TextView 
+			android:id="@+id/location_description"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textSize="16sp" 
+			android:paddingLeft="8dp"
+			android:paddingRight="8dp"
+			android:layout_marginTop="9dp"
+			android:layout_marginBottom="9dp"
+			android:scrollbars = "vertical"
+			android:textColor="#FFFFFF"
+			android:layout_below="@+id/location_address"
+		></TextView>
+	    
+	
+	   <RelativeLayout 
+	        android:id="@+id/location_links1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="vertical"	
+		    android:layout_centerHorizontal="true"
+		    android:layout_below="@+id/location_description"    
+		    >
+		   <LinearLayout 
+		        android:id="@+id/location_links"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"	  
+			    android:layout_centerHorizontal="true"
+			     
+			    >
+		       	<TextView
+				    android:id="@+id/location_phone"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:autoLink="phone"
+					android:textSize="16sp"
+					android:layout_marginRight="5dip" 
+					android:textColor="#B6D5E0"
+					android:layout_marginBottom="5dip"
+		
+			 	/>
+				<TextView 
+					android:id="@+id/location_weburl"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" 
+					android:linksClickable="true"
+					android:textSize="16sp" 
+					android:textColor="#B6D5E0"
+					android:layout_marginLeft="5dip"
+					android:text="@string/visit_the_web_link"
+				></TextView>
+			</LinearLayout>
+	       	<TextView 
+				android:id="@+id/location_soundurl"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content" 
+				android:textSize="16sp" 
+				android:textColor="#FFFFFF"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@+id/location_links"
+				android:layout_marginBottom="1dip"
+			></TextView>        
+		</RelativeLayout>
+				<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    
+	    android:layout_centerHorizontal="true"
+	    android:layout_below="@+id/location_links1"
+	  >
+      
+        <Button
+	        android:id="@+id/seeOnMap"
+	        style="?android:attr/buttonStyleSmall"
+	        android:textColor="#dddddd"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="15dp"
+	        android:text="@string/location_popup_showonmap_button" 
+	     />
+        <Button
+	        android:id="@+id/closePopup"
+	        style="?android:attr/buttonStyleSmall"
+	        android:textColor="#dddddd"
+	        android:layout_width="wrap_content"			        
+	        android:layout_height="wrap_content"
+	        android:text="@string/location_popup_close_button" 
+	     />
+	</LinearLayout>        	    
+	   
+	</RelativeLayout>    
+	</ScrollView>	    
+        
+	   		    
+	    
+</RelativeLayout>
+

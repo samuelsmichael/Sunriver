@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/custom_bg_2"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+	<LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:padding="4dp"
+	    android:background="@drawable/custom_bg_1"
+	    android:orientation="vertical" >
+	
+	    <CheckBox
+	        android:id="@+id/checkBoxRestaurants"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ff00ff00"
+	        android:textStyle="bold"
+	        android:text="@string/location_popup_restaurants" />
+	    
+	    <CheckBox
+	        android:id="@+id/checkBoxRetail"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textStyle="bold"
+	        android:textColor="#ffeeeee0"
+	        android:text="@string/location_popup_retail" />
+
+	    <CheckBox
+	        android:id="@+id/checkBoxPools"
+	        android:textStyle="bold"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ff00ffff"
+	        android:text="@string/location_popup_pools" />
+
+	    <CheckBox
+	        android:id="@+id/checkBoxTennisCourts"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ffffff00"
+	        android:text="@string/location_popup_tennis_courts" />
+	    	    
+	    <CheckBox
+	        android:id="@+id/checkBoxGas"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ffff0000"
+	        
+	        android:text="@string/location_popup_gas" /> 
+	    	    
+	    <CheckBox
+	        android:id="@+id/checkBoxPerfectPictureSpots"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textStyle="bold"
+	        android:textColor="#ffff00ff"
+	        android:text="@string/location_popup_perfect_picture_spots" />
+	    	    
+	    <CheckBox
+	        android:id="@+id/checkBoxBikePaths"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:textColor="#ff87ceeb"
+	        android:text="@string/location_popup_bike_paths" />
+	    	    
+	     
+	    <Button
+	        android:id="@+id/closePopup"
+	        style="?android:attr/buttonStyleSmall"
+	        android:textColor="#dddddd"
+	        android:layout_gravity="center_horizontal"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="@string/location_popup_close_button" 
+	     />
+
+	
+	</LinearLayout>
+</LinearLayout>

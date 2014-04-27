@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+	<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    
+	    <RadioButton
+	        android:id="@+id/rbHugs"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Hugs &amp; Kisses" />
+	    	    
+	    <ImageView
+	        android:id="@+id/imageHugs"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/selfielandscapehugsselect" />
+	
+	</LinearLayout>
+		<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    
+	    <RadioButton
+	        android:id="@+id/rbMissingYou"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Missing you" />
+	    	    
+	    <ImageView
+	        android:id="@+id/imageMissingYou"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/selfielandscapemissingselect" />
+	
+	</LinearLayout>
+		<LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal" >
+	    
+	    <RadioButton
+	        android:id="@+id/rbWish"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Wish you were here" />
+	    	    
+	    <ImageView
+	        android:id="@+id/imageButtonWish"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:src="@drawable/selfieselectwish" />
+	
+	</LinearLayout>
+		
+</RadioGroup>

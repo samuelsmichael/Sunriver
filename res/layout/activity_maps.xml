@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Maps" >
+
+    <com.esri.android.map.MapView
+        android:id="@+id/map"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"         
+    	initExtent = "-1.3521607685670057E7 5450733.84862718 -1.3516268444228742E7 5441824.058561548"
+    >
+    </com.esri.android.map.MapView>
+ 
+
+</RelativeLayout>

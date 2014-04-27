@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <items>
+ 	<item>
+ 	    <id>1</id>
+ 	    <name>Maps</name>
+ 	    <description>Navigate our roads &amp; pathways</description>
+ 	    <iconname>sr_map_big</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>9</id>
+ 	    <name>Bike Routes</name>
+ 	    <description>Get there the fun way! Use our bike routes for help.</description>
+ 	    <iconname>bikeroutes_big</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>4</id>
+ 	    <name>Activity Planner</name>
+ 	    <description>Fill your day with fun!</description>
+ 	    <iconname>activity</iconname>
+ 	</item>
+  	<item>
+ 	    <id>6</id>
+ 	    <name>Eats &amp; Treats</name>
+ 	    <description>"Fuel" your belly from 20+ eateries</description>
+ 	    <iconname>eatsandtreatsnew</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>3</id>
+ 	    <name>Events</name>
+ 	    <description>What's happening in Sunriver</description>
+ 	    <iconname>sr_calendar_big</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>8</id>
+ 	    <name>Sunriver Selfie</name>
+ 	    <description>Snap a pick &amp; share</description>
+ 	    <iconname>selfie_big</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>2</id>
+ 	    <name>Weather</name>
+ 	    <description>The latest local weather</description>
+ 	    <iconname>sr_weather_big</iconname>
+ 	</item>
+  	<item>
+ 	    <id>7</id>
+ 	    <name>Services</name>
+ 	    <description>Emergency info, post office, gas, etc.</description>
+ 	    <iconname>services_big</iconname>
+ 	</item>
+ 	<item>
+ 	    <id>10</id>
+ 	    <name>Find my home</name>
+ 	    <description>Tell us your Resort Address, and we'll show it on the map.</description>
+ 	    <iconname>findhome_big</iconname>
+ 	</item>
+  	<item>
+ 	    <id>5</id>
+ 	    <name>QR Code Reader</name>
+ 	    <description>Scan codes for more information</description>
+ 	    <iconname>sr_qr_big</iconname>
+ 	</item>
+</items>
