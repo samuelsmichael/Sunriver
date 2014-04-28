@@ -9,10 +9,17 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 
+/**
+ * Provides the base functions for Data Items (e.g. ItemActivity, ItemDidYouKnow, and so forth) to
+ * interface with the database.  This includes reading and writing to the database, as well as 
+ * ascertaining whether or not data is stale, and has to be fetched from the Internet.
+ * @author Diamond
+ *
+ */
 public abstract class SunriverDataItem implements Cacheable {
 
 	public SunriverDataItem() {
-		// TODO Auto-generated constructor stub
+
 	}
 	protected abstract String getTableName();
 	protected abstract String getDateLastUpdatedKey();
@@ -38,8 +45,7 @@ public abstract class SunriverDataItem implements Cacheable {
 			String sql="DELETE FROM " + getTableName();
 			MainActivity.staticGetDbAdapter().exec(sql);
 			} catch (Exception e) { // maybe the table doesn't exist yet
-				int bkhere=3;
-				int bkhere2=bkhere;
+
 		}
 	}
 

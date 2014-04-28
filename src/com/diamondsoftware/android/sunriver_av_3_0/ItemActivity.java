@@ -90,20 +90,20 @@ public class ItemActivity extends SunriverDataItem {
 		this.setSrActAddress(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTADDRESS)));
 		GregorianCalendar gc=new GregorianCalendar();
 		try {
-			gc.setTime(DbAdapter.mDateFormat.parse(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTDATE))));
+			gc.setTime(DbAdapter.mDateFormat.parse(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTDATE))));
 		} catch (Exception e) {
 			gc.setTime(new Date());
 		}
 		this.setSrActDate(gc);
-		this.setSrActDescription(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTDESCRIPTION)));
-		this.setSrActDuration(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTDURATION)));
-		this.setSrActID(cursor.getInt(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTID)));
-		this.setSrActLat(Double.parseDouble(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTLAT))));
-		this.setSrActLinks(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTLINKS)));
-		this.setSrActLong(Double.parseDouble(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTLONG))));
-		this.setSrActName(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTNAME)));
-		this.setSrActTime(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTTIME)));
-		this.setSrActUrlImage(cursor.getString(cursor.getColumnIndex(this.KEY_ACTIVITY_SRACTURLIMAGE)));
+		this.setSrActDescription(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTDESCRIPTION)));
+		this.setSrActDuration(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTDURATION)));
+		this.setSrActID(cursor.getInt(cursor.getColumnIndex(KEY_ACTIVITY_SRACTID)));
+		this.setSrActLat(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTLAT))));
+		this.setSrActLinks(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTLINKS)));
+		this.setSrActLong(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTLONG))));
+		this.setSrActName(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTNAME)));
+		this.setSrActTime(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTTIME)));
+		this.setSrActUrlImage(cursor.getString(cursor.getColumnIndex(KEY_ACTIVITY_SRACTURLIMAGE)));
 	}
 	
 	

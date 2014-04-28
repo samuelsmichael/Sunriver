@@ -89,7 +89,6 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
         mCalendarPageHolder.name.setText(calendarItem.getSrCalName());
         simpleFormatter.setCalendar(calendarItem.getSrCalDate());
         Date dt=calendarItem.getSrCalDate().getTime();
-        String str=dt.toLocaleString();
         mCalendarPageHolder.date.setText(simpleFormatter.format(dt));
         mCalendarPageHolder.time.setText(calendarItem.getSrCalTime());
         mCalendarPageHolder.address.setText(calendarItem.getSrCalAddress());
@@ -97,9 +96,9 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
         String iconName=calendarItem.getSrCalUrlImage();
         ImageLoader imageLoader;
         if(iconName!=null && iconName.indexOf("/")!=-1) {
-        	imageLoader=new ImageLoaderRemote(mActivity.getApplicationContext(),false,1f);
+        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
         } else {
-        	imageLoader=new ImageLoaderLocal(mActivity.getApplicationContext(),false);
+        	imageLoader=new ImageLoaderLocal(mActivity,false);
         }
         if(iconName.trim().equals("")) {
         	iconName="ic_launcher";

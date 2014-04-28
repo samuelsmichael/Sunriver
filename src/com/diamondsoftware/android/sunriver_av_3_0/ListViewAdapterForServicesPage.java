@@ -56,13 +56,13 @@ public class ListViewAdapterForServicesPage extends ListViewAdapterRemoteData {
         
 	        ItemService serviceItem =(ItemService)getData().get(position);
 	        mServicesPageHolder.name.setText(serviceItem.getServiceCategoryName());
-	        int bkhere=3;
+	       
 	        String iconName=serviceItem.getServiceCategoryIconURL();
 	        ImageLoader imageLoader;
 	        if(iconName!=null && iconName.indexOf("/")!=-1) {
-	        	imageLoader=new ImageLoaderRemote(mActivity.getApplicationContext(),false,1f);
+	        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
 	        } else {
-	        	imageLoader=new ImageLoaderLocal(mActivity.getApplicationContext(),false);
+	        	imageLoader=new ImageLoaderLocal(mActivity,false);
 	        }
 	        if(iconName.trim().equals("")) {
 	        	iconName="ic_launcher";

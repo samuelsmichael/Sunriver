@@ -19,7 +19,7 @@ public class ItemWelcome extends SunriverDataItem {
 	public ItemWelcome() {
 	}
 	protected ItemWelcome(Cursor cursor) {
-		this.setWelcomeID(cursor.getInt(cursor.getColumnIndex(this.KEY_WELCOME_WELCOMEID)));
+		this.setWelcomeID(cursor.getInt(cursor.getColumnIndex(KEY_WELCOME_WELCOMEID)));
 		setWelcomeURL(cursor.getString(cursor.getColumnIndex(KEY_WELCOME_WELCOMEURL)));
 		
 	}

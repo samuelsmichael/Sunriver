@@ -47,7 +47,6 @@ public class Logger {
 									'0') + "|" + string + "\n");
 				}
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} finally {
 				try {

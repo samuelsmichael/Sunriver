@@ -9,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -61,8 +60,8 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 	        ItemService serviceItem =(ItemService)getData().get(position);
 	        mServicesPageHolder.name.setText(serviceItem.getServiceName());
 	        mServicesPageHolder.description.setText(serviceItem.getServiceDescription());
-	        String iconName=serviceItem.getServiceIconURL();
-	        /* per 3/31 communique: don't include icon
+	        /*String iconName=serviceItem.getServiceIconURL();
+	         per 3/31 communique: don't include icon
 	        ImageLoader imageLoader;
 	        if(iconName!=null && iconName.indexOf("/")!=-1) {
 	        	imageLoader=new ImageLoaderRemote(mActivity.getApplicationContext(),false);

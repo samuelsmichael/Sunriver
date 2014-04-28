@@ -14,19 +14,33 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/*
+ * Many activities in Sunriver produce list views.  This is the base abstract class for these items.
+ * 
+ * Most of these activities need to potentially access data remotely (depending on
+ * whether the data is outdated).  The interface WaitingForDataAcquiredAsynchronously provides the means of allowing 
+ * this data to be accessed on a separate thread.  This is required because our data is accessed via calls to the web,
+ * and such calls must be made on a thread other than the UI thread.  Once the data is acquired, then the AdapterList (mList)
+ * is set; and that triggers the building of the actual list items.
+ * 
+ * 
+ */
 public abstract class AbstractActivityForListViews extends Activity  implements WaitingForDataAcquiredAsynchronously {
 	protected ListView mList;
 	protected ListViewAdapter mAdapter;
 	protected SharedPreferences mSharedPreferences;
 	protected Popups2 mPopup;
 	
-	
+	// get the layout id of the associated ListView
 	protected abstract int getListViewId();
+	// get the layout id of the Activity
 	protected abstract int getViewId();
+	// get the ListViewAdapter class
 	protected abstract ListViewAdapter getListViewAdapter();
 	// What to do when they click on a listview item
 	protected abstract void childOnItemClick(AdapterView<?> parent, View view,
             int position, long id);
+	// Perform any subclass-specific OnCreate functions
 	protected abstract void childOnCreate();
 	/*
 	 * Get the id of the ImageView where a picture is going to be placed, if any
@@ -40,14 +54,14 @@ public abstract class AbstractActivityForListViews extends Activity  implements 
 	protected abstract void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data);
 	
 	public AbstractActivityForListViews() {
-		// TODO Auto-generated constructor stub
 	}
 	
+	// SharedPreferences is the mechanism used to persist application-specific data
 	public SharedPreferences getMSharedPreferences() {
 		return mSharedPreferences;
 	}
 	
-	// generate a random URL for pictures
+	// generate a random URL for pictures. The set of items to pick from is the ArrayList SplashPage.TheItemsDidYouKnow
 	public String getRandomImageURL() {
 		try {
 			double randomNumber=Math.random();
@@ -102,7 +116,12 @@ public abstract class AbstractActivityForListViews extends Activity  implements 
         }
  
 	}
-	
+	/*
+	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalDate,
+	 * then the data is fetched as part of the constructor.  With a ListViewAdapterRemoteData (one that fetches its data
+	 * off of a webservice (like Calendar, Maps, and Activities), then the data fetch is done asynchronously (per Android's
+	 * requirement), and then this method is called (using an AsyncTask, so that it will be called on the UI thread).
+	 */
 	@Override
 	public void gotMyData(String name, ArrayList<Object> data) {
 		hookDoSomethingWithTheDataIfYouWant(data);
@@ -120,11 +139,6 @@ public abstract class AbstractActivityForListViews extends Activity  implements 
 	protected String getPREFS_NAME() {
 		return getApplicationContext().getPackageName() + "_preferences";
 	}
-	/*
-	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalDate,
-	 * then the data is fetched as part of the constructor.  With a ListViewAdapterRemoteData (one that fetches its data
-	 * off of a webservice (like Calendar, Maps, and Activities), then the data fetch is done asynchronously (per Android's
-	 * requirement), and then this method is called (using an AsyncTask, so that it will be called on the UI thread).
-	 */
+
 
 }

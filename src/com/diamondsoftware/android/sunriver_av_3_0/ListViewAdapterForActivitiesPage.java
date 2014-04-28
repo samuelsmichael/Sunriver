@@ -54,9 +54,9 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
         ImageLoader imageLoader;
         String iconName= activityItem.getSrActUrlImage();
         if(iconName!=null && iconName.indexOf("/")!=-1) {
-        	imageLoader=new ImageLoaderRemote(mActivity.getApplicationContext(),false,1f);
+        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
         } else {
-        	imageLoader=new ImageLoaderLocal(mActivity.getApplicationContext(),false);
+        	imageLoader=new ImageLoaderLocal(mActivity,false);
         }
         if(iconName.trim().equals("")) {
         	iconName="ic_launcher";

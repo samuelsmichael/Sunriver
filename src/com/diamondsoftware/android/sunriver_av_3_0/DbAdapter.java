@@ -11,6 +11,17 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+/**
+ * Database helper class.
+ * Provides methods for fetching data from the database, updating the database when the
+ * database has changed.
+ * 
+ * Note that the onUpgrade method is called automatically by Android whenever the 
+ * DATABASE_VERSION has changed.
+ * 
+ * @author Diamond
+ *
+ */
 public class DbAdapter {
 	private static final int DATABASE_VERSION = 21;
 
@@ -152,9 +163,7 @@ public class DbAdapter {
 				ItemAllHomes.KEY_ALLHOMES_ROWID + " integer primary key autoincrement," +
 				ItemAllHomes.KEY_ALLHOMES_SUNRIVER_ADDRESS + " string collate nocase," +
 				ItemAllHomes.KEY_ALLHOMES_COUNTY_ADDRESS+ " string );";
-		private static final String CREATE_INDEX_ALLHOMES ="create index allhomes_index on "
-				+ItemAllHomes.DATABASE_TABLE_ALLHOMES + " (" + ItemAllHomes.KEY_ALLHOMES_SUNRIVER_ADDRESS + " collate nocase);";
-	
+
 		private static final String DATABASE_NAME = "data";
 
 		DatabaseHelper(Context context) {
@@ -187,28 +196,13 @@ public class DbAdapter {
 			try {
 				db.execSQL(CREATE_TABLE_SELFIE);
 			} catch (Exception eieio) {
-				int x=3;
-				int y=x;
+
 			}
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			/* Example:
-			if(oldVersion <= 0) {
-				db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_LOCATION);
-				db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_STATION);
-			} else {
-				if (oldVersion==5) {
-					db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_LOCATION);
-					db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_STATION);
-				} else {
-					if (oldVersion<=6) {
-						db.execSQL(CREATE_TABLE_HISTORY);
-					}
-				}
-			}
-			*/
+
 			if(newVersion==13 || newVersion==19) {
 				db.execSQL("DROP TABLE IF EXISTS " + ItemService.DATABASE_TABLE_SERVICE);
 				/* I also need to clear the "last saved date" persisted field. */

@@ -105,10 +105,7 @@ public class GeofenceReceiver extends BroadcastReceiver { //LocalBroadcastManage
 		        	sendNotification(transition,locationDescription,locationId);
 		        }
 	        }
-            for (int index = 0; index < geofences.size(); index++) {
-                Geofence geofence = geofences.get(index);
-              //  ...do something with the geofence entry or exit. 
-            }
+
             // Create an Intent to broadcast to the app
             broadcastIntent
                     .setAction(GeofenceUtils.ACTION_GEOFENCE_TRANSITION)

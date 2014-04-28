@@ -8,9 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 	 
@@ -22,18 +19,28 @@ import android.graphics.BitmapFactory;
 import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
-	 
+	
+/*
+ * This class does the work of fetching a URL image.  Optionally (and usually) it associates it with
+ * an ImageView.  Perhaps there is no ImageView to associate to (as is the case when loading Selfie images
+ * for the blending of the image with the camera image); but in any case, the fetched bitmap is stored in
+ * FileCache for subsequent retrieval without having to do an Internet fetch.
+ * 
+ * When being constructed, a boolean parameter (scaleImageToScreenWidth) requests that the image is to 
+ * be resized to the screen width.  If not (e.g. - all list view icons take on the definite width of
+ * the ImageViews width and height), then the bitmap is simply associated with the ImageView; but if so,
+ * then the WidthFactor (1 = full width of the display) determines the width, and the bitmap is scaled
+ * appropriately.
+ */
 	public class ImageLoaderRemote extends ImageLoader {
 	 
-	    MemoryCache memoryCache=new MemoryCache();
 	    FileCache fileCache;
+	    // 1=resize to full width of the display; .5=half; and so on
 	    float mWidthFactor;
 	    Context mContext;
-	    private Map<ImageView, String> imageViews=Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 	    ExecutorService executorService;
 	 
-	    // scaleImage: do I want to adjust
-	    
+
 	    public ImageLoaderRemote( Context context, boolean scaleImageToScreenWidth, float widthFactor){
 	    	super(context,scaleImageToScreenWidth);
 	    	mWidthFactor=widthFactor;
@@ -42,27 +49,18 @@ import android.widget.ImageView;
 	        mContext=context;
 	    }
 	 
-	    final int stub_id = R.drawable.swirlygig1;
-	    private static final float ROTATE_FROM = 0.0f;
-	    private static final float ROTATE_TO = -10.0f * 360.0f;// 3.141592654f * 32.0f;
-	    // Leaving imageView=null means that we'll load and cache the photo, but not display it anywhere
+	    /* Leaving imageView=null means that we'll load and cache the photo, but not display it anywhere (e.g. - when
+	     * Selfie portrait images need to be supplied for the proper blending to the camera bitmap ... this
+	     * image isn't displayed in any ImageView.   We just used this class to load and store the image
+	     * in the FileCache.)
+	    */
 	    public void displayImage(String uri,ImageView imageView)
 	    {
-	    	if(imageView!=null) {
-	    		imageViews.put(imageView, uri);
-	    	}
-	        Bitmap bitmap=memoryCache.get(uri);
-	        if(bitmap!=null) {
-	        	Bitmap bitmapNew=scaleImage(bitmap,imageView,mWidthFactor);
-            	if(bitmapNew!=null && imageView!=null) {
-            		imageView.setImageBitmap(bitmapNew);
-            	}
-	        }
-	        else {
-	            queuePhoto(uri, imageView, mContext);
-	        }
+            queuePhoto(uri, imageView, mContext);
 	    }
-	 
+	 /*
+	  * 
+	  */
 	    private void queuePhoto(String url, ImageView imageView, Context context)
 	    {
 	        PhotoToLoad p=new PhotoToLoad(url, imageView, context);
@@ -102,34 +100,12 @@ import android.widget.ImageView;
 	        }
 	    }
 	 
-	    //decodes image and scales it to reduce memory consumption
 	    private Bitmap decodeFile(File f){
 	        try {
-	        	if(!mScaleImageToScreenWidth) {
-		            //decode image size
+	        	if(!mScaleImageToScreenWidth) { // just display the bitmap as is
 		            return BitmapFactory.decodeStream(new FileInputStream(f));
-		 /*
-		            BitmapFactory.Options o = new BitmapFactory.Options();
-		            o.inJustDecodeBounds = true;
-		            BitmapFactory.decodeStream(new FileInputStream(f),null,o);
-		            //Find the correct scale value. It should be the power of 2.
-		            final int REQUIRED_SIZE=70;
-		            int width_tmp=o.outWidth, height_tmp=o.outHeight;
-		            int scale=1;
-		            while(true){
-		                if(width_tmp/2<REQUIRED_SIZE || height_tmp/2<REQUIRED_SIZE)
-		                    break;
-		                width_tmp/=2;
-		                height_tmp/=2;
-		                scale*=2;
-		            }
-		 
-		            //decode with inSampleSize
-		            BitmapFactory.Options o2 = new BitmapFactory.Options();
-		            o2.inSampleSize=scale;
-		            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
-		            */
-	        	} else {
+
+	        	} else { // scale the width (mWidthFactor = 0 to 1 -- one being full width of display) and the height appropriately
 	        		Bitmap bitmap=BitmapFactory.decodeStream(new FileInputStream(f));
 	        		WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
 	        		Display display = wm.getDefaultDisplay();
@@ -171,28 +147,15 @@ import android.widget.ImageView;
 	 
 	        @Override
 	        public void run() {
-	            if(imageViewReused(photoToLoad))
-	                return;
+
 	            Bitmap bmp=getBitmap(photoToLoad.url);
-	        //takes up valuable memory    memoryCache.put(photoToLoad.url, bmp);
-	            if(imageViewReused(photoToLoad))
-	                return;
+
 	            BitmapDisplayer bd=new BitmapDisplayer(bmp, photoToLoad);
 	            Activity a=(Activity)photoToLoad.mContext;
 	            a.runOnUiThread(bd);
 	        }
 	    }
-	 
-	    boolean imageViewReused(PhotoToLoad photoToLoad){
-	    	if(photoToLoad.imageView==null) {
-	    		return false;
-	    	}
-	        String tag=imageViews.get(photoToLoad.imageView);
-	        if(tag==null || !tag.equals(photoToLoad.url))
-	            return true;
-	        return false;
-	    }
-	 
+	  
 	    //Used to display bitmap in the UI thread
 	    class BitmapDisplayer implements Runnable
 	    {
@@ -201,22 +164,13 @@ import android.widget.ImageView;
 	        public BitmapDisplayer(Bitmap b, PhotoToLoad p){bitmap=b;photoToLoad=p;}
 	        public void run()
 	        {
-	            if(imageViewReused(photoToLoad))
-	                return;
-	            if(bitmap!=null && photoToLoad.imageView!=null) {
-//	            	Bitmap bitmapNew=scaleImage(bitmap,photoToLoad.imageView);
-  //          		if(bitmapNew!=null) {
+	            if(bitmap!=null && photoToLoad.imageView!=null) { // if either the bitmap load failed, or the imageView=null, then don't set the imageView's bitmap
             			photoToLoad.imageView.setImageBitmap(bitmap);
-    //        		}
-	                
-	            }
-	            else {
 	            }
 	        }
 	    }
 	 
 	    public void clearCache() {
-	        memoryCache.clear();
 	        fileCache.clear();
 	    }
 	 

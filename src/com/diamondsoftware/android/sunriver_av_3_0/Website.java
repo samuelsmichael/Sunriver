@@ -7,7 +7,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-
+/*
+ * Supports using a WebView for displaying a web page.
+ */
 public class Website extends Activity {
 
 	@Override

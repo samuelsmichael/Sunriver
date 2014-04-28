@@ -17,7 +17,13 @@ import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
-
+/**
+ * Manages the maps graphics data for the Current Location.  Uses Google's Play Services location api to set up a
+ * location listener; and requests updates every UPDATE_INTERVAL_IN_SECONDS seconds.  If the location changes, then the 
+ * graphics item is removed and then re-added with the new location.
+ * @author Diamond
+ *
+ */
 public class MapsGraphicsLayerCurrentLocation extends MapsGraphicsLayer  implements
 	GooglePlayServicesClient.ConnectionCallbacks,
 	GooglePlayServicesClient.OnConnectionFailedListener,
@@ -89,6 +95,7 @@ public class MapsGraphicsLayerCurrentLocation extends MapsGraphicsLayer  impleme
 	public void onConnected(Bundle arg0) {
 	    mCurrentLocation = mLocationClient.getLastLocation();
 	    if(mCurrentLocation!=null) {
+	    	// This is to make it so I can test in Denver, but it looks like I'm in Sunriver.
 			if(mCurrentLocation.getLongitude()>-110) {
 				mCurrentLocation.setLongitude(-121.438544);
 				mCurrentLocation.setLatitude(43.88481);

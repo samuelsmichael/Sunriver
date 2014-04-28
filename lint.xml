@@ -3,6 +3,9 @@
     <issue id="NewApi">
         <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/GeofenceReceiver.java" />
     </issue>
+    <issue id="SimpleDateFormat">
+        <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/DbAdapter.java" />
+    </issue>
     <issue id="StringFormatMatches">
         <ignore path="src/com/diamondsoftware/android/sunriver_av_3_0/GeofenceReceiver.java" />
     </issue>

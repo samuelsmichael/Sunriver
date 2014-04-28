@@ -1,6 +1,5 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.Context;

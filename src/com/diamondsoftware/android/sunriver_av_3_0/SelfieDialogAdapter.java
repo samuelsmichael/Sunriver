@@ -1,10 +1,5 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
-import java.io.IOException;
-
-import org.xmlpull.v1.XmlPullParserException;
-
-import com.diamondsoftware.android.sunriver_av_3_0.ListViewAdapterForServicesPage.ServicesPageHolder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 public class SelfieDialogAdapter extends BaseAdapter {

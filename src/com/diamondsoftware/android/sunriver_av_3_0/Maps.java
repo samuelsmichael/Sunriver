@@ -3,10 +3,11 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 
 
+import java.util.Locale;
+
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.Layer;
 import com.esri.android.map.MapView;
-import com.esri.android.map.ags.ArcGISFeatureLayer;
 import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
@@ -32,7 +33,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -41,7 +41,26 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+/**
+ * Uses ArcGIS maps and apis to show the Sunriver area map.
+ * There are several map layers created:
+ * 		The main layer.
+ * 		A graphics layer for each of the location types: each location type is fetched (actually,
+ * 			a single fetch is done, and then the different types are broken out logically
+ * 			from that single file).  When the data is all fetched for a layer, then the
+ * 			colored circles are created, and then the layer is made visible (if it is
+ * 			indicated as so in the SharedPreferences.
+ * 		The BikeRoutes layers is also built if so indicated by the SharedPreferences settings.
+ * 		A cache of the map (used for when no connection exists to the Internet) is refreshed whenever
+ * 			the user's current locations is DX_IN_METERS_GREATERTHANWHICH_REBUILD_MAP_CACHE  (currently
+ * 			set at 5000 meters) or more	away from where the cache was last built.
+ * 		When Maps is created, data is optionally passed indicating a specific location to drop a pin on.  
+ * 			This supports the functionality of "show on map".
+ * 		Another graphics layer is constructed in order to support Current Location.
+ * 		
+ * @author Diamond
+ *
+ */
 public class Maps extends Activity {
 	public final static String POINT_LATITUDE_KEY_ON_REFRESHING_CACHE="point_latitude_key_ON_REFRESHING_CACHE";
 	public final static String POINT_LONGITUDE_KEY_ON_REFRESHING_CACHE="point_longitude_key_ON_REFRESHING_CACHE";
@@ -402,7 +421,7 @@ public class Maps extends Activity {
 	        Log.d("*** tileCacheStatus : ", objs.getStatus().toString());
 	        
 		        final String status = objs.getStatus().toString();
-		        if(status.toLowerCase().contains("fail")) {
+		        if(status.toLowerCase(Locale.getDefault()).contains("fail")) {
 		        	erroredDuringCacheProcess=true;
         	        mImInTheMiddleOfFetchingDataForACacheSoDontDoItAgain=false;
 		        }
@@ -540,6 +559,9 @@ public class Maps extends Activity {
 		super.onDestroy();
 	}
 
+	/*
+	 * Called to find the mapPoint corresponding to the place where the user pressed.
+	 */
 	private void SearchForFeature(float x, float y) {
 
 		m_identifiedGraphic = null;
@@ -581,11 +603,7 @@ public class Maps extends Activity {
 		if (ids == null || ids.length == 0) {
 			return null;
 		}
-		/*
-		 * TODO: If there is more than 1 value returned, this means that there
-		 * are two places too close together. So, we should pop up something to
-		 * indicate this, and allow the user to choose which one they want.
-		 */
+
 		Graphic g = fLayer.getGraphic(ids[0]);
 		return g;
 	}
@@ -603,8 +621,6 @@ public class Maps extends Activity {
 	}
 
 	public void refreshGraphicsLayersVisibility() {
-		SharedPreferences sharedPreferences = getSharedPreferences(
-				getPREFS_NAME(), MODE_PRIVATE);
 		for (MapsGraphicsLayer mapsGraphicsLayer : mGraphicsLayers) {
 			mapsGraphicsLayer.getGraphicsLayer().setVisible(
 					mapsGraphicsLayer.doesUserWantMeVisible());

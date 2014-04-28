@@ -279,9 +279,7 @@ public class GeofenceRequester implements OnAddGeofencesResultListener,
 			// If no PendingIntent exists
 		} else {
 
-			// Create an Intent pointing to the IntentService
-			Intent intent = new Intent(mActivity,
-					ReceiveTransitionsIntentService.class);
+
 			// Create an Intent pointing to the IntentService
 			Intent intent2 = new Intent(
 					"com.aol.android.geofence.ACTION_RECEIVE_GEOFENCE");

@@ -13,7 +13,15 @@ import android.widget.Toast;
 import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
-
+/*
+ 	Manages the creating and displaying of Map location items coming from Sunriver locations.
+ 	First of all, this class fetches all of the points for the layer using an Async task.
+ 	(Actually, all of the Sunriver locations a fetched in one single Internet call, and then it is
+ 	stored in a HashTable by location type (i.e. - Restaurant, Gas, etc)).  The class XMLReaderFromRemotelyAcquiredXML
+ 	is utilized for this process.
+ 	
+ 	
+ */
 public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 	private boolean mOnInstallDefaultValue;
 

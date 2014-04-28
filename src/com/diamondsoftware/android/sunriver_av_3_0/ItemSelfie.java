@@ -86,18 +86,18 @@ public class ItemSelfie extends SunriverDataItem {
 
 	@Override
 	protected String getTableName() {
-		return this.DATABASE_TABLE_SELFIE;
+		return DATABASE_TABLE_SELFIE;
 	}
 
 	@Override
 	protected String getDateLastUpdatedKey() {
-		return this.DATE_LAST_UPDATED;
+		return DATE_LAST_UPDATED;
 	}
 
 	@Override
 	protected void loadWriteItemToDatabaseContentValuesTo(ContentValues values) {
-		values.put(this.KEY_SELFIE_OVERLAYID, this.getOverlayId());
-		values.put(this.KEY_SELFIE_OVERLAYLSSELECTURL,this.getOverlayLsSelectURL());
+		values.put(KEY_SELFIE_OVERLAYID, this.getOverlayId());
+		values.put(KEY_SELFIE_OVERLAYLSSELECTURL,this.getOverlayLsSelectURL());
 		values.put(KEY_SELFIE_OVERLAYLSURL, this.getOverlayLsURL());
 		values.put(KEY_SELFIE_OVERLAYPORTCAMURL, this.getOverlayPortCamURL());
 		values.put(KEY_SELFIE_OVERLAYPORTURL, this.getOverlayPortURL());
@@ -105,7 +105,7 @@ public class ItemSelfie extends SunriverDataItem {
 
 	@Override
 	protected String[] getProjectionForFetch() {
-		String[] projection={this.KEY_SELFIE_OVERLAYID,this.KEY_SELFIE_OVERLAYLSSELECTURL,this.KEY_SELFIE_OVERLAYLSURL,this.KEY_SELFIE_OVERLAYPORTCAMURL,this.KEY_SELFIE_OVERLAYPORTURL };
+		String[] projection={KEY_SELFIE_OVERLAYID,KEY_SELFIE_OVERLAYLSSELECTURL,KEY_SELFIE_OVERLAYLSURL,KEY_SELFIE_OVERLAYPORTCAMURL,KEY_SELFIE_OVERLAYPORTURL };
 		return projection;
 	}
 

@@ -24,6 +24,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.xmlpull.v1.XmlPullParserException;
 
+/**
+ * Gets an input stream from the Internet, hands it to its associated ParsesXML, in order to
+ * obtain an ArrayList of objects.  
+ * 
+ * The data is then stored into the database.
+ * 
+ * If the objects thus obtained implement the interface Cacheable (which
+ * all SunriverDataItem objects do), then the data is written using the methods
+ * implemented by the Cacheable object.
+*/
 public class XMLReaderFromRemotelyAcquiredXML extends XMLReader {
 	private String mUrl=null;
 	private List<NameValuePair> mParameters=null;
@@ -42,7 +52,7 @@ public class XMLReaderFromRemotelyAcquiredXML extends XMLReader {
 	public ArrayList<Object> parse() throws XmlPullParserException, IOException {
 		ArrayList<Object> data=parse(getInputStream());
 		if(data.size()>0) { // write data to database
-			if(data.get(0) instanceof Hashtable) {
+			if(data.get(0) instanceof Hashtable) { // for Sunriver locations
 				for (Object objht: data) {
 					Hashtable ht=(Hashtable)objht;
 					for (Object objArray : ht.values()) {
@@ -53,7 +63,7 @@ public class XMLReaderFromRemotelyAcquiredXML extends XMLReader {
 					}
 				}
 			} else {
-				if(data.get(0) instanceof Cacheable) {
+				if(data.get(0) instanceof Cacheable) { // for SunriverDataItems
 					((Cacheable)data.get(0)).clearTable();
 					for(Object obj: data) {
 						((Cacheable)obj).writeItemToDatabase();

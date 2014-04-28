@@ -26,6 +26,13 @@ public class ServicesDetailActivity extends AbstractActivityForListViews  implem
 		return mListViewAdapter;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 * 
+	 * Popup a display showing the details of the Service, and allowing the user to show the location on the map,
+	 * visit the website, navigate to the location, or telephone the service.
+	 */
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
@@ -34,6 +41,13 @@ public class ServicesDetailActivity extends AbstractActivityForListViews  implem
     	mPopup=new PopupServiceDetail(this,itemService,true);
     	mPopup.createPopup();
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnCreate()
+	 * 
+	 * The "ItemPosition" represents the category level position.
+	 */
 	@Override
 	protected void childOnCreate() {
 		mItemService=(ItemService)ServicesActivity.Services.get(getIntent().getIntExtra("ItemPosition", 0));

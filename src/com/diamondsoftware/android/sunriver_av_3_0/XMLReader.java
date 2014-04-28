@@ -13,6 +13,13 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 
 /**
+ * Provides the abstraction for fetching Sunriver data needed by a ListViewAdapter -- whether that
+ * data be local on the machine (e.g. LandingPage, EatsAndTreats (whose data has already been acquired 
+ * via the fetch of Sunriver locations)), or remote data (e.g. - Activities, Events)
+ * 
+ * XMLReader always have an ParsesXML object to which it passes an InputStream (again, acquired
+ * either locally or remotely), and ask to parse the data into an ArrayList of SunriverDataItems. 
+ *  
  * @author Mike Samuels
  *
  */

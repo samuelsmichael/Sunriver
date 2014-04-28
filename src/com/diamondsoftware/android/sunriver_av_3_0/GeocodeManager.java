@@ -174,9 +174,7 @@ public class GeocodeManager {
             // Try to add geofences
             mGeofenceRequester.addGeofences(mCurrentGeofences);
         } catch (UnsupportedOperationException e) {
-            // Notify user that previous request hasn't finished.
-            Toast.makeText(mMainActivity, R.string.add_geofences_already_requested_error,
-                        Toast.LENGTH_LONG).show();
+
         }
 
 	}
@@ -311,7 +309,6 @@ public class GeocodeManager {
 				ArrayList<Object> aroo = (ArrayList<Object>)al;
 				for (Object theElement :aroo) {
 					ItemLocation location=(ItemLocation)theElement;
-					Point pnt = new Point(location.getmGoogleCoordinates().getX(),location.getmGoogleCoordinates().getY());
 					double latitude=Double.valueOf(location.getmGoogleCoordinates().getY());
 					double longitude=Double.valueOf(location.getmGoogleCoordinates().getX());
 			        SimpleGeofence sg = new SimpleGeofence(

@@ -4,22 +4,20 @@ import java.util.ArrayList;
 
 
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 
+/*
+ * Provides support for the ListView-type Activity "Activities".  
+ * Refer to documentation in the parent class AbstractActivityForListViews for descriptions of the 
+ * purposes of the overridden methods.
+ */
 
 public class ActivitiesActivity extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
 
 	private ListViewAdapter mListViewAdapter;
 	protected static ItemActivity CurrentActivityItem;
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.sr, menu);
-		return true;
-	}
 
 	@Override
 	protected int getListViewId() {
@@ -37,6 +35,12 @@ public class ActivitiesActivity extends AbstractActivityForListViews  implements
 		return mListViewAdapter;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 * 
+	 * When an item is clicked, the detail associated with this Sunriver activity is displayed in ActivitiesDetailActivity
+	 */
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {

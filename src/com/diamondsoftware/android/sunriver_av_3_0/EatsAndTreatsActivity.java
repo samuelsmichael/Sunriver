@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import android.view.View;
 import android.widget.AdapterView;
-
+/*
+ * Provides support for the ListView-type Activity "EatsAndTreats".  
+ * Refer to documentation in the parent class AbstractActivityForListViews for descriptions of the 
+ * purposes of the overridden methods.
+ */
 public class EatsAndTreatsActivity extends AbstractActivityForListViews {
 	private ListViewAdapter mListViewAdapter;
 
@@ -24,6 +28,12 @@ public class EatsAndTreatsActivity extends AbstractActivityForListViews {
 		return mListViewAdapter;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 * 
+	 * When an EatsAndTreats item is clicked, a popup (class Popups2) is created.
+	 */
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {

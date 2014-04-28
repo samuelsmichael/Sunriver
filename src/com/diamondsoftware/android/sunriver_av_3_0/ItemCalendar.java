@@ -83,31 +83,31 @@ public class ItemCalendar extends SunriverDataItem {
 
 	public ItemCalendar(Cursor cursor) {
 		this.setSrCalId(cursor.getInt(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTID)));
+				.getColumnIndex(KEY_CALENDAR_SRACTID)));
 		this.setSrCalName(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTNAME)));
+				.getColumnIndex(KEY_CALENDAR_SRACTNAME)));
 		this.setSrCalDescription(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTDESCRIPTION)));
+				.getColumnIndex(KEY_CALENDAR_SRACTDESCRIPTION)));
 		GregorianCalendar gc = new GregorianCalendar();
 		try {
 			gc.setTime(DbAdapter.mDateFormat.parse(cursor.getString(cursor
-					.getColumnIndex(this.KEY_CALENDAR_SRACTDATE))));
+					.getColumnIndex(KEY_CALENDAR_SRACTDATE))));
 		} catch (Exception e) {
 			gc.setTime(new Date());
 		}
 		this.setSrCalDate(gc);
 		this.setSrCalTime(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTTIME)));
+				.getColumnIndex(KEY_CALENDAR_SRACTTIME)));
 		this.setSrCalDuration(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTDURATION)));
+				.getColumnIndex(KEY_CALENDAR_SRACTDURATION)));
 		this.setSrCalLinks(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTLINKS)));
+				.getColumnIndex(KEY_CALENDAR_SRACTLINKS)));
 		this.setSrCalUrlImage(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTURLIMAGE)));
+				.getColumnIndex(KEY_CALENDAR_SRACTURLIMAGE)));
 		this.setSrCalLat(Double.parseDouble(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTLAT))));
+				.getColumnIndex(KEY_CALENDAR_SRACTLAT))));
 		this.setSrCalLong(Double.parseDouble(cursor.getString(cursor
-				.getColumnIndex(this.KEY_CALENDAR_SRACTLONG))));
+				.getColumnIndex(KEY_CALENDAR_SRACTLONG))));
 		this.setApproved(cursor.getInt(cursor
 				.getColumnIndex(KEY_CALENDAR_ISAPPROVED)) != 0);
 		this.setSrCalAddress(cursor.getString(cursor

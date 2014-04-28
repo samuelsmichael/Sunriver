@@ -10,7 +10,10 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
-
+/*
+ 	Base class for managing maps graphics layers.  All subclasses have a shape, size, and color
+ 	for their marker symbols.
+ */
 public abstract class MapsGraphicsLayer {
 	protected GraphicsLayer mGraphicsLayer=null;	
 	private MapView mMapView=null;

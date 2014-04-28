@@ -1,13 +1,8 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,11 +13,15 @@ import org.json.JSONObject;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * Creates a page of weather information, fetching the data from wunderground.
+ * @author Diamond
+ *
+ */
 public class Weather2 extends Activity {
 
 	public static char degree = '\u00B0';
@@ -53,12 +52,6 @@ public class Weather2 extends Activity {
 		parmsForecast[2]=QueryType.Forecast;
 		new RetrieveWeatherData().execute(parmsForecast);	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 	public class RetrieveWeatherData extends AsyncTask<Object, Void, String> {
 		QueryType mQueryType;
@@ -82,8 +75,6 @@ public class Weather2 extends Activity {
 				if(mQueryType==QueryType.Conditions) {
 					JSONObject jObj = new JSONObject(json);
 					JSONObject jObjCurrentObservation=jObj.getJSONObject("current_observation");
-					JSONObject jObjImage=jObjCurrentObservation.getJSONObject("image");
-					String logo=jObjImage.getString("url");
 					String weatherIconUrl=jObjCurrentObservation.getString("icon_url");
 					ImageView imageRightNow= (ImageView)mWeather.findViewById(R.id.image_rightnow);
 					new ImageLoaderRemote(mWeather,false,1f).displayImage(weatherIconUrl, imageRightNow);
@@ -103,10 +94,6 @@ public class Weather2 extends Activity {
 						Map<String,Integer> nightCondition=new HashMap<String,Integer>();
 						int highTemp=-100;
 						int lowTemp=100;
-						int accumulateTempDay=0;
-						int accumulateTempNight=0;
-						int cntDay=0;
-						int cntNight=0;
 						double gpfDay=0;
 						double gpfNight=0;
 						double snowDay=0;
@@ -126,7 +113,6 @@ public class Weather2 extends Activity {
 								gpf=Float.valueOf(gpfstr);
 							}
 							float snow=0;
-							JSONObject snowjson=theHour.getJSONObject("snow");
 							String snowstr=gpfjson.getString("english");
 							if(snowstr.trim().length()>0) {
 								snow=Float.valueOf(snowstr);
@@ -142,8 +128,6 @@ public class Weather2 extends Activity {
 							if(hour>6&&hour<18) { // daytime
 								snowDay+=snow;
 								gpfDay+=gpf;
-								accumulateTempDay+=temp;
-								cntDay++;
 								if(dayIcon.containsKey(iconUrl)) {
 									int iconCnt=((Integer)dayIcon.get(iconUrl)).intValue();
 									iconCnt++;
@@ -161,8 +145,6 @@ public class Weather2 extends Activity {
 							} else {
 								snowNight+=snow;
 								gpfNight+=gpf;
-								accumulateTempNight+=temp;
-								cntNight++;
 								if(nightIcon.containsKey(iconUrl)) {
 									int iconCnt=((Integer)nightIcon.get(iconUrl)).intValue();
 									iconCnt++;
@@ -233,11 +215,8 @@ public class Weather2 extends Activity {
 
 					} else {
 						if(mQueryType==QueryType.Forecast) {
-							Calendar today=Calendar.getInstance(Locale.getDefault());
 							Calendar tomarrow =Calendar.getInstance(Locale.getDefault());
 							Calendar dayAfterTomarrow =Calendar.getInstance(Locale.getDefault());
-							DateFormat dateFormat = new SimpleDateFormat("MMM dd");
-								
 							tomarrow.add(Calendar.DAY_OF_MONTH,1);
 							dayAfterTomarrow.add(Calendar.DAY_OF_MONTH, 2);
 							JSONObject jObj = new JSONObject(json);

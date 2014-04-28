@@ -11,7 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
+/*
+ * Fetches the data from the already loaded Sunriver locations data of type Restaurant.
+ * Therefore, it extends ListViewAdapterLocalData.
+ */
 public class ListViewAdapterEatsAndTreats extends ListViewAdapterLocalData {
 	EatsAndTreatsHolder mEatsAndTreatsHolder;
 	static class EatsAndTreatsHolder {
@@ -36,6 +39,12 @@ public class ListViewAdapterEatsAndTreats extends ListViewAdapterLocalData {
 		view.setTag(mEatsAndTreatsHolder);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.ListViewAdapter#childGetData()
+	 * 
+	 * Gets its data from the already acquired location data ... only dealing with type Restaurant
+	 */
 	@Override
 	protected ArrayList<Object> childGetData() throws IOException, XmlPullParserException {
 		ArrayList<Object> eatsAndTreats=new ArrayList<Object>();
@@ -61,9 +70,9 @@ public class ListViewAdapterEatsAndTreats extends ListViewAdapterLocalData {
         String iconName=locationItem.getmImageUrl();
         ImageLoader imageLoader;
         if(iconName!=null && iconName.indexOf("/")!=-1) {
-        	imageLoader=new ImageLoaderRemote(mActivity.getApplicationContext(),false,1f);
+        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
         } else {
-        	imageLoader=new ImageLoaderLocal(mActivity.getApplicationContext(),false);
+        	imageLoader=new ImageLoaderLocal(mActivity,false);
         }
         if(iconName.trim().equals("")) {
         	iconName="ic_launcher";

@@ -11,10 +11,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import com.diamondsoftware.android.sunriver_av_3_0.R;
 import com.diamondsoftware.android.sunriver_av_3_0.ParsesXMLMapLocations.LocationType;
-import com.esri.core.geometry.Point;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -24,20 +22,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
-import android.view.Menu;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 
+/**
+ *  Manages all of the actions at the home page.
+ *  Preloads the map location items.
+ *  Serves also as a central location for managing actions required of different activities, such a a
+ *  static method for loading geofences once all the locations are loaded.
+ *   
+ */
 public class MainActivity extends AbstractActivityForListViews implements WaitingForDataAcquiredAsynchronously,DataGetter {
 	public static ArrayList<Hashtable<ParsesXMLMapLocations.LocationType, ArrayList<Object>>> LocationData = new ArrayList<Hashtable<ParsesXMLMapLocations.LocationType, ArrayList<Object>>>();
 	public static ArrayList<Object> SunriverArray = null;
@@ -53,13 +55,7 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	public final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	public static MainActivity mSingleton;
 	private static GeocodeManager mGeocodeManager;
-	private MapsGraphicsLayerMisc mGraphicsLayerMisc;
-	private MapsGraphicsLayerLocation mGraphicsLayerRestaurants;
-	private MapsGraphicsLayerLocation mGraphicsLayerRetails;
-	private MapsGraphicsLayerLocation mGraphicsLayerPools;
-	private MapsGraphicsLayerLocation mGraphicsLayerTennisCourts;
-	private MapsGraphicsLayerLocation mGraphicsLayerGas;
-	private MapsGraphicsLayerLocation mGraphicsLayerPerfectPictureSpots;
+
 	private DbAdapter mDbAdapter=null;
 	public static boolean heresHowIChangeCameraFaceCleanly=false;
 	public static SharedPreferences getSharedPreferences() {
@@ -161,13 +157,15 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 		return R.layout.activity_main;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnItemClick(android.widget.AdapterView, android.view.View, int, long)
+	 * 
+	 * If id==9, re-start this activity, having set the bike paths to true; otherwise
+	 * start the activity associated with the line selected.
+	 */
+	
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
@@ -243,6 +241,9 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		switch (requestCode) {
+		/*
+		 * This code is to handle the QR Code Reader
+		 */
 		case IntentIntegrator.REQUEST_CODE:
 
 			IntentResult scanResult = IntentIntegrator.parseActivityResult(
@@ -388,6 +389,11 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			data.add(0,alertItem);
 		}
 	}
+	/**
+	 * 
+	 * @author Diamond
+	 * Popup dialog to enter Sunriver address
+	 */
 	public static class FindHomeDialog extends DialogFragment {
 		MainActivity mMainActivity;
 		public FindHomeDialog (MainActivity mainActivity) {

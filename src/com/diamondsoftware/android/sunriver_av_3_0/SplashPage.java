@@ -2,7 +2,6 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -13,11 +12,11 @@ import android.os.Bundle;
 import android.os.Handler;
 
 /*
- * Brings up a splash image and manages the procuring of necessaray initialization data,
+ * Brings up a splash image and manages the procuring of necessary initialization data,
  * such as:
  * 		-- Alert information (needed by MainActivity to build Alert button.
- * 		-- Database dates (date when a given database has last been updated.
- * The page remains around at least 3 seconds, or until the last background fetch is completed.
+ * 		-- Database dates (date when a given database has last been updated.)
+ * The page remains around at least 1 second, or until the last background fetch is completed.
  * The public static variables theItemAlert, and gotInternet are used elsewhere.
  */
 public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously {
@@ -86,9 +85,10 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
         int secondsDelayed = 1;
         incrementMCountItemsLeft();
         mHandler=new Handler();
-        // we'll wait at least 1 seconds; but we won't return until all asynchronous data fetches have completed
+        // we'll wait at least 1 second; but we won't return until all asynchronous data fetches have completed
         mHandler.postDelayed(myRunnable, secondsDelayed * 1000);        
 	}
+	/* Start things out by fetching the "update" data */
 	private void initialize() {
 		theItemAlert=null;
 		TheItemUpdate=null;
@@ -107,6 +107,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					gotInternet=true;		
 				}
 			} else {
+				/*
+				 * Once we've got the "update" data, we can fetch the alert, Welcome,
+				 * DidYouKnow, Selfie. If we're not connected to the Internet, and the
+				 * fetch for "update" fails, we still try to obtain the data via fetches
+				 * from the database.
+				 */
 				if(name.equalsIgnoreCase("update")) {
 					if(data!=null && data.size()>0) {
 						TheItemUpdate=(ItemUpdate)data.get(0);
@@ -219,7 +225,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						return data;
 					} catch (XmlPullParserException e) {
 					} catch (IOException e) {
-						Object bkhere=e;
+						
 					} finally {
 					}				
 				} else {
@@ -231,7 +237,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							return data;
 						} catch (XmlPullParserException e) {
 						} catch (IOException e) {
-							Object bkhere=e;
+							
 						} finally {
 						}		
 					} else {
@@ -243,7 +249,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 								return data;
 							} catch (XmlPullParserException e) {
 							} catch (IOException e) {
-								Object bkhere=e;
+								
 							} finally {
 							}		
 						}

@@ -7,6 +7,11 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 
+/*
+ * Subclass of XMLReader, XMLREaderFromAndroidAssets read the XML from an asset.  That asset 
+ * is then passed (as an XML document) to the associated ParsesXML object for parsing into
+ * an ArrayList of SunriverDataItems.
+ */
 public class XMLReaderFromAndroidAssets extends XMLReader {
 
 	private Context mContext;

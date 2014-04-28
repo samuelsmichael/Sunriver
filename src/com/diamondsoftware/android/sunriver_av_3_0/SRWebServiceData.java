@@ -6,6 +6,16 @@ import java.util.Date;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+/**
+ * This class is a wrapper class to XMLReaderFromRemotelyAcquiredXML, providing the functionality of
+ * making it so if the data is not in the database, or if the data is outdated, that the data is 
+ * fetched from the Internet; otherwise it is fetched from the database.  This makes it transparent to
+ * the whichever object needs to obtain the data (e.g. - a ListViewAdapter) as to where the data is
+ * being fetched.
+ * 
+ * @author Diamond
+ *
+ */
 public class SRWebServiceData {
 	private XMLReaderFromRemotelyAcquiredXML mXmlReader;
 	private Cacheable mCacheable;

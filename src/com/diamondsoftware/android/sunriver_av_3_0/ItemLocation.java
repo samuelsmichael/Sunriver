@@ -48,7 +48,7 @@ public class ItemLocation extends SunriverDataItem {
 	
 	public ItemLocation (Cursor cursor) {
 		this.setmIsGPSPopup(cursor.getInt(cursor.getColumnIndex(KEY_LOCATION_isGPSPopup))!=0);
-		this.setmId(cursor.getInt(cursor.getColumnIndex(this.KEY_LOCATION_srMapId)));
+		this.setmId(cursor.getInt(cursor.getColumnIndex(KEY_LOCATION_srMapId)));
 		this.setmCategory(cursor.getInt(cursor.getColumnIndex(KEY_LOCATION_srMapCategory)));
 		this.setmCategoryName(cursor.getString(cursor.getColumnIndex(KEY_LOCATION_srMapCategoryName)));
 		this.setmName(cursor.getString(cursor.getColumnIndex(KEY_LOCATION_srMapName)));
@@ -250,10 +250,7 @@ public class ItemLocation extends SunriverDataItem {
 		Hashtable<LocationType,ArrayList<Object>> tennisCourts= new Hashtable<LocationType,ArrayList<Object>>();
 		Hashtable<LocationType,ArrayList<Object>> gasStations= new Hashtable<LocationType,ArrayList<Object>>();
 		Hashtable<LocationType,ArrayList<Object>> perfectPictureSpots= new Hashtable<LocationType,ArrayList<Object>>();
-	    LocationType currentLocationType=null;
-	    Hashtable<LocationType,ArrayList<Object>> currentHashtable=null;
-		
-		restaurants.put(LocationType.RESTAURANT, new ArrayList<Object>());
+	    restaurants.put(LocationType.RESTAURANT, new ArrayList<Object>());
 		retails.put(LocationType.RETAIL, new ArrayList<Object>());
 		pools.put(LocationType.POOL, new ArrayList<Object>());
 		tennisCourts.put(LocationType.TENNIS_COURT, new ArrayList<Object>());
@@ -288,8 +285,6 @@ public class ItemLocation extends SunriverDataItem {
         		perfectPictureSpots.get(LocationType.PERFECT_PICTURE_SPOT).add(obj);
         		break;
         	default: 
-        		currentHashtable=restaurants;
-        		currentLocationType=LocationType.RESTAURANT;
         		break;	                    			                    		
         	}	                    	
 		}

@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/*
+ * Provides support for the ListView-type Activity "Events".  
+ * Refer to documentation in the parent class AbstractActivityForListViews for descriptions of the 
+ * purposes of the overridden methods.
+ */
+
 public class CalendarActivity extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
 	private EditText mEditViewSearch=null; 
 	private EditText mEditViewSearchAfterDate=null; 
@@ -52,6 +58,13 @@ public class CalendarActivity extends AbstractActivityForListViews  implements W
     	mPopup.createPopup();
 
 	}
+	/*
+	 * (non-Javadoc)
+	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnCreate()
+	 * 
+	 * When creating this activity, the search criteria (which are persisted in the application
+	 * data persistence (SharedPreferences)) need to be applied before attaching the List View
+	 */
 	@Override
 	protected void childOnCreate() {
 		mEditViewSearch=(EditText)findViewById(R.id.calendar_controlpanel_search);
