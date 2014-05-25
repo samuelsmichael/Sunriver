@@ -492,26 +492,26 @@ containing a value of this type.
     }
     public static final class string {
         public static final int action_settings=0x7f07001c;
-        public static final int action_settingsx=0x7f07009d;
-        public static final int activity_activities_contentDescription=0x7f0700a4;
-        public static final int activity_calendar_contentDescription=0x7f0700a3;
-        public static final int activity_eatsandtreats_contentDescripton=0x7f0700a2;
-        public static final int activity_main_contentDescripton=0x7f0700a1;
-        public static final int activity_services_contentDescripton=0x7f0700a5;
+        public static final int action_settingsx=0x7f07009e;
+        public static final int activity_activities_contentDescription=0x7f0700a5;
+        public static final int activity_calendar_contentDescription=0x7f0700a4;
+        public static final int activity_eatsandtreats_contentDescripton=0x7f0700a3;
+        public static final int activity_main_contentDescripton=0x7f0700a2;
+        public static final int activity_services_contentDescripton=0x7f0700a6;
         public static final int add_geofences_already_requested_error=0x7f07002a;
         public static final int add_geofences_result_failure=0x7f070029;
         /**  Messages 
          */
         public static final int add_geofences_result_success=0x7f070028;
-        public static final int app_name=0x7f070080;
+        public static final int app_name=0x7f070081;
         /**  app name and title 
          */
         public static final int app_name2=0x7f07001b;
-        public static final int application_settings=0x7f070094;
-        public static final int arcgis_password=0x7f070074;
+        public static final int application_settings=0x7f070095;
+        public static final int arcgis_password=0x7f070075;
         /**  ArcGIS UserCredentials 
          */
-        public static final int arcgis_userid=0x7f070073;
+        public static final int arcgis_userid=0x7f070074;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
          */
@@ -535,11 +535,11 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f070014;
-        public static final int bike_path_layer=0x7f07009a;
-        public static final int btn_cancel=0x7f070083;
-        public static final int btn_continue=0x7f070082;
-        public static final int btn_tryagain=0x7f070084;
-        public static final int callout_close=0x7f070095;
+        public static final int bike_path_layer=0x7f07009b;
+        public static final int btn_cancel=0x7f070084;
+        public static final int btn_continue=0x7f070083;
+        public static final int btn_tryagain=0x7f070085;
+        public static final int callout_close=0x7f070096;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -637,50 +637,50 @@ containing a value of this type.
         public static final int geofence_input_error_missing=0x7f07002e;
         public static final int geofence_input_error_radius_invalid=0x7f070031;
         public static final int geofence_transition_entered=0x7f070032;
-        public static final int geofence_transition_entered2=0x7f0700b0;
+        public static final int geofence_transition_entered2=0x7f0700b1;
         public static final int geofence_transition_error_detail=0x7f070033;
-        public static final int geofence_transition_error_detail2=0x7f0700b1;
+        public static final int geofence_transition_error_detail2=0x7f0700b2;
         public static final int geofence_transition_exited=0x7f070034;
-        public static final int geofence_transition_exited2=0x7f0700b2;
+        public static final int geofence_transition_exited2=0x7f0700b3;
         public static final int geofence_transition_invalid_type=0x7f070035;
-        public static final int geofence_transition_invalid_type2=0x7f0700b3;
+        public static final int geofence_transition_invalid_type2=0x7f0700b4;
         public static final int geofence_transition_notification_text=0x7f070036;
-        public static final int geofence_transition_notification_text2=0x7f0700b4;
+        public static final int geofence_transition_notification_text2=0x7f0700b5;
         public static final int geofence_transition_notification_title=0x7f070037;
         public static final int geofence_transition_notification_title2=0x7f070038;
         public static final int geofence_transition_notification_titletii=0x7f070039;
         public static final int geofence_transition_unknown=0x7f07003a;
-        public static final int geofence_transition_unknown2=0x7f0700b5;
-        public static final int gotourl=0x7f070077;
+        public static final int geofence_transition_unknown2=0x7f0700b6;
+        public static final int gotourl=0x7f070078;
         public static final int hello_world=0x7f07001d;
         public static final int invalid_action=0x7f07003b;
         public static final int invalid_action_detail=0x7f07003c;
         public static final int invalid_integer_id=0x7f07003d;
-        public static final int invalid_searchdateafter_msg=0x7f0700ac;
-        public static final int key_in_your_resort_address=0x7f07008c;
+        public static final int invalid_searchdateafter_msg=0x7f0700ad;
+        public static final int key_in_your_resort_address=0x7f07008d;
         public static final int latitude=0x7f070021;
         public static final int latitude_error_message=0x7f07003e;
         /**  Location client code resources (prefix with location_client) 
          */
         public static final int location_client_powered_by_google=0x7f07001a;
-        public static final int location_layers=0x7f070081;
-        public static final int location_popup_bike_paths=0x7f070091;
-        public static final int location_popup_close_button=0x7f070092;
-        public static final int location_popup_contentDescripton=0x7f0700a0;
-        public static final int location_popup_gas=0x7f07008f;
-        public static final int location_popup_perfect_picture_spots=0x7f070090;
-        public static final int location_popup_pools=0x7f07008d;
-        public static final int location_popup_restaurants=0x7f07008a;
-        public static final int location_popup_retail=0x7f07008b;
-        public static final int location_popup_showonmap_button=0x7f070093;
-        public static final int location_popup_tennis_courts=0x7f07008e;
+        public static final int location_layers=0x7f070082;
+        public static final int location_popup_bike_paths=0x7f070092;
+        public static final int location_popup_close_button=0x7f070093;
+        public static final int location_popup_contentDescripton=0x7f0700a1;
+        public static final int location_popup_gas=0x7f070090;
+        public static final int location_popup_perfect_picture_spots=0x7f070091;
+        public static final int location_popup_pools=0x7f07008e;
+        public static final int location_popup_restaurants=0x7f07008b;
+        public static final int location_popup_retail=0x7f07008c;
+        public static final int location_popup_showonmap_button=0x7f070094;
+        public static final int location_popup_tennis_courts=0x7f07008f;
         public static final int longitude=0x7f070022;
         public static final int longitude_error_message=0x7f07003f;
-        public static final int map_arcgis_url1=0x7f070096;
-        public static final int map_arcgis_url2=0x7f070097;
-        public static final int map_arcgis_url3=0x7f070098;
-        public static final int map_arcgis_url4=0x7f070099;
-        public static final int map_offline_url4=0x7f070075;
+        public static final int map_arcgis_url1=0x7f070097;
+        public static final int map_arcgis_url2=0x7f070098;
+        public static final int map_arcgis_url3=0x7f070099;
+        public static final int map_arcgis_url4=0x7f07009a;
+        public static final int map_offline_url4=0x7f070076;
         public static final int menu_item_clear_all_geofences=0x7f070025;
         public static final int menu_item_clear_geofence1=0x7f070023;
         public static final int menu_item_clear_geofence2=0x7f070024;
@@ -695,23 +695,23 @@ containing a value of this type.
         public static final int remove_geofences_id_success=0x7f070046;
         public static final int remove_geofences_intent_failure=0x7f070047;
         public static final int remove_geofences_intent_success=0x7f070048;
-        public static final int resortnamehint=0x7f070085;
-        public static final int search_go_button=0x7f0700aa;
-        public static final int search_hint=0x7f0700ab;
-        public static final int service_popup_contentDescripton=0x7f07009f;
-        public static final int title_activity_MainActivity=0x7f07009c;
-        public static final int title_activity_activitiesdetail=0x7f070089;
-        public static final int title_activity_calendar=0x7f0700a8;
-        public static final int title_activity_eatsandtreats=0x7f0700a9;
+        public static final int resortnamehint=0x7f070086;
+        public static final int search_go_button=0x7f0700ab;
+        public static final int search_hint=0x7f0700ac;
+        public static final int service_popup_contentDescripton=0x7f0700a0;
+        public static final int title_activity_MainActivity=0x7f07009d;
+        public static final int title_activity_activitiesdetail=0x7f07008a;
+        public static final int title_activity_calendar=0x7f0700a9;
+        public static final int title_activity_eatsandtreats=0x7f0700aa;
         public static final int title_activity_geofence=0x7f07001e;
-        public static final int title_activity_maps=0x7f070086;
-        public static final int title_activity_scanner=0x7f0700af;
-        public static final int title_activity_services=0x7f070087;
-        public static final int title_activity_servicesdetail=0x7f070088;
-        public static final int title_activity_sr=0x7f0700ad;
-        public static final int title_activity_weather=0x7f0700ae;
-        public static final int title_activity_web_site=0x7f07009b;
-        public static final int title_activity_website=0x7f07009e;
+        public static final int title_activity_maps=0x7f070087;
+        public static final int title_activity_scanner=0x7f0700b0;
+        public static final int title_activity_services=0x7f070088;
+        public static final int title_activity_servicesdetail=0x7f070089;
+        public static final int title_activity_sr=0x7f0700ae;
+        public static final int title_activity_weather=0x7f0700af;
+        public static final int title_activity_web_site=0x7f07009c;
+        public static final int title_activity_website=0x7f07009f;
         public static final int transition_entered=0x7f070049;
         public static final int transition_exited=0x7f07004a;
         public static final int transition_unknown=0x7f07004b;
@@ -720,39 +720,42 @@ containing a value of this type.
         public static final int unregister_geofence=0x7f07004e;
         public static final int unregister_geofence1=0x7f07004f;
         public static final int unregister_geofence2=0x7f070050;
-        public static final int urlactivity=0x7f070061;
-        public static final int urlactivityother=0x7f07006c;
-        public static final int urlalert=0x7f070063;
-        public static final int urlalertother=0x7f07006e;
-        public static final int urlallhomes=0x7f070069;
-        public static final int urlcalendar=0x7f070060;
-        public static final int urlcalendarother=0x7f07006b;
-        public static final int urldidyouknow=0x7f070067;
-        public static final int urlfindhome=0x7f070072;
-        public static final int urlfindhomeother=0x7f070066;
-        public static final int urlmap=0x7f070062;
-        public static final int urlmapother=0x7f07006d;
-        public static final int urlselfie=0x7f070068;
-        public static final int urlselfieother=0x7f070071;
-        /**  default settings 
+        public static final int urlactivity=0x7f070062;
+        public static final int urlactivityother=0x7f07006d;
+        /**  Sunriver Web App settings 
          */
-        public static final int urlservices=0x7f07005f;
-        public static final int urlservicesother=0x7f07006a;
-        public static final int urlupdate=0x7f070064;
-        public static final int urlupdateother=0x7f07006f;
-        public static final int urlwelcome=0x7f070065;
-        public static final int urlwelcomeother=0x7f070070;
-        public static final int visit_the_web_link=0x7f0700a6;
-        public static final int visit_the_web_link_lowercase=0x7f0700a7;
-        public static final int wtf=0x7f070076;
-        public static final int wunderground_api_conditions=0x7f070078;
-        public static final int wunderground_api_conditionsprior=0x7f07007c;
-        public static final int wunderground_api_forcast=0x7f070079;
-        public static final int wunderground_api_forcast10days=0x7f07007a;
-        public static final int wunderground_api_forcast10daysprior=0x7f07007e;
-        public static final int wunderground_api_forcastprior=0x7f07007d;
-        public static final int wunderground_api_hourly=0x7f07007b;
-        public static final int wunderground_api_hourlyprior=0x7f07007f;
+        public static final int urlactivitywebapp=0x7f07005f;
+        public static final int urlalert=0x7f070064;
+        public static final int urlalertother=0x7f07006f;
+        public static final int urlallhomes=0x7f07006a;
+        public static final int urlcalendar=0x7f070061;
+        public static final int urlcalendarother=0x7f07006c;
+        public static final int urldidyouknow=0x7f070068;
+        public static final int urlfindhome=0x7f070073;
+        public static final int urlfindhomeother=0x7f070067;
+        public static final int urlmap=0x7f070063;
+        public static final int urlmapother=0x7f07006e;
+        public static final int urlselfie=0x7f070069;
+        public static final int urlselfieother=0x7f070072;
+        /**  default webservice settings 
+         */
+        public static final int urlservices=0x7f070060;
+        public static final int urlservicesother=0x7f07006b;
+        public static final int urlupdate=0x7f070065;
+        public static final int urlupdateother=0x7f070070;
+        public static final int urlwelcome=0x7f070066;
+        public static final int urlwelcomeother=0x7f070071;
+        public static final int visit_the_web_link=0x7f0700a7;
+        public static final int visit_the_web_link_lowercase=0x7f0700a8;
+        public static final int wtf=0x7f070077;
+        public static final int wunderground_api_conditions=0x7f070079;
+        public static final int wunderground_api_conditionsprior=0x7f07007d;
+        public static final int wunderground_api_forcast=0x7f07007a;
+        public static final int wunderground_api_forcast10days=0x7f07007b;
+        public static final int wunderground_api_forcast10daysprior=0x7f07007f;
+        public static final int wunderground_api_forcastprior=0x7f07007e;
+        public static final int wunderground_api_hourly=0x7f07007c;
+        public static final int wunderground_api_hourlyprior=0x7f070080;
     }
     public static final class style {
         /** 

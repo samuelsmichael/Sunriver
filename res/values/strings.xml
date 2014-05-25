@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- default settings -->
+    <!-- Sunriver Web App settings -->
+    
+    <string name="urlactivitywebapp">http://listplus.no-ip.org/Activity.aspx</string>
+    
+    <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>
     <string name="urlcalendar">http://www.srfeed.com/service1.asmx/Calendar</string>
     <string name="urlactivity">http://www.srfeed.com/service1.asmx/Activity</string>

@@ -117,7 +117,7 @@ public class XMLReaderFromRemotelyAcquiredXML extends XMLReader {
 			sb.append(line + "\n");
 		}
 		is.close();
-		String json = sb.toString();
-		return new ByteArrayInputStream(json.getBytes("UTF-8"));
+		String dataString = sb.toString();
+		return new ByteArrayInputStream(dataString.getBytes("UTF-8"));
 	}	
 }
