@@ -24,7 +24,7 @@ public class XMLReaderFromAndroidAssets extends XMLReader {
 	}
 
 	@Override
-	public ArrayList<Object> parse() throws XmlPullParserException, IOException {
+	public ArrayList<Object> parse() throws Exception {
 		return parse(mContext.getAssets().open(mXmlName));
 	}
 }

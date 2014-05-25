@@ -17,10 +17,10 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  */
 public class SRWebServiceData {
-	private XMLReaderFromRemotelyAcquiredXML mXmlReader;
+	private FormattedDataReader mXmlReader;
 	private Cacheable mCacheable;
 	
-	public SRWebServiceData(XMLReaderFromRemotelyAcquiredXML xmlReader, Cacheable cacheable) {
+	public SRWebServiceData(FormattedDataReader xmlReader, Cacheable cacheable) {
 		mXmlReader=xmlReader;
 		mCacheable=cacheable;
 	}

@@ -25,7 +25,7 @@ import org.apache.http.protocol.HTTP;
 import org.xmlpull.v1.XmlPullParserException;
 
 /**
- * Gets an input stream from the Internet, hands it to its associated ParsesXML, in order to
+ * Gets an input stream from the Internet, hands it to its associated ParsesJson, in order to
  * obtain an ArrayList of objects.  
  * 
  * The data is then stored into the database.
@@ -34,29 +34,28 @@ import org.xmlpull.v1.XmlPullParserException;
  * all SunriverDataItem objects do), then the data is written using the methods
  * implemented by the Cacheable object.
 */
-public class XMLReaderFromRemotelyAcquiredXML extends XMLReader {
+public class JsonReaderFromRemotelyAcquiredJson extends JsonReader {
 	private String mUrl=null;
 	private List<NameValuePair> mParameters=null;
 	
-	public XMLReaderFromRemotelyAcquiredXML(List<NameValuePair> parameters, ParsesXML parsesXML, String url) {
-		this(parsesXML,url);
+	public JsonReaderFromRemotelyAcquiredJson(List<NameValuePair> parameters, ParsesJson parsesJson, String url) {
+		this(parsesJson,url);
 		mParameters=parameters;
 	}
 
-	public XMLReaderFromRemotelyAcquiredXML(ParsesXML parsesXML, String url) {
-		super(parsesXML);
+	public JsonReaderFromRemotelyAcquiredJson(ParsesJson parsesJson, String url) {
+		super(parsesJson);
 		mUrl=url;
 	}
 
 	@Override
 	public ArrayList<Object> parse() throws  Exception {
-		ArrayList<Object> data=parse(getInputStream());
+		ArrayList<Object> data=parse(getData());
 		SunriverDataItem.flushDataArrayToDatabase(data);
 		return data;
 	}
 	
-	private InputStream getInputStream() throws IOException{
-		String dataString=new RemoteDataReader().getRemoteData(mUrl, mParameters);
-		return new ByteArrayInputStream(dataString.getBytes("UTF-8"));
+	private String getData() throws IOException{
+		return new RemoteDataReader().getRemoteData(mUrl, mParameters);
 	}	
 }

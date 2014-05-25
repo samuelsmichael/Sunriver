@@ -23,7 +23,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
  * @author Mike Samuels
  *
  */
-public abstract class XMLReader {
+public abstract class XMLReader implements FormattedDataReader {
 	private ParsesXML mParsesXML;
 	/**
 	 * 
@@ -31,14 +31,16 @@ public abstract class XMLReader {
 	protected XMLReader(ParsesXML parsesXML) {
 		mParsesXML=parsesXML;
 	}
-	public abstract ArrayList<Object> parse() throws XmlPullParserException, IOException; 
-	protected ArrayList<Object> parse(InputStream inputStream) throws XmlPullParserException, IOException {
+	public abstract ArrayList<Object> parse() throws Exception; 
+	protected ArrayList<Object> parse(InputStream inputStream) throws  Exception {
 		XmlPullParserFactory pullParserFactory;
 		pullParserFactory = XmlPullParserFactory.newInstance();
 		XmlPullParser parser = pullParserFactory.newPullParser();
         parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
-        parser.setInput(inputStream, null);		
-        return mParsesXML.parse(parser);
+        parser.setInput(inputStream, null);
+        ArrayList<Object> aL=mParsesXML.parse(parser);
+        inputStream.close();
+        return aL;
 	}
 }
 

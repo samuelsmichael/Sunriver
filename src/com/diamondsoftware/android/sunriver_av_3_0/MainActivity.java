@@ -446,8 +446,7 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 					new ParsesXMLFindHome(name), 
 					getString(R.string.urlfindhome)).parse();
 				return data;
-			} catch (XmlPullParserException e) {
-			} catch (IOException e) {
+			} catch (Exception e) {
 				int bkherel=3;
 			} finally {
 			}			

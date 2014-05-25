@@ -63,7 +63,7 @@ public class Weather2 extends Activity {
 				mUrl =(String)parms[0];
 				mWeather=(Weather2)parms[1];
 				mQueryType=(QueryType)parms[2];
-				return new JsonReader().getRemoteData(mUrl); 
+				return new RemoteDataReader().getRemoteData(mUrl,null); 
 			} catch (Exception ee) {
 				Toast.makeText(getApplicationContext(), "Failed trying to fetch data from "+url+" with reason: "+ee.getMessage(), Toast.LENGTH_LONG).show();
 				return null;

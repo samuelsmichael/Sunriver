@@ -200,21 +200,24 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					new ParsesXMLAlert(), 
 					getString(R.string.urlalert)).parse();
 				return data;
-			} catch (XmlPullParserException e) {
-			} catch (IOException e) {
+			} catch (Exception e) {
 			} finally {
 			}
 		} else {
 			if(name.equalsIgnoreCase("update")) {
 				try {
-					ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
-						new ParsesXMLUpdate(), 
-						getString(R.string.urlupdate)).parse();
+					ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+						new ParsesJsonUpdate(), 
+						getString(R.string.urlupdatejson)).parse();
 		
 					return data;
 				} catch (XmlPullParserException e) {
 				} catch (IOException e) {
-				} finally {
+				} catch (Exception e ) {
+					int bkhere=3;
+					int bkthere=bkhere;
+				}	
+					finally {
 				}				
 			} else {
 				if(name.equalsIgnoreCase("welcome")) {
@@ -223,8 +226,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							new ParsesXMLWelcome(), 
 							getString(R.string.urlwelcome)).parse();
 						return data;
-					} catch (XmlPullParserException e) {
-					} catch (IOException e) {
+					} catch (Exception e) {
 						
 					} finally {
 					}				
@@ -235,8 +237,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 								new ParsesXMLDidYouKnow(), 
 								getString(R.string.urldidyouknow)).parse();
 							return data;
-						} catch (XmlPullParserException e) {
-						} catch (IOException e) {
+						} catch (Exception e) {
 							
 						} finally {
 						}		
@@ -247,9 +248,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 										new ParsesXMLSelfie(),
 										getString(R.string.urlselfie)).parse();
 								return data;
-							} catch (XmlPullParserException e) {
-							} catch (IOException e) {
-								
+							} catch (Exception e) {
+								int bkhere=3;
+								int bkthere=bkhere;
 							} finally {
 							}		
 						}

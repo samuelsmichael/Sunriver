@@ -3,6 +3,7 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Hashtable;
 
 import android.content.ContentValues;
 import android.content.SharedPreferences;
@@ -105,5 +106,27 @@ public abstract class SunriverDataItem implements Cacheable {
 		cursor.close();
 		return array;
 	}
-	
+	public static void flushDataArrayToDatabase(ArrayList<Object> data) {
+		if(data.size()>0) { // write data to database
+			if(data.get(0) instanceof Hashtable) { // for Sunriver locations
+				for (Object objht: data) {
+					Hashtable ht=(Hashtable)objht;
+					for (Object objArray : ht.values()) {
+						ArrayList<Object> aroo = (ArrayList<Object>)objArray;
+						for (Object theElement :aroo) {
+							((ItemLocation)theElement).writeItemToDatabase();
+						}
+					}
+				}
+			} else {
+				if(data.get(0) instanceof Cacheable) { // for SunriverDataItems
+					((Cacheable)data.get(0)).clearTable();
+					for(Object obj: data) {
+						((Cacheable)obj).writeItemToDatabase();
+					}
+				}
+			}
+		}
+
+	}
 }

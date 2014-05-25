@@ -22,8 +22,8 @@ public abstract class ListViewAdapter extends BaseAdapter {
     
     protected abstract int getLayoutResource();
     protected abstract void initializeHolder(View view);
-    protected abstract ArrayList<Object> childGetData() throws IOException, XmlPullParserException;
-    protected abstract void childMapData(int position, View view ) throws IOException, XmlPullParserException ;
+    protected abstract ArrayList<Object> childGetData() throws Exception;
+    protected abstract void childMapData(int position, View view ) throws Exception ;
     protected abstract void setViewHolder(View view);
     
 	private String getPREFS_NAME() {
@@ -83,13 +83,10 @@ public abstract class ListViewAdapter extends BaseAdapter {
         }
         try {
 			childMapData(position,vi);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (XmlPullParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
         return vi;
 	}
 
