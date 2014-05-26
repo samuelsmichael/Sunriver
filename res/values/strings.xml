@@ -3,6 +3,7 @@
 
     <!-- Sunriver Web App settings -->
     
+    <string name="urlhospitalityjson">http://listplus.no-ip.org/sunriverwebapp/Hospitality.aspx</string>
     <string name="urlactivityjson">http://listplus.no-ip.org/sunriverwebapp/Activity.aspx</string>
     <string name="urlupdatejson">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
     <string name="urlservicesjson">http://listplus.no-ip.org/sunriverwebapp/Services.aspx</string>
@@ -61,6 +62,7 @@
     <string name="title_activity_services">Sunriver Services</string>
     <string name="title_activity_servicesdetail">Sunriver Services Detail</string>
     <string name="title_activity_activitiesdetail">Sunriver Activity Detail</string>
+    <string name="title_activity_hospitalitydetail">Sunriver Hospitality Detail</string>
     <string name="location_popup_restaurants">Restaurants</string>
     <string name="location_popup_retail">Retail</string>
     <string name="key_in_your_resort_address">Key in your Resort Address</string>
@@ -89,15 +91,18 @@
     <string name="activity_eatsandtreats_contentDescripton"></string>
     <string name="activity_calendar_contentDescription"></string>
     <string name="activity_activities_contentDescription"></string>
+    <string name="activity_hospitality_contentDescription"></string>
     <string name="activity_services_contentDescripton"></string>
     <string name="visit_the_web_link">Visit the website</string>
     <string name="visit_the_web_link_lowercase">visit the website</string>
     <string name="title_activity_calendar">Sunriver Calendar</string>
     <string name="title_activity_eatsandtreats">Sunriver Eats &amp; Treats</string>
+    <string name="title_activity_retail">Sunriver Shop \'till you Drop</string>
     <string name="search_go_button">Refresh</string>
     <string name="search_hint">Search</string>
     <string name="invalid_searchdateafter_msg">Invalid date. Please key the date in mm-dd-yyyy format</string>
     <string name="title_activity_sr">Sunriver Activities</string>
+    <string name="title_activity_hospitality">Sunriver Hospitality</string>
     <string name="title_activity_weather">Sunriver Weather</string>
     <string name="title_activity_scanner">Sunriver QR Code Reader</string>
 

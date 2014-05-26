@@ -30,7 +30,9 @@ public class ParsesJsonActivities extends ParsesJson {
 			item.setSrActName(jsonObject.getString("srActName"));
 			item.setSrActTime(jsonObject.getString("srActTime"));
 			item.setSrActUrlImage(jsonObject.getString("srActUrlImage"));
-			items.add(item);
+			if(item.isApproved()) {
+				items.add(item);
+			}
 		}
 		return items;
 	}

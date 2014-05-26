@@ -26,7 +26,7 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 
 		@Override
 		protected int getLayoutResource() {
-			return com.diamondsoftware.android.sunriver_av_3_0.R.layout.servicesdetail_listitem;
+			return R.layout.servicesdetail_listitem;
 		}
 
 		@Override

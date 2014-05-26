@@ -168,8 +168,8 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		if (id == 1 || id == 9) {
-			if(id==9) { // show the bike paths
+		if (id == 100 || id == 900) {
+			if(id==900) { // show the bike paths
 				Editor edit=mSharedPreferences.edit();
 				edit.putBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, true);
 				edit.commit();
@@ -177,39 +177,47 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			Intent intent = new Intent(MainActivity.this, Maps.class);
 			startActivity(intent);
 		}
-		if (id == 2) {
+		if (id == 200) {
 			Intent intent = new Intent(MainActivity.this, Weather2.class);
 			startActivity(intent);
 		}
-		if (id == 3) {
+		if (id == 120) {
+			Intent intent = new Intent(MainActivity.this, ActivityHospitality.class);
+			startActivity(intent);
+		}
+		if (id == 300) {
 			Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
 			startActivity(intent);
 		}
-		if (id == 4) {
+		if (id == 400) {
 			Intent intent = new Intent(MainActivity.this, ActivitiesActivity.class);
 			startActivity(intent);
 		}
-		if (id == 5) {
+		if (id == 500) {
 			IntentIntegrator integrator = new IntentIntegrator(
 					MainActivity.this);
 			integrator.initiateScan();
 		}
-		if (id == 6) {
+		if (id == 600) {
 			Intent intent = new Intent(MainActivity.this,EatsAndTreatsActivity.class);
 			startActivity(intent);
 		}
-		if (id == 7) {
+		if (id == 110) {
+			Intent intent = new Intent(MainActivity.this,ActivityRetail.class);
+			startActivity(intent);
+		}
+		if (id == 700) {
 			Intent intent = new Intent(MainActivity.this,ServicesActivity.class);
 			startActivity(intent);
 		}
-		if(id==8) {
+		if(id==800) {
 			Intent intentCamera=new Intent(MainActivity.this,AndroidCamera.class);
 			startActivity(intentCamera);
 		}
 		if( id==99) {
 			new PopupAlert(this, SplashPage.theItemAlert).createPopup();
 		}
-		if(id==10) {
+		if(id==1000) {
 		    android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
 		    android.app.Fragment prev = getFragmentManager().findFragmentByTag("findhome");
 		    if (prev != null) {

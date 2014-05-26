@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 21;
+	private static final int DATABASE_VERSION = 23;
 
 	public static final DateFormat mDateFormat = new SimpleDateFormat(
 	"yyyy-MM-dd HH:mm:ss.S");
@@ -109,6 +109,18 @@ public class DbAdapter {
 				ItemActivity.KEY_ACTIVITY_SRACTLAT + " string," +
 				ItemActivity.KEY_ACTIVITY_SRACTLONG + " string," +
 				ItemActivity.KEY_ACTIVITY_ISAPPROVED + " bit ); ";
+		private static final String CREATE_TABLE_HOSPITALITY = "create table " + ItemHospitality.DATABASE_TABLE_HOSPITALITY + " (" +
+				ItemHospitality.KEY_HOSPITALITY_ROWID + " integer primary key autoincrement,"+
+				ItemHospitality.KEY_HOSPITALITY_ID + " integer, " +
+				ItemHospitality.KEY_HOSPITALITY_ADDRESS + " string, "+
+				ItemHospitality.KEY_HOSPITALITY_DESCRIPTION + " string, "+
+				ItemHospitality.KEY_HOSPITALITY_ISAPPROVED + " bit, " +
+				ItemHospitality.KEY_HOSPITALITY_LAT + " string, "+
+				ItemHospitality.KEY_HOSPITALITY_LONG + " string, " +
+				ItemHospitality.KEY_HOSPITALITY_NAME + " string, " +
+				ItemHospitality.KEY_HOSPITALITY_PHONE + " string, " +
+				ItemHospitality.KEY_HOSPITALITY_URLIMAGE + " string, " +
+				ItemHospitality.KEY_HOSPITALITY_URLWEBSITE + " string );";
 		private static final String CREATE_TABLE_CALENDAR = "create table " + ItemCalendar.DATABASE_TABLE_CALENDAR + " (" +
 				ItemCalendar.KEY_CALENDAR_ROWID + " integer primary key autoincrement," +
 				ItemCalendar.KEY_CALENDAR_SRACTID + " integer," +
@@ -196,8 +208,10 @@ public class DbAdapter {
 			try {
 				db.execSQL(CREATE_TABLE_SELFIE);
 			} catch (Exception eieio) {
-
 			}
+			try {
+				db.execSQL(CREATE_TABLE_HOSPITALITY);
+			} catch (Exception eieio) {}
 		}
 
 		@Override
@@ -216,6 +230,10 @@ public class DbAdapter {
 					if(newVersion>=20) {
 						db.execSQL("DROP INDEX IF EXISTS " + "allhomes_index");
 						db.execSQL("DROP TABLE IF EXISTS "+ItemAllHomes.DATABASE_TABLE_ALLHOMES);
+					} else {
+						if(newVersion==22) {
+							db.execSQL("DROP TABLE IF EXISTS "+ItemHospitality.DATABASE_TABLE_HOSPITALITY);
+						}
 					}
 				}
 			}

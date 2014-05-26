@@ -144,7 +144,7 @@ public class Maps extends Activity {
 		// Refresh the locations data;
 	//?? isn't this being built in MainActivity?	MainActivity.LocationData.clear();
 		// Retrieve the map and initial extent from XML layout
-		mMapView = (MapView) findViewById(com.diamondsoftware.android.sunriver_av_3_0.R.id.map);
+		mMapView = (MapView) findViewById(R.id.map);
 		// Create a MapView Helper
 	    mvHelper = new MapViewHelper(mMapView);
 		// Add dynamic layer to MapView

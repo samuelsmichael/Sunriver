@@ -12,18 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /*
- * Fetches the data from the already loaded Sunriver locations data of type Restaurant.
+ * Fetches the data from the already loaded Sunriver locations data of a Map sub-type (e.g. - Restaurant).
  * Therefore, it extends ListViewAdapterLocalData.
  */
-public class ListViewAdapterEatsAndTreats extends ListViewAdapterLocalData {
+public class ListViewAdapterMapSubtype extends ListViewAdapterLocalData {
 	EatsAndTreatsHolder mEatsAndTreatsHolder;
+	int mSubType;
 	static class EatsAndTreatsHolder {
 		TextView name;
 		TextView description;		
 	}
 
-	public ListViewAdapterEatsAndTreats(Activity a) {
+	/*
+	 * subtype =
+	 * 	1: Restaurants
+	 *  3: Retail
+	 */
+	public ListViewAdapterMapSubtype(Activity a, int subtype) {
 		super(a);
+		mSubType=subtype;
 	}
 
 	@Override
@@ -53,7 +60,7 @@ public class ListViewAdapterEatsAndTreats extends ListViewAdapterLocalData {
 				ArrayList<Object> aroo = (ArrayList<Object>)al;
 				for (Object theElement :aroo) {
 					ItemLocation location=(ItemLocation)theElement;
-					if(location.getmCategory()==1) { // restaurants
+					if(location.getmCategory()==mSubType) { // restaurants
 						eatsAndTreats.add(location);
 					}
 				}

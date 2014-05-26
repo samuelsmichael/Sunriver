@@ -9,11 +9,11 @@ import android.widget.AdapterView;
  * Refer to documentation in the parent class AbstractActivityForListViews for descriptions of the 
  * purposes of the overridden methods.
  */
-public class EatsAndTreatsActivity extends ActivityThatIsASubtypeOfMaps {
+public class ActivityRetail extends ActivityThatIsASubtypeOfMaps {
 
 	@Override
 	protected ListViewAdapter getListViewAdapter() {
-		mListViewAdapter=new ListViewAdapterMapSubtype(this,1);
+		mListViewAdapter=new ListViewAdapterMapSubtype(this,3);
 		return mListViewAdapter;
 	}
 

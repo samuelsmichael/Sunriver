@@ -16,6 +16,12 @@
 			  	android:summary="URL used to fetch the Activity data"
 			  ></EditTextPreference>
 			  <EditTextPreference
+			  	android:key="urlhospitality"
+			  	android:defaultValue="@string/urlhospitalityjson"
+			  	android:title="Hospitality Data URL"
+			  	android:summary="URL used to fetch the Hospitality data"
+			  ></EditTextPreference>
+			  <EditTextPreference
 			  	android:key="urlactivityjson"
 			  	android:defaultValue="@string/urlactivityjson"
 			  	android:title="Activity json Data URL"

@@ -29,8 +29,10 @@ public class ParsesJsonCalendar extends ParsesJson {
 			item.setSrCalLat(jsonObject.getDouble("srCalLat"));
 			item.setSrCalLong(jsonObject.getDouble("srCalLong"));
 			item.setApproved(jsonObject.getBoolean("isApproved"));
-			item.setSrCalAddress(jsonObject.getString("srCalAddress"));			
-			items.add(item);
+			item.setSrCalAddress(jsonObject.getString("srCalAddress"));
+			if(item.isApproved()) {
+				items.add(item);
+			}
 		}
 		return items;
 	}
