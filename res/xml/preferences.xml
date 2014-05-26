@@ -34,6 +34,19 @@
 			  	android:summary="URL used to fetch the Map data"			      
 			      >
 			  </EditTextPreference>			  			  			  			  
-		</PreferenceCategory>    
+			  <EditTextPreference
+			    android:key="urlmapjson"
+			  	android:defaultValue="@string/urlmapjson"
+			  	android:title="Map Data URL json"
+			  	android:summary="URL used to fetch the Map data json"			      
+			      >
+			  </EditTextPreference>			  			  			  			  
+			  <EditTextPreference
+			  	android:key="urlcalendarjson"
+			  	android:defaultValue="@string/urlcalendarjson"
+			  	android:title="Events json Data URL"
+			  	android:summary="URL used to fetch the Events data as json"
+			  ></EditTextPreference>
+			  </PreferenceCategory>    
 
 </PreferenceScreen>

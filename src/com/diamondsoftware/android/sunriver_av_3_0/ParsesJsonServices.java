@@ -28,10 +28,16 @@ public class ParsesJsonServices extends ParsesJson {
 			item.setServiceAddress(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEADDRESS));
 			item.setServiceLat(jsonObject.getDouble(ItemService.KEY_SERVICE_SERVICELAT));
 			item.setServiceLong(jsonObject.getDouble(ItemService.KEY_SERVICE_SERVICELONG));
-			item.setServiceCategoryName(jsonObject.getString(ItemService.KEY_SERVICE_SERVICECATEGORYNAME));
+			String categoryName=jsonObject.getString(ItemService.KEY_SERVICE_SERVICECATEGORYNAME);
+			item.setServiceCategoryName(categoryName);
 			item.setServiceCategoryIconURL(jsonObject.getString(ItemService.KEY_SERVICE_SERVICECATEGORYICONURL));
 			item.setSortOrder(ItemService.deriveSortOrder(item.getServiceCategoryName()));
-			items.add(item);
+			if(categoryName == null || categoryName.equals("")) {
+				int bkhere=3;
+				int bkthere=bkhere;
+			} else {
+				items.add(item);
+			}
 		}
 		return items;
 	}

@@ -100,7 +100,10 @@ public abstract class SunriverDataItem implements Cacheable {
 				columnNameForWhereClause, columnValuesForWhereClause, getGroupBy(), getOrderBy());
 		if(cursor.moveToFirst()) {
 			do  {
-				array.add(this.itemFromCursor(cursor));
+				SunriverDataItem item=itemFromCursor(cursor);
+				if(item!=null) {
+					array.add(this.itemFromCursor(cursor));
+				}
 			} while(cursor.moveToNext());
 		}
 		cursor.close();

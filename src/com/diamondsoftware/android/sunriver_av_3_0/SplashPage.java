@@ -201,6 +201,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					getString(R.string.urlalertjson)).parse();
 				return data;
 			} catch (Exception e) {
+				int bkhere=3;
+				int bkthere=bkhere;
 			} finally {
 			}
 		} else {

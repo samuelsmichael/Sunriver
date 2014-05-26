@@ -20,6 +20,7 @@ public class ParsesJsonDidYouKnow extends ParsesJson {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
 			item.setDidYouKnowId(jsonObject.getInt("didYouKnowId"));
 			item.setDidYouKnowURL(jsonObject.getString("didYouKnowURL"));
+			items.add(item);
 		}
 		return items;
 	}

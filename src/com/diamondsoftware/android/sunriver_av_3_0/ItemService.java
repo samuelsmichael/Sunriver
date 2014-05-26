@@ -157,7 +157,7 @@ public class ItemService extends SunriverDataItem {
     
 	public ItemService() {
 	}
-	protected ItemService(Cursor cursor) {
+	protected ItemService(Cursor cursor) throws Exception {
 		if(mGroupBy==null) {
 			this.setServiceID(cursor.getInt(cursor.getColumnIndex(KEY_SERVICE_SERVICEID)));
 			setServiceName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICENAME)));
@@ -172,8 +172,13 @@ public class ItemService extends SunriverDataItem {
 			setServiceCategoryName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME)));
 			setServiceCategoryIconURL(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYICONURL)));
 		} else {
-			setServiceCategoryName(cursor.getString(0));
-			this.setServiceCategoryIconURL(cursor.getString(1));
+			String serviceCategoryName=cursor.getString(0);
+			if(serviceCategoryName==null || serviceCategoryName.trim().equals("")) {
+				throw new Exception ("Blank category name");
+			} else {
+				setServiceCategoryName(cursor.getString(0));
+				this.setServiceCategoryIconURL(cursor.getString(1));
+			}
 		}
 	}
 
@@ -237,7 +242,11 @@ public class ItemService extends SunriverDataItem {
 
 	@Override
 	protected SunriverDataItem itemFromCursor(Cursor cursor) {
-		return new ItemService(cursor);
+		try {
+			return new ItemService(cursor);
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override

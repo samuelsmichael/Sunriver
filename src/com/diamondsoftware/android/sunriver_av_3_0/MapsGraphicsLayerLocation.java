@@ -42,8 +42,8 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
     }
 	@Override
 	public void constructGraphicItems() {
-		String defaultValue=mActivity.getResources().getString(R.string.urlmap);				
-		String uri=getSharedPreferences().getString("urlmap", defaultValue);	
+		String defaultValue=mActivity.getResources().getString(R.string.urlmapjson);				
+		String uri=getSharedPreferences().getString("urlmapjson", defaultValue);	
 		String[] uriInArray=new String[1];
 		uriInArray[0]=uri;
 		new RetrieveMapData().execute(uriInArray);
@@ -64,6 +64,8 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 				}
 
 			} catch (Exception e) {
+				int bkhere=3;
+				int bkthere=bkhere;
 			}
 			
 			return null;

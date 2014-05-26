@@ -47,9 +47,9 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 	protected ArrayList<Object> childGetData() throws IOException,
 			XmlPullParserException {
 		
-		String defaultValue=mActivity.getResources().getString(R.string.urlcalendar);
+		String defaultValue=mActivity.getResources().getString(R.string.urlcalendarjson);
 		
-		String uri=getSharedPreferences().getString("urlcalendar", defaultValue);
+		String uri=getSharedPreferences().getString("urlcalendarjson", defaultValue);
 		try {
 			ArrayList beforeFiltering=new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonCalendar(), uri ),new ItemCalendar()).procureTheData();
 			ArrayList afterFiltering=new ArrayList<Object>();

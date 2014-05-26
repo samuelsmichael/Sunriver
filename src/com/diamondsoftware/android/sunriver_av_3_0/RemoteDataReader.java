@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -55,7 +56,8 @@ public class RemoteDataReader {
 			PrintWriter pw = new PrintWriter(out);
 			pw.close();
 			is=conn.getInputStream();
-		}		InputStreamReader is2 = new InputStreamReader(is);
+		}		
+		InputStreamReader is2 = new InputStreamReader(is);
 		BufferedReader reader = new BufferedReader(is2);
 		StringBuilder sb = new StringBuilder();
 		String line = null;

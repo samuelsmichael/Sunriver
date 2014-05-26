@@ -1,6 +1,7 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -435,17 +436,18 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 		try {
 				nameFinding=name;
 				// Add your data
-		        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
-		        nameValuePair.add(new BasicNameValuePair("resortAddress", name));
+//		        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
+//		        nameValuePair.add(new BasicNameValuePair("resortAddress", name));
 				
 				
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-					nameValuePair,
+//					nameValuePair,
 					new ParsesJsonFindHome(name), 
-					getString(R.string.urlfindhomejson)).parse();
+					getString(R.string.urlfindhomejson)+URLEncoder.encode(name)).parse();
 				return data;
 			} catch (Exception e) {
-				int bkherel=3;
+				int bkhere1=3;
+				int bkhere2=bkhere1;
 			} finally {
 			}			
 		return null;
