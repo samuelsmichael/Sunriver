@@ -259,5 +259,33 @@ public class ItemService extends SunriverDataItem {
 	protected String getOrderBy() {
 		return KEY_SERVICE_SORTORDER;
 	}
+	//Emergency, Medical, Grocery, Gas, Churches, Extras
+	public static int deriveSortOrder(String category) {
+		if(category.equalsIgnoreCase("emergency")) {
+			return 0;
+		} else {
+			if(category.equalsIgnoreCase("medical")) {
+				return 1;
+			} else {
+				if(category.equalsIgnoreCase("grocery")) {
+					return 2;
+				} else {
+					if(category.equalsIgnoreCase("gas")) {
+						return 3;
+					} else {
+						if(category.equalsIgnoreCase("churches")) {
+							return 4;
+						} else {
+							if(category.equalsIgnoreCase("extras")) {
+								return 5;
+							} else {
+								return 99;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
 }

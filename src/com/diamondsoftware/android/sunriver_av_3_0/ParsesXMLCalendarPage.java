@@ -7,7 +7,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLCalendarPage extends ParsesXML {
 
-	public ParsesXMLCalendarPage() {
+	public ParsesXMLCalendarPage(String dummy) {
+		super(dummy);
 	}
 	
 	@Override

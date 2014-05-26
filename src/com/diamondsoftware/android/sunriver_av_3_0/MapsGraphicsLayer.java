@@ -21,7 +21,7 @@ public abstract class MapsGraphicsLayer {
 	protected int mSize; 
 	protected STYLE mStyle;
 	protected Activity mActivity;
-	protected ParsesXMLMapLocations.LocationType mLocationType;
+	protected ItemLocation.LocationType mLocationType;
 	protected boolean mUpdateGraphics;  // perhaps we're only creating this object in order to fetch data
 	protected String mVisibilityPreferencesName;
 
@@ -32,7 +32,7 @@ public abstract class MapsGraphicsLayer {
 	public abstract void onStop();
 
 	public MapsGraphicsLayer(Activity activity,MapView mapView, int color, int size, 
-			STYLE style, ParsesXMLMapLocations.LocationType locationType, boolean updateGraphics, String visibilityPreferencesName) {
+			STYLE style, ItemLocation.LocationType locationType, boolean updateGraphics, String visibilityPreferencesName) {
 		mActivity=activity;
 		mColor=color;
 		mSize=size;
@@ -52,7 +52,7 @@ public abstract class MapsGraphicsLayer {
 		return mActivity.getApplicationContext().getPackageName() + "_preferences";
 	}	
 	
-	public ParsesXMLMapLocations.LocationType getLocationType() {
+	public ItemLocation.LocationType getLocationType() {
 		return mLocationType;
 	}
 		

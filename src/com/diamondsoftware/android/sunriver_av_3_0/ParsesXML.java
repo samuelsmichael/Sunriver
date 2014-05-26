@@ -13,7 +13,7 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  */
 public abstract class ParsesXML {
-	public ParsesXML() {
+	public ParsesXML(String dummy) {
 	}
 	protected abstract ArrayList<Object> parse(XmlPullParser parser) throws XmlPullParserException, IOException;
 }

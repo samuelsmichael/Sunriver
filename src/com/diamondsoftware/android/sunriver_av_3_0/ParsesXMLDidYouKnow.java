@@ -8,8 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLDidYouKnow extends ParsesXML {
 
-	public ParsesXMLDidYouKnow() {
-
+	public ParsesXMLDidYouKnow(String dummy) {
+		super(dummy);
 	}
 
 	@Override

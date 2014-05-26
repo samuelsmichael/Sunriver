@@ -10,7 +10,8 @@ public abstract class ParsesXMLServices extends ParsesXML  {
 
 	protected abstract boolean shallIAddThisItem(ItemService itemService);
 	
-	public ParsesXMLServices() {
+	public ParsesXMLServices(String dummy) {
+		super(dummy);
 	}
 	
 	@Override
@@ -65,7 +66,7 @@ public abstract class ParsesXMLServices extends ParsesXML  {
                     if (name.equalsIgnoreCase("Services") && currentItem != null){
                     	String category=currentItem.getServiceCategoryName();
                     	if(category!=null && !category.trim().isEmpty()) {
-                    		currentItem.setSortOrder(deriveSortOrder(category));
+                    		currentItem.setSortOrder(ItemService.deriveSortOrder(category));
                     		items.add(currentItem);
                     	}
                     } 
@@ -75,33 +76,5 @@ public abstract class ParsesXMLServices extends ParsesXML  {
             
         }
         return items;
-	}
-	//Emergency, Medical, Grocery, Gas, Churches, Extras
-	private int deriveSortOrder(String category) {
-		if(category.equalsIgnoreCase("emergency")) {
-			return 0;
-		} else {
-			if(category.equalsIgnoreCase("medical")) {
-				return 1;
-			} else {
-				if(category.equalsIgnoreCase("grocery")) {
-					return 2;
-				} else {
-					if(category.equalsIgnoreCase("gas")) {
-						return 3;
-					} else {
-						if(category.equalsIgnoreCase("churches")) {
-							return 4;
-						} else {
-							if(category.equalsIgnoreCase("extras")) {
-								return 5;
-							} else {
-								return 99;
-							}
-						}
-					}
-				}
-			}
-		}
 	}
 }

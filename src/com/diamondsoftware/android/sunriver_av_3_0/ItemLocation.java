@@ -8,11 +8,14 @@ import java.util.Hashtable;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.diamondsoftware.android.sunriver_av_3_0.ParsesXMLMapLocations.LocationType;
 import com.esri.core.geometry.Point;
 
 
 public class ItemLocation extends SunriverDataItem {
+    public static enum LocationType {
+    	RESTAURANT, RETAIL,POOL,TENNIS_COURT,GAS_STATION,PERFECT_PICTURE_SPOT,SUNRIVER,NULL
+    }
+	
 	public static final String DATABASE_TABLE_LOCATION = "location";
 	public static final String DATE_LAST_UPDATED="date_last_updated_location";
 	

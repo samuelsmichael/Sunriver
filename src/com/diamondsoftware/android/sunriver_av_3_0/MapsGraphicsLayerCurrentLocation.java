@@ -8,7 +8,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.diamondsoftware.android.sunriver_av_3_0.ParsesXMLMapLocations.LocationType;
 import com.esri.android.map.MapView;
 import com.esri.core.geometry.Point;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
@@ -58,7 +57,7 @@ public class MapsGraphicsLayerCurrentLocation extends MapsGraphicsLayer  impleme
 
 	
 	public MapsGraphicsLayerCurrentLocation(Activity activity, MapView mapView,
-			int color, int size, STYLE style, LocationType locationType,
+			int color, int size, STYLE style, ItemLocation.LocationType locationType,
 			boolean updateGraphics) {
 		super(activity, mapView, color, size, style, locationType,
 				updateGraphics, null);

@@ -33,11 +33,11 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
 	protected ArrayList<Object> childGetData() throws IOException,
 			XmlPullParserException {
 		
-		String defaultValue=mActivity.getResources().getString(R.string.urlactivity);
+		String defaultValue=mActivity.getResources().getString(R.string.urlactivityjson);
 		
-		String uri=getSharedPreferences().getString("urlactivity", defaultValue);
+		String uri=getSharedPreferences().getString("urlactivityjson", defaultValue);
 		try {
-			return new SRWebServiceData( new XMLReaderFromRemotelyAcquiredXML(new ParsesXMLActivityPage(), uri ),new ItemActivity()).procureTheData();
+			return new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonActivities(), uri ),new ItemActivity()).procureTheData();
 		} catch (Exception e) {
 			Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_LONG).show();
 			return new ArrayList<Object>();

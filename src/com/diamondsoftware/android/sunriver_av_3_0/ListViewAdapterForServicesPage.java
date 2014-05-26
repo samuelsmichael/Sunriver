@@ -40,9 +40,9 @@ public class ListViewAdapterForServicesPage extends ListViewAdapterRemoteData {
 				ItemService.mColumnValuesForWhereClause=null;
 				ItemService.mGroupBy=	ItemService.KEY_SERVICE_SERVICECATEGORYNAME + "," + ItemService.KEY_SERVICE_SERVICECATEGORYICONURL;			
 				
-				String defaultValue=mActivity.getResources().getString(R.string.urlservices);			
-				String uri=getSharedPreferences().getString("urlservices", defaultValue);
-				return new SRWebServiceData( new XMLReaderFromRemotelyAcquiredXML(new ParsesXMLServicesPage(), uri ),new ItemService()).procureTheData();
+				String defaultValue=mActivity.getResources().getString(R.string.urlservicesjson);			
+				String uri=getSharedPreferences().getString("urlservicesjson", defaultValue);
+				return new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonServices(), uri ),new ItemService()).procureTheData();
 // Local data				return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLServicesPage(), "services.xml").parse();
 
 			} catch (Exception e) {

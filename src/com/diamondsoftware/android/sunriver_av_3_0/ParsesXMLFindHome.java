@@ -8,7 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLFindHome extends ParsesXML {
 	String mResortName;
-	public ParsesXMLFindHome(String resortName) {
+	public ParsesXMLFindHome(String resortName, String dummy) {
+		super(dummy);
 		mResortName=resortName;
 	}
 

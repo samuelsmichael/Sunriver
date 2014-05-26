@@ -8,8 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLActivityPage extends ParsesXML {
 
-	public ParsesXMLActivityPage() {
-		// TODO Auto-generated constructor stub
+	public ParsesXMLActivityPage(String dummy) {
+		super(dummy);
 	}
 
 	@Override

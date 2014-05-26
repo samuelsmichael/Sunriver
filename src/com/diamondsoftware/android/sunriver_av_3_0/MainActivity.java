@@ -10,7 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.xmlpull.v1.XmlPullParserException;
 
 import com.diamondsoftware.android.sunriver_av_3_0.R;
-import com.diamondsoftware.android.sunriver_av_3_0.ParsesXMLMapLocations.LocationType;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
 import android.app.Activity;
@@ -28,7 +27,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -41,7 +39,7 @@ import android.widget.EditText;
  *   
  */
 public class MainActivity extends AbstractActivityForListViews implements WaitingForDataAcquiredAsynchronously,DataGetter {
-	public static ArrayList<Hashtable<ParsesXMLMapLocations.LocationType, ArrayList<Object>>> LocationData = new ArrayList<Hashtable<ParsesXMLMapLocations.LocationType, ArrayList<Object>>>();
+	public static ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>> LocationData = new ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>>();
 	public static ArrayList<Object> SunriverArray = null;
 	private static boolean AllMapsUriLocationDataIsLoaded=false;
 	private static boolean AllNonUriMapsDataIsLoaded=false;
@@ -89,7 +87,7 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			// Don't add it if it's already there.
 			if (!LocationData.isEmpty()) {
 				for (Hashtable ht : LocationData) {
-					if (ht.contains(LocationType.SUNRIVER)) {
+					if (ht.contains(ItemLocation.LocationType.SUNRIVER)) {
 						doit = false;
 					}
 				}
@@ -98,8 +96,8 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			doit = false;
 		}
 		if (doit) {
-			Hashtable ht = new Hashtable<LocationType, ArrayList<Object>>();
-			ht.put(LocationType.SUNRIVER, MainActivity.SunriverArray);
+			Hashtable ht = new Hashtable<ItemLocation.LocationType, ArrayList<Object>>();
+			ht.put(ItemLocation.LocationType.SUNRIVER, MainActivity.SunriverArray);
 			MainActivity.LocationData.add(ht);
 			setAllNonUriMapsDataIsLoaded();
 		}
@@ -138,8 +136,8 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 		mGeocodeManager = new GeocodeManager(this);
 		mSingleton=this;
 		// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
-		new  MapsGraphicsLayerLocation(this,null,Color.MAGENTA,12,STYLE.CIRCLE, ParsesXMLMapLocations.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
-		new MapsGraphicsLayerMisc(this,null,Color.DKGRAY,12,STYLE.DIAMOND, ParsesXMLMapLocations.LocationType.SUNRIVER,false).constructGraphicItems();
+		new  MapsGraphicsLayerLocation(this,null,Color.MAGENTA,12,STYLE.CIRCLE, ItemLocation.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
+		new MapsGraphicsLayerMisc(this,null,Color.DKGRAY,12,STYLE.DIAMOND, ItemLocation.LocationType.SUNRIVER,false).constructGraphicItems();
 	}
 
 	@Override
@@ -441,10 +439,10 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 		        nameValuePair.add(new BasicNameValuePair("resortAddress", name));
 				
 				
-				ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
+				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 					nameValuePair,
-					new ParsesXMLFindHome(name), 
-					getString(R.string.urlfindhome)).parse();
+					new ParsesJsonFindHome(name), 
+					getString(R.string.urlfindhomejson)).parse();
 				return data;
 			} catch (Exception e) {
 				int bkherel=3;

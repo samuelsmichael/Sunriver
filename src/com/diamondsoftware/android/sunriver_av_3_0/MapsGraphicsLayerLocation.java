@@ -26,7 +26,7 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 	private boolean mOnInstallDefaultValue;
 
 	public MapsGraphicsLayerLocation(Activity activity,MapView mapView, int color, int size,
-			STYLE style, ParsesXMLMapLocations.LocationType locationType, boolean updateGraphics, String preferencesVisibilityName, boolean onInstallDefaultValue) {
+			STYLE style, ItemLocation.LocationType locationType, boolean updateGraphics, String preferencesVisibilityName, boolean onInstallDefaultValue) {
 		super(activity, mapView, color, size, style,locationType, updateGraphics, preferencesVisibilityName);
 		mOnInstallDefaultValue=onInstallDefaultValue;
 	}
@@ -56,8 +56,8 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 			mUrl=strings[0];
 			try {
 				if(getLocationData().size()<=2) { // if it's just two, then it's the Sunriver object
-					obj=new SRWebServiceData(new XMLReaderFromRemotelyAcquiredXML(new ParsesXMLMapLocations(), mUrl),new ItemLocation()).procureTheData();
-					setLocationData((ArrayList<Hashtable<ParsesXMLMapLocations.LocationType,ArrayList<Object>>>) obj);
+					obj=new SRWebServiceData(new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonMapLocations(), mUrl),new ItemLocation()).procureTheData();
+					setLocationData((ArrayList<Hashtable<ItemLocation.LocationType,ArrayList<Object>>>) obj);
 				}
 				if(!mUpdateGraphics) { // Only do this when we're fetching the data from MainActivity so as to launch the GeoFences
 					MainActivity.setAllMapsUriLocationDataIsLoaded();
@@ -82,7 +82,7 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 			if(mUpdateGraphics) {
 				if (getLocationData().size()>2) { // if it's just two, then it's the Sunriver object, otherwise, all the others will have been loaded, as they are all loaded at once from a single data fetch (for efficiency's sake)
 					for(Hashtable ht :getLocationData()) {
-						ParsesXMLMapLocations.LocationType locationType = (ParsesXMLMapLocations.LocationType) ht.keys().nextElement();
+						ItemLocation.LocationType locationType = (ItemLocation.LocationType) ht.keys().nextElement();
 						for (Object al: ht.values()) {
 							ArrayList<Object> aroo = (ArrayList<Object>)al;
 							for (Object theElement :aroo) {
@@ -104,12 +104,12 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 	}
 
 	
-	private ArrayList<Hashtable<ParsesXMLMapLocations.LocationType,ArrayList<Object>>> getLocationData() {
+	private ArrayList<Hashtable<ItemLocation.LocationType,ArrayList<Object>>> getLocationData() {
 		return MainActivity.LocationData;
 	}
-	private void setLocationData (ArrayList<Hashtable<ParsesXMLMapLocations.LocationType,ArrayList<Object>>> data) {
+	private void setLocationData (ArrayList<Hashtable<ItemLocation.LocationType,ArrayList<Object>>> data) {
 		for(Hashtable ht :data) {
-			ParsesXMLMapLocations.LocationType locationType = (ParsesXMLMapLocations.LocationType) ht.keys().nextElement();
+			ItemLocation.LocationType locationType = (ItemLocation.LocationType) ht.keys().nextElement();
 	    	boolean doit=true;
 	    	if(!getLocationData().isEmpty()) {
 	    		for(Hashtable ht2 : getLocationData()) {

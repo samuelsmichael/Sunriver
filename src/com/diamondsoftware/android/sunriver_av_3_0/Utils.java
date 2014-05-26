@@ -102,6 +102,9 @@ public class Utils {
 			  Integer.valueOf(s.substring(17, 2)));
 	}
 	public static GregorianCalendar toDateFromYYYYdashMMdashDDTHHcolonMMcolonSS(String s) {
+		if (s==null || s.equalsIgnoreCase("null")) {
+			s="0001-01-01T00:00:00"; // the system was originally written to return null's like this
+		}
 		int yyyy=Integer.valueOf(s.substring(0, 4));
 		int mm=Integer.valueOf(s.substring(5, 7));
 		int dd=Integer.valueOf(s.substring(8,10));

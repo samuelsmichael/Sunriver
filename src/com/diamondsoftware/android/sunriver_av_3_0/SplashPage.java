@@ -196,9 +196,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	public ArrayList<Object> getRemoteData(String name) {
 		if(name.equalsIgnoreCase("alert")) {
 			try {
-				ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
-					new ParsesXMLAlert(), 
-					getString(R.string.urlalert)).parse();
+				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+					new ParsesJsonAlert(), 
+					getString(R.string.urlalertjson)).parse();
 				return data;
 			} catch (Exception e) {
 			} finally {
@@ -222,9 +222,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			} else {
 				if(name.equalsIgnoreCase("welcome")) {
 					try {
-						ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
-							new ParsesXMLWelcome(), 
-							getString(R.string.urlwelcome)).parse();
+						ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+							new ParsesJsonWelcome(), 
+							getString(R.string.urlwelcomejson)).parse();
 						return data;
 					} catch (Exception e) {
 						
@@ -233,9 +233,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				} else {
 					if(name.equalsIgnoreCase("didyouknow")) {
 						try {
-							ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
-								new ParsesXMLDidYouKnow(), 
-								getString(R.string.urldidyouknow)).parse();
+							ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+								new ParsesJsonDidYouKnow(), 
+								getString(R.string.urldidyouknowjson)).parse();
 							return data;
 						} catch (Exception e) {
 							
@@ -244,9 +244,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					} else {
 						if(name.equalsIgnoreCase("selfie")) {
 							try {
-								ArrayList<Object> data = new XMLReaderFromRemotelyAcquiredXML(
-										new ParsesXMLSelfie(),
-										getString(R.string.urlselfie)).parse();
+								ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+										new ParsesJsonSelfie(),
+										getString(R.string.urlselfiejson)).parse();
 								return data;
 							} catch (Exception e) {
 								int bkhere=3;

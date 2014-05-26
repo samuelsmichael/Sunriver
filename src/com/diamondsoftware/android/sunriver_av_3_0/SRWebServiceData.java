@@ -17,11 +17,11 @@ import org.xmlpull.v1.XmlPullParserException;
  *
  */
 public class SRWebServiceData {
-	private FormattedDataReader mXmlReader;
+	private FormattedDataReader mFormattedDataReader;
 	private Cacheable mCacheable;
 	
-	public SRWebServiceData(FormattedDataReader xmlReader, Cacheable cacheable) {
-		mXmlReader=xmlReader;
+	public SRWebServiceData(FormattedDataReader formattedDataReader, Cacheable cacheable) {
+		mFormattedDataReader=formattedDataReader;
 		mCacheable=cacheable;
 	}
 	public ArrayList<Object> procureTheData() throws Exception  {
@@ -33,7 +33,7 @@ public class SRWebServiceData {
 		if (!doWeHaveData()) {
 			if(SplashPage.gotInternet) {
 				try {
-					ArrayList<Object> aloo= mXmlReader.parse();
+					ArrayList<Object> aloo= mFormattedDataReader.parse();
 					mCacheable.setLastDateReadToNow();
 					// For ItemService, as it is two layered, fetchDataFromDatabase separates the layers properly
 					if(mCacheable instanceof ItemService) {
@@ -51,7 +51,7 @@ public class SRWebServiceData {
 		} else {
 			if(isDataExpired()) { 
 				try {
-					ArrayList<Object> aloo= mXmlReader.parse();
+					ArrayList<Object> aloo= mFormattedDataReader.parse();
 					mCacheable.setLastDateReadToNow();
 					// For ItemService, as it is two layered, fetchDataFromDatabase separates the layers properly
 					if(mCacheable instanceof ItemService) {

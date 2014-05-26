@@ -9,7 +9,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLSelfie extends ParsesXML {
 	
-	public ParsesXMLSelfie() {
+	public ParsesXMLSelfie(String dummy) {
+		super(dummy);
 	}
 	
 	@Override

@@ -9,7 +9,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLUpdate extends ParsesXML {
 	
-	public ParsesXMLUpdate() {
+	public ParsesXMLUpdate(String dummy) {
+		super(dummy);
 	}
 	
 	@Override

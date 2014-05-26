@@ -15,7 +15,7 @@ import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 public class MapsGraphicsLayerMisc extends MapsGraphicsLayer {
 
 	public MapsGraphicsLayerMisc(Activity activity,MapView mapView, int color, 
-				int size, STYLE style,ParsesXMLMapLocations.LocationType locationType, boolean updateGraphics) {
+				int size, STYLE style,ItemLocation.LocationType locationType, boolean updateGraphics) {
 		super(activity, mapView, color, size, style, locationType, updateGraphics, null);
 	}
 	@Override 

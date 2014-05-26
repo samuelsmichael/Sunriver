@@ -51,7 +51,7 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 		
 		String uri=getSharedPreferences().getString("urlcalendar", defaultValue);
 		try {
-			ArrayList beforeFiltering=new SRWebServiceData( new XMLReaderFromRemotelyAcquiredXML(new ParsesXMLCalendarPage(), uri ),new ItemCalendar()).procureTheData();
+			ArrayList beforeFiltering=new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonCalendar(), uri ),new ItemCalendar()).procureTheData();
 			ArrayList afterFiltering=new ArrayList<Object>();
 			java.util.Calendar dateAfter=null;
 			try {

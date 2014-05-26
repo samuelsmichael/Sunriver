@@ -10,7 +10,8 @@ import java.util.HashMap;
 public class ParsesXMLServicesPage extends ParsesXMLServices {
 	HashMap<String,String> doneCategories=new HashMap<String,String>();
 
-	public ParsesXMLServicesPage() {
+	public ParsesXMLServicesPage(String dummy) {
+		super(dummy);
 	}
 
 	@Override

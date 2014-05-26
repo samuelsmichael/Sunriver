@@ -8,8 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLAlert extends ParsesXML {
 
-	public ParsesXMLAlert() {
-
+	public ParsesXMLAlert(String dummy) {
+		super(dummy);
 	}
 
 	@Override

@@ -10,7 +10,8 @@ public class ParsesXMLServicesDetailsPage extends ParsesXMLServices {
 
 	String mCategoryName;
 	
-	public ParsesXMLServicesDetailsPage(String categoryName) {
+	public ParsesXMLServicesDetailsPage(String categoryName, String dummy) {
+		super(dummy);
 		mCategoryName=categoryName;
 	}
 

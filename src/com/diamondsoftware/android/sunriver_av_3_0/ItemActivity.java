@@ -218,7 +218,7 @@ public class ItemActivity extends SunriverDataItem {
 		values.put(KEY_ACTIVITY_SRACTID, this.getSrActID());
 		values.put(KEY_ACTIVITY_SRACTNAME,getSrActName());
 		values.put(KEY_ACTIVITY_SRACTDESCRIPTION,getSrActDescription());
-		values.put(KEY_ACTIVITY_SRACTDATE, DbAdapter.mDateFormat.format(getSrActDate().getTime()));
+		values.put(KEY_ACTIVITY_SRACTDATE, getSrActDate()==null?null: DbAdapter.mDateFormat.format(getSrActDate().getTime()));
 		values.put(KEY_ACTIVITY_SRACTTIME, getSrActTime());
 		values.put(KEY_ACTIVITY_SRACTDURATION, getSrActDuration() );
 		values.put(KEY_ACTIVITY_SRACTLINKS, getSrActLinks());
@@ -256,7 +256,7 @@ public class ItemActivity extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastDateRead=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastDateRead==null||
+				SplashPage.TheItemUpdate==null || lastDateRead==null || SplashPage.TheItemUpdate.getUpdateActivity()==null ||
 				SplashPage.TheItemUpdate.getUpdateActivity().getTime().after(lastDateRead)
 		);
 	}

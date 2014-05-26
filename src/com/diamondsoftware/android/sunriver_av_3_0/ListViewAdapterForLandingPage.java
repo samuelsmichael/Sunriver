@@ -58,6 +58,6 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
 
 	@Override
 	protected ArrayList<Object> childGetData() throws Exception {
-		return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLLandingPage(), "homepage_values.xml").parse();
+		return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLLandingPage(null), "homepage_values.xml").parse();
 	}
 }

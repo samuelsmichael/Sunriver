@@ -5,6 +5,13 @@
     
     <string name="urlactivityjson">http://listplus.no-ip.org/sunriverwebapp/Activity.aspx</string>
     <string name="urlupdatejson">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
+    <string name="urlservicesjson">http://listplus.no-ip.org/sunriverwebapp/Services.aspx</string>
+    <string name="urlfindhomejson">http://listplus.no-ip.org/sunriverwebapp/FindCountyAddress.aspx</string>
+    <string name="urlalertjson">http://listplus.no-ip.org/sunriverwebapp/Alert.aspx</string>
+    <string name="urlwelcomejson">http://listplus.no-ip.org/sunriverwebapp/Welcome.aspx</string>
+    <string name="urldidyouknowjson">http://listplus.no-ip.org/sunriverwebapp/DidYouKnow.aspx</string>
+    <string name="urlselfiejson">http://listplus.no-ip.org/sunriverwebapp/Overlay.aspx</string>
+    
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>

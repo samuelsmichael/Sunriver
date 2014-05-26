@@ -9,8 +9,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 public class ParsesXMLAllHomes extends ParsesXML {
 
-	public ParsesXMLAllHomes() {
-
+	public ParsesXMLAllHomes(String dummy) {
+		super(dummy);
 	}
 
 	@Override

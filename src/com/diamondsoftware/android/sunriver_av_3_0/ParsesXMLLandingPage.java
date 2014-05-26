@@ -8,7 +8,8 @@ import org.xmlpull.v1.XmlPullParserException;
 
 
 public class ParsesXMLLandingPage extends ParsesXML {
-	public ParsesXMLLandingPage() {
+	public ParsesXMLLandingPage(String dummy) {
+		super(dummy);
 	}
 	@Override
 	protected ArrayList<Object> parse(XmlPullParser parser) throws XmlPullParserException, IOException {

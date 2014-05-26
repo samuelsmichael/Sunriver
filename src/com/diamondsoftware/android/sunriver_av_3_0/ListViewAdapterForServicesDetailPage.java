@@ -41,9 +41,9 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 				ItemService.mColumnValuesForWhereClause=new String[1];
 				ItemService.mColumnValuesForWhereClause[0]=mCategoryName;
 				ItemService.mGroupBy=null;
-				String defaultValue=mActivity.getResources().getString(R.string.urlservices);			
-				String uri=getSharedPreferences().getString("urlservices", defaultValue);
-				return new SRWebServiceData( new XMLReaderFromRemotelyAcquiredXML(new ParsesXMLServicesDetailsPage(mCategoryName), uri ),new ItemService()).procureTheData();
+				String defaultValue=mActivity.getResources().getString(R.string.urlservicesjson);			
+				String uri=getSharedPreferences().getString("urlservicesjson", defaultValue);
+				return new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonServices(), uri ),new ItemService()).procureTheData();
 				
 				
 //				return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLServicesDetailsPage(mCategoryName), "services.xml").parse();

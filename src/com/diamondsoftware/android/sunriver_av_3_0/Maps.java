@@ -261,43 +261,43 @@ public class Maps extends Activity {
 		 */
 		mGraphicsLayerRestaurants = new MapsGraphicsLayerLocation(this,
 				mMapView, Color.GREEN, 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.RESTAURANT, true,
+				ItemLocation.LocationType.RESTAURANT, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true);
 		mGraphicsLayers.add(mGraphicsLayerRestaurants);
 		mGraphicsLayerRetails = new MapsGraphicsLayerLocation(this, mMapView,
 				Color.parseColor("#ff696969"), 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.RETAIL, true,
+				ItemLocation.LocationType.RETAIL, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true);
 		mGraphicsLayers.add(mGraphicsLayerRetails);
 		mGraphicsLayerPools = new MapsGraphicsLayerLocation(this, mMapView,
 				Color.parseColor("#ff00ffff"), 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.POOL, true,
+				ItemLocation.LocationType.POOL, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_POOLS,false);
 		mGraphicsLayers.add(mGraphicsLayerPools);
 		mGraphicsLayerTennisCourts = new MapsGraphicsLayerLocation(this,
 				mMapView, Color.YELLOW, 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.TENNIS_COURT, true,
+				ItemLocation.LocationType.TENNIS_COURT, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_TENNISCOURTS,false);
 		mGraphicsLayers.add(mGraphicsLayerTennisCourts);
 		mGraphicsLayerGas = new MapsGraphicsLayerLocation(this, mMapView,
 				Color.RED, 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.GAS_STATION, true,
+				ItemLocation.LocationType.GAS_STATION, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_GAS,false);
 		mGraphicsLayers.add(mGraphicsLayerGas);
 		mGraphicsLayerPerfectPictureSpots = new MapsGraphicsLayerLocation(this,
 				mMapView, Color.MAGENTA, 12, STYLE.CIRCLE,
-				ParsesXMLMapLocations.LocationType.PERFECT_PICTURE_SPOT, true,
+				ItemLocation.LocationType.PERFECT_PICTURE_SPOT, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false);
 		mGraphicsLayers.add(mGraphicsLayerPerfectPictureSpots);
 		// This one we can do without queueing it up, since it's doesn't need to
 		// fetch any data off of the web service
 		mGraphicsLayerMisc = new MapsGraphicsLayerMisc(this, mMapView,
 				Color.DKGRAY, 12, STYLE.DIAMOND,
-				ParsesXMLMapLocations.LocationType.SUNRIVER, true);
+				ItemLocation.LocationType.SUNRIVER, true);
 		mGraphicsLayers.add(mGraphicsLayerMisc);
 		
 		mGraphicsLayerCurrentLocation=new MapsGraphicsLayerCurrentLocation(this, mMapView,
-				Color.rgb(255, 255, 255), 14, STYLE.CROSS, ParsesXMLMapLocations.LocationType.NULL,
+				Color.rgb(255, 255, 255), 14, STYLE.CROSS, ItemLocation.LocationType.NULL,
 				true);
 		mGraphicsLayers.add(mGraphicsLayerCurrentLocation);
 		if(getIntent().getExtras()!=null) { // being called to display an item on the map (e.g. - an Eats & Treats)
