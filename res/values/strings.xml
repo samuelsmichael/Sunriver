@@ -41,9 +41,13 @@
     <!-- ArcGIS UserCredentials -->
     <string name="arcgis_userid">seabaseballfan</string>
     <string name="arcgis_password">Wp_p18mm</string>
+    
     <string name="map_offline_url4">http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer</string>
     <string name="wtf">wtf</string>
-    <string name="gotourl">Open URL?</string> 
+    <string name="gotourl">Open URL?</string>
+    <string name="disclaimer">The information on this map was derived from SROA digital databases . Care was taken in the creation of this map. SROA cannot accept any responsibility for errors, omissions, or positional accuracy. There are no warranties, expressed or implied, including the warranty of merchantability or fitness for a particular purpose, accompanying this product. However, notification of any errors will be appreciated.</string>
+    <string name="disclaimer_donotshowagain">Do not show again</string>
+     
     <string name="wunderground_api_conditions">http://api.wunderground.com/api/bc2f8db95e1b5405/conditions/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast10days">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast10days/q/OR/Sunriver.json</string>
@@ -75,6 +79,8 @@
     <string name="location_popup_showonmap_button">Show on map</string>
     <string name="application_settings">Settings</string>
     <string name="callout_close">Close</string>
+    <string name="disclaimer_closebutton">Continue</string>
+    <string name="disclaimer_cancelbutton">Cancel</string>
     <string name="map_arcgis_url1">http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer</string>
     <string name="map_arcgis_url2">http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer</string>
     <string name="map_arcgis_url3">http://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer</string>

@@ -1,5 +1,6 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -168,14 +169,28 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		if (id == 100 || id == 900) {
-			if(id==900) { // show the bike paths
-				Editor edit=mSharedPreferences.edit();
-				edit.putBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, true);
-				edit.commit();
+		if (id == 100) {
+			File dir=new File(android.os.Environment.getExternalStorageDirectory(),"/sunriver"); // no need to popup the disclaimer if the user checked "do not show again"
+			File donotshowagain=new File(dir, PopupDisclaimer.DISCLAIMER_MAPS_FILE);
+			Intent intent = new Intent(this, Maps.class);
+			if(!donotshowagain.exists()) {
+				new PopupDisclaimer(this,PopupDisclaimer.DISCLAIMER_MAPS_FILE,intent).createPopup();
+			} else {
+				startActivity(intent);
 			}
-			Intent intent = new Intent(MainActivity.this, Maps.class);
-			startActivity(intent);
+		}
+		if(id==900) {
+			Editor edit=mSharedPreferences.edit();
+			edit.putBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, true);
+			edit.commit();
+			File dir=new File(android.os.Environment.getExternalStorageDirectory(),"/sunriver"); // no need to popup the disclaimer if the user checked "do not show again"
+			File donotshowagain=new File(dir, PopupDisclaimer.DISCLAIMER_BIKEPATHS_FILE);
+			Intent intent = new Intent(this, Maps.class);
+			if(!donotshowagain.exists()) {
+				new PopupDisclaimer(this,PopupDisclaimer.DISCLAIMER_BIKEPATHS_FILE,intent).createPopup();
+			} else {
+				startActivity(intent);
+			}
 		}
 		if (id == 200) {
 			Intent intent = new Intent(MainActivity.this, Weather2.class);
