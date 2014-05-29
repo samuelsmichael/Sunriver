@@ -1,17 +1,11 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-import org.xmlpull.v1.XmlPullParserException;
-
-import com.diamondsoftware.android.sunriver_av_3_0.R;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
 import android.app.Activity;
@@ -29,6 +23,9 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -156,8 +153,7 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	protected int getViewId() {
 		return R.layout.activity_main;
 	}
-
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see com.diamondsoftware.android.sunriver_av_3_0.AbstractActivityForListViews#childOnItemClick(android.widget.AdapterView, android.view.View, int, long)

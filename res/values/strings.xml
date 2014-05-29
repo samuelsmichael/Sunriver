@@ -42,6 +42,16 @@
     <string name="arcgis_userid">seabaseballfan</string>
     <string name="arcgis_password">Wp_p18mm</string>
     
+    <string name="aboutusstring">About Us</string>
+    <string name="aboutuslink_privacypolicy">http://en.wikipedia.org/wiki/Privacy_policy</string>
+    <string name="aboutuslink_termsandconditions">http://www.lexisnexis.com/terms/general.aspx</string>
+    <string name="aboutusverbiage">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="aboutusversionheading">Version</string>
+    <string name="aboutusprivacypolicyheading">Click here to view our Privacy Policy</string>
+    <string name="aboutustermsandconditionsheading">Click here to view our Terms and Conditions</string>
+    <string name="aboutustitle">Sunriver App</string>
+    <string name="contactusstring">Contact Us</string>
+    <string name="emailto">jasons@srowners.com</string>
     <string name="map_offline_url4">http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer</string>
     <string name="wtf">wtf</string>
     <string name="gotourl">Open URL?</string>

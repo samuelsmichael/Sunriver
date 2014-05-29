@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivitiesDetailActivity extends Activity {
+public class ActivitiesDetailActivity extends AbstractActivityForMenu {
 	
 	private ImageView mImageUrl;
 	private TextView mName;

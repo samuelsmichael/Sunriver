@@ -55,7 +55,7 @@ import android.widget.Toast;
  * Class for managing all of the Selfie operations.
  *
  */
-public class AndroidCamera extends Activity implements SurfaceHolder.Callback{
+public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHolder.Callback{
 	static int maxZoom;
 	static int currentZoom;
 	static boolean canZoom;

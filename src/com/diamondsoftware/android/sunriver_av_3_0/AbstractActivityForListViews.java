@@ -8,6 +8,9 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -25,7 +28,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * 
  * 
  */
-public abstract class AbstractActivityForListViews extends Activity  implements WaitingForDataAcquiredAsynchronously {
+public abstract class AbstractActivityForListViews extends AbstractActivityForMenu  implements WaitingForDataAcquiredAsynchronously {
 	protected ListView mList;
 	protected ListViewAdapter mAdapter;
 	protected SharedPreferences mSharedPreferences;

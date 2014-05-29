@@ -22,7 +22,7 @@ import android.widget.Toast;
  * @author Diamond
  *
  */
-public class Weather2 extends Activity {
+public class Weather2 extends AbstractActivityForMenu {
 
 	public static char degree = '\u00B0';
 	public enum QueryType {

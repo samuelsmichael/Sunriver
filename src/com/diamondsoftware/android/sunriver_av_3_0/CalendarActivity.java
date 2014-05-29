@@ -28,13 +28,6 @@ public class CalendarActivity extends AbstractActivityForListViews  implements W
 	private ListViewAdapter mListViewAdapter;
 
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.calendar, menu);
-		return true;
-	}
-
-	@Override
 	protected int getListViewId() {
 		return R.id.calendarlist;
 	}

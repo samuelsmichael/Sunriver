@@ -4,6 +4,7 @@ import java.util.Map;
 
 import android.app.Activity;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
@@ -48,6 +49,15 @@ public class PopupMapsLocationsLayers2 extends Popups2 {
 		gas.setChecked(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_GAS, false));
 		perfectPictureSpots.setChecked(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS, false));
 		bikePaths.setChecked(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, false));
+		/* Make the checkboxes gray */
+		int id = Resources.getSystem().getIdentifier("btn_check_holo_dark", "drawable", "android");
+		restaurants.setButtonDrawable(id);
+		retail.setButtonDrawable(id);
+		pools.setButtonDrawable(id);
+		tennisCourts.setButtonDrawable(id);
+		gas.setButtonDrawable(id);
+		perfectPictureSpots.setButtonDrawable(id);
+		bikePaths.setButtonDrawable(id);
 	}
 
 	@Override

@@ -61,7 +61,7 @@ import android.widget.Toast;
  * @author Diamond
  *
  */
-public class Maps extends Activity {
+public class Maps extends AbstractActivityForMenu {
 	public final static String POINT_LATITUDE_KEY_ON_REFRESHING_CACHE="point_latitude_key_ON_REFRESHING_CACHE";
 	public final static String POINT_LONGITUDE_KEY_ON_REFRESHING_CACHE="point_longitude_key_ON_REFRESHING_CACHE";
 
@@ -265,7 +265,7 @@ public class Maps extends Activity {
 				MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true);
 		mGraphicsLayers.add(mGraphicsLayerRestaurants);
 		mGraphicsLayerRetails = new MapsGraphicsLayerLocation(this, mMapView,
-				Color.parseColor("#ff696969"), 12, STYLE.CIRCLE,
+				Color.parseColor("#ffeeeee0"), 12, STYLE.CIRCLE,
 				ItemLocation.LocationType.RETAIL, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true);
 		mGraphicsLayers.add(mGraphicsLayerRetails);
@@ -642,13 +642,6 @@ public class Maps extends Activity {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.maps, menu);
-		return true;
 	}
 
 	protected void onPause() {
