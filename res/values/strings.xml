@@ -3,6 +3,7 @@
 
     <!-- Sunriver Web App settings -->
     
+    <string name="urlgislayersjson">http://listplus.no-ip.org/sunriverwebapp/GISLayers.aspx</string>
     <string name="urlhospitalityjson">http://listplus.no-ip.org/sunriverwebapp/Hospitality.aspx</string>
     <string name="urlactivityjson">http://listplus.no-ip.org/sunriverwebapp/Activity.aspx</string>
     <string name="urlupdatejson">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>

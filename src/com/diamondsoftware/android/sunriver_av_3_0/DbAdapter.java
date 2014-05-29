@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 24;
+	private static final int DATABASE_VERSION = 25;
 
 	public static final DateFormat mDateFormat = new SimpleDateFormat(
 	"yyyy-MM-dd HH:mm:ss.S");
@@ -95,6 +95,12 @@ public class DbAdapter {
 				ItemWelcome.KEY_WELCOME_ROWID + " integer primary key autoincrement," +
 				ItemWelcome.KEY_WELCOME_WELCOMEID + " integer," +
 				ItemWelcome.KEY_WELCOME_WELCOMEURL + " string ); ";
+		private static final String CREATE_TABLE_GISLAYERS = "create table " + ItemGISLayers.DATABASE_TABLE_GISLAYERS + " (" +
+				ItemGISLayers.KEY_GISLAYERS_ROWID + " integer primary key autoincrement," +
+				ItemGISLayers.KEY_GISLAYERS_ISBIKEPATHS + " bit," +
+				ItemGISLayers.KEY_GISLAYERS_ID + " integer,"+
+				ItemGISLayers.KEY_GISLAYERS_URL + " string,"+
+				ItemGISLayers.KEY_GISLAYERS_USENUM + " integer );";
 		private static final String CREATE_TABLE_ACTIVITY = "create table " + ItemActivity.DATABASE_TABLE_ACTIVITY + " (" +
 				ItemActivity.KEY_ACTIVITY_ROWID + " integer primary key autoincrement," +
 				ItemActivity.KEY_ACTIVITY_SRACTID + " integer," +
@@ -210,6 +216,9 @@ public class DbAdapter {
 			}
 			try {
 				db.execSQL(CREATE_TABLE_HOSPITALITY);
+			} catch (Exception eieio) {}
+			try {
+				db.execSQL(CREATE_TABLE_GISLAYERS);
 			} catch (Exception eieio) {}
 		}
 

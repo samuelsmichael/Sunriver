@@ -26,6 +26,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	public static ItemWelcome TheItemWelcome=null;
 	public static ArrayList<Object> TheItemsSelfie=null;
 	public static ArrayList<Object> TheItemsDidYouKnow=null;
+	public static ArrayList<Object> TheItemsGISLayers=null;
 	public static boolean gotInternet=false;
 	private int mCountItemsLeft=0;
 	public SharedPreferences mSharedPreferences;
@@ -139,6 +140,15 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 								TheItemsSelfie=items;
 							}
 						}
+						ItemGISLayers itemGISLayers=new ItemGISLayers();
+						if(itemGISLayers.isDataExpired()) {
+							new AcquireDataRemotelyAsynchronously("gislayers",this,this);
+						} else {
+							ArrayList<Object> items=itemGISLayers.fetchDataFromDatabase();
+							if(items!=null && items.size()>0) {
+								TheItemsGISLayers=items;
+							}
+						}
 						/* Don't need to fetch DidYouKnow data if it's not expired */
 						ItemDidYouKnow itemDidYouKnow = new ItemDidYouKnow();
 						if(itemDidYouKnow.isDataExpired()) {
@@ -157,6 +167,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							TheItemsSelfie=items2;
 						}
 						TheItemsDidYouKnow= new ItemDidYouKnow().fetchDataFromDatabase();
+						TheItemsGISLayers=new ItemGISLayers().fetchDataFromDatabase();
 					}
 				} else {
 					if(name.equalsIgnoreCase("welcome")) {
@@ -166,24 +177,33 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							TheItemWelcome.setLastDateReadToNow();
 						}
 					} else {
-						if(name.equalsIgnoreCase("didyouknow")) {
-							doDecrement=false; // I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+						if(name.equalsIgnoreCase("gislayers")) {
+							doDecrement=false;// I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
 							if(data!=null && data.size()>0) {
-								TheItemsDidYouKnow=data;
+								TheItemsGISLayers=data;
 								gotInternet=true;
-								((ItemDidYouKnow)TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
-							}	
+								((ItemGISLayers)TheItemsGISLayers.get(0)).setLastDateReadToNow();
+							}
 						} else {
-							if(name.equalsIgnoreCase("selfie")) {
-								doDecrement=false;
-								TheItemsSelfie=data;
-								gotInternet=true;
-								((ItemSelfie)TheItemsSelfie.get(0)).setLastDateReadToNow();
+							if(name.equalsIgnoreCase("didyouknow")) {
+								doDecrement=false; // I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+								if(data!=null && data.size()>0) {
+									TheItemsDidYouKnow=data;
+									gotInternet=true;
+									((ItemDidYouKnow)TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
+								}	
+							} else {
+								if(name.equalsIgnoreCase("selfie")) {
+									doDecrement=false;
+									TheItemsSelfie=data;
+									gotInternet=true;
+									((ItemSelfie)TheItemsSelfie.get(0)).setLastDateReadToNow();
+								}
 							}
 						}
 					}
-				}
-			} 
+				} 
+			}
 		} finally {
 			if(doDecrement) {
 				decrementMCountItemsLeft();
@@ -244,17 +264,30 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} finally {
 						}		
 					} else {
-						if(name.equalsIgnoreCase("selfie")) {
+						if(name.equalsIgnoreCase("gislayers")) {
 							try {
 								ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-										new ParsesJsonSelfie(),
-										getString(R.string.urlselfiejson)).parse();
+										new ParsesJsonGISLayers(),
+										getString(R.string.urlgislayersjson)).parse();
 								return data;
 							} catch (Exception e) {
 								int bkhere=3;
 								int bkthere=bkhere;
 							} finally {
-							}		
+							}									
+						} else {
+							if(name.equalsIgnoreCase("selfie")) {
+								try {
+									ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+											new ParsesJsonSelfie(),
+											getString(R.string.urlselfiejson)).parse();
+									return data;
+								} catch (Exception e) {
+									int bkhere=3;
+									int bkthere=bkhere;
+								} finally {
+								}		
+							}
 						}
 					}
 				}

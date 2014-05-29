@@ -242,9 +242,17 @@ public class Maps extends AbstractActivityForMenu {
 			mBaseMapsLayer=new ArcGISTiledMapServiceLayer(
 					getString(R.string.map_arcgis_url4),uc);
 			mMapView.addLayer(mBaseMapsLayer);
-			mBikePaths=new ArcGISTiledMapServiceLayer(getString(R.string.bike_path_layer));
+			mBikePaths=new ArcGISTiledMapServiceLayer(getBikePathLayer());
 			mBikePaths.setVisible(MainActivity.mSingleton.mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, false));
 			mMapView.addLayer(mBikePaths);
+			if(SplashPage.TheItemsGISLayers!=null && SplashPage.TheItemsGISLayers.size()>0) {
+				for(Object i: SplashPage.TheItemsGISLayers) {
+					if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
+						ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(((ItemGISLayers)i).getSrGISLayersURL());
+						mMapView.addLayer(layer);
+					}
+				}
+			}
 		} else {
 			mImCreatingMapFromLocalCache=true;
 	        localTiledLayer = new ArcGISLocalTiledLayer(thePath2);	        
@@ -315,6 +323,23 @@ public class Maps extends AbstractActivityForMenu {
 		}
 	}
 
+	/* First try to find the bike path layer from the database fetch; and if not found, use the default.*/
+	private String getBikePathLayer() {
+		ItemGISLayers item=null;
+		if(SplashPage.TheItemsGISLayers!=null && SplashPage.TheItemsGISLayers.size()>0) {
+			for(Object i: SplashPage.TheItemsGISLayers) {
+				if(((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
+					item=(ItemGISLayers)i;
+					break;
+				}
+			}
+		}
+		if(item!=null) {
+			return item.getSrGISLayersURL();
+		} else {
+			return getString(R.string.bike_path_layer);
+		}
+	}
 	private Location onOpeningMap=null;
 	private boolean mapCacheNeedsRenewing() {
 		float dx=0;
