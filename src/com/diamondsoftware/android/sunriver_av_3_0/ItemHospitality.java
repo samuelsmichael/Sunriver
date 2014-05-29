@@ -21,8 +21,6 @@ public class ItemHospitality extends SunriverDataItem {
 	public static final String KEY_HOSPITALITY_ADDRESS = "srHospitalityAddress";
 	public static final String KEY_HOSPITALITY_LAT = "srHospitalityLat";
 	public static final String KEY_HOSPITALITY_LONG = "srHospitalityLong";
-	public static final String KEY_HOSPITALITY_ISAPPROVED = "srHospitalityIsApproved";
-
 	public static final String DATABASE_TABLE_HOSPITALITY = "hospitality";	
 	public static final String DATE_LAST_UPDATED="date_last_updated_hospitality";
 	private SimpleDateFormat simpleFormatter;
@@ -100,14 +98,6 @@ public class ItemHospitality extends SunriverDataItem {
 		this.srHospitalityLong = srHospitalityLong;
 	}
 
-	public boolean getSrHospitalityIsApproved() {
-		return srHospitalityIsApproved;
-	}
-
-	public void setSrHospitalityIsApproved(boolean srHospitalityIsApproved) {
-		this.srHospitalityIsApproved = srHospitalityIsApproved;
-	}
-
 	private int srHospitalityID;
 	private String srHospitalityName;
 	private String srHospitalityDescription;
@@ -117,7 +107,6 @@ public class ItemHospitality extends SunriverDataItem {
 	private String srHospitalityAddress;
 	private double srHospitalityLat;
 	private double srHospitalityLong;
-	private boolean srHospitalityIsApproved;
 
 	public ItemHospitality() {
 	}
@@ -146,7 +135,6 @@ public class ItemHospitality extends SunriverDataItem {
 	
 	
 	public ItemHospitality (Cursor cursor) {
-		this.setSrHospitalityIsApproved(cursor.getInt(cursor.getColumnIndex(KEY_HOSPITALITY_ISAPPROVED))!=0);
 		this.setSrHospitalityAddress(cursor.getString(cursor.getColumnIndex(KEY_HOSPITALITY_ADDRESS)));
 		this.setSrHospitalityDescription(cursor.getString(cursor.getColumnIndex(KEY_HOSPITALITY_DESCRIPTION)));
 		this.setSrHospitalityPhone(cursor.getString(cursor.getColumnIndex(KEY_HOSPITALITY_PHONE)));
@@ -180,7 +168,6 @@ public class ItemHospitality extends SunriverDataItem {
 		values.put(KEY_HOSPITALITY_ADDRESS, getSrHospitalityAddress());
 		values.put(KEY_HOSPITALITY_LAT, getSrHospitalityLat());
 		values.put(KEY_HOSPITALITY_LONG, getSrHospitalityLong());
-		values.put(KEY_HOSPITALITY_ISAPPROVED, getSrHospitalityIsApproved());
 	}
 	
 	@Override
@@ -195,8 +182,7 @@ public class ItemHospitality extends SunriverDataItem {
 				KEY_HOSPITALITY_URLIMAGE,
 				KEY_HOSPITALITY_ADDRESS,
 				KEY_HOSPITALITY_LAT,
-				KEY_HOSPITALITY_LONG,
-				KEY_HOSPITALITY_ISAPPROVED
+				KEY_HOSPITALITY_LONG
 		};
 		return projection;
 	}

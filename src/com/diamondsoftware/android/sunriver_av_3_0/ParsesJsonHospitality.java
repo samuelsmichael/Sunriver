@@ -18,7 +18,6 @@ public class ParsesJsonHospitality extends ParsesJson {
 		for(int i=0;i<c;i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
 			ItemHospitality item=new ItemHospitality();
-			item.setSrHospitalityIsApproved(jsonObject.getBoolean("srHospitalityIsApproved"));
 			item.setSrHospitalityAddress(jsonObject.getString("srHospitalityAddress"));
 			item.setSrHospitalityDescription(jsonObject.getString("srHospitalityDescription"));
 			item.setSrHospitalityPhone(jsonObject.getString("srHospitalityPhone"));
@@ -28,9 +27,7 @@ public class ParsesJsonHospitality extends ParsesJson {
 			item.setSrHospitalityLong(jsonObject.getDouble("srHospitalityLong"));
 			item.setSrHospitalityName(jsonObject.getString("srHospitalityName"));
 			item.setSrHospitalityUrlImage(jsonObject.getString("srHospitalityUrlImage"));
-			if(item.getSrHospitalityIsApproved()) {
-				items.add(item);
-			}
+			items.add(item);
 		}
 		return items;
 	}

@@ -23,7 +23,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 23;
+	private static final int DATABASE_VERSION = 24;
 
 	public static final DateFormat mDateFormat = new SimpleDateFormat(
 	"yyyy-MM-dd HH:mm:ss.S");
@@ -114,7 +114,6 @@ public class DbAdapter {
 				ItemHospitality.KEY_HOSPITALITY_ID + " integer, " +
 				ItemHospitality.KEY_HOSPITALITY_ADDRESS + " string, "+
 				ItemHospitality.KEY_HOSPITALITY_DESCRIPTION + " string, "+
-				ItemHospitality.KEY_HOSPITALITY_ISAPPROVED + " bit, " +
 				ItemHospitality.KEY_HOSPITALITY_LAT + " string, "+
 				ItemHospitality.KEY_HOSPITALITY_LONG + " string, " +
 				ItemHospitality.KEY_HOSPITALITY_NAME + " string, " +
@@ -231,7 +230,7 @@ public class DbAdapter {
 						db.execSQL("DROP INDEX IF EXISTS " + "allhomes_index");
 						db.execSQL("DROP TABLE IF EXISTS "+ItemAllHomes.DATABASE_TABLE_ALLHOMES);
 					} else {
-						if(newVersion==22) {
+						if(newVersion==24) {
 							db.execSQL("DROP TABLE IF EXISTS "+ItemHospitality.DATABASE_TABLE_HOSPITALITY);
 						}
 					}
