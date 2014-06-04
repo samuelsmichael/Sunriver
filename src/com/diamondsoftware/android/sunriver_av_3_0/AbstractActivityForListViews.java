@@ -8,10 +8,14 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -33,6 +37,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	protected ListViewAdapter mAdapter;
 	protected SharedPreferences mSharedPreferences;
 	protected Popups2 mPopup;
+	private ImageView mImageView;
 	
 	// get the layout id of the associated ListView
 	protected abstract int getListViewId();
@@ -76,6 +81,42 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		}
 	}
 	
+	protected void doFade() {
+	    final Animation animationFadeOut = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+	    animationFadeOut.setAnimationListener(new AnimationListener(){
+
+			@Override
+			public void onAnimationEnd(Animation arg0) {
+				// TODO Auto-generated method stub
+				mImageView.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAnimationRepeat(Animation arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onAnimationStart(Animation arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+	    	
+	    });
+	    new CountDownTimer(4000, 1000) {
+
+	        public void onTick(long millisUntilFinished) {
+	           
+	        }
+
+	        public void onFinish() {
+	    	    mImageView.startAnimation(animationFadeOut);           
+	        }
+	     }.start();	    
+
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -87,15 +128,15 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		
 		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 		setContentView(getViewId());
-		ImageView imageView=(ImageView)this.findViewById(getImageId());
+		mImageView=(ImageView)this.findViewById(getImageId());
 		childOnCreate();
         mList=(ListView)findViewById(getListViewId());
         
         String imageURL=getImageURL();
 		if(imageURL!=null && getImageId()!=0) {
 			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
-			imageLoader.displayImage(imageURL,imageView);
-			
+			imageLoader.displayImage(imageURL,mImageView);
+			doFade();
 		}
  
         /*

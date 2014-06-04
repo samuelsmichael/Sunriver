@@ -260,7 +260,7 @@ public class ItemCalendar extends SunriverDataItem {
 		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateCalendar().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null ||
+				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateCalendar()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);
 	}

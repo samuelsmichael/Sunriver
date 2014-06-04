@@ -4,19 +4,37 @@
 			android:title="Urls"
 		>
 			  <EditTextPreference
-			  	android:key="urlcalendar"
-			  	android:defaultValue="@string/urlcalendar"
-			  	android:title="Calendar Data URL"
-			  	android:summary="URL used to fetch the Calendar data"
+			  	android:key="urlselfiejson"
+			  	android:defaultValue="@string/urlselfiejson"
+			  	android:title="Selfie Data URL"
+			  	android:summary="URL used to fetch the Selfie data"
 			  ></EditTextPreference>
-			  <EditTextPreference
-			  	android:key="urlactivity"
-			  	android:defaultValue="@string/urlactivity"
-			  	android:title="Activity Data URL"
-			  	android:summary="URL used to fetch the Activity data"
+		      <EditTextPreference
+			  	android:key="urldidyouknowjson"
+			  	android:defaultValue="@string/urldidyouknowjson"
+			  	android:title="Did You know Data URL"
+			  	android:summary="URL used to fetch the Did You Know data"
 			  ></EditTextPreference>
-			  <EditTextPreference
-			  	android:key="urlhospitality"
+		      <EditTextPreference
+			  	android:key="urlwelcomejson"
+			  	android:defaultValue="@string/urlwelcomejson"
+			  	android:title="Welcome Data URL"
+			  	android:summary="URL used to fetch the Welcome data"
+			  ></EditTextPreference>
+		      <EditTextPreference
+			  	android:key="urlalertjson"
+			  	android:defaultValue="@string/urlalertjson"
+			  	android:title="Alert Data URL"
+			  	android:summary="URL used to fetch the Alert data"
+			  ></EditTextPreference>
+		      <EditTextPreference
+			  	android:key="urlupdatejson"
+			  	android:defaultValue="@string/urlupdatejson"
+			  	android:title="Update Data URL"
+			  	android:summary="URL used to fetch the Update data"
+			  ></EditTextPreference>
+		      <EditTextPreference
+			  	android:key="urlhospitalityjson"
 			  	android:defaultValue="@string/urlhospitalityjson"
 			  	android:title="Hospitality Data URL"
 			  	android:summary="URL used to fetch the Hospitality data"
@@ -28,18 +46,17 @@
 			  	android:summary="URL used to fetch the Activity data as json"
 			  ></EditTextPreference>
 			  <EditTextPreference
+			  	android:key="urlfindhomejson"
+			  	android:defaultValue="@string/urlfindhomejson"
+			  	android:title="Find Home json Data URL"
+			  	android:summary="URL used to fetch the Find Home data as json"
+			  ></EditTextPreference>
+			  <EditTextPreference
 			  	android:key="urlservicesjson"
 			  	android:defaultValue="@string/urlservicesjson"
 			  	android:title="Services json Data URL"
 			  	android:summary="URL used to fetch the Services data as json"
 			  ></EditTextPreference>
-			  <EditTextPreference
-			    android:key="urlmap"
-			  	android:defaultValue="@string/urlmap"
-			  	android:title="Map Data URL"
-			  	android:summary="URL used to fetch the Map data"			      
-			      >
-			  </EditTextPreference>			  			  			  			  
 			  <EditTextPreference
 			    android:key="urlmapjson"
 			  	android:defaultValue="@string/urlmapjson"
@@ -53,6 +70,12 @@
 			  	android:title="Events json Data URL"
 			  	android:summary="URL used to fetch the Events data as json"
 			  ></EditTextPreference>
-			  </PreferenceCategory>    
+			  <EditTextPreference
+			  	android:key="urlgislayersjson"
+			  	android:defaultValue="@string/urlgislayersjson"
+			  	android:title="GIS Layers json Data URL"
+			  	android:summary="URL used to fetch the GIS Layers data as json"
+			  ></EditTextPreference>
+	</PreferenceCategory>    
 
 </PreferenceScreen>

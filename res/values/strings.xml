@@ -3,18 +3,18 @@
 
     <!-- Sunriver Web App settings -->
     
-    <string name="urlgislayersjson">http://listplus.no-ip.org/sunriverwebapp/GISLayers.aspx</string>
-    <string name="urlhospitalityjson">http://listplus.no-ip.org/sunriverwebapp/Hospitality.aspx</string>
-    <string name="urlactivityjson">http://listplus.no-ip.org/sunriverwebapp/Activity.aspx</string>
-    <string name="urlupdatejson">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
-    <string name="urlservicesjson">http://listplus.no-ip.org/sunriverwebapp/Services.aspx</string>
-    <string name="urlfindhomejson">http://listplus.no-ip.org/sunriverwebapp/FindCountyAddress.aspx?resortAddress=</string>
-    <string name="urlalertjson">http://listplus.no-ip.org/sunriverwebapp/Alert.aspx</string>
-    <string name="urlwelcomejson">http://listplus.no-ip.org/sunriverwebapp/Welcome.aspx</string>
-    <string name="urldidyouknowjson">http://listplus.no-ip.org/sunriverwebapp/DidYouKnow.aspx</string>
-    <string name="urlselfiejson">http://listplus.no-ip.org/sunriverwebapp/Overlay.aspx</string>
-    <string name="urlmapjson">http://listplus.no-ip.org/sunriverwebapp/Map.aspx</string>
-    <string name="urlcalendarjson">http://listplus.no-ip.org/sunriverwebapp/Calendar.aspx</string>
+    		<string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>
+    		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
+    		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
+    		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
+    		<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
+    		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
+   			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
+    		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
+    		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
+    		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
+  		  	<string name="urlmapjson">http://srfeed.com/Map.aspx</string>
+   		 	<string name="urlcalendarjson">http://srfeed.com/Calendar.aspx</string>
     
     
     <!-- default webservice settings -->

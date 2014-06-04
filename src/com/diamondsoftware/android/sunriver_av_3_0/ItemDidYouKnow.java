@@ -40,7 +40,7 @@ public class ItemDidYouKnow extends SunriverDataItem {
 		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateDidYouKnow().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null ||
+				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateDidYouKnow()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);	
 	}

@@ -25,6 +25,9 @@ public class ParsesJsonUpdate extends ParsesJson {
 		item.setUpdateOverlay(Utils.toDateFromYYYYdashMMdashDDTHHcolonMMcolonSS(jsonObject.getString("updateOverlay")));
 		item.setUpdateServices(Utils.toDateFromYYYYdashMMdashDDTHHcolonMMcolonSS(jsonObject.getString("updateServices")));
 		item.setUpdateWelcome(Utils.toDateFromYYYYdashMMdashDDTHHcolonMMcolonSS(jsonObject.getString("updateWelcome")));
+		try {
+			item.setUpdateHospitality(Utils.toDateFromYYYYdashMMdashDDTHHcolonMMcolonSS(jsonObject.getString("updateHospitality")));
+		} catch (Exception e) {}
 		items.add(item);
 		return items;
 	}

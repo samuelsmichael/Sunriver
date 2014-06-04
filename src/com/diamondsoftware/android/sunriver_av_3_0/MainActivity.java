@@ -62,6 +62,10 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			return SplashPage.mSingleton.mSharedPreferences;
 		}
 	}
+	@Override 
+	protected void doFade() {
+		// do nothing.  We don't want the main page's image to fade
+	}
 	public static DbAdapter staticGetDbAdapter() {
 		if(mSingleton!=null) {
 			return mSingleton.getDbAdapter();
@@ -458,11 +462,13 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 //		        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
 //		        nameValuePair.add(new BasicNameValuePair("resortAddress", name));
 				
-				
+				String defaultValue=getResources().getString(R.string.urlfindhomejson);
+				String uri=mSharedPreferences.getString("urlfindhomejson", defaultValue);
+
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 //					nameValuePair,
 					new ParsesJsonFindHome(name), 
-					getString(R.string.urlfindhomejson)+URLEncoder.encode(name)).parse();
+					uri+"?resortAddress="+URLEncoder.encode(name)).parse();
 				return data;
 			} catch (Exception e) {
 				int bkhere1=3;

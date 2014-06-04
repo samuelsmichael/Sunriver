@@ -79,7 +79,7 @@ public class ItemSelfie extends SunriverDataItem {
 		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateOverlay().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null ||
+				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateOverlay()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);
 	}

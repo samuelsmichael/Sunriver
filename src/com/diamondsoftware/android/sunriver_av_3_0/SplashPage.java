@@ -216,9 +216,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	public ArrayList<Object> getRemoteData(String name) {
 		if(name.equalsIgnoreCase("alert")) {
 			try {
+				String defaultValue=getResources().getString(R.string.urlalertjson);
+				String uri=mSharedPreferences.getString("urlalertjson", defaultValue);
+				
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 					new ParsesJsonAlert(), 
-					getString(R.string.urlalertjson)).parse();
+					uri).parse();
 				return data;
 			} catch (Exception e) {
 				int bkhere=3;
@@ -228,9 +231,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		} else {
 			if(name.equalsIgnoreCase("update")) {
 				try {
+					String defaultValue=getResources().getString(R.string.urlupdatejson);
+					String uri=mSharedPreferences.getString("urlupdatejson", defaultValue);
+										
 					ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 						new ParsesJsonUpdate(), 
-						getString(R.string.urlupdatejson)).parse();
+						uri).parse();
 		
 					return data;
 				} catch (XmlPullParserException e) {
@@ -244,9 +250,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			} else {
 				if(name.equalsIgnoreCase("welcome")) {
 					try {
+						String defaultValue=getResources().getString(R.string.urlwelcomejson);
+						String uri=mSharedPreferences.getString("urlwelcomejson", defaultValue);
+
 						ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 							new ParsesJsonWelcome(), 
-							getString(R.string.urlwelcomejson)).parse();
+							uri).parse();
 						return data;
 					} catch (Exception e) {
 						
@@ -255,9 +264,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				} else {
 					if(name.equalsIgnoreCase("didyouknow")) {
 						try {
+							String defaultValue=getResources().getString(R.string.urldidyouknowjson);
+							String uri=mSharedPreferences.getString("urldidyouknowjson", defaultValue);
+
 							ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 								new ParsesJsonDidYouKnow(), 
-								getString(R.string.urldidyouknowjson)).parse();
+								uri).parse();
 							return data;
 						} catch (Exception e) {
 							
@@ -266,9 +278,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					} else {
 						if(name.equalsIgnoreCase("gislayers")) {
 							try {
+								String defaultValue=getResources().getString(R.string.urlgislayersjson);
+								String uri=mSharedPreferences.getString("urlgislayersjson", defaultValue);
+
 								ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 										new ParsesJsonGISLayers(),
-										getString(R.string.urlgislayersjson)).parse();
+										uri).parse();
 								return data;
 							} catch (Exception e) {
 								int bkhere=3;
@@ -278,9 +293,11 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							if(name.equalsIgnoreCase("selfie")) {
 								try {
+									String defaultValue=getResources().getString(R.string.urlselfiejson);
+									String uri=mSharedPreferences.getString("urlselfiejson", defaultValue);
 									ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 											new ParsesJsonSelfie(),
-											getString(R.string.urlselfiejson)).parse();
+											uri).parse();
 									return data;
 								} catch (Exception e) {
 									int bkhere=3;

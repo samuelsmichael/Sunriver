@@ -22,7 +22,16 @@ public class ItemUpdate {
     private GregorianCalendar updateWelcome;
     private GregorianCalendar updateData;
     private GregorianCalendar updateOverlay;
+    private GregorianCalendar updateHospitality;
 	
+	public GregorianCalendar getUpdateHospitality() {
+		return updateHospitality;
+	}
+
+	public void setUpdateHospitality(GregorianCalendar updateHospitality) {
+		this.updateHospitality = updateHospitality;
+	}
+
 	public GregorianCalendar getUpdateOverlay() {
 		return updateOverlay;
 	}

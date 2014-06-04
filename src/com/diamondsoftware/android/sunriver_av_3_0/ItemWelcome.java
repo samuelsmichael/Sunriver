@@ -39,11 +39,10 @@ public class ItemWelcome extends SunriverDataItem {
 
 	@Override
 	public boolean isDataExpired() {
-		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateWelcome().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null ||
-						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
+				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateWelcome()==null ||
+						SplashPage.TheItemUpdate.getUpdateWelcome().getTime().after(lastTimeWeveFetchedData)
 		);
 	}
 
