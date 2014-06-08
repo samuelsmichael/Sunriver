@@ -32,7 +32,7 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 	private String mSearchString;
 	private String mSearchAfterDate;
 	public ListViewAdapterForCalendarPage(Activity a, String searchString, String searchAfterDate) {
-		super(a);
+		super(a,true);
         simpleFormatter = new SimpleDateFormat("EEE, MMM d", Locale.getDefault());
 		mSearchString=searchString;
 		mSearchAfterDate=searchAfterDate;

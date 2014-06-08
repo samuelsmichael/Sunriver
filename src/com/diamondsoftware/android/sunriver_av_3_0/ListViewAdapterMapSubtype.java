@@ -29,7 +29,7 @@ public class ListViewAdapterMapSubtype extends ListViewAdapterLocalData {
 	 *  3: Retail
 	 */
 	public ListViewAdapterMapSubtype(Activity a, int subtype) {
-		super(a);
+		super(a,true);
 		mSubType=subtype;
 	}
 

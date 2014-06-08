@@ -3,9 +3,19 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 
 
+
+
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 /*
  * Provides support for the ListView-type Activity "Activities".  
@@ -13,12 +23,11 @@ import android.widget.AdapterView;
  * purposes of the overridden methods.
  */
 
-public class ActivitiesActivity extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
+public class ActivitiesActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
 
 	private ListViewAdapter mListViewAdapter;
 	protected static ItemActivity CurrentActivityItem;
-
-
+	
 	@Override
 	protected int getListViewId() {
 		return R.id.activitieslist;
@@ -50,11 +59,6 @@ public class ActivitiesActivity extends AbstractActivityForListViews  implements
 	startActivity(intent);	}
 	@Override
 	protected void childOnCreate() {
-	}
-
-	@Override
-	protected int getImageId() {
-		return R.id.activity_activities_image;
 	}
 
 	@Override

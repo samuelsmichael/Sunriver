@@ -19,7 +19,7 @@ import android.widget.Toast;
  * purposes of the overridden methods.
  */
 
-public class CalendarActivity extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
+public class CalendarActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
 	private EditText mEditViewSearch=null; 
 	private EditText mEditViewSearchAfterDate=null; 
 	private Button mButtonRefresh;
@@ -94,11 +94,6 @@ public class CalendarActivity extends AbstractActivityForListViews  implements W
 			}
 		});
 		
-	}
-
-	@Override
-	protected int getImageId() {
-		return R.id.activity_calendar_image;
 	}
 
 	@Override

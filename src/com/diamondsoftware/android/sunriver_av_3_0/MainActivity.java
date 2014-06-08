@@ -37,7 +37,7 @@ import android.widget.EditText;
  *  static method for loading geofences once all the locations are loaded.
  *   
  */
-public class MainActivity extends AbstractActivityForListViews implements WaitingForDataAcquiredAsynchronously,DataGetter {
+public class MainActivity extends AbstractActivityForListViewsNonscrollingImage implements WaitingForDataAcquiredAsynchronously,DataGetter {
 	public static ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>> LocationData = new ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>>();
 	public static ArrayList<Object> SunriverArray = null;
 	private static boolean AllMapsUriLocationDataIsLoaded=false;
@@ -62,10 +62,7 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 			return SplashPage.mSingleton.mSharedPreferences;
 		}
 	}
-	@Override 
-	protected void doFade() {
-		// do nothing.  We don't want the main page's image to fade
-	}
+
 	public static DbAdapter staticGetDbAdapter() {
 		if(mSingleton!=null) {
 			return mSingleton.getDbAdapter();
@@ -136,12 +133,18 @@ public class MainActivity extends AbstractActivityForListViews implements Waitin
 	
 	@Override
 	protected void childOnCreate() {
+		super.childOnCreate();
 		mGeocodeManager = new GeocodeManager(this);
 		mSingleton=this;
 		// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
 		new  MapsGraphicsLayerLocation(this,null,Color.MAGENTA,12,STYLE.CIRCLE, ItemLocation.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
 		new MapsGraphicsLayerMisc(this,null,Color.DKGRAY,12,STYLE.DIAMOND, ItemLocation.LocationType.SUNRIVER,false).constructGraphicItems();
-	}
+        String imageURL=getImageURL();
+		if(imageURL!=null && getImageId()!=0) {
+			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
+			imageLoader.displayImage(imageURL,mImageView);
+		}
+ 	}
 
 	@Override
 	protected ListViewAdapter getListViewAdapter() {

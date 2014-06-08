@@ -20,8 +20,8 @@ public abstract class ListViewAdapterRemoteData extends ListViewAdapter implemen
 	}
 	
 	
-	public ListViewAdapterRemoteData(Activity a) {
-		super(a);
+	public ListViewAdapterRemoteData(Activity a, boolean imageScrollsWithList) {
+		super(a,imageScrollsWithList);
 		new AcquireDataRemotelyAsynchronously(null,(WaitingForDataAcquiredAsynchronously)mActivity,this);
 	}
 }	

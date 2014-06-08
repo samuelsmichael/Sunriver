@@ -103,6 +103,7 @@
     <string name="action_settingsx">Settings</string>
     <string name="title_activity_website">Website</string>
     <string name="service_popup_contentDescripton"></string>
+    <string name="activity_list_first_item_image_contentDescription"></string>
     <string name="location_popup_contentDescripton"></string>
     <string name="activity_main_contentDescripton"></string>
     <string name="activity_eatsandtreats_contentDescripton"></string>

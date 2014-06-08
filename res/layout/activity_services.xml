@@ -6,28 +6,11 @@
 
     <ListView
         android:id="@+id/serviceslist"
-        android:layout_above="@+id/services_image_layout"
         android:layout_alignParentTop="true"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:divider="#b5b5b5"
         android:dividerHeight="1dp"
         android:listSelector="@drawable/list_selector" />
-    <LinearLayout
-        android:id="@+id/services_image_layout"
-        android:layout_alignParentBottom="true"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="0dip" >
-
-        <ImageView
-            android:id="@+id/activity_services_image"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:contentDescription="@string/activity_services_contentDescripton"
-        />
-    </LinearLayout>
 
 </RelativeLayout>

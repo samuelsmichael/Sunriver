@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+
+
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
@@ -13,12 +16,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
 public abstract class ListViewAdapter extends BaseAdapter {
+	static class DidYouKnowImagePageHolder {
+		ImageView mImageView;
+	}
+	private DidYouKnowImagePageHolder mDidYouKnowImagePageHolder;
     protected Activity mActivity;
-    private static LayoutInflater mInflater=null;
+    protected static LayoutInflater mInflater=null;
     public ArrayList<Object> mData=null;
-
+    private boolean mImageScrollsWithList;
     
     protected abstract int getLayoutResource();
     protected abstract void initializeHolder(View view);
@@ -35,9 +43,10 @@ public abstract class ListViewAdapter extends BaseAdapter {
     	return mActivity.getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
     }
     
-    public ListViewAdapter(Activity a) {
+    public ListViewAdapter(Activity a, boolean imageScrollsWithList) {
         mActivity = a;
         mInflater = (LayoutInflater)mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mImageScrollsWithList=imageScrollsWithList;
     }
     
     protected ArrayList<Object> getData() {
@@ -70,21 +79,54 @@ public abstract class ListViewAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return (long)position;
 	}
-
+	@Override 
+	public int getItemViewType(int position) {
+		if(position==0 || !mImageScrollsWithList) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+	@Override
+	public int getViewTypeCount() {
+		if(mImageScrollsWithList) {
+			return 2;
+		} else {
+			return 1;
+		}
+	}
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
         View vi=convertView;
         if(convertView==null) {
-            vi = mInflater.inflate(getLayoutResource(), parent, false);
-            initializeHolder(vi);
+            if(position==0 && mImageScrollsWithList) {
+                vi = mInflater.inflate(R.layout.lists_first_item, parent, false);
+            	mDidYouKnowImagePageHolder=new DidYouKnowImagePageHolder();
+            	mDidYouKnowImagePageHolder.mImageView=(ImageView)vi.findViewById(R.id.activity_list_first_item_image);
+            	vi.setTag(mDidYouKnowImagePageHolder);
+            } else {
+                vi = mInflater.inflate(getLayoutResource(), parent, false);
+                initializeHolder(vi);            	
+            }
         } else {
-        	setViewHolder(vi);
+            if(position==0 && mImageScrollsWithList) {
+            	mDidYouKnowImagePageHolder=(DidYouKnowImagePageHolder)vi.getTag();            	
+            } else {
+	        	setViewHolder(vi);
+            }
         }
         try {
-			childMapData(position,vi);
+        	if(position==0 && mImageScrollsWithList) {
+    		    String imageURL=((AbstractActivityForListViewsScrollingImage)mActivity).getImageURL();
+    			if(imageURL!=null && mDidYouKnowImagePageHolder.mImageView!=null) {
+    				ImageLoader imageLoader=new ImageLoaderRemote(mActivity,true,1f);
+    				imageLoader.displayImage(imageURL,mDidYouKnowImagePageHolder.mImageView);
+    			}
+        	} else {
+        		childMapData(position,vi);
+        	}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
         return vi;

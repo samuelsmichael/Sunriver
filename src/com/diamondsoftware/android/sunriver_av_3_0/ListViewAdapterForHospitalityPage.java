@@ -14,14 +14,14 @@ import android.widget.Toast;
 
 public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData {
 
-	ActivitiesPageHolder mActivitiesPageHolder;
-	static class ActivitiesPageHolder {
+	HospitalityPageHolder mHospitalityPageHolder;
+	static class HospitalityPageHolder {
 		TextView name;
 		TextView description;
 	}
 	
 	public ListViewAdapterForHospitalityPage(Activity a) {
-		super(a);
+		super(a,true);
 	}
 
 	@Override
@@ -49,8 +49,8 @@ public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData
 			XmlPullParserException {
 
         final ItemHospitality hospitalityItem =(ItemHospitality)getData().get(position);
-        mActivitiesPageHolder.name.setText(hospitalityItem.getSrHospitalityName());
-        mActivitiesPageHolder.description.setText(hospitalityItem.getSrHospitalityDescription());
+        mHospitalityPageHolder.name.setText(hospitalityItem.getSrHospitalityName());
+        mHospitalityPageHolder.description.setText(hospitalityItem.getSrHospitalityDescription());
         ImageLoader imageLoader;
         String iconName= hospitalityItem.getSrHospitalityUrlImage();
         if(iconName!=null && iconName.indexOf("/")!=-1) {
@@ -67,15 +67,15 @@ public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData
 
 	@Override
 	protected void initializeHolder(View view) {
-		mActivitiesPageHolder=new ActivitiesPageHolder();
-		mActivitiesPageHolder.name=(TextView)view.findViewById(R.id.hospitality_name);
-		mActivitiesPageHolder.description=(TextView)view.findViewById(R.id.hospitality_description);
-		view.setTag(mActivitiesPageHolder);
+		mHospitalityPageHolder=new HospitalityPageHolder();
+		mHospitalityPageHolder.name=(TextView)view.findViewById(R.id.hospitality_name);
+		mHospitalityPageHolder.description=(TextView)view.findViewById(R.id.hospitality_description);
+		view.setTag(mHospitalityPageHolder);
 	}
 
 	@Override
 	protected void setViewHolder(View view) {
-		mActivitiesPageHolder=(ActivitiesPageHolder)view.getTag();
+		mHospitalityPageHolder=(HospitalityPageHolder)view.getTag();
 	}
 
 }

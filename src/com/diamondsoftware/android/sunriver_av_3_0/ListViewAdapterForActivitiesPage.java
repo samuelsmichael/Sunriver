@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.xmlpull.v1.XmlPullParserException;
 
 import android.app.Activity;
-
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +21,14 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
 	}
 	
 	public ListViewAdapterForActivitiesPage(Activity a) {
-		super(a);
+		super(a,true);
 	}
 
 	@Override
 	protected int getLayoutResource() {
 		return R.layout.activity_listitem2;
 	}
-
+	
 	@Override
 	protected ArrayList<Object> childGetData() throws IOException,
 			XmlPullParserException {
@@ -47,12 +47,12 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
 	@Override
 	protected void childMapData(int position, View view) throws IOException,
 			XmlPullParserException {
-
-        final ItemActivity activityItem =(ItemActivity)getData().get(position);
-        mActivitiesPageHolder.name.setText(activityItem.getSrActName());
-        mActivitiesPageHolder.description.setText(activityItem.getSrActDescription());
+		ItemActivity activityItem =(ItemActivity)getData().get(position);
+		mActivitiesPageHolder.name.setText(activityItem.getSrActName());
+		mActivitiesPageHolder.description.setText(activityItem.getSrActDescription());
+	       
+        String iconName=activityItem.getSrActUrlImage();
         ImageLoader imageLoader;
-        String iconName= activityItem.getSrActUrlImage();
         if(iconName!=null && iconName.indexOf("/")!=-1) {
         	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
         } else {

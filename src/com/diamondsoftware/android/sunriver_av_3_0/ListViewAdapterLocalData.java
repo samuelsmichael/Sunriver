@@ -9,8 +9,8 @@ public abstract class ListViewAdapterLocalData extends ListViewAdapter {
     protected ImageLoader mImageLoader;
 
 	
-	public ListViewAdapterLocalData(Activity a) {
-		super(a);
+	public ListViewAdapterLocalData(Activity a, boolean imageScrollsWithList) {
+		super(a,imageScrollsWithList);
         mImageLoader=new ImageLoaderLocal(mActivity.getApplicationContext(),false);
         
 	}

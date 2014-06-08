@@ -18,7 +18,7 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
 	}
 	LandingPageHolder mLandingPageHolder=null;
 	public ListViewAdapterForLandingPage(Activity a) {
-		super(a);
+		super(a,false);
 	}
 	
 	@Override

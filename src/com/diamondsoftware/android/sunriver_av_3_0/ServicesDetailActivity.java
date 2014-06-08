@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.AdapterView;
 
-public class ServicesDetailActivity extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
+public class ServicesDetailActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
 	private ListViewAdapter mListViewAdapter;
 	private ItemService mItemService;
 	
@@ -52,11 +52,6 @@ public class ServicesDetailActivity extends AbstractActivityForListViews  implem
 	protected void childOnCreate() {
 		mItemService=(ItemService)ServicesActivity.Services.get(getIntent().getIntExtra("ItemPosition", 0));
 		this.setTitle("Sunriver "+mItemService.getServiceCategoryName());
-	}
-
-	@Override
-	protected int getImageId() {
-		return R.id.activity_services_image;
 	}
 
 	@Override

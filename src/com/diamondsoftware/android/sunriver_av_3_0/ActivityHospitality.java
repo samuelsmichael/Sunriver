@@ -13,7 +13,7 @@ import android.widget.AdapterView;
  * purposes of the overridden methods.
  */
 
-public class ActivityHospitality extends AbstractActivityForListViews  implements WaitingForDataAcquiredAsynchronously {
+public class ActivityHospitality extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
 
 	private ListViewAdapter mListViewAdapter;
 	protected static ItemHospitality CurrentHospitalityItem;
@@ -50,11 +50,6 @@ public class ActivityHospitality extends AbstractActivityForListViews  implement
 	startActivity(intent);	}
 	@Override
 	protected void childOnCreate() {
-	}
-
-	@Override
-	protected int getImageId() {
-		return R.id.activity_hospitality_image;
 	}
 
 	@Override

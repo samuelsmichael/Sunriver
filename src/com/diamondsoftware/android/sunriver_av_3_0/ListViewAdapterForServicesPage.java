@@ -20,7 +20,7 @@ public class ListViewAdapterForServicesPage extends ListViewAdapterRemoteData {
 		}
 		private ServicesPageHolder mServicesPageHolder;
 		public ListViewAdapterForServicesPage(Activity a) {
-			super(a);
+			super(a,true);
 		}
 
 		@Override

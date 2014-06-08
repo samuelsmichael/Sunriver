@@ -37,7 +37,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	protected ListViewAdapter mAdapter;
 	protected SharedPreferences mSharedPreferences;
 	protected Popups2 mPopup;
-	private ImageView mImageView;
+	protected ImageView mImageView;
 	
 	// get the layout id of the associated ListView
 	protected abstract int getListViewId();
@@ -48,7 +48,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	// What to do when they click on a listview item
 	protected abstract void childOnItemClick(AdapterView<?> parent, View view,
             int position, long id);
-	// Perform any subclass-specific OnCreate functions
+	// Perform any subclass-specific OnCreate functions.  Note: must call super.childOnCreate();
 	protected abstract void childOnCreate();
 	/*
 	 * Get the id of the ImageView where a picture is going to be placed, if any
@@ -81,40 +81,8 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		}
 	}
 	
-	protected void doFade() {
-	    final Animation animationFadeOut = AnimationUtils.loadAnimation(this, R.anim.fadeout);
-	    animationFadeOut.setAnimationListener(new AnimationListener(){
-
-			@Override
-			public void onAnimationEnd(Animation arg0) {
-				// TODO Auto-generated method stub
-				mImageView.setVisibility(View.GONE);
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onAnimationStart(Animation arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-	    	
-	    });
-	    new CountDownTimer(4000, 1000) {
-
-	        public void onTick(long millisUntilFinished) {
-	           
-	        }
-
-	        public void onFinish() {
-	    	    mImageView.startAnimation(animationFadeOut);           
-	        }
-	     }.start();	    
-
+	public ImageView getImageView() {
+		return mImageView;
 	}
 	
 	@Override
@@ -132,13 +100,6 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		childOnCreate();
         mList=(ListView)findViewById(getListViewId());
         
-        String imageURL=getImageURL();
-		if(imageURL!=null && getImageId()!=0) {
-			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
-			imageLoader.displayImage(imageURL,mImageView);
-			doFade();
-		}
- 
         /*
          * The ListViewAdaper may have to fetch data asynchronously.  Creating it starts 
          * the fetch, and then gotMyData (below) - which is called asynchronously -- assigns

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.AdapterView;
 
-public abstract class ActivityThatIsASubtypeOfMaps extends AbstractActivityForListViews {
+public abstract class ActivityThatIsASubtypeOfMaps extends AbstractActivityForListViewsScrollingImage {
 	protected ListViewAdapter mListViewAdapter;
 
 
@@ -36,11 +36,6 @@ public abstract class ActivityThatIsASubtypeOfMaps extends AbstractActivityForLi
 	@Override
 	protected void childOnCreate() {
 
-	}
-
-	@Override
-	protected int getImageId() {
-		return R.id.activity_eatsandtreats_image;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 		private ServicesPageHolder mServicesPageHolder;
         String mCategoryName;
 		public ListViewAdapterForServicesDetailPage(Activity a, String categoryName) {
-			super(a);
+			super(a,true);
 			mCategoryName=categoryName;
 		}
 
