@@ -59,7 +59,7 @@ public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData
         	imageLoader=new ImageLoaderLocal(mActivity,false);
         }
         if(iconName.trim().equals("")) {
-        	iconName="ic_launcher";
+        	iconName="sunriverlogoopaque";
         }
         ImageView thumb_image=(ImageView)view.findViewById(R.id.hospitality_list_image);
         imageLoader.displayImage(iconName,thumb_image);

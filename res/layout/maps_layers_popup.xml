@@ -16,6 +16,7 @@
 	    <CheckBox
 	        android:id="@+id/checkBoxRestaurants"
 	        android:layout_width="wrap_content"
+	        
 	        android:layout_height="wrap_content"
 	        android:textColor="#ff00ff00"
 	        android:textStyle="bold"
@@ -26,7 +27,7 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:textStyle="bold"
-	        android:textColor="#ffeeeee0"
+	        android:textColor="#ff87ceeb"
 	        android:text="@string/location_popup_retail" />
 
 	    <CheckBox
@@ -64,7 +65,7 @@
 	        android:id="@+id/checkBoxBikePaths"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#ff87ceeb"
+	        android:textColor="#ffffa500"
 	        android:text="@string/location_popup_bike_paths" />
 	    	    
 	     

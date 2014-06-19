@@ -131,7 +131,7 @@ public class PopupCalendarDetail extends Popups2 {
 		// Is it local, or remote
 		String imageString=mItemCalendar.getSrCalUrlImage();
 		if(imageString==null || imageString.trim().length()==0) {
-			imageString="ic_launcher";
+			imageString="sunriverlogoopaque";
 		}
 		if(mItemCalendar.getSrCalUrlImage().indexOf("/")>=0) {
 			mImageLoader=new ImageLoaderRemote(mActivity,true,.80f);

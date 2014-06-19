@@ -12,6 +12,7 @@ import com.esri.android.map.ags.ArcGISLocalTiledLayer;
 import com.esri.android.map.ags.ArcGISTiledMapServiceLayer;
 import com.esri.android.map.event.OnSingleTapListener;
 import com.esri.android.map.event.OnStatusChangedListener;
+import com.esri.android.runtime.ArcGISRuntime;
 import com.esri.android.toolkit.map.MapViewHelper;
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Point;
@@ -273,7 +274,7 @@ public class Maps extends AbstractActivityForMenu {
 				MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true);
 		mGraphicsLayers.add(mGraphicsLayerRestaurants);
 		mGraphicsLayerRetails = new MapsGraphicsLayerLocation(this, mMapView,
-				Color.parseColor("#ffeeeee0"), 12, STYLE.CIRCLE,
+				Color.parseColor("#ff87ceeb"), 12, STYLE.CIRCLE,
 				ItemLocation.LocationType.RETAIL, true,
 				MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true);
 		mGraphicsLayers.add(mGraphicsLayerRetails);
@@ -527,6 +528,7 @@ public class Maps extends AbstractActivityForMenu {
 	@Override
 	protected void onStart() {
 		super.onStart();
+        ArcGISRuntime.setClientId("p7sflEMVP6Pb9okf");
 		// give the chance for my layer to do start-up actions
 		for (MapsGraphicsLayer mgL : mGraphicsLayers) {
 			mgL.onStart();
@@ -684,6 +686,8 @@ public class Maps extends AbstractActivityForMenu {
 
 	protected void onResume() {
 		super.onResume();
+        ArcGISRuntime.setClientId("p7sflEMVP6Pb9okf");
+
 		mMapView.unpause();
 	}
 

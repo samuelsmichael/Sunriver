@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import com.esri.android.runtime.ArcGISRuntime;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -87,7 +89,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
         incrementMCountItemsLeft();
         mHandler=new Handler();
         // we'll wait at least 1 second; but we won't return until all asynchronous data fetches have completed
-        mHandler.postDelayed(myRunnable, secondsDelayed * 1000);        
+        mHandler.postDelayed(myRunnable, secondsDelayed * 1000);      
+        ArcGISRuntime.setClientId("p7sflEMVP6Pb9okf");
 	}
 	/* Start things out by fetching the "update" data */
 	private void initialize() {
