@@ -16,7 +16,7 @@
  	    <id>110</id>
  	    <name>Shopping</name>
  	    <description>Shop &#39;till you Drop</description>
- 	    <iconname>sr_map_big</iconname>
+ 	    <iconname>sr_shopping_big</iconname>
  	</item>
  	<item>
  	    <id>300</id>
@@ -33,7 +33,7 @@
  	<item>
  	    <id>1000</id>
  	    <name>Find my home</name>
- 	    <description>Tell us your Resort Address, and we'll show it on the map.</description>
+ 	    <description>Tell us your Sunriver Address, and we'll show it on the map.</description>
  	    <iconname>findhome_big</iconname>
  	</item>
  	<item>

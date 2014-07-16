@@ -44,15 +44,17 @@
     <string name="arcgis_password">Wp_p18mm</string>
     
     <string name="aboutusstring">About Us</string>
-    <string name="aboutuslink_privacypolicy">http://en.wikipedia.org/wiki/Privacy_policy</string>
-    <string name="aboutuslink_termsandconditions">http://www.lexisnexis.com/terms/general.aspx</string>
-    <string name="aboutusverbiage">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="aboutuslink_privacypolicy">http://www.sunriverstyle.com/privacy-policy</string>
+    <string name="aboutuslink_termsandconditions">http://www.sunriverstyle.com/terms-and-services</string>
+    <string name="aboutusverbiage">Nestled at the base of the Cascade mountain range — Sunriver, Oregon is a scenic mecca for outdoor enthusiasts and those looking for a chance to commune with nature, but also have access to all the amenities you would ever need. \n
+\n \n Mapping API provided by Esri ArcGIS Runtime SDK for Android
+</string>
     <string name="aboutusversionheading">Version</string>
     <string name="aboutusprivacypolicyheading">Click here to view our Privacy Policy</string>
     <string name="aboutustermsandconditionsheading">Click here to view our Terms and Conditions</string>
     <string name="aboutustitle">Sunriver App</string>
     <string name="contactusstring">Contact Us</string>
-    <string name="emailto">jasons@srowners.com</string>
+    <string name="emailto">MobileApp@srowners.com</string>
     <string name="map_offline_url4">http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer</string>
     <string name="wtf">wtf</string>
     <string name="gotourl">Open URL?</string>
@@ -79,8 +81,8 @@
     <string name="title_activity_activitiesdetail">Sunriver Activity Detail</string>
     <string name="title_activity_hospitalitydetail">Sunriver Hospitality Detail</string>
     <string name="location_popup_restaurants">Restaurants</string>
-    <string name="location_popup_retail">Retail</string>
-    <string name="key_in_your_resort_address">Key in your Resort Address</string>
+    <string name="location_popup_retail">Shopping</string>
+    <string name="key_in_your_resort_address">Key in your Sunriver Address</string>
     <string name="location_popup_pools">Pools</string>
     <string name="location_popup_tennis_courts">Tennis courts</string>
     <string name="location_popup_gas">Gas</string>
@@ -99,7 +101,7 @@
     <string name="bike_path_layer">http://tiles.arcgis.com/tiles/PPpMbTaRDuKoF0e4/arcgis/rest/services/SRPathways/MapServer</string>
     
     <string name="title_activity_web_site">WebSite</string>
-    <string name="title_activity_MainActivity">Welcome to Sunriver, OR!</string>
+    <string name="title_activity_MainActivity">Sunriver Navigator</string>
     <string name="action_settingsx">Settings</string>
     <string name="title_activity_website">Website</string>
     <string name="service_popup_contentDescripton"></string>
