@@ -72,10 +72,12 @@ public class MapsGraphicsLayerLocation extends MapsGraphicsLayer {
 		}
 
 		protected void onPostExecute(Void voidness) {
-			doPostExecuteWork();
-			if(mUpdateGraphics) {
-				((Maps)mActivity).hookCalledWhenGraphicsLayerHasFinished(MapsGraphicsLayerLocation.this);
-			}
+			try { // another process might be loading the map data
+				doPostExecuteWork();
+				if(mUpdateGraphics) {
+					((Maps)mActivity).hookCalledWhenGraphicsLayerHasFinished(MapsGraphicsLayerLocation.this);
+				}
+			} catch (Exception ee) {}
 		}
 		/*
 		 * Needed to break this out into a synchronized method, since multiple threads are coming to this simultaneously

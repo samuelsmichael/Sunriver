@@ -3,9 +3,11 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParserException;
@@ -53,13 +55,28 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 			ArrayList beforeFiltering=new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonCalendar(), uri ),new ItemCalendar()).procureTheData();
 			ArrayList afterFiltering=new ArrayList<Object>();
 			java.util.Calendar dateAfter=null;
+			java.util.Calendar today2=new java.util.GregorianCalendar();
+			today2.set(Calendar.HOUR_OF_DAY, 0);
+			today2.set(Calendar.MINUTE, 0);
+			today2.set(Calendar.SECOND, 0);
+			today2.set(Calendar.MILLISECOND, 0);
 			try {
 				dateAfter=Utils.toDateFromMMdashDDdashYYYY(mSearchAfterDate);
 			} catch (Exception e) {}
 			Object x=mSearchString;
 			for(Object obj : beforeFiltering) {
 				ItemCalendar itemCalendar=(ItemCalendar)obj;
-            	if(mSearchAfterDate==null || mSearchAfterDate.trim().isEmpty() || dateAfter.before(itemCalendar.getSrCalDate())) { // there was a search after date, and our event is equal to or after that
+				GregorianCalendar itsDate=itemCalendar.getSrCalDate();
+				int todayStringMonth=today2.get(Calendar.MONTH);
+				int todayStringDay=today2.get(Calendar.DAY_OF_MONTH);
+				int itsStringMonth=itsDate.get(Calendar.MONTH);
+				int itsStringDay=itsDate.get(Calendar.DAY_OF_MONTH);
+				if(itemCalendar.getSrCalName().indexOf("Anglers")!=-1) {
+					int bkhere=3;
+					int bkthere=bkhere;
+				}
+            	if((itsDate.after(today2)) &&
+            			(mSearchAfterDate==null || mSearchAfterDate.trim().isEmpty() || dateAfter.before(itemCalendar.getSrCalDate()))) { // there was a search after date, and our event is equal to or after that
             		if( /* Search string isn't empty, and it's found in either the event's name or description */
             				mSearchString == null || mSearchString.trim().isEmpty() || (
                 				(itemCalendar.getSrCalDescription().toLowerCase(Locale.getDefault()).indexOf(mSearchString.toLowerCase(Locale.getDefault()))!=-1 

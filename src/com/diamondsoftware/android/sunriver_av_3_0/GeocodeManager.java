@@ -431,7 +431,7 @@ public class GeocodeManager {
         private void handleGeofenceError(Context context, Intent intent) {
             String msg = intent.getStringExtra(GeofenceUtils.EXTRA_GEOFENCE_STATUS);
             Log.e(GeofenceUtils.APPTAG, msg);
-            Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+         // Removed error string 7/17/2014   Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
         }
     }
     /**

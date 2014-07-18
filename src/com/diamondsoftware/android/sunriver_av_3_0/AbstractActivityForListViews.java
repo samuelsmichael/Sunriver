@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -88,6 +89,11 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+			if(SplashPage.mSingleton==null) {
+				Intent intent = new Intent(this, SplashPage.class);
+				startActivity(intent);
+				finish();
+			}
 			// check to see that we've gone Internet Connectivity
 		    ConnectivityManager connectivityManager 
 		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

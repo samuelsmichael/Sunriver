@@ -63,7 +63,11 @@ public abstract class ListViewAdapter extends BaseAdapter {
 	@Override
 	public int getCount() {
 		try {
-			return getData().size();
+			if(mImageScrollsWithList) {
+				return getData().size()+1;
+			} else {
+				return getData().size();
+			}
 		} catch (Exception ee) {
 			return 0;
 		
@@ -72,7 +76,11 @@ public abstract class ListViewAdapter extends BaseAdapter {
 
 	@Override
 	public Object getItem(int position) {
-		return getData().get(position);
+		if(mImageScrollsWithList && position>0) {
+			return getData().get(position-1);
+		} else {
+			return getData().get(position);
+		}
 	}
 
 	@Override
@@ -124,7 +132,11 @@ public abstract class ListViewAdapter extends BaseAdapter {
     				imageLoader.displayImage(imageURL,mDidYouKnowImagePageHolder.mImageView);
     			}
         	} else {
-        		childMapData(position,vi);
+        		if(mImageScrollsWithList) {
+        			childMapData(position-1,vi);
+        		} else {
+        			childMapData(position,vi);
+        		}
         	}
 		} catch (Exception e) {
 			e.printStackTrace();

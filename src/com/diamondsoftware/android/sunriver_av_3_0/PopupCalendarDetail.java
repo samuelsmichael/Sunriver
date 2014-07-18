@@ -133,8 +133,9 @@ public class PopupCalendarDetail extends Popups2 {
 		if(imageString==null || imageString.trim().length()==0) {
 			imageString="sunriverlogoopaque";
 		}
-		if(mItemCalendar.getSrCalUrlImage().indexOf("/")>=0) {
-			mImageLoader=new ImageLoaderRemote(mActivity,true,.80f);
+		// for testing purposes: imageString="http://www.srfeed.com/res/pics/welcome/Welcome.jpg";
+		if(imageString.indexOf("/")>=0) {
+			mImageLoader=new ImageLoaderRemote(mActivity,true,.40f);
 		} else {
 			mImageLoader=new ImageLoaderLocal(mActivity,true);
 		}
