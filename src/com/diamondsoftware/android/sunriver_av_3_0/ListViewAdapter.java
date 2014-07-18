@@ -26,7 +26,7 @@ public abstract class ListViewAdapter extends BaseAdapter {
     protected Activity mActivity;
     protected static LayoutInflater mInflater=null;
     public ArrayList<Object> mData=null;
-    private boolean mImageScrollsWithList;
+    public boolean mImageScrollsWithList;
     
     protected abstract int getLayoutResource();
     protected abstract void initializeHolder(View view);

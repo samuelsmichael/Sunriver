@@ -117,7 +117,11 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	childOnItemClick(parent,view,position,id);
+            	if(AbstractActivityForListViews.this instanceof AbstractActivityForListViewsScrollingImage) {
+            		childOnItemClick(parent,view,position-1,id);         		
+            	} else {
+            		childOnItemClick(parent,view,position,id);
+            	}
            	}
         });
 
