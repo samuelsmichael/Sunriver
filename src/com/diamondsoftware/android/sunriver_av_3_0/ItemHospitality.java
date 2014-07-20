@@ -194,8 +194,8 @@ public class ItemHospitality extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastDateRead=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastDateRead==null || SplashPage.TheItemUpdate.getUpdateHospitality()==null ||
-				SplashPage.TheItemUpdate.getUpdateHospitality().getTime().after(lastDateRead)
+				GlobalState.TheItemUpdate==null || lastDateRead==null || GlobalState.TheItemUpdate.getUpdateHospitality()==null ||
+				GlobalState.TheItemUpdate.getUpdateHospitality().getTime().after(lastDateRead)
 		);
 	}
 

@@ -1,5 +1,8 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivitiesDetailActivity extends AbstractActivityForMenu {
+public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordNavigateThere {
 	
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -74,7 +77,8 @@ public class ActivitiesDetailActivity extends AbstractActivityForMenu {
 						.putExtra("HeresYourIcon", R.drawable.route_destination)
 						.putExtra("GoToLocationTitle", ActivitiesActivity.CurrentActivityItem.getSrActName())
 						.putExtra("GoToLocationSnippet", ActivitiesActivity.CurrentActivityItem.getSrActDescription())
-						.putExtra("GoToLocationURL", ActivitiesActivity.CurrentActivityItem.getSrActLinks());
+						.putExtra("GoToLocationURL", ActivitiesActivity.CurrentActivityItem.getSrActLinks())
+						.putExtra("GoogleAnalysticsAction",getGoogleAnalyticsLabel());
 				ActivitiesDetailActivity.this.startActivity(intent);
 			}
 		});
@@ -146,6 +150,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForMenu {
 	    		    if(Utils.canHandleIntent(ActivitiesDetailActivity.this,navigateMe)) {
 		    			navigateMe.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		    			ActivitiesDetailActivity.this.startActivity(navigateMe);
+		    			googleAnalyticsNavigateThere();
 	    		    } else {
 	    		    	Toast.makeText(ActivitiesDetailActivity.this, "No Naviagtion app found on this phone.", Toast.LENGTH_LONG).show();
 	    		    }
@@ -186,5 +191,26 @@ public class ActivitiesDetailActivity extends AbstractActivityForMenu {
 		}	
 			
 		
+	}
+	public void googleAnalyticsNavigateThere() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail")
+            .setAction("Navigate There")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+	}
+
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Activity Detail";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return ActivitiesActivity.CurrentActivityItem.getSrActName();
 	}
 }

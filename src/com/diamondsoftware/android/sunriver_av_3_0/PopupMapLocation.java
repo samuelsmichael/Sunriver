@@ -2,6 +2,9 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.Map;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PopupMapLocation extends Popups2 {
+public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordNavigateThere {
 
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -71,7 +74,8 @@ public class PopupMapLocation extends Popups2 {
 						.putExtra("HeresYourIcon", R.drawable.route_destination)
 						.putExtra("GoToLocationTitle", (String)mAttributes.get("name"))
 						.putExtra("GoToLocationSnippet", (String)mAttributes.get("description"))
-						.putExtra("GoToLocationURL", (String)mAttributes.get("webUrl"));
+						.putExtra("GoToLocationURL", (String)mAttributes.get("webUrl"))
+						.putExtra("GoogleAnalysticsAction",getGoogleAnalyticsLabel());
 					mActivity.startActivity(intent);
 				}
 			});
@@ -172,6 +176,7 @@ public class PopupMapLocation extends Popups2 {
 	    		    if(Utils.canHandleIntent(mActivity,navigateMe)) {
 		    			navigateMe.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		    			mActivity.startActivity(navigateMe);
+		    			googleAnalyticsNavigateThere();
 	    		    } else {
 	    		    	Toast.makeText(mActivity, "No Naviagtion app found on this phone.", Toast.LENGTH_LONG).show();
 	    		    }
@@ -226,6 +231,27 @@ public class PopupMapLocation extends Popups2 {
 	@Override
 	protected int getClosePopupId() {
 		return R.id.closePopup;
+	}
+
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Map Location";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return (String)mAttributes.get("name");
+	}
+	public void googleAnalyticsNavigateThere() {
+        // Get tracker.
+        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail")
+            .setAction("Navigate There")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
 	}
 
 }

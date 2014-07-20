@@ -53,24 +53,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	public static MainActivity mSingleton;
 	private static GeocodeManager mGeocodeManager;
 
-	private DbAdapter mDbAdapter=null;
 	public static boolean heresHowIChangeCameraFaceCleanly=false;
-	public static SharedPreferences getSharedPreferences() {
-		if(mSingleton!=null) {
-			return mSingleton.mSharedPreferences;
-		} else {
-			return SplashPage.mSingleton.mSharedPreferences;
-		}
-	}
 
-	public static DbAdapter staticGetDbAdapter() {
-		if(mSingleton!=null) {
-			return mSingleton.getDbAdapter();
-		} else {
-			return SplashPage.mSingleton.getDbAdapter();
-		}
-	}
-	
 	
 	/*
 	 * The "Sunriver graphic item doesn't come from fetch of all the other map
@@ -109,8 +93,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	}
 	@Override
 	protected String getImageURL() {
-		if(SplashPage.TheItemWelcome!=null) {
-			return SplashPage.TheItemWelcome.getWelcomeURL();
+		if(((GlobalState)getApplicationContext()).TheItemWelcome!=null) {
+			return ((GlobalState)getApplicationContext()).TheItemWelcome.getWelcomeURL();
 		}
 		return null;
 	}
@@ -212,6 +196,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			startActivity(intent);
 		}
 		if (id == 500) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - QR Code Reader");			
 			IntentIntegrator integrator = new IntentIntegrator(
 					MainActivity.this);
 			integrator.initiateScan();
@@ -233,9 +218,11 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			startActivity(intentCamera);
 		}
 		if( id==99) {
-			new PopupAlert(this, SplashPage.theItemAlert).createPopup();
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Alert");
+			new PopupAlert(this, ((GlobalState)getApplicationContext()).theItemAlert).createPopup();
 		}
 		if(id==1000) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Find My Home");
 		    android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
 		    android.app.Fragment prev = getFragmentManager().findFragmentByTag("findhome");
 		    if (prev != null) {
@@ -358,12 +345,6 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		}
 	}
 
-	public DbAdapter getDbAdapter() {
-		if(mDbAdapter==null) {
-			mDbAdapter=new DbAdapter(this);
-		}
-		return mDbAdapter;
-	}
 	public ItemLocation findFirstItemLocationWhoseIdIs(String id) {
 		
 		for(Hashtable ht :LocationData) {
@@ -386,28 +367,19 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	}
 	
 	@Override
-	protected void onDestroy() {
-		if(mDbAdapter!=null) {
-			mDbAdapter.close();
-			mDbAdapter=null;
-		}
-		super.onDestroy();
-	}
-
-	@Override
 	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {
 		
 		if( 
-			(SplashPage.theItemAlert!=null && 
-				SplashPage.theItemAlert.getmALTitle()!=null && 
-				!SplashPage.theItemAlert.getmALTitle().trim().isEmpty())
+			(((GlobalState)getApplicationContext()).theItemAlert!=null && 
+					((GlobalState)getApplicationContext()).theItemAlert.getmALTitle()!=null && 
+				!((GlobalState)getApplicationContext()).theItemAlert.getmALTitle().trim().isEmpty())
 			|| 
-			(SplashPage.theItemAlert!=null && 
-				SplashPage.theItemAlert.getmALDescription()!=null && 
-				!SplashPage.theItemAlert.getmALDescription().trim().isEmpty())) 
+			(((GlobalState)getApplicationContext()).theItemAlert!=null && 
+					((GlobalState)getApplicationContext()).theItemAlert.getmALDescription()!=null && 
+				!((GlobalState)getApplicationContext()).theItemAlert.getmALDescription().trim().isEmpty())) 
 		{
 			ItemLandingPage alertItem=new ItemLandingPage();
-			alertItem.setDescription(SplashPage.theItemAlert.getmALTitle());
+			alertItem.setDescription(((GlobalState)getApplicationContext()).theItemAlert.getmALTitle());
 			alertItem.setName("Alert");
 			alertItem.setId(99);
 			alertItem.setIconName("alertnew");

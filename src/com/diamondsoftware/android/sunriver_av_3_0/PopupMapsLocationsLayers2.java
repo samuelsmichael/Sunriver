@@ -2,6 +2,9 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.Map;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
@@ -32,6 +35,16 @@ public class PopupMapsLocationsLayers2 extends Popups2 {
 		edit.putBoolean(MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS, perfectPictureSpots.isChecked());
 		edit.putBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, bikePaths.isChecked());
 		edit.commit();
+        // Get tracker.
+        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Popup")
+            .setAction("Close Maps menu popup")
+            .setLabel("Post-popup Layers chosen: "+toString())
+            .build());
+
 	}	
 	@Override
 	protected void loadView(ViewGroup popup) {
@@ -59,7 +72,48 @@ public class PopupMapsLocationsLayers2 extends Popups2 {
 		perfectPictureSpots.setButtonDrawable(id);
 		bikePaths.setButtonDrawable(id);
 	}
+	
+	@Override
+	protected String getGoogleAnalyticsCategory() {
+		return "Popup";
+	}
 
+
+	@Override
+	public String toString() {
+		StringBuilder sb=new StringBuilder();
+		String delimiter="";
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true)) {
+			sb.append(delimiter+"Restaurants");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true)) {
+			sb.append(delimiter+"Shopping");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_POOLS,true)) {
+			sb.append(delimiter+"Pools");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_TENNISCOURTS,true)) {
+			sb.append(delimiter+"Tennis Courts");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_GAS,true)) {
+			sb.append(delimiter+"Gas");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,true)) {
+			sb.append(delimiter+"Perfect picture spots");
+			delimiter=",";
+		}
+		if(mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS,true)) {
+			sb.append(delimiter+"Bike paths");
+			delimiter=",";
+		}
+		return sb.toString();
+	}
+	
 	@Override
 	protected int getResourceId() {
 		return R.layout.maps_layers_popup;
@@ -74,5 +128,13 @@ public class PopupMapsLocationsLayers2 extends Popups2 {
 		return R.id.closePopup;
 	}
 
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Maps Menu popup";
+	}
 
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return "Pre-popup Layers chosen: "+toString();
+	}
 }

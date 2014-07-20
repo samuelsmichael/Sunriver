@@ -76,10 +76,13 @@ public class ItemSelfie extends SunriverDataItem {
 	
 	@Override
 	public boolean isDataExpired() {
-		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateOverlay().getTime();
+		if(GlobalState.TheItemUpdate==null) {
+			return true;
+		}
+		Date dateDatabaseAtSunriverLastUpdated=GlobalState.TheItemUpdate.getUpdateOverlay().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateOverlay()==null ||
+				GlobalState.TheItemUpdate==null || lastTimeWeveFetchedData==null || GlobalState.TheItemUpdate.getUpdateOverlay()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);
 	}

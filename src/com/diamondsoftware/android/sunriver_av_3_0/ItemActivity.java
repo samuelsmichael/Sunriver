@@ -256,8 +256,8 @@ public class ItemActivity extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastDateRead=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastDateRead==null || SplashPage.TheItemUpdate.getUpdateActivity()==null ||
-				SplashPage.TheItemUpdate.getUpdateActivity().getTime().after(lastDateRead)
+				GlobalState.TheItemUpdate==null || lastDateRead==null || GlobalState.TheItemUpdate.getUpdateActivity()==null ||
+				GlobalState.TheItemUpdate.getUpdateActivity().getTime().after(lastDateRead)
 		);
 	}
 

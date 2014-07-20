@@ -34,7 +34,7 @@ public abstract class SunriverDataItem implements Cacheable {
 	
 	@Override
 	public void forceNewFetch() {
-		SharedPreferences sharedPreferences=MainActivity.getSharedPreferences();
+		SharedPreferences sharedPreferences=GlobalState.sharedPreferences;
 		Editor edit=sharedPreferences.edit();
 		edit.remove(getDateLastUpdatedKey());
 		edit.commit();
@@ -44,7 +44,7 @@ public abstract class SunriverDataItem implements Cacheable {
 	public void clearTable() {
 		try {
 			String sql="DELETE FROM " + getTableName();
-			MainActivity.staticGetDbAdapter().exec(sql);
+			GlobalState.getDbAdapter().exec(sql);
 			} catch (Exception e) { // maybe the table doesn't exist yet
 
 		}
@@ -52,7 +52,7 @@ public abstract class SunriverDataItem implements Cacheable {
 
 	@Override
 	public void setLastDateReadToNow() {
-		SharedPreferences sharedPreferences=MainActivity.getSharedPreferences();
+		SharedPreferences sharedPreferences=GlobalState.sharedPreferences;
 		Editor edit=sharedPreferences.edit();
 		edit.putString(getDateLastUpdatedKey(), DbAdapter.mDateFormat.format(new GregorianCalendar().getTime()));
 		edit.commit();
@@ -62,12 +62,12 @@ public abstract class SunriverDataItem implements Cacheable {
 	public long writeItemToDatabase() {
 		ContentValues values=new ContentValues();
 		loadWriteItemToDatabaseContentValuesTo(values);
-		return MainActivity.staticGetDbAdapter().insert(getTableName(), values);
+		return GlobalState.getDbAdapter().insert(getTableName(), values);
 	}
 
 	@Override
 	public Date getLastDateRead() {
-		SharedPreferences sharedPreferences=MainActivity.getSharedPreferences();
+		SharedPreferences sharedPreferences=GlobalState.sharedPreferences;
 		String date= sharedPreferences.getString(getDateLastUpdatedKey(), null);
 		if(date==null) {
 			return null;
@@ -96,7 +96,7 @@ public abstract class SunriverDataItem implements Cacheable {
 		String[] projection=getProjectionForFetch();
 		String columnNameForWhereClause=getColumnNameForWhereClause();
 		String[] columnValuesForWhereClause=getColumnValuesForWhereClause();
-		Cursor cursor=MainActivity.staticGetDbAdapter().get(getTableName(), projection, 
+		Cursor cursor=GlobalState.getDbAdapter().get(getTableName(), projection, 
 				columnNameForWhereClause, columnValuesForWhereClause, getGroupBy(), getOrderBy());
 		if(cursor.moveToFirst()) {
 			do  {

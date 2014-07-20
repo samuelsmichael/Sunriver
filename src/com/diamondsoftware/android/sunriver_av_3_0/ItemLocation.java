@@ -302,8 +302,8 @@ public class ItemLocation extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastDateRead=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastDateRead==null || SplashPage.TheItemUpdate.getUpdateMaps()==null ||
-				SplashPage.TheItemUpdate.getUpdateMaps().getTime().after(lastDateRead));
+				GlobalState.TheItemUpdate==null || lastDateRead==null || GlobalState.TheItemUpdate.getUpdateMaps()==null ||
+				GlobalState.TheItemUpdate.getUpdateMaps().getTime().after(lastDateRead));
 	}
 
 	@Override

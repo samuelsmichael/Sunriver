@@ -186,8 +186,8 @@ public class ItemService extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateServices()==null ||
-						SplashPage.TheItemUpdate.getUpdateServices().getTime().after(lastTimeWeveFetchedData)
+				GlobalState.TheItemUpdate==null || lastTimeWeveFetchedData==null || GlobalState.TheItemUpdate.getUpdateServices()==null ||
+						GlobalState.TheItemUpdate.getUpdateServices().getTime().after(lastTimeWeveFetchedData)
 		);	
 	}
 

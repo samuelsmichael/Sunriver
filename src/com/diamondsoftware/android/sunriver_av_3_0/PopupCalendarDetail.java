@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -74,7 +77,7 @@ public class PopupCalendarDetail extends Popups2 {
 		
 		mShare=(Button)popup.findViewById(R.id.calendar_popup_share_button);		
 		mMap=(Button)popup.findViewById(R.id.calendar_popup_map_button);
-		//TODO: this was hardcoded for testing
+
 		mAddress.setText(mItemCalendar.getSrCalAddress());
 		mDescription.setText(mItemCalendar.getSrCalDescription());
 		/* If they don't have a web site, don't display this part */
@@ -124,7 +127,17 @@ public class PopupCalendarDetail extends Popups2 {
 				Uri uri = Uri.parse( uriString );
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW, uri );
 				mActivity.startActivity( intent );
+		        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+			            GlobalState.TrackerName.APP_TRACKER);
+			        // Build and send an Event.
+			        t.send(new HitBuilders.EventBuilder()
+			            .setCategory("Show on map")
+			            .setAction("Event")
+			            .setLabel(mItemCalendar.getSrCalName())
+			            .build());
 
+				
+				
 			}
 		});
 
@@ -156,6 +169,16 @@ public class PopupCalendarDetail extends Popups2 {
 	@Override
 	protected int getClosePopupId() {
 		return R.id.closePopup;
+	}
+
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Events";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return mItemCalendar.getSrCalName();
 	}
 
 }

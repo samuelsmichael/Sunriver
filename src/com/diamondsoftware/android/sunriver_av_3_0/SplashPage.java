@@ -23,31 +23,11 @@ import android.os.Handler;
  */
 public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously {
 	private Handler mHandler;
-	public static ItemAlert theItemAlert=null;
-	public static ItemUpdate TheItemUpdate=null;
-	public static ItemWelcome TheItemWelcome=null;
-	public static ArrayList<Object> TheItemsSelfie=null;
-	public static ArrayList<Object> TheItemsDidYouKnow=null;
-	public static ArrayList<Object> TheItemsGISLayers=null;
-	public static boolean gotInternet=false;
 	private int mCountItemsLeft=0;
-	public SharedPreferences mSharedPreferences;
-	public static SplashPage mSingleton;
-	private DbAdapter mDbAdapter=null;
-	
-	public DbAdapter getDbAdapter() {
-		if(mDbAdapter==null) {
-			mDbAdapter=new DbAdapter(this);
-		}
-		return mDbAdapter;
-	}
 
 	@Override
 	protected void onDestroy() {
-		if(mDbAdapter!=null) {
-			mDbAdapter.close();
-			mDbAdapter=null;
-		}
+		((GlobalState)getApplicationContext()).dbAdapterClose();
 		super.onDestroy();
 	}
 	
@@ -69,9 +49,6 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	    }
 	};
 	
-	protected String getPREFS_NAME() {
-		return getApplicationContext().getPackageName() + "_preferences";
-	}
 	
 	private synchronized void anAsynchronousActionCompleted() {
 		if(getMCountItemsLeft()<=0) {
@@ -82,8 +59,6 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mSingleton=this;
-		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 		initialize();
         int secondsDelayed = 1;
         incrementMCountItemsLeft();
@@ -94,9 +69,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	}
 	/* Start things out by fetching the "update" data */
 	private void initialize() {
-		theItemAlert=null;
-		TheItemUpdate=null;
-		TheItemWelcome=null;
+		((GlobalState)getApplicationContext()).theItemAlert=null;
+		GlobalState.TheItemUpdate=null;
+		((GlobalState)getApplicationContext()).TheItemWelcome=null;
         incrementMCountItemsLeft();
 		new AcquireDataRemotelyAsynchronously("update", this, this);
 	}
@@ -107,8 +82,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		try {
 			if(name.equalsIgnoreCase("alert")) {
 				if(data!=null && data.size()>0) {
-					theItemAlert=(ItemAlert)data.get(0);
-					gotInternet=true;		
+					((GlobalState)getApplicationContext()).theItemAlert=(ItemAlert)data.get(0);
+					GlobalState.gotInternet=true;		
 				}
 			} else {
 				/*
@@ -119,8 +94,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				 */
 				if(name.equalsIgnoreCase("update")) {
 					if(data!=null && data.size()>0) {
-						TheItemUpdate=(ItemUpdate)data.get(0);
-						gotInternet=true;		
+						GlobalState.TheItemUpdate=(ItemUpdate)data.get(0);
+						GlobalState.gotInternet=true;		
 				        incrementMCountItemsLeft(); // because finally is going to decrement it; and this shouldn't take part in keeping Splash page open.
 						new AcquireDataRemotelyAsynchronously("alert", this, this);		
 						/* Don't need to fetch Welcome data if it's not expired */
@@ -131,7 +106,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							ArrayList<Object> items=itemWelcome.fetchDataFromDatabase();
 							if(items!=null&&items.size()>0) {
-								TheItemWelcome=(ItemWelcome)items.get(0);
+								((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)items.get(0);
 							}
 						}
 						ItemSelfie itemSelfie=new ItemSelfie();
@@ -140,7 +115,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							ArrayList<Object> items = itemSelfie.fetchDataFromDatabase();
 							if(items!=null && items.size()>0) {
-								TheItemsSelfie=items;
+								((GlobalState)getApplicationContext()).TheItemsSelfie=items;
 							}
 						}
 						ItemGISLayers itemGISLayers=new ItemGISLayers();
@@ -149,7 +124,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							ArrayList<Object> items=itemGISLayers.fetchDataFromDatabase();
 							if(items!=null && items.size()>0) {
-								TheItemsGISLayers=items;
+								((GlobalState)getApplicationContext()).TheItemsGISLayers=items;
 							}
 						}
 						/* Don't need to fetch DidYouKnow data if it's not expired */
@@ -158,49 +133,49 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							// I'm not incrementingMCountItemsLeft, as it is okay to proceed to MainActivity even if we don't yet have this data
 							new AcquireDataRemotelyAsynchronously("didyouknow",this,this);
 						} else {
-							TheItemsDidYouKnow= itemDidYouKnow.fetchDataFromDatabase();
+							((GlobalState)getApplicationContext()).TheItemsDidYouKnow= itemDidYouKnow.fetchDataFromDatabase();
 						}
 					} else {
 						ArrayList<Object> items=new ItemWelcome().fetchDataFromDatabase();
 						if(items!=null&&items.size()>0) {
-							TheItemWelcome=(ItemWelcome)items.get(0);
+							((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)items.get(0);
 						}
 						ArrayList<Object> items2 = new ItemSelfie().fetchDataFromDatabase();
 						if(items2!=null && items2.size()>0) {
-							TheItemsSelfie=items2;
+							((GlobalState)getApplicationContext()).TheItemsSelfie=items2;
 						}
-						TheItemsDidYouKnow= new ItemDidYouKnow().fetchDataFromDatabase();
-						TheItemsGISLayers=new ItemGISLayers().fetchDataFromDatabase();
+						((GlobalState)getApplicationContext()).TheItemsDidYouKnow= new ItemDidYouKnow().fetchDataFromDatabase();
+						((GlobalState)getApplicationContext()).TheItemsGISLayers=new ItemGISLayers().fetchDataFromDatabase();
 					}
 				} else {
 					if(name.equalsIgnoreCase("welcome")) {
 						if(data!=null && data.size()>0) {
-							TheItemWelcome=(ItemWelcome)data.get(0);
-							gotInternet=true;
-							TheItemWelcome.setLastDateReadToNow();
+							((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)data.get(0);
+							GlobalState.gotInternet=true;
+							((GlobalState)getApplicationContext()).TheItemWelcome.setLastDateReadToNow();
 						}
 					} else {
 						if(name.equalsIgnoreCase("gislayers")) {
 							doDecrement=false;// I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
 							if(data!=null && data.size()>0) {
-								TheItemsGISLayers=data;
-								gotInternet=true;
-								((ItemGISLayers)TheItemsGISLayers.get(0)).setLastDateReadToNow();
+								((GlobalState)getApplicationContext()).TheItemsGISLayers=data;
+								GlobalState.gotInternet=true;
+								((ItemGISLayers)((GlobalState)getApplicationContext()).TheItemsGISLayers.get(0)).setLastDateReadToNow();
 							}
 						} else {
 							if(name.equalsIgnoreCase("didyouknow")) {
 								doDecrement=false; // I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
 								if(data!=null && data.size()>0) {
-									TheItemsDidYouKnow=data;
-									gotInternet=true;
-									((ItemDidYouKnow)TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
+									((GlobalState)getApplicationContext()).TheItemsDidYouKnow=data;
+									GlobalState.gotInternet=true;
+									((ItemDidYouKnow)((GlobalState)getApplicationContext()).TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
 								}	
 							} else {
 								if(name.equalsIgnoreCase("selfie")) {
 									doDecrement=false;
-									TheItemsSelfie=data;
-									gotInternet=true;
-									((ItemSelfie)TheItemsSelfie.get(0)).setLastDateReadToNow();
+									((GlobalState)getApplicationContext()).TheItemsSelfie=data;
+									GlobalState.gotInternet=true;
+									((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
 								}
 							}
 						}
@@ -220,7 +195,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		if(name.equalsIgnoreCase("alert")) {
 			try {
 				String defaultValue=getResources().getString(R.string.urlalertjson);
-				String uri=mSharedPreferences.getString("urlalertjson", defaultValue);
+				String uri=GlobalState.sharedPreferences.getString("urlalertjson", defaultValue);
 				
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 					new ParsesJsonAlert(), 
@@ -235,7 +210,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			if(name.equalsIgnoreCase("update")) {
 				try {
 					String defaultValue=getResources().getString(R.string.urlupdatejson);
-					String uri=mSharedPreferences.getString("urlupdatejson", defaultValue);
+					String uri=GlobalState.sharedPreferences.getString("urlupdatejson", defaultValue);
 										
 					ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 						new ParsesJsonUpdate(), 
@@ -254,7 +229,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				if(name.equalsIgnoreCase("welcome")) {
 					try {
 						String defaultValue=getResources().getString(R.string.urlwelcomejson);
-						String uri=mSharedPreferences.getString("urlwelcomejson", defaultValue);
+						String uri=GlobalState.sharedPreferences.getString("urlwelcomejson", defaultValue);
 
 						ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 							new ParsesJsonWelcome(), 
@@ -268,7 +243,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					if(name.equalsIgnoreCase("didyouknow")) {
 						try {
 							String defaultValue=getResources().getString(R.string.urldidyouknowjson);
-							String uri=mSharedPreferences.getString("urldidyouknowjson", defaultValue);
+							String uri=GlobalState.sharedPreferences.getString("urldidyouknowjson", defaultValue);
 
 							ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 								new ParsesJsonDidYouKnow(), 
@@ -282,7 +257,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						if(name.equalsIgnoreCase("gislayers")) {
 							try {
 								String defaultValue=getResources().getString(R.string.urlgislayersjson);
-								String uri=mSharedPreferences.getString("urlgislayersjson", defaultValue);
+								String uri=GlobalState.sharedPreferences.getString("urlgislayersjson", defaultValue);
 
 								ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 										new ParsesJsonGISLayers(),
@@ -297,7 +272,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							if(name.equalsIgnoreCase("selfie")) {
 								try {
 									String defaultValue=getResources().getString(R.string.urlselfiejson);
-									String uri=mSharedPreferences.getString("urlselfiejson", defaultValue);
+									String uri=GlobalState.sharedPreferences.getString("urlselfiejson", defaultValue);
 									ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 											new ParsesJsonSelfie(),
 											uri).parse();

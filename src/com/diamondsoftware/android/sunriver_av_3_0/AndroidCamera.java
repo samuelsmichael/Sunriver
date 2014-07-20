@@ -101,11 +101,11 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 		// Set up the view for the overlay
 		overlayView = new ImageView(this);
 		new ImageLoaderRemote(this, false, 1).displayImage(
-				((ItemSelfie)SplashPage.TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
+				((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
 		// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
 		// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
 		new ImageLoaderRemote(this, false, 1).displayImage(
-				((ItemSelfie)SplashPage.TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);
+				((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);
 
 
 		// Set up the view for the camera
@@ -304,9 +304,9 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 
 						File f=new FileCache(AndroidCamera.this).getFile(
 								importrait?
-										((ItemSelfie)SplashPage.TheItemsSelfie.get(AndroidCamera.mIndexIntoSelfieImages)).getOverlayPortCamURL()
+										((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(AndroidCamera.mIndexIntoSelfieImages)).getOverlayPortCamURL()
 										:
-										((ItemSelfie)SplashPage.TheItemsSelfie.get(AndroidCamera.mIndexIntoSelfieImages)).getOverlayLsURL()
+										((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(AndroidCamera.mIndexIntoSelfieImages)).getOverlayLsURL()
 								);
 
 						BitmapFactory.Options o2 = new BitmapFactory.Options();
@@ -402,16 +402,16 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						if(degrees==0) {
 							overlayView = new ImageView(activity);
 							new ImageLoaderRemote(activity, false, 1).displayImage(
-									((ItemSelfie)SplashPage.TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortURL(), overlayView);
+									((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortURL(), overlayView);
 							// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
 							// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
 							new ImageLoaderRemote(activity, false, 1).displayImage(
-									((ItemSelfie)SplashPage.TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);							
+									((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);							
 							importrait=true;
 						} else {
 							overlayView = new ImageView(activity);
 							new ImageLoaderRemote(activity, false, 1).displayImage(
-									((ItemSelfie)SplashPage.TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
+									((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
 							importrait=false;
 
 						}

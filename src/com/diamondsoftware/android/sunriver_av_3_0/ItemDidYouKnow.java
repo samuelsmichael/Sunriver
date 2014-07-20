@@ -37,10 +37,13 @@ public class ItemDidYouKnow extends SunriverDataItem {
 	}
 	@Override
 	public boolean isDataExpired() {
-		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateDidYouKnow().getTime();
+		if(GlobalState.TheItemUpdate==null) {
+			return true;
+		}
+		Date dateDatabaseAtSunriverLastUpdated=GlobalState.TheItemUpdate.getUpdateDidYouKnow().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateDidYouKnow()==null ||
+				GlobalState.TheItemUpdate==null || lastTimeWeveFetchedData==null || GlobalState.TheItemUpdate.getUpdateDidYouKnow()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);	
 	}

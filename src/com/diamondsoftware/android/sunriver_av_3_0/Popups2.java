@@ -1,6 +1,9 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -28,6 +31,8 @@ public abstract class Popups2 {
 	protected abstract int getResourceId();
 	protected abstract int getClosePopupId();
 	protected abstract boolean getDoesPopupNeedToRunInBackground();
+	protected abstract String getGoogleAnalyticsAction();
+	protected abstract String getGoogleAnalyticsLabel();
 	
 	public Popups2(Activity activity) {
 		mActivity=activity;
@@ -45,6 +50,16 @@ public abstract class Popups2 {
 			mWindowManager = (WindowManager) mActivity.getSystemService(Context.WINDOW_SERVICE);
 			LayoutInflater vi = (LayoutInflater) mActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			mPopup = (ViewGroup) vi.inflate(getResourceId(), null);
+	        // Get tracker.
+	        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+	            GlobalState.TrackerName.APP_TRACKER);
+	        // Build and send an Event.
+	        t.send(new HitBuilders.EventBuilder()
+	            .setCategory(getGoogleAnalyticsCategory())
+	            .setAction(getGoogleAnalyticsAction())
+	            .setLabel(getGoogleAnalyticsLabel())
+	            .build());
+
 			loadView(mPopup);
 	
 			final Button closeMe = (Button) mPopup.findViewById(getClosePopupId());
@@ -108,6 +123,9 @@ public abstract class Popups2 {
 	    } catch (Exception e) {
     		
     	}
+	}
+	protected String getGoogleAnalyticsCategory() {
+		return "Item Detail";
 	}
 	protected synchronized void removeView() {
 		try {

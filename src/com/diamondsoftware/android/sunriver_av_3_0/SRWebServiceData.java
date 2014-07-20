@@ -31,7 +31,7 @@ public class SRWebServiceData {
 		 * 3. Otherwise, return a fetch from the database.
 		 */
 		if (!doWeHaveData()) {
-			if(SplashPage.gotInternet) {
+			if(GlobalState.gotInternet) {
 				try {
 					ArrayList<Object> aloo= mFormattedDataReader.parse();
 					mCacheable.setLastDateReadToNow();

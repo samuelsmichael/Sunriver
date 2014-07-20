@@ -74,9 +74,9 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	public String getRandomImageURL() {
 		try {
 			double randomNumber=Math.random();
-			double factor=1d/(double)SplashPage.TheItemsDidYouKnow.size();
+			double factor=1d/(double)((GlobalState)getApplicationContext()).TheItemsDidYouKnow.size();
 			int element=(int)(randomNumber/factor);
-			return ((ItemDidYouKnow)SplashPage.TheItemsDidYouKnow.get(element)).getDidYouKnowURL();
+			return ((ItemDidYouKnow)((GlobalState)getApplicationContext()).TheItemsDidYouKnow.get(element)).getDidYouKnowURL();
 		} catch (Exception e) {
 			return "http://www.srfeed.com/res/pics/welcome/Welcome.jpg";
 		}
@@ -89,16 +89,11 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-			if(SplashPage.mSingleton==null) {
-				Intent intent = new Intent(this, SplashPage.class);
-				startActivity(intent);
-				finish();
-			}
 			// check to see that we've gone Internet Connectivity
 		    ConnectivityManager connectivityManager 
 		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-		    SplashPage.gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		    ((GlobalState)getApplicationContext()).gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();
 		
 		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 		setContentView(getViewId());

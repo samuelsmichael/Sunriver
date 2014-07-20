@@ -70,4 +70,14 @@ public class PopupDisclaimer extends Popups2 {
 		return false;
 	}
 
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Disclaimer";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return "";
+	}
+
 }

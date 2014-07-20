@@ -37,4 +37,14 @@ public class PopupAlert extends Popups2 {
 		return R.id.alertCloseButton;
 	}
 
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Alert";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return "";
+	}
+
 }

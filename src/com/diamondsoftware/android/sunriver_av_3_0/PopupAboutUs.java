@@ -72,4 +72,14 @@ public class PopupAboutUs extends Popups2 {
 		return false;
 	}
 
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "About Us";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return "";
+	}
+
 }

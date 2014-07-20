@@ -257,10 +257,13 @@ public class ItemCalendar extends SunriverDataItem {
 
 	@Override
 	public boolean isDataExpired() {
-		Date dateDatabaseAtSunriverLastUpdated=SplashPage.TheItemUpdate.getUpdateCalendar().getTime();
+		if(GlobalState.TheItemUpdate==null) {
+			return true;
+		}
+		Date dateDatabaseAtSunriverLastUpdated=GlobalState.TheItemUpdate.getUpdateCalendar().getTime();
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateCalendar()==null ||
+				GlobalState.TheItemUpdate==null || lastTimeWeveFetchedData==null || GlobalState.TheItemUpdate.getUpdateCalendar()==null ||
 						dateDatabaseAtSunriverLastUpdated.after(lastTimeWeveFetchedData)
 		);
 	}

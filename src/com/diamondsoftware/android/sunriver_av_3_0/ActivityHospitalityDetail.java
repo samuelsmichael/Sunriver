@@ -1,5 +1,8 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -14,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivityHospitalityDetail extends AbstractActivityForMenu {
+public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordNavigateThere {
 	
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -77,7 +80,8 @@ public class ActivityHospitalityDetail extends AbstractActivityForMenu {
 						.putExtra("HeresYourIcon", R.drawable.route_destination)
 						.putExtra("GoToLocationTitle", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName())
 						.putExtra("GoToLocationSnippet", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityDescription())
-						.putExtra("GoToLocationURL", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityUrlWebsite());
+						.putExtra("GoToLocationURL", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityUrlWebsite())
+						.putExtra("GoogleAnalysticsAction",getGoogleAnalyticsLabel());
 				ActivityHospitalityDetail.this.startActivity(intent);
 			}
 		});
@@ -190,5 +194,27 @@ public class ActivityHospitalityDetail extends AbstractActivityForMenu {
 		}	
 			
 		
+	}
+
+	@Override
+	protected String getGoogleAnalyticsAction() {
+		return "Hospitality Detail";
+	}
+
+	@Override
+	protected String getGoogleAnalyticsLabel() {
+		return ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName();
+	}
+
+	public void googleAnalyticsNavigateThere() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail")
+            .setAction("Navigate There")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
 	}
 }

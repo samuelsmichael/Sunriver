@@ -29,7 +29,7 @@ public class DbAdapter {
 	"yyyy-MM-dd HH:mm:ss.S");
 
 
-	private final Activity mActivity;
+	private final Context mContext;
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 	
@@ -41,8 +41,8 @@ public class DbAdapter {
 	 * @param activity
 	 *            the Activity within which to work
 	 */
-	public DbAdapter(Activity activity) {
-		this.mActivity = activity;
+	public DbAdapter(Context context) {
+		this.mContext = context;
 	}
 	
 	public void close() {
@@ -258,7 +258,7 @@ public class DbAdapter {
 	private SQLiteDatabase getSqlDb() {
 		if (mDb == null) {
 			if (mDbHelper == null) {
-				mDbHelper = new DatabaseHelper(mActivity);
+				mDbHelper = new DatabaseHelper(mContext);
 			}
 			mDb = mDbHelper.getWritableDatabase();
 		}

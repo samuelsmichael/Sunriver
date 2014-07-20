@@ -1066,8 +1066,9 @@ containing a value of this type.
         public static final int WalletFragmentDefaultStyle=0x7f060004;
     }
     public static final class xml {
-        public static final int identify_calloutstyle=0x7f050000;
-        public static final int preferences=0x7f050001;
+        public static final int app_tracker=0x7f050000;
+        public static final int identify_calloutstyle=0x7f050001;
+        public static final int preferences=0x7f050002;
     }
     public static final class styleable {
         /** Attributes that can be used with a AdsAttrs.

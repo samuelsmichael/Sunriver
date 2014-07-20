@@ -25,6 +25,8 @@ import com.esri.core.tasks.tilecache.ExportTileCacheParameters;
 import com.esri.core.tasks.tilecache.ExportTileCacheStatus;
 import com.esri.core.tasks.tilecache.ExportTileCacheTask;
 import com.esri.core.tasks.tilecache.ExportTileCacheParameters.ExportBy;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import android.location.Location;
 import android.location.LocationManager;
@@ -230,15 +232,15 @@ public class Maps extends AbstractActivityForMenu {
 			}
 		});
         uc=new UserCredentials();
-        String userName=MainActivity.getSharedPreferences().getString(getString(R.string.arcgis_userid), "seabaseballfan");
-        String userPassword=MainActivity.getSharedPreferences().getString(getString(R.string.arcgis_password), "Wp_p18mm");
+        String userName=GlobalState.sharedPreferences.getString(getString(R.string.arcgis_userid), "seabaseballfan");
+        String userPassword=GlobalState.sharedPreferences.getString(getString(R.string.arcgis_password), "Wp_p18mm");
         uc.setUserAccount(userName, userPassword);
 
 	    ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-	    SplashPage.gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();        
+	    GlobalState.gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();        
         
-		if(SplashPage.gotInternet) {
+		if(GlobalState.gotInternet) {
 			mImCreatingMapFromLocalCache=false;
 			mBaseMapsLayer=new ArcGISTiledMapServiceLayer(
 					getString(R.string.map_arcgis_url4),uc);
@@ -246,8 +248,8 @@ public class Maps extends AbstractActivityForMenu {
 			mBikePaths=new ArcGISTiledMapServiceLayer(getBikePathLayer());
 			mBikePaths.setVisible(MainActivity.mSingleton.mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, false));
 			mMapView.addLayer(mBikePaths);
-			if(SplashPage.TheItemsGISLayers!=null && SplashPage.TheItemsGISLayers.size()>0) {
-				for(Object i: SplashPage.TheItemsGISLayers) {
+			if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
+				for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
 					if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
 						ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(((ItemGISLayers)i).getSrGISLayersURL());
 						mMapView.addLayer(layer);
@@ -317,6 +319,15 @@ public class Maps extends AbstractActivityForMenu {
 				mWhenBuiltAddLayerForRestaurantTitle=getIntent().getExtras().getString("GoToLocationTitle");
 				mWhenBuiltAddLayerForRestaurantSnippet=getIntent().getExtras().getString("GoToLocationSnippet");
 				mWhenBuiltAddLayerForRestaurantURL=getIntent().getExtras().getString("GoToLocationURL");
+		        Tracker t = ((GlobalState) getApplication()).getTracker(
+			            GlobalState.TrackerName.APP_TRACKER);
+			        // Build and send an Event.
+			        t.send(new HitBuilders.EventBuilder()
+			            .setCategory("Show on map")
+			            .setAction(getIntent().getExtras().getString("GoToLocationURL"))
+			            .setLabel(getIntent().getExtras().getString("GoToLocationTitle"))
+			            .build());
+
 			}
 			if(getIntent().getExtras().containsKey("HeresYourIcon")) {
 				showYourMapIcon=getIntent().getExtras().getInt("HeresYourIcon");
@@ -327,8 +338,8 @@ public class Maps extends AbstractActivityForMenu {
 	/* First try to find the bike path layer from the database fetch; and if not found, use the default.*/
 	private String getBikePathLayer() {
 		ItemGISLayers item=null;
-		if(SplashPage.TheItemsGISLayers!=null && SplashPage.TheItemsGISLayers.size()>0) {
-			for(Object i: SplashPage.TheItemsGISLayers) {
+		if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
+			for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
 				if(((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
 					item=(ItemGISLayers)i;
 					break;
@@ -344,7 +355,7 @@ public class Maps extends AbstractActivityForMenu {
 	private Location onOpeningMap=null;
 	private boolean mapCacheNeedsRenewing() {
 		float dx=0;
-		if(!imPositioningMapBaseOnGoToLocationSoDontBuildCache && SplashPage.gotInternet && 
+		if(!imPositioningMapBaseOnGoToLocationSoDontBuildCache && GlobalState.gotInternet && 
 			!mImCreatingMapFromLocalCache && !mImInTheMiddleOfFetchingDataForACacheSoDontDoItAgain) {
 			double latitudeOnOpeningMap=Double.valueOf(MainActivity.mSingleton.mSharedPreferences.getString(MapsGraphicsLayerCurrentLocation.POINT_LATITUDE_KEY_ON_OPENING_MAPS, "0"));
 			double longitudeOnOpeningMap=Double.valueOf(MainActivity.mSingleton.mSharedPreferences.getString(MapsGraphicsLayerCurrentLocation.POINT_LONGITUDE_KEY_ON_OPENING_MAPS, "0"));
@@ -362,7 +373,7 @@ public class Maps extends AbstractActivityForMenu {
 		// don't refresh the cache unless we're more than 5k from that last one
 		boolean yesRefresh=!imPositioningMapBaseOnGoToLocationSoDontBuildCache && 
 				!mImInTheMiddleOfFetchingDataForACacheSoDontDoItAgain && 
-				SplashPage.gotInternet && 
+				GlobalState.gotInternet && 
 				!mImCreatingMapFromLocalCache && 
 				(dx>DX_IN_METERS_GREATERTHANWHICH_REBUILD_MAP_CACHE);
 		return yesRefresh;
@@ -393,10 +404,10 @@ public class Maps extends AbstractActivityForMenu {
         // Create an instance of TileCacheTask for the mapService that supports
         // the 'exportTiles' operation
         uc2=new UserCredentials();
-        String userName=MainActivity.getSharedPreferences().getString(getString(R.string.arcgis_userid), "diamondsoftware");
-        String userPassword=MainActivity.getSharedPreferences().getString(getString(R.string.arcgis_password), "diamond222");
+        String userName=GlobalState.sharedPreferences.getString(getString(R.string.arcgis_userid), "diamondsoftware");
+        String userPassword=GlobalState.sharedPreferences.getString(getString(R.string.arcgis_password), "diamond222");
         uc2.setUserAccount(userName, userPassword);
-        tileURL=MainActivity.getSharedPreferences().getString(getString(R.string.map_offline_url4), "http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer");
+        tileURL=GlobalState.sharedPreferences.getString(getString(R.string.map_offline_url4), "http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer");
         final ExportTileCacheTask tileCacheTask = new ExportTileCacheTask(tileURL, uc2);
         // Set up GenerateTileCacheParameters
         final ExportTileCacheParameters params = new ExportTileCacheParameters(

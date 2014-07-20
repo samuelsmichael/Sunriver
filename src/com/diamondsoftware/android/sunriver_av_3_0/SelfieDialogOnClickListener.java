@@ -25,7 +25,7 @@ public class SelfieDialogOnClickListener implements OnItemClickListener {
 			// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
 			// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
 			new ImageLoaderRemote(mAndroidCamera, false, 1).displayImage(
-					((ItemSelfie)SplashPage.TheItemsSelfie.get(whichItem)).getOverlayPortCamURL(), null);
+					((ItemSelfie)((GlobalState)mDialog.getContext()).TheItemsSelfie.get(whichItem)).getOverlayPortCamURL(), null);
 
 			new CountDownTimer(500, 500) {
 

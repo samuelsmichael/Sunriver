@@ -41,8 +41,8 @@ public class ItemWelcome extends SunriverDataItem {
 	public boolean isDataExpired() {
 		Date lastTimeWeveFetchedData=getLastDateRead();
 		return (
-				SplashPage.TheItemUpdate==null || lastTimeWeveFetchedData==null || SplashPage.TheItemUpdate.getUpdateWelcome()==null ||
-						SplashPage.TheItemUpdate.getUpdateWelcome().getTime().after(lastTimeWeveFetchedData)
+				GlobalState.TheItemUpdate==null || lastTimeWeveFetchedData==null || GlobalState.TheItemUpdate.getUpdateWelcome()==null ||
+						GlobalState.TheItemUpdate.getUpdateWelcome().getTime().after(lastTimeWeveFetchedData)
 		);
 	}
 
