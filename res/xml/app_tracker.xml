@@ -47,7 +47,7 @@
     </screenName>
 	<integer name="ga_sessionTimeout">-1</integer>
 	<string name="ga_appName">Sunriver Navigator</string>
-	<string name="ga_appVersion">2.00</string>
+	<string name="ga_appVersion">1.07</string>
 	<bool name="ga_reportUncaughtExceptions">true</bool>
 
 
