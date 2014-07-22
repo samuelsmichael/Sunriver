@@ -95,6 +95,15 @@ public class PopupCalendarDetail extends Popups2 {
 			    public boolean onTouch(View v, MotionEvent event) {			    	
 			        if (event.getAction() == MotionEvent.ACTION_UP) {
 			        	removeView();
+				        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+					            GlobalState.TrackerName.APP_TRACKER);
+					        // Build and send an Event.
+					        t.send(new HitBuilders.EventBuilder()
+					            .setCategory("Item Detail Action")
+					            .setAction("Visit website")
+					            .setLabel(mItemCalendar.getSrCalName())
+					            .build());
+
 			        	Intent intent=new Intent(mActivity,Website.class).
 			        		putExtra("url",(mWebAddress.indexOf("http")==-1?"http://":"")+mWebAddress);
 			        	mActivity.startActivity(intent);
@@ -108,6 +117,15 @@ public class PopupCalendarDetail extends Popups2 {
 			@Override
 			public void onClick(View v) {
 				removeView();
+		        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+			            GlobalState.TrackerName.APP_TRACKER);
+			        // Build and send an Event.
+			        t.send(new HitBuilders.EventBuilder()
+			            .setCategory("Item Detail Action")
+			            .setAction("Share")
+			            .setLabel(mItemCalendar.getSrCalName())
+			            .build());
+
 				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
 				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mItemCalendar.getSrCalName());
@@ -131,8 +149,8 @@ public class PopupCalendarDetail extends Popups2 {
 			            GlobalState.TrackerName.APP_TRACKER);
 			        // Build and send an Event.
 			        t.send(new HitBuilders.EventBuilder()
-			            .setCategory("Show on map")
-			            .setAction("Event")
+			            .setCategory("Item Detail Action")
+			            .setAction("Show location on map")
 			            .setLabel(mItemCalendar.getSrCalName())
 			            .build());
 

@@ -118,6 +118,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	@Override
 	protected void childOnCreate() {
 		super.childOnCreate();
+		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Home Page");
 		mGeocodeManager = new GeocodeManager(this);
 		mSingleton=this;
 		// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
@@ -157,6 +158,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		if (id == 100) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Maps");
+
 			File dir=new File(android.os.Environment.getExternalStorageDirectory(),"/sunriver"); // no need to popup the disclaimer if the user checked "do not show again"
 			File donotshowagain=new File(dir, PopupDisclaimer.DISCLAIMER_MAPS_FILE);
 			Intent intent = new Intent(this, Maps.class);
@@ -180,18 +183,22 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			}
 		}
 		if (id == 200) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Weather");
 			Intent intent = new Intent(MainActivity.this, Weather2.class);
 			startActivity(intent);
 		}
 		if (id == 120) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Where to Stay");
 			Intent intent = new Intent(MainActivity.this, ActivityHospitality.class);
 			startActivity(intent);
 		}
 		if (id == 300) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Events");
 			Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
 			startActivity(intent);
 		}
 		if (id == 400) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Activity Planner");
 			Intent intent = new Intent(MainActivity.this, ActivitiesActivity.class);
 			startActivity(intent);
 		}
@@ -202,18 +209,22 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			integrator.initiateScan();
 		}
 		if (id == 600) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Eats & Treats");
 			Intent intent = new Intent(MainActivity.this,EatsAndTreatsActivity.class);
 			startActivity(intent);
 		}
 		if (id == 110) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Shopping");
 			Intent intent = new Intent(MainActivity.this,ActivityRetail.class);
 			startActivity(intent);
 		}
 		if (id == 700) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Services");
 			Intent intent = new Intent(MainActivity.this,ServicesActivity.class);
 			startActivity(intent);
 		}
 		if(id==800) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Selfie");
 			Intent intentCamera=new Intent(MainActivity.this,AndroidCamera.class);
 			startActivity(intentCamera);
 		}
@@ -397,33 +408,40 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			super();
 			mMainActivity=mainActivity;
 		}
+		public FindHomeDialog () {}
 	    @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the Builder class for convenient dialog construction
-	        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-	        // Get the layout inflater
-	        LayoutInflater inflater = getActivity().getLayoutInflater();
-
-	        // Inflate and set the layout for the dialog
-	        // Pass null as the parent view because its going in the dialog layout
-	        builder.setView(inflater.inflate(R.layout.find_home, null));
-	        builder.setMessage(R.string.key_in_your_resort_address)
-	               .setPositiveButton(R.string.btn_continue, new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                	   final EditText resortName=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortname);
-	                	   
-	                	   new AcquireDataRemotelyAsynchronously(resortName.getText().toString(), mMainActivity, mMainActivity);
-	           			   mMainActivity.pd = ProgressDialog.show(mMainActivity,"Searching ...","Searching for "+resortName.getText().toString(),true,false,null);
-	                	   
-	                  }
-	               })
-	               .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
-	                   public void onClick(DialogInterface dialog, int id) {
-	                	   FindHomeDialog.this.getDialog().cancel();
-	                   }
-	               });
-	        // Create the AlertDialog object and return it
-	        return builder.create();
+	    	if(mMainActivity==null) {mMainActivity=MainActivity.mSingleton;}
+	    	if(mMainActivity!=null) {
+		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+		        // Get the layout inflater
+		        LayoutInflater inflater = getActivity().getLayoutInflater();
+	
+		        // Inflate and set the layout for the dialog
+		        // Pass null as the parent view because its going in the dialog layout
+		        builder.setView(inflater.inflate(R.layout.find_home, null));
+		        builder.setMessage(R.string.key_in_your_resort_address)
+		               .setPositiveButton(R.string.btn_continue, new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   final EditText resortName=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortname);
+		                	   
+		                	   new AcquireDataRemotelyAsynchronously(resortName.getText().toString(), mMainActivity, mMainActivity);
+		           			   mMainActivity.pd = ProgressDialog.show(mMainActivity,"Searching ...","Searching for "+resortName.getText().toString(),true,false,null);
+		                	   
+		                  }
+		               })
+		               .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
+		                   public void onClick(DialogInterface dialog, int id) {
+		                	   FindHomeDialog.this.getDialog().cancel();
+		                   }
+		               });
+		        // Create the AlertDialog object and return it
+		        return builder.create();
+	    	} else {
+	    		return null;
+	    	}
+	    	}
 	    }
 	}
 	ProgressDialog pd;

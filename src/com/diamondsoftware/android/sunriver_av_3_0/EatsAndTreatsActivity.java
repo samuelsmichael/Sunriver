@@ -16,5 +16,13 @@ public class EatsAndTreatsActivity extends ActivityThatIsASubtypeOfMaps {
 		mListViewAdapter=new ListViewAdapterMapSubtype(this,1);
 		return mListViewAdapter;
 	}
+	
+	@Override
+	protected void childOnItemClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		ItemLocation itemLocation=(ItemLocation)mListViewAdapter.mData.get(position);
+		Popups2 mPopup = new PopupMapLocationEatsAndTreats(this, itemLocation.toHashMap(),true);
+		mPopup.createPopup();
+	}
 
 }

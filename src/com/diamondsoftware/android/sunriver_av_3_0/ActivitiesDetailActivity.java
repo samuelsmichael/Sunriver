@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordNavigateThere {
+public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordItemActions {
 	
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -63,6 +63,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 				//TODO: ItemActivity.tostring
 				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ActivitiesActivity.CurrentActivityItem.toString());
 				ActivitiesDetailActivity.this.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+				googleAnalyticsShare();
 			}
 		});
 		
@@ -122,6 +123,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			        Intent intent=new Intent(ActivitiesDetailActivity.this,Website.class).
 			        		putExtra("url",(webUrl.toString().indexOf("http")==-1?"http://":"")+webUrl);
 			        ActivitiesDetailActivity.this.startActivity(intent);
+			        googleAnalyticsVisitWebsite();
 				}
 			});
 	
@@ -198,11 +200,41 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
             GlobalState.TrackerName.APP_TRACKER);
         // Build and send an Event.
         t.send(new HitBuilders.EventBuilder()
-            .setCategory("Item Detail")
+            .setCategory("Item Detail Action")
             .setAction("Navigate There")
             .setLabel(getGoogleAnalyticsLabel())
             .build());
 	}
+	@Override
+	public void googleAnalyticsVisitWebsite() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Visit website")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+		
+	}
+
+	@Override
+	public void googleAnalyticsTelephone() {
+	}
+	@Override
+	public void googleAnalyticsShare() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Share")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+	}
+
 
 	@Override
 	protected String getGoogleAnalyticsAction() {

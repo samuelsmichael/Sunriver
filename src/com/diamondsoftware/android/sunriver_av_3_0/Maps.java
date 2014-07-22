@@ -323,8 +323,8 @@ public class Maps extends AbstractActivityForMenu {
 			            GlobalState.TrackerName.APP_TRACKER);
 			        // Build and send an Event.
 			        t.send(new HitBuilders.EventBuilder()
-			            .setCategory("Show on map")
-			            .setAction(getIntent().getExtras().getString("GoToLocationURL"))
+			            .setCategory("Item Detail Action")
+			            .setAction("Show location on map")
 			            .setLabel(getIntent().getExtras().getString("GoToLocationTitle"))
 			            .build());
 

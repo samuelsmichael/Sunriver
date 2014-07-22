@@ -51,6 +51,8 @@ public class ServicesDetailActivity extends AbstractActivityForListViewsScrollin
 	@Override
 	protected void childOnCreate() {
 		mItemService=(ItemService)ServicesActivity.Services.get(getIntent().getIntExtra("ItemPosition", 0));
+		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Services Category - "+mItemService.getServiceCategoryName());
+
 		this.setTitle("Sunriver "+mItemService.getServiceCategoryName());
 	}
 

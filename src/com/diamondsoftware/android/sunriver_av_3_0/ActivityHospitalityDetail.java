@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordNavigateThere {
+public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail implements GoogleAnalyticsRecordItemActions {
 	
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -66,6 +66,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName());
 				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ActivityHospitality.CurrentHospitalityItem.toString());
 				ActivityHospitalityDetail.this.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+				googleAnalyticsShare();
 			}
 		});
 		
@@ -126,6 +127,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			        Intent intent=new Intent(ActivityHospitalityDetail.this,Website.class).
 			        		putExtra("url",(webUrl.toString().indexOf("http")==-1?"http://":"")+webUrl);
 			        ActivityHospitalityDetail.this.startActivity(intent);
+			        googleAnalyticsVisitWebsite();
 				}
 			});
 	
@@ -154,6 +156,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 	    		    if(Utils.canHandleIntent(ActivityHospitalityDetail.this,navigateMe)) {
 		    			navigateMe.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		    			ActivityHospitalityDetail.this.startActivity(navigateMe);
+		    			googleAnalyticsNavigateThere();
 	    		    } else {
 	    		    	Toast.makeText(ActivityHospitalityDetail.this, "No Naviagtion app found on this phone.", Toast.LENGTH_LONG).show();
 	    		    }
@@ -212,8 +215,37 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
             GlobalState.TrackerName.APP_TRACKER);
         // Build and send an Event.
         t.send(new HitBuilders.EventBuilder()
-            .setCategory("Item Detail")
+            .setCategory("Item Detail Action")
             .setAction("Navigate There")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+	}
+	@Override
+	public void googleAnalyticsVisitWebsite() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Visit website")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+		
+	}
+
+	@Override
+	public void googleAnalyticsTelephone() {
+	}
+	@Override
+	public void googleAnalyticsShare() {
+        // Get tracker.
+        Tracker t = ((GlobalState) getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Share")
             .setLabel(getGoogleAnalyticsLabel())
             .build());
 	}

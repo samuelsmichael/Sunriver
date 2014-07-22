@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import android.view.View;
 import android.widget.AdapterView;
 /*
- * Provides support for the ListView-type Activity "EatsAndTreats".  
+ * Provides support for the ListView-type Activity "Retail".  
  * Refer to documentation in the parent class AbstractActivityForListViews for descriptions of the 
  * purposes of the overridden methods.
  */
@@ -16,5 +16,14 @@ public class ActivityRetail extends ActivityThatIsASubtypeOfMaps {
 		mListViewAdapter=new ListViewAdapterMapSubtype(this,3);
 		return mListViewAdapter;
 	}
+	
+	@Override
+	protected void childOnItemClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		ItemLocation itemLocation=(ItemLocation)mListViewAdapter.mData.get(position);
+		Popups2 mPopup = new PopupMapLocationRetail(this, itemLocation.toHashMap(),true);
+		mPopup.createPopup();
+	}
+
 
 }

@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordNavigateThere {
+public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordItemActions {
 
 	private ImageView mImageUrl;
 	private TextView mName;
@@ -93,7 +93,7 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordNa
 				@Override
 				public void onClick(View v) {
 					removeView();
-					
+					googleAnalyticsTelephone();
 				}
 			});			
 		}
@@ -135,6 +135,7 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordNa
 			        Intent intent=new Intent(mActivity,Website.class).
 			        		putExtra("url",(webUrl.toString().indexOf("http")==-1?"http://":"")+webUrl);
 			        mActivity.startActivity(intent);
+			        googleAnalyticsVisitWebsite();
 				}
 			});
 			
@@ -248,10 +249,41 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordNa
             GlobalState.TrackerName.APP_TRACKER);
         // Build and send an Event.
         t.send(new HitBuilders.EventBuilder()
-            .setCategory("Item Detail")
+            .setCategory("Item Detail Action")
             .setAction("Navigate There")
             .setLabel(getGoogleAnalyticsLabel())
             .build());
+	}
+
+	@Override
+	public void googleAnalyticsVisitWebsite() {
+        // Get tracker.
+        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Visit website")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+		
+	}
+
+	@Override
+	public void googleAnalyticsTelephone() {
+        // Get tracker.
+        Tracker t = ((GlobalState) mActivity.getApplication()).getTracker(
+            GlobalState.TrackerName.APP_TRACKER);
+        // Build and send an Event.
+        t.send(new HitBuilders.EventBuilder()
+            .setCategory("Item Detail Action")
+            .setAction("Telephone")
+            .setLabel(getGoogleAnalyticsLabel())
+            .build());
+	}
+
+	@Override
+	public void googleAnalyticsShare() {
 	}
 
 }

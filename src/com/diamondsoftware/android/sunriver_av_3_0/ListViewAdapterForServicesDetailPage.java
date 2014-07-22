@@ -31,6 +31,7 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 
 		@Override
 		protected ArrayList<Object> childGetData() throws IOException, XmlPullParserException {
+			((GlobalState)mActivity.getApplicationContext()).gaSendView("Sunriver Navigator - Services "+mCategoryName);
 			try {
 				/*
 				 * Load up values so that the appropriate query is performed.  In other words, we keep all of our 

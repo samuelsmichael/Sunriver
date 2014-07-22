@@ -13,41 +13,10 @@
 <!--  The following value should be replaced with correct property id. -->
 <string name="ga_trackingId">UA-52884112-1</string>    
     <!-- Enable automatic Activity measurement -->
-    <bool name="ga_autoActivityTracking">true</bool>
-    <!-- The screen names that will appear in reports -->
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.MainActivity">
-        Sunriver Navigator - Home Page
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.Maps">
-        Sunriver Navigator - Maps
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.EatsAndTreatsActivity">
-        Sunriver Navigator - Eats and Treats
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.ActivityRetail">
-        Sunriver Navigator - Shopping
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.CalendarActivity">
-        Sunriver Navigator - Events
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.ActivitiesActivity">
-        Sunriver Navigator - Activity Planner
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.AndroidCamera">
-        Sunriver Navigator - Sunriver Selfie
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.ServicesActivity">
-        Sunriver Navigator - Services
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.Weather2">
-        Sunriver Navigator - Weather
-    </screenName>
-    <screenName name="com.diamondsoftware.android.sunriver_av_3_0.ActivityHospitality">
-        Sunriver Navigator - Where to Stay
-    </screenName>
-	<integer name="ga_sessionTimeout">-1</integer>
+    <bool name="ga_autoActivityTracking">false</bool>
+	<integer name="ga_sessionTimeout">300</integer>
 	<string name="ga_appName">Sunriver Navigator</string>
-	<string name="ga_appVersion">1.07</string>
+	<string name="ga_appVersion">2.00</string>
 	<bool name="ga_reportUncaughtExceptions">true</bool>
 
 
