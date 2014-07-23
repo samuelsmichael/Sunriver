@@ -441,7 +441,6 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	    	} else {
 	    		return null;
 	    	}
-	    	}
 	    }
 	}
 	ProgressDialog pd;
