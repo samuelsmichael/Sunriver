@@ -3,12 +3,22 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
     <EditText
-        android:id="@+id/resortname"
+        android:id="@+id/resortlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/resortlothint" />
+    <AutoCompleteTextView
+        android:id="@+id/resortlane"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
-        android:hint="@string/resortnamehint" />
+        android:completionThreshold="1"
+        android:hint="@string/resortlanehint" />
 </LinearLayout>

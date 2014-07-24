@@ -8,7 +8,8 @@
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
     		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
     		<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
-    		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
+    		<!-- <string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>  -->
+    		<string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string>
    			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
     		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
@@ -74,7 +75,8 @@
     <string name="btn_continue">Continue</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_tryagain">Try again</string>
-    <string name="resortnamehint">Resort name</string>
+    <string name="resortlothint">Number</string>
+    <string name="resortlanehint">Street name</string>
     <string name="title_activity_maps">Sunriver Maps</string>
     <string name="title_activity_services">Sunriver Services</string>
     <string name="title_activity_servicesdetail">Sunriver Services Detail</string>

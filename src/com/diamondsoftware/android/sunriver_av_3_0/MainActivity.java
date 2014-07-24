@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -27,8 +28,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.provider.Settings.Secure;
 
 /**
  *  Manages all of the actions at the home page.
@@ -52,9 +57,11 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	public final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	public static MainActivity mSingleton;
 	private static GeocodeManager mGeocodeManager;
+	private static String SECOND_GENERATION_FIND_MY_HOME_INDICATOR="|~";
 
 	public static boolean heresHowIChangeCameraFaceCleanly=false;
 
+	private String android_id;
 	
 	/*
 	 * The "Sunriver graphic item doesn't come from fetch of all the other map
@@ -119,6 +126,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	protected void childOnCreate() {
 		super.childOnCreate();
 		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Home Page");
+		android_id=Secure.getString(getContentResolver(),
+                Secure.ANDROID_ID);
 		mGeocodeManager = new GeocodeManager(this);
 		mSingleton=this;
 		// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
@@ -409,6 +418,24 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			mMainActivity=mainActivity;
 		}
 		public FindHomeDialog () {}
+		/*@Override 
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+	    	if(mMainActivity==null) {mMainActivity=MainActivity.mSingleton;}
+	    	if(mMainActivity!=null) {
+	    		View v = inflater.inflate(R.layout.find_home, container, false);
+		        AutoCompleteTextView textView = (AutoCompleteTextView) v.findViewById(R.id.resortlane);
+			     // Get the string array
+				     String[] lanes = getResources().getStringArray(R.array.srlanes_array);
+				     // Create the adapter and set it to the AutoCompleteTextView 
+				     ArrayAdapter<String> adapter = 
+				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, lanes);
+				     textView.setAdapter(adapter);
+				     return v;
+
+	    	} else {
+	    		return null;
+	    	}
+		}*/
 	    @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the Builder class for convenient dialog construction
@@ -417,17 +444,27 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		        // Get the layout inflater
 		        LayoutInflater inflater = getActivity().getLayoutInflater();
+		        View view = inflater.inflate(R.layout.find_home, null);
+		        AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.resortlane);
+			     // Get the string array
+				     String[] lanes = getResources().getStringArray(R.array.srlanes_array);
+				     // Create the adapter and set it to the AutoCompleteTextView 
+				     ArrayAdapter<String> adapter = 
+				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, lanes);
+				     textView.setAdapter(adapter);
+		        builder.setView(view);
 	
 		        // Inflate and set the layout for the dialog
 		        // Pass null as the parent view because its going in the dialog layout
-		        builder.setView(inflater.inflate(R.layout.find_home, null));
+//		        builder.setView(inflater.inflate(R.layout.find_home, null));
+		        
 		        builder.setMessage(R.string.key_in_your_resort_address)
 		               .setPositiveButton(R.string.btn_continue, new DialogInterface.OnClickListener() {
 		                   public void onClick(DialogInterface dialog, int id) {
-		                	   final EditText resortName=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortname);
-		                	   
-		                	   new AcquireDataRemotelyAsynchronously(resortName.getText().toString(), mMainActivity, mMainActivity);
-		           			   mMainActivity.pd = ProgressDialog.show(mMainActivity,"Searching ...","Searching for "+resortName.getText().toString(),true,false,null);
+		                	   final AutoCompleteTextView resortLane=(AutoCompleteTextView)FindHomeDialog.this.getDialog().findViewById(R.id.resortlane);
+		                	   final EditText resortLot=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortlot);
+		                	   new AcquireDataRemotelyAsynchronously(resortLot.getText().toString()+"~"+resortLane.getText().toString(), mMainActivity, mMainActivity);
+		           			   mMainActivity.pd = ProgressDialog.show(mMainActivity,"Searching ...","Searching for "+resortLane.getText().toString(),true,false,null);
 		                	   
 		                  }
 		               })
@@ -437,7 +474,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		                   }
 		               });
 		        // Create the AlertDialog object and return it
-		        return builder.create();
+		        AlertDialog dialog= builder.create();
+		        return dialog;
 	    	} else {
 	    		return null;
 	    	}
@@ -460,7 +498,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 //					nameValuePair,
 					new ParsesJsonFindHome(name), 
-					uri+"?resortAddress="+URLEncoder.encode(name)).parse();
+					uri+"?resortAddress="+SECOND_GENERATION_FIND_MY_HOME_INDICATOR+URLEncoder.encode(name)+"~"+android_id).parse();
 				return data;
 			} catch (Exception e) {
 				int bkhere1=3;
@@ -494,7 +532,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			try {
 				addresses = geocoder.getFromLocationName(countyAddress, 1);
 			} catch (Exception e) {
-				alertMsg="Failed trying to find address for "+nameFinding+". Msg: " + e.getMessage();
+				alertMsg="Failed trying to find address for "+nameFinding.replace('~', ' ')+". Msg: " + e.getMessage();
 			}
 			if(addresses!=null&&addresses.size() > 0) {
 			    double latitude= addresses.get(0).getLatitude();
@@ -503,15 +541,15 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				.putExtra("GoToLocationLatitude", latitude)
 				.putExtra("GoToLocationLongitude", longitude)
 				.putExtra("HeresYourIcon", R.drawable.route_destination)
-				.putExtra("GoToLocationTitle", sunriverAddress)
+				.putExtra("GoToLocationTitle", sunriverAddress.replace('~', ' '))
 				.putExtra("GoToLocationSnippet", countyAddress)
 				.putExtra("GoToLocationURL", "");
 				MainActivity.this.startActivity(intent);				    
 			} else {
-				alertMsg="Unable to find address for "+nameFinding+".";
+				alertMsg="Unable to find address for "+nameFinding.replace('~', ' ')+".";
 			}
 		} else {
-			alertMsg="The resort name " + nameFinding + " wasn't found in our database.  Please try again.";
+			alertMsg="The resort name " + nameFinding.replace('~', ' ') + " wasn't found in our database.  Please try again.";
 			reShowResortSearch=true;
 		}
 		if(alertMsg!=null) {

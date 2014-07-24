@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="srlanes_array">
+		<item>Abbot Drive</item>
+		<item>Abbot House</item>
+		<item>Acacia</item>
+		<item>Acer</item>
+		<item>Alberello</item>
+		<item>Alpine</item>
+		<item>Alta</item>
+		<item>Antelope</item>
+		<item>Approach</item>
+		<item>Aquila</item>
+		<item>Ashwood</item>
+		<item>Aspen</item>
+		<item>Aspen Butte</item>
+		<item>Augusta</item>
+		<item>Awbrey</item>
+		<item>Bachelor</item>
+		<item>Backwoods</item>
+		<item>Balsam</item>
+		<item>Beaver</item>
+		<item>Beaver Dr</item>
+		<item>Beech</item>
+		<item>Belknap</item>
+		<item>Big Leaf</item>
+		<item>Big Sky</item>
+		<item>Bittern</item>
+		<item>Blue Goose</item>
+		<item>Blue Grouse</item>
+		<item>Bobcat</item>
+		<item>Broken Top</item>
+		<item>Bunker</item>
+		<item>Butternut</item>
+		<item>Camas</item>
+		<item>Cascara</item>
+		<item>Catalpa</item>
+		<item>Catholic Church</item>
+		<item>Catkin</item>
+		<item>Cedar</item>
+		<item>Central</item>
+		<item>Cherrywood</item>
+		<item>Cinder</item>
+		<item>Circle 4 Ranch Cabin</item>
+		<item>Cluster Cabin</item>
+		<item>Colonial</item>
+		<item>Conifer</item>
+		<item>Cottonwood</item>
+		<item>Country Mall</item>
+		<item>Coyote</item>
+		<item>Crag</item>
+		<item>Crater</item>
+		<item>Cultus</item>
+		<item>Cypress</item>
+		<item>Deer</item>
+		<item>Deschutes</item>
+		<item>Diamond Peak</item>
+		<item>Dixie Mtn</item>
+		<item>Dogleg</item>
+		<item>Dogwood</item>
+		<item>Doral</item>
+		<item>Duck Pond</item>
+		<item>Dutchman</item>
+		<item>Eagle Cap</item>
+		<item>Eaglewood</item>
+		<item>East Butte</item>
+		<item>East Park</item>
+		<item>Elk</item>
+		<item>Fairway</item>
+		<item>Fairway Village</item>
+		<item>Fawn</item>
+		<item>Fifteenth Tee</item>
+		<item>Filbert</item>
+		<item>Fir Cone</item>
+		<item>Five Iron</item>
+		<item>Flat Top</item>
+		<item>Forest</item>
+		<item>Foursome</item>
+		<item>Fox</item>
+		<item>Fremont Crossing</item>
+		<item>Gannet</item>
+		<item>Golden Eagle</item>
+		<item>Goldfinch</item>
+		<item>Gosling</item>
+		<item>Gray Birch</item>
+		<item>Grizzly</item>
+		<item>Grouse</item>
+		<item>Hangers A1-d12</item>
+		<item>Hare</item>
+		<item>Hart Mtn</item>
+		<item>Hickory</item>
+		<item>Holly</item>
+		<item>Hoodoo</item>
+		<item>Hummingbird</item>
+		<item>Indian</item>
+		<item>Irish Mtn</item>
+		<item>Jackpine</item>
+		<item>Jay</item>
+		<item>Juniper</item>
+		<item>Killdeer</item>
+		<item>Kinglet</item>
+		<item>Kitty Hawk</item>
+		<item>Klamath</item>
+		<item>Landrise</item>
+		<item>Lark</item>
+		<item>Lassen</item>
+		<item>Lava Butte</item>
+		<item>Lava Top</item>
+		<item>Leisure</item>
+		<item>Little Court</item>
+		<item>Lodgepole</item>
+		<item>Lofty</item>
+		<item>Lone Eagle</item>
+		<item>Lookout</item>
+		<item>Loon</item>
+		<item>Lost</item>
+		<item>Lowland</item>
+		<item>Lupine</item>
+		<item>Lynx</item>
+		<item>Main Mall</item>
+		<item>Makaha</item>
+		<item>Malheur</item>
+		<item>Maury Mtn</item>
+		<item>Mavericks</item>
+		<item>McKenzie</item>
+		<item>McNary</item>
+		<item>Meadow House</item>
+		<item>Meadow Lark</item>
+		<item>Mink</item>
+		<item>Modoc</item>
+		<item>Mt Adams</item>
+		<item>Mt Baker</item>
+		<item>Mt Hood</item>
+		<item>Mt Rainier</item>
+		<item>Mt Rose</item>
+		<item>Mt St Helens</item>
+		<item>Mtn View</item>
+		<item>Mtn View Lodge</item>
+		<item>Mugho</item>
+		<item>Muir</item>
+		<item>Mulligan</item>
+		<item>Muskrat</item>
+		<item>Newberry</item>
+		<item>Nine Iron</item>
+		<item>North Course</item>
+		<item>Oakmont</item>
+		<item>Ochoco</item>
+		<item>Old Service Station</item>
+		<item>Ollalie</item>
+		<item>Olympic</item>
+		<item>Oregon</item>
+		<item>Otter</item>
+		<item>Paper Birch</item>
+		<item>Parkland</item>
+		<item>Pathfinder</item>
+		<item>Pine Bough</item>
+		<item>Pine Cone</item>
+		<item>Pine Mtn</item>
+		<item>Pine Needle</item>
+		<item>Pine Ridge</item>
+		<item>Pioneer</item>
+		<item>Playoff</item>
+		<item>Plover</item>
+		<item>Pole House</item>
+		<item>Polehouse</item>
+		<item>Poplar</item>
+		<item>Pro Staff</item>
+		<item>Puma</item>
+		<item>Pyramid Mtn</item>
+		<item>Quail</item>
+		<item>Quartz Mtn</item>
+		<item>Quelah</item>
+		<item>Quelah Condo</item>
+		<item>Raccoon</item>
+		<item>Rager Mtn</item>
+		<item>Ranch Cabin</item>
+		<item>Recreation</item>
+		<item>Red Alder</item>
+		<item>Red Cedar</item>
+		<item>Red Fir</item>
+		<item>Red Hill</item>
+		<item>Redwing</item>
+		<item>Redwood</item>
+		<item>Rhododendron</item>
+		<item>Ribes</item>
+		<item>River</item>
+		<item>River Lodge</item>
+		<item>River Road</item>
+		<item>River Village</item>
+		<item>Rocky Mtn</item>
+		<item>Rogue</item>
+		<item>Sage Springs</item>
+		<item>Salishan</item>
+		<item>Sandhill</item>
+		<item>Sandtrap</item>
+		<item>Sarazen</item>
+		<item>Sequoia</item>
+		<item>Shadow</item>
+		<item>Shag Bark</item>
+		<item>Shamrock</item>
+		<item>SHARC</item>
+		<item>Siskin</item>
+		<item>Sisters</item>
+		<item>Skyline</item>
+		<item>Sparks</item>
+		<item>Splitrock</item>
+		<item>Spruce</item>
+		<item>Spyglass</item>
+		<item>Squirrel</item>
+		<item>Sr Lodge &amp; Resort</item>
+		<item>Sr Lodge Administration</item>
+		<item>Stag</item>
+		<item>Stoneridge</item>
+		<item>Sumac</item>
+		<item>Summit</item>
+		<item>Summit View</item>
+		<item>Sunrise</item>
+		<item>Sunriver Lodge</item>
+		<item>Tamarack</item>
+		<item>Tan Oak</item>
+		<item>Tennis Village</item>
+		<item>The Marketplace</item>
+		<item>The Pines</item>
+		<item>The Ridge</item>
+		<item>Theater Drive</item>
+		<item>Three Iron</item>
+		<item>Thrush</item>
+		<item>Timber</item>
+		<item>Titleist</item>
+		<item>Todd</item>
+		<item>Tokatee</item>
+		<item>Topflite</item>
+		<item>Tournament</item>
+		<item>Towhee</item>
+		<item>Trapper</item>
+		<item>Trophy</item>
+		<item>Trout House</item>
+		<item>Tumalo</item>
+		<item>Twosome</item>
+		<item>Umpqua</item>
+		<item>Utility Company</item>
+		<item>Ventura Ln</item>
+		<item>Verdin</item>
+		<item>Village Mall</item>
+		<item>Vine Maple</item>
+		<item>Virginia Rail</item>
+		<item>Vista</item>
+		<item>Wallowa</item>
+		<item>Warbler East</item>
+		<item>Warbler West</item>
+		<item>West Mall Building</item>
+		<item>West Office Building</item>
+		<item>Whistler</item>
+		<item>Whistling Swan</item>
+		<item>White Alder</item>
+		<item>White Elm</item>
+		<item>Wickiup</item>
+		<item>Wildflower</item>
+		<item>Winners</item>
+		<item>Witchhazel</item>
+		<item>Wolf</item>
+		<item>Woodland</item>
+		<item>Yankee Mtn</item>
+		<item>Yellow Pine</item>
+		<item>Yellow Rail</item>
+    </string-array>    
+</resources>

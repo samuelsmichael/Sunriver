@@ -11,14 +11,14 @@
 <!-- Treat events as test events and don't send to google -->
 <bool name="ga_dryRun">false</bool>
 <!--  The following value should be replaced with correct property id. -->
-<!--  Diamond Software's account <string name="ga_trackingId">UA-52884112-1</string> -->   
-	 <string name="ga_trackingId">UA-50203876-1</string>
+<string name="ga_trackingId">UA-52884112-1</string>   
+<!--  Sunriver's account	 <string name="ga_trackingId">UA-50203876-1</string> -->
     <!-- Enable automatic Activity measurement -->
     <bool name="ga_autoActivityTracking">false</bool>
     
 	<integer name="ga_sessionTimeout">300</integer>
 	<string name="ga_appName">Sunriver Navigator</string>
-	<string name="ga_appVersion">2.00</string>
+	<string name="ga_appVersion">2.01</string>
 	<bool name="ga_reportUncaughtExceptions">true</bool>
 
 
