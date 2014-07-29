@@ -45,6 +45,7 @@
     <string name="arcgis_password">Wp_p18mm</string>
     
     <string name="aboutusstring">About Us</string>
+    <string name="weatherchoosertitle">Choose next page:</string>
     <string name="aboutuslink_privacypolicy">http://www.sunriverstyle.com/privacy-policy</string>
     <string name="aboutuslink_termsandconditions">http://www.sunriverstyle.com/terms-and-services</string>
     <string name="aboutusverbiage">Nestled at the base of the Cascade mountain range — Sunriver, Oregon is a scenic mecca for outdoor enthusiasts and those looking for a chance to commune with nature, but also have access to all the amenities you would ever need. \n
@@ -62,7 +63,14 @@
     <string name="disclaimer">The information on this map was derived from SROA digital databases . Care was taken in the creation of this map. SROA cannot accept any responsibility for errors, omissions, or positional accuracy. There are no warranties, expressed or implied, including the warranty of merchantability or fitness for a particular purpose, accompanying this product. However, notification of any errors will be appreciated.</string>
     <string name="disclaimer_donotshowagain">Do not show again</string>
      
-    <string name="wunderground_api_conditions">http://api.wunderground.com/api/bc2f8db95e1b5405/conditions/q/OR/Sunriver.json</string>
+<!-- Weather -->
+	<string name="webcam_url_1">http://www.weather.sunriverowners.org/davisvp2/snapshot.jpg</string>
+	<string name="webcam_url_2">http://tripcheck.com/popups/Cam.asp?curRegion=5&amp;camera=1923&amp;camera=631</string>    
+	<string name="webcam_url_3">http://67.204.166.155:8081/index.asp</string>
+	<string name="webcam_title_1">Davis Point</string>
+	<string name="webcam_title_2">US97 at Lava Butte</string>
+	<string name="webcam_title_3">Sunriver</string>
+	<string name="wunderground_api_conditions">http://api.wunderground.com/api/bc2f8db95e1b5405/conditions/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast10days">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast10days/q/OR/Sunriver.json</string>
     <string name="wunderground_api_hourly">http://api.wunderground.com/api/bc2f8db95e1b5405/hourly/q/OR/Sunriver.json</string>
@@ -78,6 +86,7 @@
     <string name="resortlothint">Number</string>
     <string name="resortlanehint">Street name</string>
     <string name="title_activity_maps">Sunriver Maps</string>
+    <string name="title_activity_webcams">Sunriver Webcams</string>
     <string name="title_activity_services">Sunriver Services</string>
     <string name="title_activity_servicesdetail">Sunriver Services Detail</string>
     <string name="title_activity_activitiesdetail">Sunriver Activity Detail</string>

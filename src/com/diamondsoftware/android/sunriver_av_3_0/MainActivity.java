@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.provider.Settings.Secure;
 
@@ -192,9 +193,14 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			}
 		}
 		if (id == 200) {
-			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Weather");
-			Intent intent = new Intent(MainActivity.this, Weather2.class);
-			startActivity(intent);
+		    android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
+		    android.app.Fragment prev = getFragmentManager().findFragmentByTag("weatherpagechooser");
+		    if (prev != null) {
+		        ft.remove(prev);
+		    }
+		    ft.addToBackStack(null);
+		    SelectWeatherPage selectWeatherPage=new SelectWeatherPage();
+			selectWeatherPage.show(ft,"weatherpagechooser");
 		}
 		if (id == 120) {
 			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Where to Stay");
@@ -407,6 +413,51 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		}
 	}
 	/**
+	 * Popup dialog to select Weather page
+	 */
+	public static class SelectWeatherPage extends DialogFragment {
+		public SelectWeatherPage() {}
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.popup_weather_function_chooser, null);
+			builder.setView(view);
+	        builder.setMessage(R.string.weatherchoosertitle);
+	        Button forecast=(Button)view.findViewById(R.id.btn_weather_forecast);
+	        Button webcams=(Button)view.findViewById(R.id.btn_webcams);
+	        Button cancel = (Button)view.findViewById(R.id.btn_weather_chooser_cancel);
+	        cancel.setOnClickListener(new View.OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					SelectWeatherPage.this.getDialog().cancel();
+				}
+			});
+	        forecast.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					((GlobalState)getActivity().getApplicationContext()).gaSendView("Sunriver Navigator - Weather forecast");
+					Intent intent = new Intent(getActivity(), Weather2.class);
+					startActivity(intent);
+					SelectWeatherPage.this.getDialog().cancel();
+				}
+			});
+	        webcams.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					((GlobalState)getActivity().getApplicationContext()).gaSendView("Sunriver Navigator - Weather web cams");
+					Intent intent = new Intent(getActivity(), ActivityWebcams.class);
+					startActivity(intent);
+					SelectWeatherPage.this.getDialog().cancel();
+				}
+			});
+	     // Create the AlertDialog object and return it
+	     AlertDialog dialog= builder.create();
+	     return dialog;
+
+		}
+	}
+	/**
 	 * 
 	 * @author Diamond
 	 * Popup dialog to enter Sunriver address
@@ -418,24 +469,6 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			mMainActivity=mainActivity;
 		}
 		public FindHomeDialog () {}
-		/*@Override 
-		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
-	    	if(mMainActivity==null) {mMainActivity=MainActivity.mSingleton;}
-	    	if(mMainActivity!=null) {
-	    		View v = inflater.inflate(R.layout.find_home, container, false);
-		        AutoCompleteTextView textView = (AutoCompleteTextView) v.findViewById(R.id.resortlane);
-			     // Get the string array
-				     String[] lanes = getResources().getStringArray(R.array.srlanes_array);
-				     // Create the adapter and set it to the AutoCompleteTextView 
-				     ArrayAdapter<String> adapter = 
-				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, lanes);
-				     textView.setAdapter(adapter);
-				     return v;
-
-	    	} else {
-	    		return null;
-	    	}
-		}*/
 	    @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
 	        // Use the Builder class for convenient dialog construction
