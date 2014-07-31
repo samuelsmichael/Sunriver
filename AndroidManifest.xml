@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.diamondsoftware.android.sunriver_av_3_0"
-    android:versionCode="9"
-    android:versionName="2.02" >
+    android:versionCode="10"
+    android:versionName="2.03" >
 
     
     <uses-permission android:name="android.permission.INTERNET" />
@@ -61,6 +61,9 @@
             android:name="com.diamondsoftware.android.sunriver_av_3_0.WebCam3" >
         </activity>
         <activity
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.WebCam4" >
+        </activity>
+        <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.ServicesActivity"
             android:label="@string/title_activity_services" >
 
@@ -72,7 +75,8 @@
         </activity>
         <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityWebcams"
-            android:label="@string/title_activity_webcams" >
+            android:label="@string/title_activity_webcams"
+            >
 
         </activity>
         <activity

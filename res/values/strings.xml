@@ -67,9 +67,11 @@
 	<string name="webcam_url_1">http://www.weather.sunriverowners.org/davisvp2/snapshot.jpg</string>
 	<string name="webcam_url_2">http://tripcheck.com/popups/Cam.asp?curRegion=5&amp;camera=1923&amp;camera=631</string>    
 	<string name="webcam_url_3">http://67.204.166.155:8081/index.asp</string>
+	<string name="webcam_url_4">http://www.mtbachelor.com/winter/mountain/cams/lightbox.cams</string>
 	<string name="webcam_title_1">Davis Point</string>
 	<string name="webcam_title_2">US97 at Lava Butte</string>
 	<string name="webcam_title_3">Sunriver</string>
+	<string name="webcam_title_4">Mt Bachelor</string>
 	<string name="wunderground_api_conditions">http://api.wunderground.com/api/bc2f8db95e1b5405/conditions/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast10days">http://api.wunderground.com/api/bc2f8db95e1b5405/forecast10days/q/OR/Sunriver.json</string>

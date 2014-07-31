@@ -8,14 +8,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 
-public class WebCam1 extends Activity {
+public class WebCam4 extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_webcam1);
-		WebView myWebView1 = (WebView) findViewById(R.id.webview1);
+		setContentView(R.layout.activity_webcam4);
+		WebView myWebView1 = (WebView) findViewById(R.id.webview4);
 
 		 myWebView1.getSettings().setJavaScriptEnabled(true);
 
@@ -31,7 +30,9 @@ public class WebCam1 extends Activity {
 		myWebView1.getSettings().setBuiltInZoomControls(true);
 		myWebView1.getSettings().setLoadWithOverviewMode(true);
 		myWebView1.getSettings().setUseWideViewPort(true);
-		myWebView1.loadUrl(getResources().getString(R.string.webcam_url_1));
+
+
+		myWebView1.loadUrl(getResources().getString(R.string.webcam_url_4));
 		myWebView1.setWebViewClient(new WebViewClient());
 	}
 }

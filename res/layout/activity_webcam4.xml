@@ -4,8 +4,8 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 	    
-	<WebView  
-	    android:id="@+id/webview3"
+	<WebView
+	    android:id="@+id/webview4"
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	/>
