@@ -12,6 +12,8 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 public class GlobalState extends Application {
+	public static boolean homePageNeedsRefreshing=false;
+	public static ArrayList<Object> TheItemsEmergency=null;
 	public ItemAlert theItemAlert=null;
 	public static ItemUpdate TheItemUpdate=null;
 	public  ItemWelcome TheItemWelcome=null;

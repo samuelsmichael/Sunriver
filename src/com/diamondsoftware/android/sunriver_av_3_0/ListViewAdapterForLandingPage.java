@@ -53,6 +53,7 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
         mLandingPageHolder.name.setText(landingPageItem.getName());
         mLandingPageHolder.description.setText(landingPageItem.getDescription());
         mImageLoader.displayImage(((ItemLandingPage)getItem(position)).getIconName(),mLandingPageHolder.thumb_image);
+        mLandingPageHolder.description.setSelected(true); // believe it or not, you have to do this in order to make the marquee scroll.
 		
 	}
 

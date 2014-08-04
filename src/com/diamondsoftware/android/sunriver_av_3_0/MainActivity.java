@@ -261,6 +261,11 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	}
 
 	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+	
+	@Override
 	protected void onResume() {
 		super.onResume();
 		if(mGeocodeManager!=null) {
@@ -273,6 +278,10 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			heresHowIChangeCameraFaceCleanly=false;
 			Intent intentCamera=new Intent(this,AndroidCamera.class);
 			startActivity(intentCamera);
+		}
+		if(GlobalState.homePageNeedsRefreshing) {
+			((ListViewAdapterLocalData)mAdapter).performDataFetch();
+			GlobalState.homePageNeedsRefreshing=false;
 		}
 	}
 
@@ -411,7 +420,19 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			alertItem.setIconName("alertnew");
 			data.add(0,alertItem);
 		}
+		if(GlobalState.TheItemsEmergency!=null) {
+			for(Object itemEmergency: GlobalState.TheItemsEmergency) {
+				ItemLandingPage emergencyItem=new ItemLandingPage();
+				emergencyItem.setDescription(((ItemEmergency)itemEmergency).getEmergencyDescription());
+				emergencyItem.setId(999);
+				emergencyItem.setIconName("alertnew"); //TODO: get icon 
+				emergencyItem.setName(((ItemEmergency)itemEmergency).getEmergencyTitle());
+				emergencyItem.setmOtherInfo("EmergencyId:"+((ItemEmergency)itemEmergency).getEmergencyId());
+				data.add(0,emergencyItem);
+			}
+		}
 	}
+	
 	/**
 	 * Popup dialog to select Weather page
 	 */

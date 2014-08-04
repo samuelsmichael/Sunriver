@@ -5,6 +5,13 @@ public class ItemLandingPage {
 	private String mName;
 	private String mDescription;
 	private String mIconName;
+	private String mOtherInfo;
+	public String getmOtherInfo() {
+		return mOtherInfo;
+	}
+	public void setmOtherInfo(String mOtherInfo) {
+		this.mOtherInfo = mOtherInfo;
+	}
 	public ItemLandingPage() {		
 	}
 	public ItemLandingPage(int id, String name, String description, String iconName) {

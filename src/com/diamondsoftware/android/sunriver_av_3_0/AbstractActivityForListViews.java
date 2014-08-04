@@ -127,7 +127,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
  
 	}
 	/*
-	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalDate,
+	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalData,
 	 * then the data is fetched as part of the constructor.  With a ListViewAdapterRemoteData (one that fetches its data
 	 * off of a webservice (like Calendar, Maps, and Activities), then the data fetch is done asynchronously (per Android's
 	 * requirement), and then this method is called (using an AsyncTask, so that it will be called on the UI thread).

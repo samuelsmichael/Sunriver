@@ -4,6 +4,13 @@ public class ItemAlert {
     private int mALID;
     private String mALTitle;
     private String mALDescription;
+    private boolean mIsOnAlert;
+	public boolean ismIsOnAlert() {
+		return mIsOnAlert;
+	}
+	public void setmIsOnAlert(boolean mIsOnAlert) {
+		this.mIsOnAlert = mIsOnAlert;
+	}
 	public ItemAlert( int alid, String altitle, String alDescription) {
 		mALID=alid;
 		mALTitle=altitle;

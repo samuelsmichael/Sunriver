@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class ParsesJsonAlert extends ParsesJson {
+public class ParsesJsonEmergency extends ParsesJson {
 
-	public ParsesJsonAlert() {
+	public ParsesJsonEmergency() {
 	}
 
 	@Override
@@ -17,11 +17,12 @@ public class ParsesJsonAlert extends ParsesJson {
 		int c=jsonArray.length();
 		for(int i=0;i<c;i++) {
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
-			ItemAlert item=new ItemAlert();
-			item.setmALDescription(jsonObject.getString("ALDescription"));
-			item.setmALID(jsonObject.getInt("ALID"));
-			item.setmALTitle(jsonObject.getString("ALTitle"));
-			item.setmIsOnAlert(jsonObject.getBoolean("isOnAlert"));
+			ItemEmergency item=new ItemEmergency();
+			item.setEmergencyId(jsonObject.getInt("emergencyId"));
+			item.setEmergencyTitle(jsonObject.getString("emergencyTitle"));
+			item.setEmergencyDescription(jsonObject.getString("emergencyDescription"));
+			item.setEmergencyAlert(jsonObject.getBoolean("isEmergencyAlert"));
+			item.setHasMap(jsonObject.getBoolean("hasMap"));
 			items.add(item);
 		}
 		return items;

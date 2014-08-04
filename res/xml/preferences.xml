@@ -4,6 +4,12 @@
 			android:title="Urls"
 		>
 			  <EditTextPreference
+			  	android:key="EmergencyTimerIntervalInSeconds"
+			  	android:defaultValue="60"
+			  	android:title="Emergency Timer Interval in Seconds"
+			  	android:summary="Each period of this amount of time, the system will check the Sunriver Emergency Alert database for updates"
+			  ></EditTextPreference>
+   			  <EditTextPreference
 			  	android:key="urlselfiejson"
 			  	android:defaultValue="@string/urlselfiejson"
 			  	android:title="Selfie Data URL"
@@ -20,6 +26,12 @@
 			  	android:defaultValue="@string/urlwelcomejson"
 			  	android:title="Welcome Data URL"
 			  	android:summary="URL used to fetch the Welcome data"
+			  ></EditTextPreference>
+		      <EditTextPreference
+			  	android:key="urlemergencyjson"
+			  	android:defaultValue="@string/urlemergencyjson"
+			  	android:title="Emergency Data URL"
+			  	android:summary="URL used to fetch the Emergency data"
 			  ></EditTextPreference>
 		      <EditTextPreference
 			  	android:key="urlalertjson"
@@ -77,5 +89,17 @@
 			  	android:summary="URL used to fetch the GIS Layers data as json"
 			  ></EditTextPreference>
 	</PreferenceCategory>    
+	<PreferenceCategory
+		android:title="Urls"
+	>
+	  <EditTextPreference
+	  	android:key="emergencytimerintervalinseconds"
+	  	android:defaultValue="@string/emergencytimerintervalinseconds"
+	  	android:title="Emergency Timer Interval in Seconds"
+	  	android:summary="Each period of this amount of time, the system will check the Sunriver Emergency Alert database for updates"
+	  ></EditTextPreference>
+	    
+	</PreferenceCategory>    
+	    		
 
 </PreferenceScreen>

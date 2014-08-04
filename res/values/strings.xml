@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Sunriver Web App settings -->
+    <!-- Sunriver Web App settings  http://srfeed.com/  -->
     
     		<string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>
     		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
     		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
     		<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
-    		<!-- <string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>  -->
-    		<string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string>
-   			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
+    		<!-- <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> -->
+    		
+    		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
+   			<string name="urlalertjson">http://listplus.no-ip.org/SunriverWebApp/Alert.aspx</string>
     		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
     		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
   		  	<string name="urlmapjson">http://srfeed.com/Map.aspx</string>
    		 	<string name="urlcalendarjson">http://srfeed.com/Calendar.aspx</string>
-    
+   			<string name="urlemergencyjson">http://listplus.no-ip.org/SunriverWebApp/Emergency.aspx</string>
+   		 	
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>
@@ -80,6 +82,9 @@
     <string name="wunderground_api_forcastprior">http://api.wunderground.com/api/2ba3560f9d0306dd/forecast/q/OR/Sunriver.json</string>
     <string name="wunderground_api_forcast10daysprior">http://api.wunderground.com/api/2ba3560f9d0306dd/forecast10days/q/OR/Sunriver.json</string>
     <string name="wunderground_api_hourlyprior">http://api.wunderground.com/api/2ba3560f9d0306dd/hourly/q/OR/Sunriver.json</string>
+    
+    <string name="emergencytimerintervalinseconds">240</string>
+    <string name="emergencynotificationtitle">Sunriver Emergency Notification</string>
     <string name="app_name">Sunriver</string>
     <string name="location_layers">Location layers</string>
     <string name="btn_continue">Continue</string>

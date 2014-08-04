@@ -23,12 +23,6 @@ public class ActivityWebcams extends TabActivity {
 		
 		
 		final TabHost tabHost = getTabHost();
-		try {
-			TabWidget tw = (TabWidget)tabHost.findViewById(android.R.id.tabs);
-			View tabView = tw.getChildTabViewAt(0);
-			TextView tv = (TextView)tabView.findViewById(android.R.id.title);
-			tv.setTextSize(12);
-		} catch (Exception ee){}
 		
 		tabHost.addTab(tabHost.newTabSpec("tab1")
 				.setIndicator(getResources().getString(R.string.webcam_title_1))

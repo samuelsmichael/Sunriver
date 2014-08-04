@@ -149,13 +149,13 @@ public class GeofenceReceiver extends BroadcastReceiver { //LocalBroadcastManage
 
         // Create an explicit content Intent that starts the main Activity
         Intent notificationIntent =
-                new Intent(context,MainActivity.class); // not sure about this: .putExtra("GoToMaps", true);
+                new Intent(context,SplashPage.class); // not sure about this: .putExtra("GoToMaps", true);
 
         // Construct a task stack
         android.support.v4.app.TaskStackBuilder stackBuilder = android.support.v4.app.TaskStackBuilder.create(context);
 
         // Adds the main Activity to the task stack as the parent
-        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addParentStack(SplashPage.class);
 
         // Push the content Intent onto the stack
         stackBuilder.addNextIntent(notificationIntent);

@@ -46,6 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>           
         </activity>            
+        <service
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.TimerService"
+            android:enabled="true"
+            android:exported="false" >
+        </service>
         <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.MainActivity"
             android:label="@string/title_activity_MainActivity" >
