@@ -23,6 +23,10 @@ public class ParsesJsonEmergency extends ParsesJson {
 			item.setEmergencyDescription(jsonObject.getString("emergencyDescription"));
 			item.setEmergencyAlert(jsonObject.getBoolean("isEmergencyAlert"));
 			item.setHasMap(jsonObject.getBoolean("hasMap"));
+			
+			item.addMapURL("http://tiles.arcgis.com/tiles/PPpMbTaRDuKoF0e4/arcgis/rest/services/BikePaths/MapServer");
+			item.addMapURL("http://tiles.arcgis.com/tiles/PPpMbTaRDuKoF0e4/arcgis/rest/services/SRCircleNumbersV3/MapServer");
+			
 			items.add(item);
 		}
 		return items;

@@ -82,6 +82,7 @@ public class Maps extends AbstractActivityForMenu {
 	private String mWhenBuiltAddLayerForRestaurantURL=null;
 	private int showYourMapIcon=0;
 	private boolean imPositioningMapBaseOnGoToLocationSoDontBuildCache=false;
+	private String[] mEmergencyMapURLs=null;
 
 
 	static final String TAG = "ExportTileCache";
@@ -136,6 +137,18 @@ public class Maps extends AbstractActivityForMenu {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mEmergencyMapURLs=null;
+		if(getIntent().getExtras()!=null) { // displaying maps from Emergency
+			if(getIntent().getExtras().containsKey("EmergencyMapURLs")) {
+				mEmergencyMapURLs=getIntent().getExtras().getStringArray("EmergencyMapURLs");
+				String title=getIntent().getExtras().getString("EmergencyMapTitle");
+				if(title==null||title.trim().equals("")) {
+					title="Sunriver Maps";
+				}
+				setTitle(title);
+			}		
+		}
+
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
         defaultPath = Environment.getExternalStorageDirectory().getPath()
@@ -245,17 +258,34 @@ public class Maps extends AbstractActivityForMenu {
 			mBaseMapsLayer=new ArcGISTiledMapServiceLayer(
 					getString(R.string.map_arcgis_url4),uc);
 			mMapView.addLayer(mBaseMapsLayer);
-			mBikePaths=new ArcGISTiledMapServiceLayer(getBikePathLayer());
-			mBikePaths.setVisible(MainActivity.mSingleton.mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, false));
-			mMapView.addLayer(mBikePaths);
-			if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
-				for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
-					if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
-						ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(((ItemGISLayers)i).getSrGISLayersURL());
-						mMapView.addLayer(layer);
+			if(mEmergencyMapURLs==null) { // not showing emergency maps
+				mBikePaths=new ArcGISTiledMapServiceLayer(getBikePathLayer());
+				mBikePaths.setVisible(MainActivity.mSingleton.mSharedPreferences.getBoolean(MainActivity.PREFERENCES_MAPS_POPUP_BIKEPATHS, false));
+				mMapView.addLayer(mBikePaths);
+				if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
+					for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
+						if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
+							ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(((ItemGISLayers)i).getSrGISLayersURL());
+							mMapView.addLayer(layer);
+						}
 					}
+				}				
+			} else { // am showing emergency maps
+				// Display layers, too
+				if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
+					for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
+						if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
+							ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(((ItemGISLayers)i).getSrGISLayersURL());
+							mMapView.addLayer(layer);
+						}
+					}
+				}				
+				for(String mapURL: mEmergencyMapURLs) {
+					ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(mapURL);
+					mMapView.addLayer(layer);
 				}
 			}
+
 		} else {
 			mImCreatingMapFromLocalCache=true;
 	        localTiledLayer = new ArcGISLocalTiledLayer(thePath2);	        
@@ -264,49 +294,50 @@ public class Maps extends AbstractActivityForMenu {
 		}
 		Layer[] layers=mMapView.getLayers();
 		final long layerId=layers[0].getID();  //1995181592 ic_launcher
-		/*
-		 * I have to queue these items for single processing; otherwise their
-		 * background threads (where they fetch the data) end up clashing. I
-		 * tried making the spot where they clash a synchronized method, but
-		 * that didn't do any good. So, I'll handle synchronization myself.
-		 */
-		mGraphicsLayerRestaurants = new MapsGraphicsLayerLocation(this,
-				mMapView, Color.GREEN, 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.RESTAURANT, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true);
-		mGraphicsLayers.add(mGraphicsLayerRestaurants);
-		mGraphicsLayerRetails = new MapsGraphicsLayerLocation(this, mMapView,
-				Color.parseColor("#ff87ceeb"), 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.RETAIL, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true);
-		mGraphicsLayers.add(mGraphicsLayerRetails);
-		mGraphicsLayerPools = new MapsGraphicsLayerLocation(this, mMapView,
-				Color.parseColor("#ff00ffff"), 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.POOL, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_POOLS,false);
-		mGraphicsLayers.add(mGraphicsLayerPools);
-		mGraphicsLayerTennisCourts = new MapsGraphicsLayerLocation(this,
-				mMapView, Color.YELLOW, 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.TENNIS_COURT, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_TENNISCOURTS,false);
-		mGraphicsLayers.add(mGraphicsLayerTennisCourts);
-		mGraphicsLayerGas = new MapsGraphicsLayerLocation(this, mMapView,
-				Color.RED, 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.GAS_STATION, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_GAS,false);
-		mGraphicsLayers.add(mGraphicsLayerGas);
-		mGraphicsLayerPerfectPictureSpots = new MapsGraphicsLayerLocation(this,
-				mMapView, Color.MAGENTA, 12, STYLE.CIRCLE,
-				ItemLocation.LocationType.PERFECT_PICTURE_SPOT, true,
-				MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false);
-		mGraphicsLayers.add(mGraphicsLayerPerfectPictureSpots);
-		// This one we can do without queueing it up, since it's doesn't need to
-		// fetch any data off of the web service
-		mGraphicsLayerMisc = new MapsGraphicsLayerMisc(this, mMapView,
-				Color.DKGRAY, 12, STYLE.DIAMOND,
-				ItemLocation.LocationType.SUNRIVER, true);
-		mGraphicsLayers.add(mGraphicsLayerMisc);
-		
+		if(mEmergencyMapURLs==null) {
+			/*
+			 * I have to queue these items for single processing; otherwise their
+			 * background threads (where they fetch the data) end up clashing. I
+			 * tried making the spot where they clash a synchronized method, but
+			 * that didn't do any good. So, I'll handle synchronization myself.
+			 */
+			mGraphicsLayerRestaurants = new MapsGraphicsLayerLocation(this,
+					mMapView, Color.GREEN, 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.RESTAURANT, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_RESTAURANTS,true);
+			mGraphicsLayers.add(mGraphicsLayerRestaurants);
+			mGraphicsLayerRetails = new MapsGraphicsLayerLocation(this, mMapView,
+					Color.parseColor("#ff87ceeb"), 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.RETAIL, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_RETAIL,true);
+			mGraphicsLayers.add(mGraphicsLayerRetails);
+			mGraphicsLayerPools = new MapsGraphicsLayerLocation(this, mMapView,
+					Color.parseColor("#ff00ffff"), 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.POOL, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_POOLS,false);
+			mGraphicsLayers.add(mGraphicsLayerPools);
+			mGraphicsLayerTennisCourts = new MapsGraphicsLayerLocation(this,
+					mMapView, Color.YELLOW, 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.TENNIS_COURT, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_TENNISCOURTS,false);
+			mGraphicsLayers.add(mGraphicsLayerTennisCourts);
+			mGraphicsLayerGas = new MapsGraphicsLayerLocation(this, mMapView,
+					Color.RED, 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.GAS_STATION, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_GAS,false);
+			mGraphicsLayers.add(mGraphicsLayerGas);
+			mGraphicsLayerPerfectPictureSpots = new MapsGraphicsLayerLocation(this,
+					mMapView, Color.MAGENTA, 12, STYLE.CIRCLE,
+					ItemLocation.LocationType.PERFECT_PICTURE_SPOT, true,
+					MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false);
+			mGraphicsLayers.add(mGraphicsLayerPerfectPictureSpots);
+			// This one we can do without queueing it up, since it's doesn't need to
+			// fetch any data off of the web service
+			mGraphicsLayerMisc = new MapsGraphicsLayerMisc(this, mMapView,
+					Color.DKGRAY, 12, STYLE.DIAMOND,
+					ItemLocation.LocationType.SUNRIVER, true);
+			mGraphicsLayers.add(mGraphicsLayerMisc);
+		}
 		mGraphicsLayerCurrentLocation=new MapsGraphicsLayerCurrentLocation(this, mMapView,
 				Color.rgb(255, 255, 255), 14, STYLE.CROSS, ItemLocation.LocationType.NULL,
 				true);
@@ -686,7 +717,9 @@ public class Maps extends AbstractActivityForMenu {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.maps, menu);
+		if(mEmergencyMapURLs==null) {
+			getMenuInflater().inflate(R.menu.maps, menu);
+		}
 		return super.onCreateOptionsMenu(menu);
 	}
 

@@ -247,6 +247,13 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Alert");
 			new PopupAlert(this, ((GlobalState)getApplicationContext()).theItemAlert).createPopup();
 		}
+		if(id>=100000) { // Emergency
+			ItemEmergency itemEmergency=GlobalState.getEmergencyItemWhoseIdIs((int)(id-100000));
+			if(itemEmergency!=null) {
+				((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Emergency");
+				new PopupEmergency(this, itemEmergency).createPopup();
+			}
+		}
 		if(id==1000) {
 			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Find My Home");
 		    android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -424,7 +431,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			for(Object itemEmergency: GlobalState.TheItemsEmergency) {
 				ItemLandingPage emergencyItem=new ItemLandingPage();
 				emergencyItem.setDescription(((ItemEmergency)itemEmergency).getEmergencyDescription());
-				emergencyItem.setId(999);
+				emergencyItem.setId(100000+((ItemEmergency)itemEmergency).getEmergencyId()); // I'll know which EmergencyItem to display using this technique (id-100000)
 				emergencyItem.setIconName("alertnew"); //TODO: get icon 
 				emergencyItem.setName(((ItemEmergency)itemEmergency).getEmergencyTitle());
 				emergencyItem.setmOtherInfo("EmergencyId:"+((ItemEmergency)itemEmergency).getEmergencyId());

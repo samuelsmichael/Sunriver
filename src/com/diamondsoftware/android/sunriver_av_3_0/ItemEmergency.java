@@ -1,11 +1,23 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.util.ArrayList;
+
 public class ItemEmergency {
 	private int emergencyId;
 	private String emergencyTitle;
 	private String emergencyDescription;
 	private boolean isEmergencyAlert;
 	private boolean hasMap;
+	private ArrayList<String> mMapURLs;
+	public void addMapURL(String url) {
+		if(mMapURLs==null) {
+			mMapURLs=new ArrayList<String>();
+		}
+		mMapURLs.add(url);
+	}
+	public ArrayList<String> getMapURLs() {
+		return mMapURLs;
+	}
 	public int getEmergencyId() {
 		return emergencyId;
 	}

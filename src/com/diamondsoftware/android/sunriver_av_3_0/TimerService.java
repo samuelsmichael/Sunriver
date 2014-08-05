@@ -13,6 +13,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
@@ -151,7 +152,13 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
         builder.setSmallIcon(R.drawable.ic_launcher)
                .setContentTitle(this.getString(R.string.emergencynotificationtitle))
                .setContentText(buildingContentText)
-               .setContentIntent(notificationPendingIntent);
+               .setContentIntent(notificationPendingIntent)
+               .setAutoCancel(true)
+               .setTicker(emergencyTitle)
+               .setPriority(NotificationCompat.PRIORITY_MAX)
+               .setOnlyAlertOnce(true)
+               .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+               .setVibrate(new long[] {0, 1000,500,1000,500,1000,500,1000,500,1000,500,1000,500,1000});
         if(emergencyDescription!=null && emergencyDescription!="") {
         	builder.setSubText(emergencyDescription);
         }

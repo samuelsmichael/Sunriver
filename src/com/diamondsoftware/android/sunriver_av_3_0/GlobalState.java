@@ -32,6 +32,19 @@ public class GlobalState extends Application {
 		}
 		return mDbAdapter;
 	}
+	
+	public static ItemEmergency getEmergencyItemWhoseIdIs(int id) {
+		ItemEmergency theEmergencyItem=null;
+			if(TheItemsEmergency!=null) {
+			for(Object emergencyItem : TheItemsEmergency) {
+				if(((ItemEmergency)emergencyItem).getEmergencyId()==id) {
+					theEmergencyItem=(ItemEmergency)emergencyItem;
+					break;
+				}
+			}
+		}
+		return theEmergencyItem;
+	}
 
 	protected String getPREFS_NAME() {
 		return getPackageName() + "_preferences";

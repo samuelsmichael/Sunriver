@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+	android:background="@drawable/back"  
+	android:paddingBottom="15dp"
+>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Emergency"
+        android:textColor="#8F3302"
+        android:textSize="30sp"
+        android:textStyle="bold"
+    />
+
+	<View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+	    android:layout_marginTop="5dp"
+	    android:layout_height="3dp"
+	    android:layout_below="@+id/textView1"
+	    android:background="#8F3302"/>    
+    
+    <TextView
+        android:id="@+id/emergencyTitle"
+        android:layout_below="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textColor="#8F3302"
+        android:textSize="22sp"
+/>
+
+    	<View
+    	android:id="@+id/view2"
+	    android:layout_width="fill_parent"
+	    android:layout_marginTop="5dp"
+	    android:layout_height="3dp"
+	    android:layout_below="@+id/emergencyTitle"
+	    android:background="#8F3302"/>    
+    
+    <TextView
+        android:id="@+id/emergencyDescription"
+        android:layout_below="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#8F3302"
+        android:textSize="14sp"
+        android:paddingLeft="19dip"
+        android:paddingRight="19dip"
+        android:layout_marginTop="11dp"
+ />
+		<LinearLayout
+	        android:layout_below="@+id/emergencyDescription"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:orientation="horizontal"
+	        android:layout_marginTop="11dp"
+		    >
+		    <Button
+		        android:id="@+id/emergencyViewMapButton"
+		        style="?android:attr/buttonStyleSmall"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="#CD6A65"
+		        android:textColor="#FFFFFF"
+		        android:layout_marginRight="14dp"
+		        android:paddingLeft="3dp"
+		        android:paddingRight="3dp"
+		        android:text="View Map" />
+		    <Button
+		        android:id="@+id/emergencyCloseButton"
+		        style="?android:attr/buttonStyleSmall"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:background="#CD6A65"
+		        android:textColor="#FFFFFF"
+		        android:text="Close" />
+		    		</LinearLayout>
+	</RelativeLayout>

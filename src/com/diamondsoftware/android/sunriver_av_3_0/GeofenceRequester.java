@@ -160,8 +160,10 @@ public class GeofenceRequester implements OnAddGeofencesResultListener,
 		mGeofencePendingIntent = createRequestPendingIntent();
 
 		// Send a request to add the current geofences
-		mLocationClient.addGeofences(mCurrentGeofences, mGeofencePendingIntent,
-				this);
+		try {
+			mLocationClient.addGeofences(mCurrentGeofences, mGeofencePendingIntent,
+					this);
+		} catch (Exception e) {}
 	}
 
 	/*
