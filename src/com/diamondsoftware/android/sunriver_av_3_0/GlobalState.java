@@ -25,6 +25,7 @@ public class GlobalState extends Application {
 	private static DbAdapter mDbAdapter=null;
 	private static GlobalState mSingleton;
 	private GoogleAnalytics mAnalytics;
+	public static String PREFERENCES_LOCATION="com.diamondsoftware.android.sunriver_av_3_0_preferences";
 	
 	public static DbAdapter getDbAdapter() {
 		if(mDbAdapter==null) {

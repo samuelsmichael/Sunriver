@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/custom_bg_2"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
 	>
     <!--  ListRow Left side Thumbnail image -->
@@ -28,6 +27,9 @@
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content" 
 		android:layout_gravity="center_horizontal"
+		android:gravity="center_horizontal"
+		android:paddingLeft="33dip"
+		android:paddingRight="33dip"
 		android:textSize="26sp" 
 		android:textColor="#FFFFFF"
 	></TextView>

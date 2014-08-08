@@ -98,7 +98,13 @@
 	  	android:title="Emergency Timer Interval in Seconds"
 	  	android:summary="Each period of this amount of time, the system will check the Sunriver Emergency Alert database for updates"
 	  ></EditTextPreference>
-	    
+	  <CheckBoxPreference
+		  	android:key="AutoStartOnBoot"
+		  	android:defaultValue="true"
+		  	android:title="@string/defaultstartonreboot_title_list_preference"
+		  	android:summary="@string/startonreboot_summary_list_preference"
+	  ></CheckBoxPreference>
+	  	    
 	</PreferenceCategory>    
 	    		
 

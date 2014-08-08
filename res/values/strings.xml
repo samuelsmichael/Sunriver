@@ -143,5 +143,8 @@
     <string name="title_activity_hospitality">Sunriver Hospitality</string>
     <string name="title_activity_weather">Sunriver Weather</string>
     <string name="title_activity_scanner">Sunriver QR Code Reader</string>
+    <string name="defaultstartonreboot_title_list_preference">Start Automatically</string>
+    <string name="startonreboot_summary_list_preference">With this setting on (recommended), the system will, when the phone is started, begin the necessary reminder background processes automatically.</string>
+    
 
 </resources>

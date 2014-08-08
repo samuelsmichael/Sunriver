@@ -24,8 +24,6 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	private void doS() {
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
-		Logger logger=new Logger(0,"EmergencyTimer",this);
-		logger.log("Timer popped",999);
 		new AcquireDataRemotelyAsynchronously("emergency",this,this);
 	}
 	
@@ -33,12 +31,16 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
+//		Logger logger=new Logger(0,"EmergencyTimer",this);
+//		logger.log("About ready to start Timer Service",999);
 
 		String defaultValue=getResources().getString(R.string.emergencytimerintervalinseconds);
 		mSharedPreferences=getSharedPreferences(getPackageName() + "_preferences", Activity.MODE_PRIVATE);
 		long interval=Long.valueOf(defaultValue);
 
 		startTimer2(1000*interval,1000*interval);
+//		logger.log("Timer Service started",999);
+
 		return START_STICKY;
 	}		
 

@@ -19,11 +19,13 @@ public class ParsesJsonServices extends ParsesJson {
 			ItemService item=new ItemService();
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
 			item.setServiceID(jsonObject.getInt(ItemService.KEY_SERVICE_SERVICEID));
-			item.setServiceName(jsonObject.getString(ItemService.KEY_SERVICE_SERVICENAME));
+			String name=jsonObject.getString(ItemService.KEY_SERVICE_SERVICENAME);
+			item.setServiceName(name);
 			item.setServiceWebURL(jsonObject.getString("serviceWebURl"));
 			item.setServicePictureURL(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEPICTUREURL));
 			item.setServiceIconURL(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEICONURL));
-			item.setServiceDescription(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEDESCRIPTION));
+			String desc=jsonObject.getString(ItemService.KEY_SERVICE_SERVICEDESCRIPTION);
+			item.setServiceDescription(desc);
 			item.setServicePhone(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEPHONE));
 			item.setServiceAddress(jsonObject.getString(ItemService.KEY_SERVICE_SERVICEADDRESS));
 			item.setServiceLat(jsonObject.getDouble(ItemService.KEY_SERVICE_SERVICELAT));

@@ -172,12 +172,12 @@ public class ItemService extends SunriverDataItem {
 			setServiceCategoryName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME)));
 			setServiceCategoryIconURL(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYICONURL)));
 		} else {
-			String serviceCategoryName=cursor.getString(0);
+			String serviceCategoryName=cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME));
 			if(serviceCategoryName==null || serviceCategoryName.trim().equals("")) {
 				throw new Exception ("Blank category name");
 			} else {
-				setServiceCategoryName(cursor.getString(0));
-				this.setServiceCategoryIconURL(cursor.getString(1));
+				setServiceCategoryName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME)));
+				this.setServiceCategoryIconURL(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYICONURL)));
 			}
 		}
 	}
