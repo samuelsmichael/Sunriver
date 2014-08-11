@@ -113,8 +113,39 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							SharedPreferences.Editor editor = GlobalState.sharedPreferences.edit();
 							editor.putString("EmergenciesFromLastFetch", sb.toString());
 							editor.commit();
+							incrementMCountItemsLeft();
+							new AcquireDataRemotelyAsynchronously("emergencymaps",this,this);
+						} else {
+							SharedPreferences.Editor editor = GlobalState.sharedPreferences.edit();
+							editor.putString("EmergenciesFromLastFetch", "");
+							editor.commit();
 						}
+					} else {
+						SharedPreferences.Editor editor = GlobalState.sharedPreferences.edit();
+						editor.putString("EmergenciesFromLastFetch", "");
+						editor.commit();
 					}
+				} else {
+					if(name.equalsIgnoreCase("emergencymaps")) {
+						ArrayList<Object> liveEmergencyMaps=new ArrayList<Object>();
+						if(data!=null && data.size()>0) {
+							for(Object itemEmergencyMap: data) {
+								if(((ItemEmergencyMap)itemEmergencyMap).isEmergencyMapsIsVisible()) {
+									liveEmergencyMaps.add(itemEmergencyMap);
+									GlobalState.gotInternet=true;		
+									// we're going to keep track of emergencies so that if it changes (in TimerService), we'll know whether or not to do a notification
+								}
+							}
+							if(liveEmergencyMaps.size()>0) {
+								for(Object itemEmergencyMap: liveEmergencyMaps) {
+									for(Object itemEmergency: GlobalState.TheItemsEmergency) {
+										if ( ((ItemEmergency)itemEmergency).isHasMap() ) {
+											((ItemEmergency)itemEmergency).addMapURL( ((ItemEmergencyMap)itemEmergencyMap).getEmergencyMapsURL() );
+										}
+									}
+								}
+							}
+						}
 				} else {
 					/*
 					 * Once we've got the "update" data, we can fetch the alert, Welcome,
@@ -178,35 +209,36 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							((GlobalState)getApplicationContext()).TheItemsDidYouKnow= new ItemDidYouKnow().fetchDataFromDatabase();
 							((GlobalState)getApplicationContext()).TheItemsGISLayers=new ItemGISLayers().fetchDataFromDatabase();
 						}
-					} else {
-						if(name.equalsIgnoreCase("welcome")) {
-							if(data!=null && data.size()>0) {
-								((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)data.get(0);
-								GlobalState.gotInternet=true;
-								((GlobalState)getApplicationContext()).TheItemWelcome.setLastDateReadToNow();
-							}
 						} else {
-							if(name.equalsIgnoreCase("gislayers")) {
-								doDecrement=false;// I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+							if(name.equalsIgnoreCase("welcome")) {
 								if(data!=null && data.size()>0) {
-									((GlobalState)getApplicationContext()).TheItemsGISLayers=data;
+									((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)data.get(0);
 									GlobalState.gotInternet=true;
-									((ItemGISLayers)((GlobalState)getApplicationContext()).TheItemsGISLayers.get(0)).setLastDateReadToNow();
+									((GlobalState)getApplicationContext()).TheItemWelcome.setLastDateReadToNow();
 								}
 							} else {
-								if(name.equalsIgnoreCase("didyouknow")) {
-									doDecrement=false; // I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+								if(name.equalsIgnoreCase("gislayers")) {
+									doDecrement=false;// I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
 									if(data!=null && data.size()>0) {
-										((GlobalState)getApplicationContext()).TheItemsDidYouKnow=data;
+										((GlobalState)getApplicationContext()).TheItemsGISLayers=data;
 										GlobalState.gotInternet=true;
-										((ItemDidYouKnow)((GlobalState)getApplicationContext()).TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
-									}	
+										((ItemGISLayers)((GlobalState)getApplicationContext()).TheItemsGISLayers.get(0)).setLastDateReadToNow();
+									}
 								} else {
-									if(name.equalsIgnoreCase("selfie")) {
-										doDecrement=false;
-										((GlobalState)getApplicationContext()).TheItemsSelfie=data;
-										GlobalState.gotInternet=true;
-										((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
+									if(name.equalsIgnoreCase("didyouknow")) {
+										doDecrement=false; // I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+										if(data!=null && data.size()>0) {
+											((GlobalState)getApplicationContext()).TheItemsDidYouKnow=data;
+											GlobalState.gotInternet=true;
+											((ItemDidYouKnow)((GlobalState)getApplicationContext()).TheItemsDidYouKnow.get(0)).setLastDateReadToNow();
+										}	
+									} else {
+										if(name.equalsIgnoreCase("selfie")) {
+											doDecrement=false;
+											((GlobalState)getApplicationContext()).TheItemsSelfie=data;
+											GlobalState.gotInternet=true;
+											((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
+										}
 									}
 								}
 							}
@@ -254,6 +286,21 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				} finally {
 				}
 			} else {
+				if(name.equalsIgnoreCase("emergencymaps")) {
+					try {
+						String defaultValue=getResources().getString(R.string.urlemergencymapsjson);
+						String uri=GlobalState.sharedPreferences.getString("urlemergencymapsjson", defaultValue);
+						
+						ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+							new ParsesJsonEmergencyMaps(), 
+							uri).parse();
+						return data;
+					} catch (Exception e) {
+						int bkhere=3;
+						int bkthere=bkhere;
+					} finally {
+					}
+				} else {
 			if(name.equalsIgnoreCase("update")) {
 				try {
 					String defaultValue=getResources().getString(R.string.urlupdatejson);
@@ -272,63 +319,64 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 				}	
 					finally {
 				}				
-				} else {
-					if(name.equalsIgnoreCase("welcome")) {
-						try {
-							String defaultValue=getResources().getString(R.string.urlwelcomejson);
-							String uri=GlobalState.sharedPreferences.getString("urlwelcomejson", defaultValue);
-	
-							ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-								new ParsesJsonWelcome(), 
-								uri).parse();
-							return data;
-						} catch (Exception e) {
-							
-						} finally {
-						}				
 					} else {
-						if(name.equalsIgnoreCase("didyouknow")) {
+						if(name.equalsIgnoreCase("welcome")) {
 							try {
-								String defaultValue=getResources().getString(R.string.urldidyouknowjson);
-								String uri=GlobalState.sharedPreferences.getString("urldidyouknowjson", defaultValue);
-	
+								String defaultValue=getResources().getString(R.string.urlwelcomejson);
+								String uri=GlobalState.sharedPreferences.getString("urlwelcomejson", defaultValue);
+		
 								ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-									new ParsesJsonDidYouKnow(), 
+									new ParsesJsonWelcome(), 
 									uri).parse();
 								return data;
 							} catch (Exception e) {
 								
 							} finally {
-							}		
+							}				
 						} else {
-							if(name.equalsIgnoreCase("gislayers")) {
+							if(name.equalsIgnoreCase("didyouknow")) {
 								try {
-									String defaultValue=getResources().getString(R.string.urlgislayersjson);
-									String uri=GlobalState.sharedPreferences.getString("urlgislayersjson", defaultValue);
-	
+									String defaultValue=getResources().getString(R.string.urldidyouknowjson);
+									String uri=GlobalState.sharedPreferences.getString("urldidyouknowjson", defaultValue);
+		
 									ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-											new ParsesJsonGISLayers(),
-											uri).parse();
+										new ParsesJsonDidYouKnow(), 
+										uri).parse();
 									return data;
 								} catch (Exception e) {
-									int bkhere=3;
-									int bkthere=bkhere;
+									
 								} finally {
-								}									
+								}		
 							} else {
-								if(name.equalsIgnoreCase("selfie")) {
+								if(name.equalsIgnoreCase("gislayers")) {
 									try {
-										String defaultValue=getResources().getString(R.string.urlselfiejson);
-										String uri=GlobalState.sharedPreferences.getString("urlselfiejson", defaultValue);
+										String defaultValue=getResources().getString(R.string.urlgislayersjson);
+										String uri=GlobalState.sharedPreferences.getString("urlgislayersjson", defaultValue);
+		
 										ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
-												new ParsesJsonSelfie(),
+												new ParsesJsonGISLayers(),
 												uri).parse();
 										return data;
 									} catch (Exception e) {
 										int bkhere=3;
 										int bkthere=bkhere;
 									} finally {
-									}		
+									}									
+								} else {
+									if(name.equalsIgnoreCase("selfie")) {
+										try {
+											String defaultValue=getResources().getString(R.string.urlselfiejson);
+											String uri=GlobalState.sharedPreferences.getString("urlselfiejson", defaultValue);
+											ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+													new ParsesJsonSelfie(),
+													uri).parse();
+											return data;
+										} catch (Exception e) {
+											int bkhere=3;
+											int bkthere=bkhere;
+										} finally {
+										}		
+									}
 								}
 							}
 						}

@@ -12,6 +12,8 @@
     		
     		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
    			<string name="urlalertjson">http://listplus.no-ip.org/SunriverWebApp/Alert.aspx</string>
+   			<string name="urlemergencymapsjson">http://listplus.no-ip.org/SunriverWebApp/EmergencyMaps.aspx</string>
+   						
     		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
     		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>

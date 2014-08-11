@@ -271,7 +271,8 @@ public class Maps extends AbstractActivityForMenu {
 					}
 				}				
 			} else { // am showing emergency maps
-				// Display layers, too
+				// Display layers, too 
+				/*
 				if(((GlobalState)getApplicationContext()).TheItemsGISLayers!=null && ((GlobalState)getApplicationContext()).TheItemsGISLayers.size()>0) {
 					for(Object i: ((GlobalState)getApplicationContext()).TheItemsGISLayers) {
 						if(!((ItemGISLayers)i).isSrGISLayersIsBikePaths() && ((ItemGISLayers)i).getSrGISLayersUseNum()>0) {
@@ -280,6 +281,7 @@ public class Maps extends AbstractActivityForMenu {
 						}
 					}
 				}				
+				*/
 				for(String mapURL: mEmergencyMapURLs) {
 					ArcGISTiledMapServiceLayer layer=new ArcGISTiledMapServiceLayer(mapURL);
 					mMapView.addLayer(layer);
