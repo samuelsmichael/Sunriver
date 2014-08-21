@@ -237,7 +237,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 											doDecrement=false;
 											((GlobalState)getApplicationContext()).TheItemsSelfie=data;
 											GlobalState.gotInternet=true;
-											((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
+											if(data != null) {
+												((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
+											}
 										}
 									}
 								}

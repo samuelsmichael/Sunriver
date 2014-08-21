@@ -3,7 +3,27 @@
 
     <!-- Sunriver Web App settings  http://srfeed.com/  -->
     
-    		<string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>
+    		<!-- Change Feeds for the training databases -->
+    		<!-- 1 -->
+    		<!-- <string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>  -->
+    		<string name="urlgislayersjson">http://srfeed.com/GISLayert.aspx</string> 
+    		
+    		<!-- 2 -->
+   			<!-- <string name="urlalertjson">http://srfeed.com/Alert.aspx</string> -->
+   			<string name="urlalertjson">http://srfeed.com/Alertt.aspx</string>
+   			
+   			<!-- 3 -->
+   			<!-- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> -->
+   			<string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	
+    		
+    		<!-- 4 -->
+    		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
+    		<!-- <string name="urlselfiejson">http://srfeed.com/Overlayt.aspx</string> -->
+  		  	
+  		  	<!-- 5 -->
+   			<!-- <string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string> -->
+   			<string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string>
+   		 
     		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
     		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
@@ -11,16 +31,11 @@
     		<!-- <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> -->
     		
     		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
-   			<string name="urlalertjson">http://listplus.no-ip.org/SunriverWebApp/Alert.aspx</string>
-   			<string name="urlemergencymapsjson">http://listplus.no-ip.org/SunriverWebApp/EmergencyMaps.aspx</string>
-   						
     		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
-    		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
   		  	<string name="urlmapjson">http://srfeed.com/Map.aspx</string>
    		 	<string name="urlcalendarjson">http://srfeed.com/Calendar.aspx</string>
-   			<string name="urlemergencyjson">http://listplus.no-ip.org/SunriverWebApp/Emergency.aspx</string>
-   		 	
+
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>

@@ -1009,44 +1009,59 @@ containing a value of this type.
         public static final int unregister_geofence1=0x7f070054;
         public static final int unregister_geofence2=0x7f070055;
         public static final int urlactivity=0x7f070074;
-        public static final int urlactivityjson=0x7f070066;
+        public static final int urlactivityjson=0x7f07006a;
         public static final int urlactivityother=0x7f07007f;
         public static final int urlalert=0x7f070076;
-        public static final int urlalertjson=0x7f07006a;
+        /**  2 
+ <string name="urlalertjson">http://srfeed.com/Alert.aspx</string> 
+         */
+        public static final int urlalertjson=0x7f070065;
         public static final int urlalertother=0x7f070081;
         public static final int urlallhomes=0x7f07007c;
         public static final int urlcalendar=0x7f070073;
-        public static final int urlcalendarjson=0x7f070070;
+        public static final int urlcalendarjson=0x7f070071;
         public static final int urlcalendarother=0x7f07007e;
         public static final int urldidyouknow=0x7f07007a;
-        public static final int urldidyouknowjson=0x7f07006d;
-        public static final int urlemergencyjson=0x7f070071;
-        public static final int urlemergencymapsjson=0x7f07006b;
+        public static final int urldidyouknowjson=0x7f07006f;
+        /**  <string name="urlselfiejson">http://srfeed.com/Overlayt.aspx</string> 
+ 5 
+ <string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string> 
+         */
+        public static final int urlemergencyjson=0x7f070068;
+        /**  3 
+ <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> 
+         */
+        public static final int urlemergencymapsjson=0x7f070066;
         public static final int urlfindhome=0x7f070085;
         /**  <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> 
          */
-        public static final int urlfindhomejson=0x7f070069;
+        public static final int urlfindhomejson=0x7f07006d;
         public static final int urlfindhomeother=0x7f070079;
         /**  Sunriver Web App settings  http://srfeed.com/  
+ Change Feeds for the training databases 
+ 1 
+ <string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>  
          */
         public static final int urlgislayersjson=0x7f070064;
-        public static final int urlhospitalityjson=0x7f070065;
+        public static final int urlhospitalityjson=0x7f070069;
         public static final int urlmap=0x7f070075;
-        public static final int urlmapjson=0x7f07006f;
+        public static final int urlmapjson=0x7f070070;
         public static final int urlmapother=0x7f070080;
         public static final int urlselfie=0x7f07007b;
-        public static final int urlselfiejson=0x7f07006e;
+        /**  4 
+         */
+        public static final int urlselfiejson=0x7f070067;
         public static final int urlselfieother=0x7f070084;
         /**  default webservice settings 
          */
         public static final int urlservices=0x7f070072;
-        public static final int urlservicesjson=0x7f070068;
+        public static final int urlservicesjson=0x7f07006c;
         public static final int urlservicesother=0x7f07007d;
         public static final int urlupdate=0x7f070077;
-        public static final int urlupdatejson=0x7f070067;
+        public static final int urlupdatejson=0x7f07006b;
         public static final int urlupdateother=0x7f070082;
         public static final int urlwelcome=0x7f070078;
-        public static final int urlwelcomejson=0x7f07006c;
+        public static final int urlwelcomejson=0x7f07006e;
         public static final int urlwelcomeother=0x7f070083;
         public static final int visit_the_web_link=0x7f0700d7;
         public static final int visit_the_web_link_lowercase=0x7f0700d8;

@@ -6,6 +6,13 @@ public class ItemLandingPage {
 	private String mDescription;
 	private String mIconName;
 	private String mOtherInfo;
+	private boolean mIsStyleMarquee;
+	public boolean ismIsStyleMarquee() {
+		return mIsStyleMarquee;
+	}
+	public void setmIsStyleMarquee(boolean mIsStyleMarquee) {
+		this.mIsStyleMarquee = mIsStyleMarquee;
+	}
 	public String getmOtherInfo() {
 		return mOtherInfo;
 	}

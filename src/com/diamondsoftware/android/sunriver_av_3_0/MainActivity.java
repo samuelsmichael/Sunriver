@@ -422,6 +422,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		{
 			ItemLandingPage alertItem=new ItemLandingPage();
 			alertItem.setDescription(((GlobalState)getApplicationContext()).theItemAlert.getmALTitle());
+			alertItem.setmIsStyleMarquee(false);
 			alertItem.setName("Alert");
 			alertItem.setId(99);
 			alertItem.setIconName("alertnew");
@@ -431,6 +432,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			for(Object itemEmergency: GlobalState.TheItemsEmergency) {
 				ItemLandingPage emergencyItem=new ItemLandingPage();
 				emergencyItem.setDescription(((ItemEmergency)itemEmergency).getEmergencyDescription());
+				emergencyItem.setmIsStyleMarquee(true);
 				emergencyItem.setId(100000+((ItemEmergency)itemEmergency).getEmergencyId()); // I'll know which EmergencyItem to display using this technique (id-100000)
 				emergencyItem.setIconName("alertnew"); //TODO: get icon 
 				emergencyItem.setName(((ItemEmergency)itemEmergency).getEmergencyTitle());

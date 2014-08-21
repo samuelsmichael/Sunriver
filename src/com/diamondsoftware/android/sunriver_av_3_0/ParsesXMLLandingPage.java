@@ -37,6 +37,9 @@ public class ParsesXMLLandingPage extends ParsesXML {
                             currentItem.setDescription(parser.nextText());
                         } else if (name.equalsIgnoreCase("iconname")) {
                         	currentItem.setIconName(parser.nextText());
+                        } else if (name.equalsIgnoreCase("isstylemarquee")) {
+                        	String theValue=parser.nextText();
+                        	currentItem.setmIsStyleMarquee(theValue.equals("true")?true:false);
                         }
                     }
                     break;

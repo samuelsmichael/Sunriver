@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
+	
 	static class LandingPageHolder {
         TextView name; 
         TextView description; 
@@ -26,11 +27,6 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
 		ItemLandingPage item=(ItemLandingPage)getItem(position);
 		return item.getId();
 	}	
-
-	@Override
-	protected int getLayoutResource() {
-		return R.layout.landingpage_listitem;
-	}
 
 	@Override
 	protected void initializeHolder(View view) {
@@ -53,10 +49,21 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
         mLandingPageHolder.name.setText(landingPageItem.getName());
         mLandingPageHolder.description.setText(landingPageItem.getDescription());
         mImageLoader.displayImage(((ItemLandingPage)getItem(position)).getIconName(),mLandingPageHolder.thumb_image);
-        mLandingPageHolder.description.setSelected(true); // believe it or not, you have to do this in order to make the marquee scroll.
+        if(landingPageItem.ismIsStyleMarquee()) { 
+        	mLandingPageHolder.description.setSelected(true); // believe it or not, you have to do this in order to make the marquee scroll.
+        	mLandingPageHolder.description.setSingleLine(true);
+        } else {
+        	mLandingPageHolder.description.setSingleLine(false);
+        }
 		
 	}
 
+	@Override
+	protected int getLayoutResource() {
+		return R.layout.landingpage_listitem;
+	}
+	
+	
 	@Override
 	protected ArrayList<Object> childGetData() throws Exception {
 		return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLLandingPage(null), "homepage_values.xml").parse();
