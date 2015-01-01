@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <TableLayout android:id="@+id/tlSplashPageProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+        android:layout_alignParentBottom="true"
+        >
+	        <TableRow android:id="@+id/trSplashPageProgress"
+	            >
+	            
+	        </TableRow>
+        
+        
+    </TableLayout>
+    <Button
+        android:id="@+id/btnSplashPageContinueCrippled"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tlSplashPageProgress"
+        android:text="Taking too long ... press to proceed (possibly crippled)"
+        >
+        
+    </Button>
+
+</RelativeLayout>

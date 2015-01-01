@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 
 /*
@@ -25,6 +26,8 @@ import android.os.Handler;
 public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously {
 	private Handler mHandler;
 	private int mCountItemsLeft=0;
+	private SplashPageProgressViewManager mSplashPageProgressViewManager;
+	private CountDownTimer mCountDownTimer;
 
 	@Override
 	protected void onDestroy() {
@@ -50,24 +53,50 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	    }
 	};
 	
-	
+	boolean wereFinishing=false;
 	private synchronized void anAsynchronousActionCompleted() {
-		if(getMCountItemsLeft()<=0) {
-			startService(new Intent(SplashPage.this,TimerService.class));
-            startActivity(new Intent(SplashPage.this, MainActivity.class));
-            finish();
+		if(getMCountItemsLeft()<=0 && !wereFinishing) {
+			wereFinishing=true;
+			mCountDownTimer=
+			new CountDownTimer(500,400) {
+				@Override
+				public void onTick(long millisUntilFinished) {
+				}
+				@Override
+				public void onFinish() {
+					mHandler.post(new Runnable() {
+
+						@Override
+						public void run() {
+							mSplashPageProgressViewManager.killTimer();
+							doFinish();
+						}
+						
+					});
+				}
+
+			};
+			mCountDownTimer.start();
 		}
+	}
+	public void doFinish() {
+		mCountDownTimer.cancel();
+		startService(new Intent(SplashPage.this,TimerService.class));
+        startActivity(new Intent(SplashPage.this, MainActivity.class));
+        finish();
 	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		initialize();
+		this.setContentView(R.layout.activity_splashpage);
         int secondsDelayed = 1;
-        incrementMCountItemsLeft(); // for alert
-        incrementMCountItemsLeft(); // for Emergency
         mHandler=new Handler();
         // we'll wait at least 1 second; but we won't return until all asynchronous data fetches have completed
         mHandler.postDelayed(myRunnable, secondsDelayed * 1000);      
+		initialize();
+        incrementMCountItemsLeft(); // for alert
+        incrementMCountItemsLeft(); // for Emergency
+
         ArcGISRuntime.setClientId("p7sflEMVP6Pb9okf");
 	}
 	/* Start things out by fetching the "update" data */
@@ -79,8 +108,15 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		new AcquireDataRemotelyAsynchronously("update", this, this);
 	}
 
+	private SplashPageProgressViewManager getSplashPageProgressViewManager() {
+		if(mSplashPageProgressViewManager==null) {
+			mSplashPageProgressViewManager=new SplashPageProgressViewManager(this,mHandler);
+		}
+		return mSplashPageProgressViewManager;
+	}
 	@Override
 	public void gotMyData(String name, ArrayList<Object> data) {
+		getSplashPageProgressViewManager().indicateDone(name, data!=null && data.size()>0?""+data.size()+ " rows read":"no data");
 		boolean doDecrement=true;
 		try {
 			if(name.equalsIgnoreCase("alert")) {
@@ -258,6 +294,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	
 	@Override 
 	public ArrayList<Object> getRemoteData(String name) {
+		getSplashPageProgressViewManager().addItem(name);
 		if(name.equalsIgnoreCase("alert")) {
 			try {
 				String defaultValue=getResources().getString(R.string.urlalertjson);

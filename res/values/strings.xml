@@ -10,7 +10,7 @@
     		
     		<!-- 2 -->
    			<!-- <string name="urlalertjson">http://srfeed.com/Alert.aspx</string> -->
-   			<string name="urlalertjson">http://srfeed.com/Alertt.aspx</string>
+   			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
    			
    			<!-- 3 -->
    			<!-- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> -->

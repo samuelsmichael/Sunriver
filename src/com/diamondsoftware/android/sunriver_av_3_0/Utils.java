@@ -106,11 +106,11 @@ public class Utils {
 			s="0001-01-01T00:00:00"; // the system was originally written to return null's like this
 		}
 		int yyyy=Integer.valueOf(s.substring(0, 4));
-		int mm=Integer.valueOf(s.substring(5, 7));
-		int dd=Integer.valueOf(s.substring(8,10));
-		int hh=Integer.valueOf(s.substring(11,13));
-		int min=Integer.valueOf(s.substring(14,16));
-		int sec=Integer.valueOf(s.substring(17));
+		int mm=Float.valueOf(s.substring(5, 7)).intValue();
+		int dd=Float.valueOf(s.substring(8,10)).intValue();
+		int hh=Float.valueOf(s.substring(11,13)).intValue();
+		int min=Float.valueOf(s.substring(14,16)).intValue();
+		int sec=Float.valueOf(s.substring(17)).intValue();
 		return new GregorianCalendar(
 			  yyyy, 
 			  mm-1,
