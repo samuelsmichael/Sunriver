@@ -262,7 +262,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        ft.remove(prev);
 		    }
 		    ft.addToBackStack(null);
-		    FindHomeDialog findHomeDialog=new FindHomeDialog(this);
+		    FindHomeDialog findHomeDialog=FindHomeDialog.newInstance(this);
 			findHomeDialog.show(ft,"findhome");
 		}
 	}
@@ -493,11 +493,13 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	 * Popup dialog to enter Sunriver address
 	 */
 	public static class FindHomeDialog extends DialogFragment {
-		MainActivity mMainActivity;
-		public FindHomeDialog (MainActivity mainActivity) {
-			super();
-			mMainActivity=mainActivity;
+		public static FindHomeDialog newInstance(MainActivity mainActivity) {
+			FindHomeDialog fhd = new FindHomeDialog();
+			fhd.mMainActivity=mainActivity;
+			return fhd;
 		}
+		MainActivity mMainActivity;
+
 		public FindHomeDialog () {}
 	    @Override
 	    public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -637,7 +639,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 					        ft.remove(prev);
 					    }
 					    ft.addToBackStack(null);
-					    FindHomeDialog findHomeDialog=new FindHomeDialog(MainActivity.this);
+					    FindHomeDialog findHomeDialog=FindHomeDialog.newInstance(MainActivity.this);
 						findHomeDialog.show(ft,"findhome");
 					}
 				});
