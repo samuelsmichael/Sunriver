@@ -80,7 +80,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		}
 	}
 	public void doFinish() {
-		mCountDownTimer.cancel();
+		if(mCountDownTimer!=null) {
+			mCountDownTimer.cancel();
+		}
 		startService(new Intent(SplashPage.this,TimerService.class));
         startActivity(new Intent(SplashPage.this, MainActivity.class));
         finish();
@@ -116,7 +118,10 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	}
 	@Override
 	public void gotMyData(String name, ArrayList<Object> data) {
-		getSplashPageProgressViewManager().indicateDone(name, data!=null && data.size()>0?""+data.size()+ " rows read":"no data");
+		getSplashPageProgressViewManager().indicateDone(
+				name, data!=null && data.size()>0?""+data.size()+ " rows read":(
+						name.toLowerCase().equals("update")?"Stale connection. You can try closing the app and starting it again, or press the \"press to proceed\" button that will appear momentarily.":
+						"no data"));
 		boolean doDecrement=true;
 		try {
 			if(name.equalsIgnoreCase("alert")) {

@@ -28,12 +28,20 @@ public class SelfieDialogAdapter extends BaseAdapter {
 	
 	@Override
 	public int getCount() {
-		return ((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.size();
+	if (((GlobalState)mContext.getApplicationContext()).TheItemsSelfie!=null) {
+			return ((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.size();
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return ((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.get(position);
+		if (((GlobalState)mContext.getApplicationContext()).TheItemsSelfie!=null) {
+			return ((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.get(position);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -53,7 +61,9 @@ public class SelfieDialogAdapter extends BaseAdapter {
         	mPageHolder=(PageHolder)convertView.getTag();
         }
         ImageLoaderRemote ilm=new ImageLoaderRemote(mContext, true, 1f);
-        ilm.displayImage(((ItemSelfie)((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.get(position)).getOverlayLsSelectURL(), mPageHolder.mImageView);
+        	if (((GlobalState)mContext.getApplicationContext()).TheItemsSelfie!=null) {
+        		ilm.displayImage(((ItemSelfie)((GlobalState)mContext.getApplicationContext()).TheItemsSelfie.get(position)).getOverlayLsSelectURL(), mPageHolder.mImageView);
+        	}
         return vi;
     }
 

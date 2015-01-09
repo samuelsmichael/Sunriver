@@ -94,19 +94,21 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 		mSingleton=this;
 		// Set things up so that the camera uses the entire screen
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 		getWindow().setFormat(PixelFormat.UNKNOWN);
 		// Set up the view for the overlay
 		overlayView = new ImageView(this);
-		new ImageLoaderRemote(this, false, 1).displayImage(
-				((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
-		// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
-		// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
-		new ImageLoaderRemote(this, false, 1).displayImage(
-				((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);
-
+		if(((GlobalState)getApplicationContext()).TheItemsSelfie!=null) {
+			new ImageLoaderRemote(this, false, 1).displayImage(
+					((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayLsURL(), overlayView);
+			// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
+			// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
+			new ImageLoaderRemote(this, false, 1).displayImage(
+					((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);
+		}
 
 		// Set up the view for the camera
 		surfaceView =  new SurfaceView(this);
@@ -141,7 +143,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 			@Override
 			public void onClick(View arg0) {		    
 				android.app.FragmentTransaction ft = getFragmentManager().beginTransaction();
-				PickSelfieDialog2 findHomeDialog=new PickSelfieDialog2(AndroidCamera.this);
+				PickSelfieDialog2 findHomeDialog=PickSelfieDialog2.newInstance(AndroidCamera.this);
 				findHomeDialog.show(ft,"pickselfie");
 			}});
 
@@ -401,12 +403,14 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						}
 						if(degrees==0) {
 							overlayView = new ImageView(activity);
-							new ImageLoaderRemote(activity, false, 1).displayImage(
-									((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortURL(), overlayView);
-							// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
-							// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
-							new ImageLoaderRemote(activity, false, 1).displayImage(
-									((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);							
+							if(((GlobalState)activity.getApplicationContext()).TheItemsSelfie!=null) {
+								new ImageLoaderRemote(activity, false, 1).displayImage(
+										((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortURL(), overlayView);
+								// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
+								// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
+								new ImageLoaderRemote(activity, false, 1).displayImage(
+										((ItemSelfie)((GlobalState)activity.getApplicationContext()).TheItemsSelfie.get(mIndexIntoSelfieImages)).getOverlayPortCamURL(), null);
+							}							
 							importrait=true;
 						} else {
 							overlayView = new ImageView(activity);
@@ -527,9 +531,12 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 					 */
 					public static class PickSelfieDialog2 extends DialogFragment {
 						AndroidCamera mActivity;
-						public PickSelfieDialog2 (AndroidCamera activity) {
-							super();
-							mActivity=activity;
+						public PickSelfieDialog2 () {
+						}
+						public static PickSelfieDialog2 newInstance(AndroidCamera activity) {
+							PickSelfieDialog2 psd=new PickSelfieDialog2();
+							psd.mActivity=activity;
+							return psd;
 						}
 						@Override
 						public Dialog onCreateDialog(Bundle savedInstanceState) {
