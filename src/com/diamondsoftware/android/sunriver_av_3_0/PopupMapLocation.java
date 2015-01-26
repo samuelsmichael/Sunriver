@@ -2,9 +2,6 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.Map;
 
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -15,9 +12,14 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordItemActions {
 
@@ -29,17 +31,21 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 	private TextView mWebUrl;
 	private TextView mSoundUrl;
 	private Button mShowOnMap;
+	private ImageButton mFavorite;
 	public double latitude;
 	public double longitude;
 	public String name;
 	protected Map mAttributes; 
 	private boolean mShowOnMapIsVisible=false;
-	
+	private boolean mIsFavorite;
+	protected ItemLocation mItemLocation;
+
 	private ImageLoader mImageLoader=null;	
-	public PopupMapLocation(Activity activity, Map attributes, boolean showOnMapIsVisible) {
+	public PopupMapLocation(Activity activity, Map attributes, boolean showOnMapIsVisible, ItemLocation itemLocation) {
 		super(activity);
 		mAttributes=attributes;
 		mShowOnMapIsVisible=showOnMapIsVisible;
+		mItemLocation=itemLocation;
 	}
 
 	@Override
@@ -47,6 +53,22 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 
 	}
 
+	private boolean isFavoritable() {
+		return mItemLocation.getFavoriteItemType()!=FavoriteItemType.Unknown;
+	}
+	
+	private void flipFavorite() {
+		if(mIsFavorite) {
+			mIsFavorite=false;
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mItemLocation.putIsFavorite(false);
+		} else {
+			mIsFavorite=true;
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mItemLocation.putIsFavorite(true);			
+		}
+	}
+	
 	@Override
 	protected void loadView(ViewGroup popup) {
 		mImageUrl=(ImageView)popup.findViewById(R.id.location_image);
@@ -58,11 +80,30 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 		mWebUrl=(TextView)popup.findViewById(R.id.location_weburl);
 		mShowOnMap = (Button)popup.findViewById(R.id.seeOnMap);
 		mWebUrl.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_location_favorite);
 		Linkify.addLinks(mPhone,Linkify.PHONE_NUMBERS);
 		Linkify.addLinks(mSoundUrl,Linkify.WEB_URLS);
 		mAddress.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		String mAddressVerbiage="";
-		
+		if(isFavoritable()) {
+			mFavorite.setVisibility(View.VISIBLE);
+			if(mItemLocation.getIsFavorite()) {
+				mFavorite.setImageResource(R.drawable.favoriteon);
+				mIsFavorite=true;
+			} else {
+				mFavorite.setImageResource(R.drawable.favoriteoff);
+				mIsFavorite=false;
+			}
+
+			mFavorite.setOnClickListener(new View.OnClickListener() {				
+				@Override
+				public void onClick(View v) {
+					PopupMapLocation.this.flipFavorite();
+				}
+			});
+		} else {
+			mFavorite.setVisibility(View.GONE);
+		}
 		if(mShowOnMapIsVisible) {
 			mShowOnMap.setOnClickListener(new View.OnClickListener() {
 				

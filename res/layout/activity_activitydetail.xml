@@ -29,15 +29,31 @@
 		            />
 		 
 		    </LinearLayout>
-		    <TextView 
-				android:id="@+id/activitydetail_name"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content" 
-				android:layout_gravity="center_horizontal"
-				android:textSize="26sp" 
-				android:textColor="#000000"
-			></TextView>
-		    
+		    <LinearLayout android:id="@+id/activity_titleandfavorite"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"	    
+			    android:layout_gravity="center_horizontal"
+			    android:layout_below="@+id/location_image_layout"
+		 	 >		    
+			    <TextView 
+					android:id="@+id/activitydetail_name"
+					android:layout_height="wrap_content"
+					android:layout_width="wrap_content" 
+					android:layout_gravity="center_horizontal"
+					android:textSize="26sp" 
+					android:textColor="#000000"
+				></TextView>
+		    	<ImageButton 
+			        android:id="@+id/ibtn_activity_favorite"
+			        android:contentDescription="Favorite"
+			        android:layout_width="33dip"
+			        android:layout_height="33dip"
+			        android:scaleType="centerCrop"
+			        android:layout_gravity="center_vertical"
+			        android:layout_marginLeft="10dip"
+			        />
+		    </LinearLayout>
 		    <TextView 
 				android:id="@+id/activitydetail_address"
 				android:layout_height="wrap_content"

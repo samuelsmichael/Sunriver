@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
 
-public class ItemActivity extends SunriverDataItem {
+public class ItemActivity extends SunriverDataItem implements IFavoriteItem {
 	
 	public static final String KEY_ACTIVITY_ROWID = "_id";
 	public static final String KEY_ACTIVITY_SRACTID = "srActID";
@@ -45,6 +47,23 @@ public class ItemActivity extends SunriverDataItem {
 
 	public ItemActivity() {
 	}
+	
+	
+	public String getFavoritesItemIdentifierColumnName() {
+		return KEY_ACTIVITY_SRACTID;
+	}
+	
+	
+	public String[] getFavoritesItemIdentifierValue() {
+		return new String[] {
+				String.valueOf(getSrActID())
+		};
+	}
+	
+	public FavoriteItemType getFavoriteItemType() {
+		return FavoriteItemType.Activity;
+	}
+
 	
 	@Override
 	public String toString() {

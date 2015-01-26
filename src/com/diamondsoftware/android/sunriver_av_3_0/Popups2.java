@@ -37,6 +37,7 @@ public abstract class Popups2 {
 	public Popups2(Activity activity) {
 		mActivity=activity;
 	}
+    public Popups2(){}
 	
 	/* If the phone's orientation changes, the Activity is destroyed, and so we need
 	 * a way to effect close of the popup; otherwise, we get a memory leak.

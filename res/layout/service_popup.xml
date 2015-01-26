@@ -22,18 +22,34 @@
             />
  
     </LinearLayout>
-    <TextView 
-		android:id="@+id/servicedetail_name"
-		android:layout_height="wrap_content"
-		android:layout_width="wrap_content" 
-		android:layout_gravity="center_horizontal"
-		android:gravity="center_horizontal"
-		android:paddingLeft="33dip"
-		android:paddingRight="33dip"
-		android:textSize="26sp" 
-		android:textColor="#FFFFFF"
-	></TextView>
-    
+    <LinearLayout android:id="@+id/activity_titleandfavorite"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"	    
+	    android:layout_gravity="center_horizontal"
+	    android:layout_below="@+id/location_image_layout"
+		 >		
+		    <TextView 
+				android:id="@+id/servicedetail_name"
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content" 
+				android:layout_gravity="center_horizontal"
+				android:gravity="center_horizontal"
+				android:paddingLeft="33dip"
+				android:paddingRight="33dip"
+				android:textSize="26sp" 
+				android:textColor="#FFFFFF"
+			></TextView>
+		    <ImageButton 
+		        android:id="@+id/ibtn_service_favorite"
+		        android:contentDescription="Favorite"
+		        android:layout_width="33dip"
+		        android:layout_height="33dip"
+		        android:scaleType="centerCrop"
+		        android:layout_gravity="center_vertical"
+		        android:layout_marginLeft="10dip"
+		        />
+    </LinearLayout>
     <TextView 
 		android:id="@+id/servicedetail_address"
 		android:layout_height="wrap_content"

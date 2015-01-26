@@ -14,6 +14,7 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,9 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 	public String name;
 	protected ItemService mItemService; 
 	private boolean mShowOnMapIsVisible=false;
+	private boolean mIsFavorite;
+	private ImageButton mFavorite;
+
 	
 	private ImageLoader mImageLoader=null;	
 	public PopupServiceDetail(Activity activity, ItemService itemService, boolean showOnMapIsVisible) {
@@ -45,6 +49,18 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 	protected void childPerformCloseActions() {
 
 	}
+	private void flipFavorite() {
+		if(mIsFavorite) {
+			mIsFavorite=false;
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mItemService.putIsFavorite(false);
+		} else {
+			mIsFavorite=true;
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mItemService.putIsFavorite(true);			
+		}
+	}
+
 
 	@Override
 	protected void loadView(ViewGroup popup) {
@@ -65,7 +81,23 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 		CharSequence phoneText=(CharSequence) mItemService.getServicePhone();
 		mPhone.setText(phoneText);
 		mPhone.setLinkTextColor(Color.parseColor("#B6D5E0"));
-		
+		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_service_favorite);
+		mFavorite.setVisibility(View.VISIBLE);
+		if(mItemService.getIsFavorite()) {
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mIsFavorite=true;
+		} else {
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mIsFavorite=false;
+		}
+
+		mFavorite.setOnClickListener(new View.OnClickListener() {				
+			@Override
+			public void onClick(View v) {
+				PopupServiceDetail.this.flipFavorite();
+			}
+		});
+
 		if(mShowOnMapIsVisible) {
 			mShowOnMap.setOnClickListener(new View.OnClickListener() {
 				

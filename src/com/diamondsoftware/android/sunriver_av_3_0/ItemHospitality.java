@@ -5,11 +5,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
 
-public class ItemHospitality extends SunriverDataItem {
+public class ItemHospitality extends SunriverDataItem implements IFavoriteItem {
 	
 	public static final String KEY_HOSPITALITY_ROWID = "_id";
 	public static final String KEY_HOSPITALITY_ID = "srHospitalityID";
@@ -156,6 +158,23 @@ public class ItemHospitality extends SunriverDataItem {
 	protected String getDateLastUpdatedKey() {
 		return DATE_LAST_UPDATED;
 	}
+	
+	@Override
+	public String getFavoritesItemIdentifierColumnName() {
+		return KEY_HOSPITALITY_ID;
+	}
+	
+	@Override
+	public String[] getFavoritesItemIdentifierValue() {
+		return new String[] {
+				String.valueOf(getSrHospitalityID())
+		};
+	}
+	@Override
+	public FavoriteItemType getFavoriteItemType() {
+		return FavoriteItemType.Hospitality;
+	}
+
 	
 	@Override
 	protected void loadWriteItemToDatabaseContentValuesTo(ContentValues values) {

@@ -11,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 /*
@@ -26,6 +27,10 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 	private String mSearchString;
 	private String mSearchAfterDate;
 	private ListViewAdapter mListViewAdapter;
+	private boolean mIsFavorite;
+	private ImageButton mFavorite;
+
+	
 
 	@Override
 	protected int getListViewId() {

@@ -41,7 +41,14 @@
 				android:textSize="18sp" 
 				android:textColor="#FFFFFF"
 			></TextView>	 		 
-           
+           	<ImageButton 
+			        android:id="@+id/ibtn_calendar_favorite"
+			        android:contentDescription="Favorite"
+			        android:layout_width="33dip"
+			        android:layout_height="33dip"
+			        android:scaleType="centerCrop"
+			        android:layout_marginLeft="10dip"
+			        />
        </LinearLayout>
        		
 	</LinearLayout>

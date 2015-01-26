@@ -408,7 +408,7 @@ public class GeocodeManager {
 		            		if(theItemToPopup.ismIsGPSPopup()) {
 			            		if(!_CurrentlyPoppedUp) {
 			            			_CurrentlyPoppedUp=true;
-			            			new PopupMapLocation(mMainActivity,theItemToPopup.toHashMap(),false).createPopup();
+			            			new PopupMapLocation(mMainActivity,theItemToPopup.toHashMap(),false,theItemToPopup).createPopup();
 			            		}
 		            		}
 		            	}

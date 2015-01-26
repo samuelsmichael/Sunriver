@@ -23,6 +23,7 @@ public class PopupMapsLocationsLayers2 extends Popups2 {
 	public PopupMapsLocationsLayers2(Activity activity, Map attributes) {
 		super(activity);
 	}
+    public PopupMapsLocationsLayers2(){}
 
 	@Override
 	protected void childPerformCloseActions() {

@@ -109,6 +109,50 @@ public abstract class SunriverDataItem implements Cacheable {
 		cursor.close();
 		return array;
 	}
+
+	/******   IFavoriteItem implementation   ******/
+	public boolean getIsFavorite() {
+		boolean retValue;
+		try { // in case this somehow gets called by a non IFavoriteItem implementer
+			String[] projection = {DbAdapter.KEY_FAVORITES_ROWID};
+			String columnNameForWhereClause=DbAdapter.KEY_FAVORITES_ITEM_ID;
+			String[] columnValuesForWhereClause=((IFavoriteItem)this).getFavoritesItemIdentifierValue();
+			Cursor cursor=GlobalState.getDbAdapter().get(DbAdapter.DATABASE_TABLE_FAVORITES, projection, 
+					columnNameForWhereClause, columnValuesForWhereClause, null, null);
+			if(cursor.getCount()>0) {
+				retValue=true;
+			} else {
+				retValue=false;
+			}
+			cursor.close();
+		} catch (Exception e) {
+			retValue=false;
+		}
+		return retValue;
+	}
+
+	public void putIsFavorite(boolean isFavorite) {
+		try { // in case this somehow gets called by a non IFavoriteItem implementer
+			if(isFavorite) {
+				if(!getIsFavorite()) {
+					ContentValues values=new ContentValues();
+					values.put(DbAdapter.KEY_FAVORITES_ITEM_ID, ((IFavoriteItem)this).getFavoritesItemIdentifierValue()[0]);
+					values.put(DbAdapter.KEY_FAVORITES_ITEM_TYPE,String.valueOf(((IFavoriteItem)this).getFavoriteItemType().ordinal()));
+		
+					GlobalState.getDbAdapter().insert(
+								DbAdapter.DATABASE_TABLE_FAVORITES,
+						         values);
+				}
+			} else {
+				if(getIsFavorite()) {
+					GlobalState.getDbAdapter().delete(DbAdapter.DATABASE_TABLE_FAVORITES, 
+							((IFavoriteItem)this).getFavoritesItemIdentifierColumnName()+"=?", 
+							((IFavoriteItem)this).getFavoritesItemIdentifierValue());
+				}
+			}
+		} catch (Exception e) {}
+	}
+	
 	public static void flushDataArrayToDatabase(ArrayList<Object> data) {
 		if(data.size()>0) { // write data to database
 			if(data.get(0) instanceof Hashtable) { // for Sunriver locations

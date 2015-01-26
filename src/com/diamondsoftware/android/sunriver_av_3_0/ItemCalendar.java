@@ -8,7 +8,9 @@ import java.util.Locale;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class ItemCalendar extends SunriverDataItem {
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
+public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	public static final String DATABASE_TABLE_CALENDAR = "calendar";
 	public static final String DATE_LAST_UPDATED = "date_last_updated_calendar";
 
@@ -40,6 +42,23 @@ public class ItemCalendar extends SunriverDataItem {
 	private boolean isApproved;
 	private SimpleDateFormat simpleFormatter;
 
+	
+	public String getFavoritesItemIdentifierColumnName() {
+		return KEY_CALENDAR_SRACTID;
+	}
+	
+	
+	public String[] getFavoritesItemIdentifierValue() {
+		return new String[] {
+				String.valueOf(getSrCalId())
+		};
+	}
+	
+	public FavoriteItemType getFavoriteItemType() {
+		return FavoriteItemType.Calendar;
+	}
+	
+	
 	@Override
 	public String toString() {
 		String theDate = null;

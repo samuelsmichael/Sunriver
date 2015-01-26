@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PopupMapLocationEatsAndTreats extends PopupMapLocation {
-	public PopupMapLocationEatsAndTreats(Activity activity, Map attributes, boolean showOnMapIsVisible) {
-		super(activity,attributes,showOnMapIsVisible);
+	public PopupMapLocationEatsAndTreats(Activity activity, Map attributes, boolean showOnMapIsVisible, ItemLocation itemLocation) {
+		super(activity,attributes,showOnMapIsVisible,itemLocation);
 	}
 
 	@Override

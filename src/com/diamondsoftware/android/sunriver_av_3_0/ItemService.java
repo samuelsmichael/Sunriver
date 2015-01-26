@@ -2,10 +2,12 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.Date;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.content.ContentValues;
 import android.database.Cursor;
 
-public class ItemService extends SunriverDataItem {
+public class ItemService extends SunriverDataItem implements IFavoriteItem {
 	public static final String DATABASE_TABLE_SERVICE = "service";
 	public static final String DATE_LAST_UPDATED = "date_last_updated_service";
 	public static final String KEY_SERVICE_ROWID = "_id";
@@ -26,6 +28,21 @@ public class ItemService extends SunriverDataItem {
 	public static String[] mColumnValuesForWhereClause=null;
 	public static String mGroupBy=null;
 	
+	
+	public String getFavoritesItemIdentifierColumnName() {
+		return KEY_SERVICE_SERVICEID;
+	}
+	
+	
+	public String[] getFavoritesItemIdentifierValue() {
+		return new String[] {
+				String.valueOf(getServiceID())
+		};
+	}
+	
+	public FavoriteItemType getFavoriteItemType() {
+		return FavoriteItemType.Service;
+	}
 	
 	public int getServiceID() {
 		return serviceID;

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class PopupCalendarDetail extends Popups2 {
 
 	private ImageLoader mImageLoader=null;	
 	private SimpleDateFormat mSimpleFormatter;
+	private boolean mIsFavorite;
+	private ImageButton mFavorite;
 
 	
 
@@ -47,7 +50,17 @@ public class PopupCalendarDetail extends Popups2 {
         mSimpleFormatter = new SimpleDateFormat("EEEE, MMM d", Locale.getDefault());
 
 	}
-
+	private void flipFavorite() {
+		if(mIsFavorite) {
+			mIsFavorite=false;
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mItemCalendar.putIsFavorite(false);
+		} else {
+			mIsFavorite=true;
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mItemCalendar.putIsFavorite(true);			
+		}
+	}
 	@Override
 	protected void childPerformCloseActions() {
 	}
@@ -74,6 +87,25 @@ public class PopupCalendarDetail extends Popups2 {
 		mAddress=(TextView)popup.findViewById(R.id.calendar_popup_address);
 		mDescription=(TextView)popup.findViewById(R.id.calendar_popup_description);
 		mWebUrl=(TextView)popup.findViewById(R.id.calendar_popup_weburl);
+		
+		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_calendar_favorite);
+		mFavorite.setVisibility(View.VISIBLE);
+		if(mItemCalendar.getIsFavorite()) {
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mIsFavorite=true;
+		} else {
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mIsFavorite=false;
+		}
+
+		mFavorite.setOnClickListener(new View.OnClickListener() {				
+			@Override
+			public void onClick(View v) {
+				PopupCalendarDetail.this.flipFavorite();
+			}
+		});
+
+
 		
 		mShare=(Button)popup.findViewById(R.id.calendar_popup_share_button);		
 		mMap=(Button)popup.findViewById(R.id.calendar_popup_map_button);

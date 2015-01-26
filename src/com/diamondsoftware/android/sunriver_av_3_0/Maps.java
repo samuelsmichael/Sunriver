@@ -1,6 +1,7 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 
 import java.util.Locale;
@@ -679,6 +680,29 @@ public class Maps extends AbstractActivityForMenu {
 		return g;
 	}
 
+	public static ItemLocation getItemLocationWhoseIdIs(int id) {
+		ItemLocation zLocation=null;
+		for(Hashtable ht :MainActivity.LocationData) {
+			ItemLocation.LocationType locationType = (ItemLocation.LocationType) ht.keys().nextElement();
+			for (Object al: ht.values()) {
+				ArrayList<Object> aroo = (ArrayList<Object>)al;
+				for (Object theElement :aroo) {
+					ItemLocation location=(ItemLocation)theElement;
+					if(location.getmId()==id) {
+						zLocation=location;
+						break;
+					}
+					Point pnt = new Point(location.getmCoordinates().getX(),location.getmCoordinates().getY());
+			        location.setmGoogleCoordinates(Utils.ToGeographic(pnt));
+				}
+				if(zLocation!=null) {
+					break;
+				}
+			}
+		}
+		return zLocation;
+	}
+	
 	/**
 	 * Shows the Attribute values for the Graphic in the Callout
 	 * 
@@ -687,7 +711,9 @@ public class Maps extends AbstractActivityForMenu {
 	 * @param mapPoint
 	 */
 	private void ShowCallout(Graphic graphic, Point mapPoint) {
-		mPopup = new PopupMapLocation(this, graphic.getAttributes(),false);
+		int locationId=Integer.valueOf((String)graphic.getAttributes().get("id"));
+		
+		mPopup = new PopupMapLocation(this, graphic.getAttributes(),false, getItemLocationWhoseIdIs(locationId));
 		mPopup.createPopup();
 	}
 

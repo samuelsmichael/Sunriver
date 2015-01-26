@@ -8,10 +8,11 @@ import java.util.Hashtable;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.esri.core.geometry.Point;
 
 
-public class ItemLocation extends SunriverDataItem {
+public class ItemLocation extends SunriverDataItem implements IFavoriteItem {
     public static enum LocationType {
     	RESTAURANT, RETAIL,POOL,TENNIS_COURT,GAS_STATION,PERFECT_PICTURE_SPOT,SUNRIVER,NULL
     }
@@ -49,6 +50,21 @@ public class ItemLocation extends SunriverDataItem {
 	public ItemLocation() {
 	}
 	
+	public String getFavoritesItemIdentifierColumnName() {
+		return KEY_LOCATION_srMapId;
+	}
+	
+	
+	public String[] getFavoritesItemIdentifierValue() {
+		return new String[] {
+				String.valueOf(getmId())
+		};
+	}
+	
+	public FavoriteItemType getFavoriteItemType() {
+		return 
+			getmCategory()==1?	FavoriteItemType.EatAndTreat:(getmCategory()==3?FavoriteItemType.Retail:FavoriteItemType.Unknown);
+	}
 	public ItemLocation (Cursor cursor) {
 		this.setmIsGPSPopup(cursor.getInt(cursor.getColumnIndex(KEY_LOCATION_isGPSPopup))!=0);
 		this.setmId(cursor.getInt(cursor.getColumnIndex(KEY_LOCATION_srMapId)));

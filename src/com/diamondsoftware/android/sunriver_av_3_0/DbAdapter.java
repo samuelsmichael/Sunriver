@@ -23,7 +23,20 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 25;
+	private static final int DATABASE_VERSION = 26;
+	public static enum FavoriteItemType {
+		Activity,
+		Calendar,
+		Hospitality,
+		Service,
+		EatAndTreat,
+		Retail,
+		Unknown
+	}
+	public static final String DATABASE_TABLE_FAVORITES = "Favorites";
+	public static final String KEY_FAVORITES_ROWID = "_id";
+	public static final String KEY_FAVORITES_ITEM_TYPE = "ItemType";
+	public static final String KEY_FAVORITES_ITEM_ID = "ItemId";
 
 	public static final DateFormat mDateFormat = new SimpleDateFormat(
 	"yyyy-MM-dd HH:mm:ss.S");
@@ -57,6 +70,11 @@ public class DbAdapter {
 		         null,
 		         values);
 	}
+	
+	public synchronized int delete (String table, String whereClause, String[] whereArgs) {
+		return getSqlDb().delete(table, whereClause, whereArgs);
+	}
+	
 	public synchronized Cursor get(String tableName, String[] projection, 
 			String columnNameForWhereClause, String[] columnValuesForWhereClause, String groupBy, String sortBy) {
 		String whereClause=columnNameForWhereClause==null?null:(columnNameForWhereClause+"=?");
@@ -87,6 +105,11 @@ public class DbAdapter {
 		/**
 		 * Database creation sql statement 
 		 */
+		private static final String CREATE_TABLE_FAVORITES = "create table " + DATABASE_TABLE_FAVORITES + " (" +
+				KEY_FAVORITES_ROWID + " integer primary key autoincrement," +
+				KEY_FAVORITES_ITEM_TYPE + " integer, " +
+				KEY_FAVORITES_ITEM_ID + " integer);";
+				
 		private static final String CREATE_TABLE_DIDYOUKNOW = "create table " + ItemDidYouKnow.DATABASE_TABLE_DIDYOUKNOW + " ("+
 				ItemDidYouKnow.KEY_DIDYOUKNOW_ROWID + " integer primary key autoincrement," +
 				ItemDidYouKnow.KEY_DIDYOUKNOW_DIDYOUKNOWID + " integer, " +
@@ -220,6 +243,9 @@ public class DbAdapter {
 			try {
 				db.execSQL(CREATE_TABLE_GISLAYERS);
 			} catch (Exception eieio) {}
+			try {
+				db.execSQL(CREATE_TABLE_FAVORITES);
+			} catch (Exception eieio) {};
 		}
 
 		@Override

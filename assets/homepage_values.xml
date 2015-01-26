@@ -10,35 +10,35 @@
   	<item>
  	    <id>600</id>
  	    <name>Eats &amp; Treats</name>
- 	    <description>"Fuel" your belly from 20+ eateries</description>
+ 	    <description>More than 20 dining options</description>
  	    <iconname>eatsandtreatsnew</iconname>
  	    <isstylemarquee>false</isstylemarquee>
  	</item>
 	<item>
  	    <id>110</id>
  	    <name>Shopping</name>
- 	    <description>Shop &#39;till you Drop</description>
+ 	    <description>Shop &#39;till you drop</description>
  	    <iconname>sr_shopping_big</iconname>
  	    <isstylemarquee>false</isstylemarquee>
  	</item>
  	<item>
  	    <id>300</id>
- 	    <name>Events</name>
+ 	    <name>Event Calendar</name>
  	    <description>What's happening in Sunriver</description>
  	    <iconname>sr_calendar_big</iconname>
  	    <isstylemarquee>false</isstylemarquee> 	    
  	</item>
  	<item>
  	    <id>400</id>
- 	    <name>Activity Planner</name>
- 	    <description>Fill your day with fun!</description>
+ 	    <name>Recreational Activities</name>
+ 	    <description>Plan your day of fun</description>
  	    <iconname>activity</iconname>
  	    <isstylemarquee>false</isstylemarquee>
  	</item>
  	<item>
  	    <id>1000</id>
- 	    <name>Find my home</name>
- 	    <description>Tell us your Sunriver Address, and we'll show it on the map.</description>
+ 	    <name>Find My Home</name>
+ 	    <description>Pinpoint my Sunriver address</description>
  	    <iconname>findhome_big</iconname>
  	    <isstylemarquee>false</isstylemarquee>
  	</item>
@@ -52,21 +52,21 @@
   	<item>
  	    <id>700</id>
  	    <name>Services</name>
- 	    <description>Emergency info, post office, gas, etc.</description>
+ 	    <description>Emergency, post office, gas, real estate &amp; more</description>
  	    <iconname>services_big</iconname>
  	    <isstylemarquee>false</isstylemarquee> 	    	    
  	</item>
  	<item>
  	    <id>120</id>
- 	    <name>Where to Stay</name>
- 	    <description>Lodging Options</description>
+ 	    <name>Where To Stay</name>
+ 	    <description>Lodging options</description>
  	    <iconname>lodging</iconname>
  	    <isstylemarquee>false</isstylemarquee> 	    	    
  	</item>
   	<item>
  	    <id>200</id>
- 	    <name>Weather</name>
- 	    <description>The latest local weather</description>
+ 	    <name>Weather &amp; Webcams</name>
+ 	    <description>Current local weather &amp; webcams</description>
  	    <iconname>sr_weather_big</iconname>
  	    <isstylemarquee>false</isstylemarquee> 	    	    
  	</item>

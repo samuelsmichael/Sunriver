@@ -1,5 +1,6 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -13,6 +14,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,8 +32,24 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 	public double latitude;
 	public double longitude;
 	public String name;
+	private boolean mIsFavorite;
+	private ImageButton mFavorite;
+	
+
 	
 	private ImageLoader mImageLoader=null;	
+	
+	private void flipFavorite() {
+		if(mIsFavorite) {
+			mIsFavorite=false;
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			ActivitiesActivity.CurrentActivityItem.putIsFavorite(false);
+		} else {
+			mIsFavorite=true;
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			ActivitiesActivity.CurrentActivityItem.putIsFavorite(true);			
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +67,23 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		mWebUrl.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		mShowOnMap = (Button)findViewById(R.id.activitydetailsOnMap);
 		mShare=(Button)findViewById(R.id.activitydetailshare);		
+		mFavorite=(ImageButton)findViewById(R.id.ibtn_activity_favorite);
+		mFavorite.setVisibility(View.VISIBLE);
+		if(ActivitiesActivity.CurrentActivityItem.getIsFavorite()) {
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mIsFavorite=true;
+		} else {
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mIsFavorite=false;
+		}
+
+		mFavorite.setOnClickListener(new View.OnClickListener() {				
+			@Override
+			public void onClick(View v) {
+				ActivitiesDetailActivity.this.flipFavorite();
+			}
+		});
+
 
 		Linkify.addLinks(mSoundUrl,Linkify.WEB_URLS);
 		mAddress.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
