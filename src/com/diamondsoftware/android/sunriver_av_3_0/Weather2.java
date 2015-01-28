@@ -9,6 +9,8 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -307,6 +309,15 @@ public class Weather2 extends AbstractActivityForMenu {
 			}
 			*/
 		}
+	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return false;
+	}
+
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return null;
 	}
 }	
 

@@ -2,6 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,7 +55,15 @@ public class ServicesActivity extends AbstractActivityForListViewsScrollingImage
 	@Override
 	protected void childOnCreate() {
 	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return false;
+	}
 
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return null;
+	}
 
 	@Override
 	protected String getImageURL() {

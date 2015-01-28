@@ -2,6 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
 import android.view.Menu;
@@ -110,5 +112,14 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {
 		
 		
+	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return true;
+	}
+
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return DbAdapter.FavoriteItemType.Calendar;
 	}
 }

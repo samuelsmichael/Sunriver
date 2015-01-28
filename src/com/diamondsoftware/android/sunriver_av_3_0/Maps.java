@@ -6,6 +6,7 @@ import java.util.Hashtable;
 
 import java.util.Locale;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.esri.android.map.GraphicsLayer;
 import com.esri.android.map.Layer;
 import com.esri.android.map.MapView;
@@ -765,6 +766,14 @@ public class Maps extends AbstractActivityForMenu {
 
 	private String getPREFS_NAME() {
 		return getApplicationContext().getPackageName() + "_preferences";
+	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return false;
+	}
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return null;
 	}
 
 }

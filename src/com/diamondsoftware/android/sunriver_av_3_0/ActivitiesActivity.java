@@ -2,6 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 
 
 
@@ -70,5 +72,13 @@ public class ActivitiesActivity extends AbstractActivityForListViewsScrollingIma
 	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {
 		
 	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return true;
+	}
 
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return DbAdapter.FavoriteItemType.Activity;
+	}
 }

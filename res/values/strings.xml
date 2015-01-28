@@ -64,6 +64,7 @@
     <string name="arcgis_password">Wp_p18mm</string>
     
     <string name="aboutusstring">About Us</string>
+    <string name="favoritesstring">Favorites</string>
     <string name="weatherchoosertitle">Choose next page:</string>
     <string name="aboutuslink_privacypolicy">http://www.sunriverstyle.com/privacy-policy</string>
     <string name="aboutuslink_termsandconditions">http://www.sunriverstyle.com/terms-and-services</string>

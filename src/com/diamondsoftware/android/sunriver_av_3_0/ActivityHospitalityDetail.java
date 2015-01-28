@@ -1,5 +1,6 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -30,10 +31,26 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 	private TextView mSoundUrl;
 	public double latitude;
 	public double longitude;
-	public String name;
+	public String name;	
+	private boolean mIsFavorite;
+	private ImageView mFavorite;
 	
 	private ImageLoader mImageLoader=null;	
 
+	private void flipFavorite() {
+		if(mIsFavorite) {
+			mIsFavorite=false;
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			ActivityHospitality.CurrentHospitalityItem.putIsFavorite(false);
+		} else {
+			mIsFavorite=true;
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			ActivityHospitality.CurrentHospitalityItem.putIsFavorite(true);			
+		}
+		invalidateOptionsMenu();
+	}
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,7 +74,21 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		Linkify.addLinks(mPhone, Linkify.PHONE_NUMBERS);
 		mPhone.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		String mAddressVerbiage="";
-
+		mFavorite=(ImageView)findViewById(R.id.ibtn_hospitality_favorite);
+		mFavorite.setVisibility(View.VISIBLE);
+		if(ActivityHospitality.CurrentHospitalityItem.getIsFavorite()) {
+			mFavorite.setImageResource(R.drawable.favoriteon);
+			mIsFavorite=true;
+		} else {
+			mFavorite.setImageResource(R.drawable.favoriteoff);
+			mIsFavorite=false;
+		}
+		mFavorite.setOnClickListener(new View.OnClickListener() {				
+			@Override
+			public void onClick(View v) {
+				ActivityHospitalityDetail.this.flipFavorite();
+			}
+		});
 		mShare.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -248,5 +279,14 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
             .setAction("Share")
             .setLabel(getGoogleAnalyticsLabel())
             .build());
+	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return false;
+	}
+
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return null;
 	}
 }

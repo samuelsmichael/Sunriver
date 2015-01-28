@@ -12,7 +12,6 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +30,7 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 	private TextView mWebUrl;
 	private TextView mSoundUrl;
 	private Button mShowOnMap;
-	private ImageButton mFavorite;
+	private ImageView mFavorite;
 	public double latitude;
 	public double longitude;
 	public String name;
@@ -67,6 +66,8 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mItemLocation.putIsFavorite(true);			
 		}
+		mActivity.invalidateOptionsMenu();
+
 	}
 	
 	@Override
@@ -80,7 +81,7 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 		mWebUrl=(TextView)popup.findViewById(R.id.location_weburl);
 		mShowOnMap = (Button)popup.findViewById(R.id.seeOnMap);
 		mWebUrl.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_location_favorite);
+		mFavorite=(ImageView)popup.findViewById(R.id.ibtn_location_favorite);
 		Linkify.addLinks(mPhone,Linkify.PHONE_NUMBERS);
 		Linkify.addLinks(mSoundUrl,Linkify.WEB_URLS);
 		mAddress.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);

@@ -71,8 +71,32 @@ public class DbAdapter {
 		         values);
 	}
 	
+	public synchronized boolean areThereAnyFavorites() {
+		boolean retValue=false;
+		Cursor cursor=get(DATABASE_TABLE_FAVORITES,null,null,null,null,null);
+		if(cursor.getCount()>0) {
+			retValue=true;
+		}
+		cursor.close();
+		return retValue;
+	}
+	public synchronized boolean areThereAnyFavoritesForThisCategory(FavoriteItemType category) {
+		boolean retValue=false;
+		Cursor cursor=getItemsInFavoritesForThisCategory(category);
+		if(cursor.getCount()>0) {
+			retValue=true;
+		}
+		cursor.close();
+		return retValue;
+	}
+	
+	public synchronized Cursor getItemsInFavoritesForThisCategory(FavoriteItemType category) {
+		return get(DATABASE_TABLE_FAVORITES,new String[]{KEY_FAVORITES_ITEM_ID},KEY_FAVORITES_ITEM_TYPE,new String[]{String.valueOf(category.ordinal())},null,null);		
+	}
+	
 	public synchronized int delete (String table, String whereClause, String[] whereArgs) {
-		return getSqlDb().delete(table, whereClause, whereArgs);
+		int i=getSqlDb().delete(table, whereClause, whereArgs);
+		return i;
 	}
 	
 	public synchronized Cursor get(String tableName, String[] projection, 

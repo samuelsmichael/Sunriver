@@ -14,7 +14,6 @@ import android.text.util.Linkify;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +34,7 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 	protected ItemService mItemService; 
 	private boolean mShowOnMapIsVisible=false;
 	private boolean mIsFavorite;
-	private ImageButton mFavorite;
+	private ImageView mFavorite;
 
 	
 	private ImageLoader mImageLoader=null;	
@@ -59,6 +58,7 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mItemService.putIsFavorite(true);			
 		}
+		mActivity.invalidateOptionsMenu();
 	}
 
 
@@ -81,7 +81,7 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 		CharSequence phoneText=(CharSequence) mItemService.getServicePhone();
 		mPhone.setText(phoneText);
 		mPhone.setLinkTextColor(Color.parseColor("#B6D5E0"));
-		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_service_favorite);
+		mFavorite=(ImageView)popup.findViewById(R.id.ibtn_service_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
 		if(mItemService.getIsFavorite()) {
 			mFavorite.setImageResource(R.drawable.favoriteon);

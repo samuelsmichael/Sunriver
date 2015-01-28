@@ -145,12 +145,21 @@ public abstract class SunriverDataItem implements Cacheable {
 				}
 			} else {
 				if(getIsFavorite()) {
+					String whereClause=DbAdapter.KEY_FAVORITES_ITEM_ID+"=? AND "+DbAdapter.KEY_FAVORITES_ITEM_TYPE+"=?";
 					GlobalState.getDbAdapter().delete(DbAdapter.DATABASE_TABLE_FAVORITES, 
-							((IFavoriteItem)this).getFavoritesItemIdentifierColumnName()+"=?", 
-							((IFavoriteItem)this).getFavoritesItemIdentifierValue());
+							whereClause, 
+							new String[] {
+								((IFavoriteItem)this).getFavoritesItemIdentifierValue()[0],
+								String.valueOf(((IFavoriteItem)this).getFavoriteItemType().ordinal())
+						}
+					);
 				}
 			}
-		} catch (Exception e) {}
+		} catch (Exception e) {
+			StackTraceElement[] stea=e.getStackTrace();
+			e=e;
+			
+		}
 	}
 	
 	public static void flushDataArrayToDatabase(ArrayList<Object> data) {

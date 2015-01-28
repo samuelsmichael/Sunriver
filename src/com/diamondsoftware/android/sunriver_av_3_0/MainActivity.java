@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
 
 
@@ -25,10 +26,7 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -271,7 +269,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	protected void onStart() {
 		super.onStart();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -648,5 +646,14 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			dialog.show();
 		}
 
+	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return true;
+	}
+
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return DbAdapter.FavoriteItemType.Unknown;
 	}
 }

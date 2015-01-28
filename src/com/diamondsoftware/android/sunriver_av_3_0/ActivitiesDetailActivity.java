@@ -33,7 +33,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 	public double longitude;
 	public String name;
 	private boolean mIsFavorite;
-	private ImageButton mFavorite;
+	private ImageView mFavorite;
 	
 
 	
@@ -49,6 +49,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			ActivitiesActivity.CurrentActivityItem.putIsFavorite(true);			
 		}
+		invalidateOptionsMenu();
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		mWebUrl.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		mShowOnMap = (Button)findViewById(R.id.activitydetailsOnMap);
 		mShare=(Button)findViewById(R.id.activitydetailshare);		
-		mFavorite=(ImageButton)findViewById(R.id.ibtn_activity_favorite);
+		mFavorite=(ImageView)findViewById(R.id.ibtn_activity_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
 		if(ActivitiesActivity.CurrentActivityItem.getIsFavorite()) {
 			mFavorite.setImageResource(R.drawable.favoriteon);
@@ -279,5 +280,15 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 	@Override
 	protected String getGoogleAnalyticsLabel() {
 		return ActivitiesActivity.CurrentActivityItem.getSrActName();
+	}
+
+	@Override
+	public boolean doYouDoFavorites() {
+		return false;
+	}
+
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return null;
 	}
 }

@@ -29,15 +29,21 @@
 		            />
 		 
 		    </LinearLayout>
-		    <TextView 
-				android:id="@+id/hospitalitydetail_name"
-				android:layout_height="wrap_content"
-				android:layout_width="wrap_content" 
-				android:layout_gravity="center_horizontal"
-				android:textSize="26sp" 
-				android:textColor="#000000"
-			></TextView>
-		    
+		    <LinearLayout android:id="@+id/hospitality_titleandfavorite"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:orientation="horizontal"	    
+			    android:layout_gravity="center_horizontal"
+		 	 >		  		    
+				    <TextView 
+						android:id="@+id/hospitalitydetail_name"
+						android:layout_height="wrap_content"
+						android:layout_width="wrap_content" 
+						android:layout_gravity="center_horizontal"
+						android:textSize="26sp" 
+						android:textColor="#000000"
+					></TextView>
+		    	</LinearLayout>
 		    <TextView 
 				android:id="@+id/hospitalitydetail_address"
 				android:layout_height="wrap_content"
@@ -133,7 +139,16 @@
 				        android:layout_marginRight="15dp"
 				        android:text="Map" 
 				     />
-	            
+			    	<ImageView 
+				        android:id="@+id/ibtn_hospitality_favorite"
+				        android:contentDescription="Favorite"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:layout_gravity="center_horizontal|center_vertical"
+				        android:layout_marginLeft="10dp"
+				        android:layout_marginRight="25dp"
+				        />
+			        	            
 			        <Button
 				        android:id="@+id/hospitalitydetailshare"
 				        style="?android:attr/buttonStyleSmall"

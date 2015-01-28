@@ -40,15 +40,6 @@
 				android:textSize="26sp" 
 				android:textColor="#FFFFFF"
 			></TextView>
-		    <ImageButton 
-		        android:id="@+id/ibtn_service_favorite"
-		        android:contentDescription="Favorite"
-		        android:layout_width="33dip"
-		        android:layout_height="33dip"
-		        android:scaleType="centerCrop"
-		        android:layout_gravity="center_vertical"
-		        android:layout_marginLeft="10dip"
-		        />
     </LinearLayout>
     <TextView 
 		android:id="@+id/servicedetail_address"
@@ -139,6 +130,16 @@
 			        android:text="@string/location_popup_showonmap_button" 
 			     />
             
+			    <ImageView 
+			        android:id="@+id/ibtn_service_favorite"
+			        android:contentDescription="Favorite"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="center_vertical"
+			        android:layout_marginRight="15dip"
+			        />
+		        		        
+		        
 		        <Button
 			        android:id="@+id/closePopup"
 			        style="?android:attr/buttonStyleSmall"

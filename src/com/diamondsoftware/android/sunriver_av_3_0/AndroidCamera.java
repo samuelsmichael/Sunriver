@@ -9,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -553,5 +555,14 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 					        listViewItems.setOnItemClickListener(listener);
 							return theDialog;
 						}
+					}
+					@Override
+					public boolean doYouDoFavorites() {
+						return false;
+					}
+
+					@Override
+					public FavoriteItemType whatsYourFavoriteItemType() {
+						return null;
 					}
 }

@@ -1,5 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
+     <item
+        android:id="@+id/menufavorites"
+        android:orderInCategory="90"
+        android:showAsAction="ifRoom"
+        android:title="@string/favoritesstring"
+        android:icon="@drawable/favoriteon"
+        />
+    
     <item
         android:id="@+id/menuaboutus"
         android:orderInCategory="100"

@@ -2,6 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.view.View;
 import android.widget.AdapterView;
 /*
@@ -24,5 +26,13 @@ public class EatsAndTreatsActivity extends ActivityThatIsASubtypeOfMaps {
 		Popups2 mPopup = new PopupMapLocationEatsAndTreats(this, itemLocation.toHashMap(),true,itemLocation);
 		mPopup.createPopup();
 	}
+	@Override
+	public boolean doYouDoFavorites() {
+		return true;
+	}
 
+	@Override
+	public FavoriteItemType whatsYourFavoriteItemType() {
+		return DbAdapter.FavoriteItemType.EatAndTreat;
+	}
 }

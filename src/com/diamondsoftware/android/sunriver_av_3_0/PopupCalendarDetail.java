@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,7 +39,7 @@ public class PopupCalendarDetail extends Popups2 {
 	private ImageLoader mImageLoader=null;	
 	private SimpleDateFormat mSimpleFormatter;
 	private boolean mIsFavorite;
-	private ImageButton mFavorite;
+	private ImageView mFavorite;
 
 	
 
@@ -60,6 +59,7 @@ public class PopupCalendarDetail extends Popups2 {
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mItemCalendar.putIsFavorite(true);			
 		}
+		mActivity.invalidateOptionsMenu();
 	}
 	@Override
 	protected void childPerformCloseActions() {
@@ -88,7 +88,7 @@ public class PopupCalendarDetail extends Popups2 {
 		mDescription=(TextView)popup.findViewById(R.id.calendar_popup_description);
 		mWebUrl=(TextView)popup.findViewById(R.id.calendar_popup_weburl);
 		
-		mFavorite=(ImageButton)popup.findViewById(R.id.ibtn_calendar_favorite);
+		mFavorite=(ImageView)popup.findViewById(R.id.ibtn_calendar_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
 		if(mItemCalendar.getIsFavorite()) {
 			mFavorite.setImageResource(R.drawable.favoriteon);
