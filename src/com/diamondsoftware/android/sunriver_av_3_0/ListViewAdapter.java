@@ -49,6 +49,10 @@ public abstract class ListViewAdapter extends BaseAdapter {
         mImageScrollsWithList=imageScrollsWithList;
     }
     
+    public void causeDataToBeRebuilt(){
+    	mData=null;
+    }
+    
     protected ArrayList<Object> getData() {
     	try {
     		if(mData==null) {

@@ -1,5 +1,6 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
@@ -27,6 +28,13 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 	public static String mColumnNameForWhereClause=null;
 	public static String[] mColumnValuesForWhereClause=null;
 	public static String mGroupBy=null;
+	public static ArrayList<Object> mLastDataFetch;
+	
+	@Override
+	public ArrayList<Object> fetchDataFromDatabase() {
+		mLastDataFetch=super.fetchDataFromDatabase();
+		return mLastDataFetch;
+	}
 	
 	
 	public String getFavoritesItemIdentifierColumnName() {

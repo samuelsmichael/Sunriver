@@ -2,10 +2,13 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -36,9 +39,9 @@ import android.widget.AdapterView.OnItemClickListener;
 public abstract class AbstractActivityForListViews extends AbstractActivityForMenu  implements WaitingForDataAcquiredAsynchronously {
 	protected ListView mList;
 	protected ListViewAdapter mAdapter;
-	protected SharedPreferences mSharedPreferences;
 	protected Popups2 mPopup;
 	protected ImageView mImageView;
+	public static AbstractActivityForListViews mSingleton;
 	
 	// get the layout id of the associated ListView
 	protected abstract int getListViewId();
@@ -64,11 +67,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	
 	public AbstractActivityForListViews() {
 	}
-	
-	// SharedPreferences is the mechanism used to persist application-specific data
-	public SharedPreferences getMSharedPreferences() {
-		return mSharedPreferences;
-	}
+
 	
 	// generate a random URL for pictures. The set of items to pick from is the ArrayList SplashPage.TheItemsDidYouKnow
 	public String getRandomImageURL() {
@@ -89,13 +88,13 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-			// check to see that we've gone Internet Connectivity
-		    ConnectivityManager connectivityManager 
-		          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-		    ((GlobalState)getApplicationContext()).gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();
+		mSingleton=this;
+		// check to see that we've gone Internet Connectivity
+	    ConnectivityManager connectivityManager 
+	          = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+	    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+	    ((GlobalState)getApplicationContext()).gotInternet= activeNetworkInfo != null && activeNetworkInfo.isConnected();
 		
-		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 		setContentView(getViewId());
 		mImageView=(ImageView)this.findViewById(getImageId());
 		childOnCreate();
@@ -126,6 +125,36 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
         }
  
 	}
+	@Override
+	public void rebuildListBasedOnFavoritesSetting() {
+		if(getImViewingFavorites()) {
+			filterDataForFavorites();
+		} else {
+			mAdapter.causeDataToBeRebuilt();
+		}
+		mAdapter.notifyDataSetChanged();
+	}
+	private void filterDataForFavorites() {
+		ArrayList<Object> newData=new ArrayList<Object>();
+		ArrayList<Integer> favorites=new ArrayList<Integer>();
+		DbAdapter dbAdapter=new DbAdapter(this);
+		Cursor cursor=dbAdapter.getItemsInFavoritesForThisCategory(whatsYourFavoriteItemType());
+		while(cursor.moveToNext()) {
+			favorites.add(cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_ID)));
+		}
+		cursor.close();
+		ArrayList<Object> items=mAdapter.getData();
+		for(Object item :items) {
+			FavoriteItemType itemsFavoriteItemType=((IFavoriteItem)item).getFavoriteItemType();
+			FavoriteItemType viewsFavoriteItemType=whatsYourFavoriteItemType();
+			int thisItemsId=Integer.valueOf(((IFavoriteItem)item).getFavoritesItemIdentifierValue()[0]);
+			if(itemsFavoriteItemType==viewsFavoriteItemType &&  favorites.contains(thisItemsId)) {
+				newData.add(item);
+			}
+		}
+		mAdapter.mData=newData;
+
+	}
 	/*
 	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalData,
 	 * then the data is fetched as part of the constructor.  With a ListViewAdapterRemoteData (one that fetches its data
@@ -135,6 +164,9 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	@Override
 	public void gotMyData(String name, ArrayList<Object> data) {
 		hookDoSomethingWithTheDataIfYouWant(data);
+		if(getImViewingFavorites()) {
+			filterDataForFavorites();
+		}
         mList.setAdapter(mAdapter);
 	}
 	
@@ -146,9 +178,6 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		super.onDestroy();
 	}
 	
-	protected String getPREFS_NAME() {
-		return getApplicationContext().getPackageName() + "_preferences";
-	}
 
 
 }

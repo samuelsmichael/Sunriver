@@ -2,9 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
-
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -59,7 +58,9 @@ public class DbAdapter {
 	}
 	
 	public void close() {
-		mDbHelper.close();
+		if(mDbHelper!=null) {
+			mDbHelper.close();
+		}
 		mDbHelper = null;
 		mDb = null;
 	}
@@ -90,10 +91,48 @@ public class DbAdapter {
 		return retValue;
 	}
 	
+	private boolean aServicesItemByThisTitleExists(String title) {
+		
+		ArrayList<Object> serviceItems;
+		if(ItemService.mLastDataFetch!=null) {
+			serviceItems=ItemService.mLastDataFetch;
+		} else {
+			serviceItems=new ItemService().fetchDataFromDatabase();
+		}
+		for(Object itemService :serviceItems) {
+			ItemService zItemService=((ItemService)itemService);
+			if( title.indexOf( zItemService.getServiceCategoryName()) != -1 && zItemService.getIsFavorite() ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public synchronized boolean areThereAnyFavoritesForThisServicesTitle(String title) {
+		return areThereAnyFavoritesForThisCategory(FavoriteItemType.Service) && aServicesItemByThisTitleExists(title);
+	}
+	
+	
 	public synchronized Cursor getItemsInFavoritesForThisCategory(FavoriteItemType category) {
 		return get(DATABASE_TABLE_FAVORITES,new String[]{KEY_FAVORITES_ITEM_ID},KEY_FAVORITES_ITEM_TYPE,new String[]{String.valueOf(category.ordinal())},null,null);		
 	}
-	
+	public synchronized boolean getIsFavorite(FavoriteItemType favoriteType,int itemId) {
+		Cursor cu = getSqlDb().query(
+				DATABASE_TABLE_FAVORITES,				  				// The table to query
+				new String[]{KEY_FAVORITES_ITEM_ID},                             // The columns to return
+			    KEY_FAVORITES_ITEM_TYPE+"=? AND "+KEY_FAVORITES_ITEM_ID+"=?",                           	// The columns for the WHERE clause
+			    new String[]{String.valueOf(favoriteType.ordinal()),String.valueOf(itemId)},             // The values for the WHERE clause
+			    null,                                // group the rows
+			    null,                                   // don't filter by row groups
+			    null	                                // The sort order
+			    );
+		boolean retValue=false;
+		if(cu.getCount()>0) {
+			retValue=true;
+		}
+		cu.close();
+		return retValue;
+	}
 	public synchronized int delete (String table, String whereClause, String[] whereArgs) {
 		int i=getSqlDb().delete(table, whereClause, whereArgs);
 		return i;

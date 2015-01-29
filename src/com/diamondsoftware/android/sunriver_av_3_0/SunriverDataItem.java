@@ -112,23 +112,9 @@ public abstract class SunriverDataItem implements Cacheable {
 
 	/******   IFavoriteItem implementation   ******/
 	public boolean getIsFavorite() {
-		boolean retValue;
-		try { // in case this somehow gets called by a non IFavoriteItem implementer
-			String[] projection = {DbAdapter.KEY_FAVORITES_ROWID};
-			String columnNameForWhereClause=DbAdapter.KEY_FAVORITES_ITEM_ID;
-			String[] columnValuesForWhereClause=((IFavoriteItem)this).getFavoritesItemIdentifierValue();
-			Cursor cursor=GlobalState.getDbAdapter().get(DbAdapter.DATABASE_TABLE_FAVORITES, projection, 
-					columnNameForWhereClause, columnValuesForWhereClause, null, null);
-			if(cursor.getCount()>0) {
-				retValue=true;
-			} else {
-				retValue=false;
-			}
-			cursor.close();
-		} catch (Exception e) {
-			retValue=false;
-		}
-		return retValue;
+		return GlobalState.getDbAdapter().getIsFavorite(
+				((IFavoriteItem)this).getFavoriteItemType(), 
+				Integer.valueOf(((IFavoriteItem)this).getFavoritesItemIdentifierValue()[0]));
 	}
 
 	public void putIsFavorite(boolean isFavorite) {

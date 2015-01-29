@@ -61,6 +61,10 @@ public class PopupMapLocation extends Popups2 implements GoogleAnalyticsRecordIt
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			mItemLocation.putIsFavorite(false);
+			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(mItemLocation.getFavoriteItemType())) {
+				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
+			}
+			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);

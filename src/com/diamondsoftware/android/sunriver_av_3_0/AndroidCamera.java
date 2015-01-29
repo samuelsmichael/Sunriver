@@ -565,4 +565,8 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 					public FavoriteItemType whatsYourFavoriteItemType() {
 						return null;
 					}
+
+					@Override
+					public void rebuildListBasedOnFavoritesSetting() {
+					}
 }

@@ -319,5 +319,9 @@ public class Weather2 extends AbstractActivityForMenu {
 	public FavoriteItemType whatsYourFavoriteItemType() {
 		return null;
 	}
+
+	@Override
+	public void rebuildListBasedOnFavoritesSetting() {
+	}
 }	
 

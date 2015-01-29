@@ -24,6 +24,7 @@ public abstract class Popups2 {
 	protected SharedPreferences mSharedPreferences; 
 	private WakeLock mScreenLock = null;
 	private ViewGroup mViewGroup=null;
+	protected DbAdapter mDbAdapter;
 	
 	
 	protected abstract void childPerformCloseActions();
@@ -36,6 +37,7 @@ public abstract class Popups2 {
 	
 	public Popups2(Activity activity) {
 		mActivity=activity;
+		mDbAdapter=new DbAdapter(activity);
 	}
     public Popups2(){}
 	
@@ -44,6 +46,7 @@ public abstract class Popups2 {
 	 */
 	public void publicRemoveView() {
 		removeView();
+		mDbAdapter.close();
 	}
 	public void createPopup() {
 	    	try {

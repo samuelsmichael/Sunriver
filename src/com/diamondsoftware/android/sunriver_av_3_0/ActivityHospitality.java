@@ -6,6 +6,7 @@ import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -19,6 +20,7 @@ public class ActivityHospitality extends AbstractActivityForListViewsScrollingIm
 
 	private ListViewAdapter mListViewAdapter;
 	protected static ItemHospitality CurrentHospitalityItem;
+
 
 
 	@Override
@@ -60,8 +62,7 @@ public class ActivityHospitality extends AbstractActivityForListViewsScrollingIm
 	}
 
 	@Override
-	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {
-		
+	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {		
 	}
 	@Override
 	public boolean doYouDoFavorites() {

@@ -54,6 +54,11 @@ public class PopupCalendarDetail extends Popups2 {
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			mItemCalendar.putIsFavorite(false);
+			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Calendar)) {
+				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
+			}
+			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
+			
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);

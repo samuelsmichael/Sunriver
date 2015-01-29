@@ -44,6 +44,11 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			ActivitiesActivity.CurrentActivityItem.putIsFavorite(false);
+			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Activity)) {
+				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
+			}
+			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
+
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);
@@ -290,5 +295,9 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 	@Override
 	public FavoriteItemType whatsYourFavoriteItemType() {
 		return null;
+	}
+
+	@Override
+	public void rebuildListBasedOnFavoritesSetting() {
 	}
 }

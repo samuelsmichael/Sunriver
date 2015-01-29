@@ -1,18 +1,31 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
-import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 @SuppressLint("Registered") public abstract class AbstractActivityForMenu extends Activity implements IFavoritesList {
-	protected boolean mImViewingFavorites;
 	protected MenuItem miFavorites=null;
+	protected SharedPreferences mSharedPreferences;
+	protected DbAdapter mDbAdapter;
 	
+	// SharedPreferences is the mechanism used to persist application-specific data
+	public SharedPreferences getMSharedPreferences() {
+		return mSharedPreferences;
+	}
+	protected boolean getImViewingFavorites() {
+		return mSharedPreferences.getBoolean(String.valueOf(whatsYourFavoriteItemType()), false);
+	}
+	protected void setImViewingFavorites(boolean value) {
+		Editor editor=mSharedPreferences.edit();
+		editor.putBoolean(String.valueOf(whatsYourFavoriteItemType()),value);
+		editor.commit();				
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 //	    MenuInflater inflater = getMenuInflater();
@@ -21,11 +34,13 @@ import android.view.MenuItem;
 		if(doYouDoFavorites() &&
 				(whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown) // Home Page
 					?true
+					:whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Service)?
+								dbAdapter.areThereAnyFavoritesForThisServicesTitle(((ServicesDetailActivity)this).getTitle().toString())
 					:dbAdapter.areThereAnyFavoritesForThisCategory(whatsYourFavoriteItemType())
 				)) {
 			miFavorites= menu.add(android.view.Menu.NONE,R.id.menufavorites,90,getString(R.string.favoritesstring));
 			if(!whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown)) {
-				if(mImViewingFavorites) {
+				if(getImViewingFavorites()) {
 					miFavorites.setIcon(R.drawable.favoriteon_actionbar);
 				} else {
 					miFavorites.setIcon(R.drawable.favoriteoff_actionbar);
@@ -69,13 +84,14 @@ import android.view.MenuItem;
 	        	if(whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown)) { // is Home Page
 	        		//TODO:  bring up favorites page
 	        	} else {
-	        		if(mImViewingFavorites) {
+	        		if(getImViewingFavorites()) {
 	        			miFavorites.setIcon(R.drawable.favoriteoff);
-	        			mImViewingFavorites=false;
+	        			setImViewingFavorites(false);
 	        		} else {
 	        			miFavorites.setIcon(R.drawable.favoriteon);
-	        			mImViewingFavorites=true;
+	        			setImViewingFavorites(true);
 	        		}
+	        		rebuildListBasedOnFavoritesSetting();
 	        		invalidateOptionsMenu();
 	        	}
 	        	return true;
@@ -83,20 +99,21 @@ import android.view.MenuItem;
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
+	protected String getPREFS_NAME() {
+		return getApplicationContext().getPackageName() + "_preferences";
+	}
+	@Override
+	protected void onDestroy() {
+		if(mDbAdapter!=null) {
+			mDbAdapter.close();
+		}
+		super.onDestroy();
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		if(savedInstanceState!=null) {
-			mImViewingFavorites=savedInstanceState.getBoolean("ImDoingFavorites", false);
-		}
-	}
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle)
-	 */
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		outState.putBoolean("ImDoingFavorites", mImViewingFavorites);
-		super.onSaveInstanceState(outState);
+		mDbAdapter=new DbAdapter(this);
+		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 	}
 	@Override
 	protected void onResume() {

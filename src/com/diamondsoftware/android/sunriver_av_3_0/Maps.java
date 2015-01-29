@@ -764,9 +764,6 @@ public class Maps extends AbstractActivityForMenu {
 		mMapView.unpause();
 	}
 
-	private String getPREFS_NAME() {
-		return getApplicationContext().getPackageName() + "_preferences";
-	}
 	@Override
 	public boolean doYouDoFavorites() {
 		return false;
@@ -774,6 +771,9 @@ public class Maps extends AbstractActivityForMenu {
 	@Override
 	public FavoriteItemType whatsYourFavoriteItemType() {
 		return null;
+	}
+	@Override
+	public void rebuildListBasedOnFavoritesSetting() {
 	}
 
 }

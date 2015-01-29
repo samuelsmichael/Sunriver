@@ -42,6 +42,10 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			ActivityHospitality.CurrentHospitalityItem.putIsFavorite(false);
+			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Hospitality)) {
+				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
+			}
+			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);
@@ -288,5 +292,10 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 	@Override
 	public FavoriteItemType whatsYourFavoriteItemType() {
 		return null;
+	}
+
+
+	@Override
+	public void rebuildListBasedOnFavoritesSetting() {
 	}
 }
