@@ -3,10 +3,11 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
-
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.text.TextUtils;
+
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 public class ItemService extends SunriverDataItem implements IFavoriteItem {
 	public static final String DATABASE_TABLE_SERVICE = "service";
@@ -23,20 +24,47 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 	public static final String KEY_SERVICE_SERVICELAT = "serviceLat";
 	public static final String KEY_SERVICE_SERVICELONG = "serviceLong";
 	public static final String KEY_SERVICE_SERVICECATEGORYNAME = "serviceCatName";
+	public static final String KEY_SERVICE_SERVICECATEGORYNUM = "serviceCatNum";
 	public static final String KEY_SERVICE_SERVICECATEGORYICONURL = "serviceCatIconURL";
 	public static final String KEY_SERVICE_SORTORDER = "sortOrder";
 	public static String mColumnNameForWhereClause=null;
 	public static String[] mColumnValuesForWhereClause=null;
 	public static String mGroupBy=null;
-	public static ArrayList<Object> mLastDataFetch;
+	public static ArrayList<Object> mLastDataFetchSummary2;
+	public static ArrayList<Object> mLastDataFetchDetail2;
 	
 	@Override
 	public ArrayList<Object> fetchDataFromDatabase() {
-		mLastDataFetch=super.fetchDataFromDatabase();
-		return mLastDataFetch;
+		if(mGroupBy==null) {
+			if(mLastDataFetchDetail2==null) {
+				mLastDataFetchDetail2=super.fetchDataFromDatabase();
+			}
+			return filterIfNecessary(mLastDataFetchDetail2);
+		} else {
+			if(mLastDataFetchSummary2==null) {
+				mLastDataFetchSummary2=super.fetchDataFromDatabase();
+			}
+			return mLastDataFetchSummary2;
+		}
 	}
 	
-	
+	/*
+	 * We are caching the data fetch; and here, we are filteringing
+	 * it by sub-type
+	 */
+	public ArrayList<Object> filterIfNecessary(ArrayList<Object> fullSuite) {
+		if(mColumnValuesForWhereClause==null) {
+			return fullSuite;
+		} else {
+			ArrayList<Object> retValue=new ArrayList<Object>();
+			for(Object itemService :fullSuite) {
+				if( ((ItemService)itemService).getServiceCategoryName().equals(mColumnValuesForWhereClause[0])  ) {
+					retValue.add(itemService);
+				}
+			}
+			return retValue;
+		}
+	}
 	public String getFavoritesItemIdentifierColumnName() {
 		return KEY_SERVICE_SERVICEID;
 	}
@@ -196,17 +224,43 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 			setServiceLong(Double.parseDouble(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICELONG))));
 			setServiceCategoryName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME)));
 			setServiceCategoryIconURL(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYICONURL)));
+			setServiceCategory(cursor.getInt(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNUM)));
 		} else {
-			String serviceCategoryName=cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME));
-			if(serviceCategoryName==null || serviceCategoryName.trim().equals("")) {
-				throw new Exception ("Blank category name");
-			} else {
-				setServiceCategoryName(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNAME)));
-				this.setServiceCategoryIconURL(cursor.getString(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYICONURL)));
-			}
+			int categoryNum=cursor.getInt(cursor.getColumnIndex(KEY_SERVICE_SERVICECATEGORYNUM));
+			setServiceCategory(categoryNum);
+			this.setServiceCategoryIconURL(getServiceCatIconURLWhoseCategoryNumEqual(categoryNum));
+			this.setServiceCategoryName(getServiceCatNameWhoseCategoryNumEqual(categoryNum));
 		}
 	}
 
+	private String getServiceCatNameWhoseCategoryNumEqual(int categoryNum) {
+		String remGroupBy=mGroupBy;
+		mGroupBy=null;
+		String retValue="";
+		ArrayList<Object> data= fetchDataFromDatabase();
+		for(Object itemService: data) {
+			if( ((ItemService)itemService).getServiceCategory()==categoryNum &&  !TextUtils.isEmpty( ((ItemService)itemService).getServiceCategoryName())) {
+				retValue=((ItemService)itemService).getServiceCategoryName();
+				break;
+			}
+		}
+		mGroupBy=remGroupBy;
+		return retValue;
+	}
+	private String getServiceCatIconURLWhoseCategoryNumEqual(int categoryNum) {
+		String remGroupBy=mGroupBy;
+		mGroupBy=null;
+		String retValue="";
+		ArrayList<Object> data= fetchDataFromDatabase();
+		for(Object itemService: data) {
+			if( ((ItemService)itemService).getServiceCategory()==categoryNum &&  !TextUtils.isEmpty( ((ItemService)itemService).getServiceCategoryIconURL())) {
+				retValue=((ItemService)itemService).getServiceCategoryIconURL();
+				break;
+			}
+		}
+		mGroupBy=remGroupBy;
+		return retValue;
+	}
 	@Override
 	public boolean isDataExpired() {
 		Date lastTimeWeveFetchedData=getLastDateRead();
@@ -241,6 +295,7 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 			values.put(KEY_SERVICE_SERVICECATEGORYNAME, this.getServiceCategoryName());
 			values.put(KEY_SERVICE_SERVICECATEGORYICONURL, this.getServiceCategoryIconURL());
 			values.put(KEY_SERVICE_SORTORDER, this.getSortOrder());
+			values.put(KEY_SERVICE_SERVICECATEGORYNUM, this.getServiceCategory());
 	}	
 
 	/*
@@ -255,8 +310,8 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 				KEY_SERVICE_SERVICEWEBURL,KEY_SERVICE_SERVICEPICTUREURL, KEY_SERVICE_SERVICEICONURL,
 				KEY_SERVICE_SERVICEDESCRIPTION, KEY_SERVICE_SERVICEPHONE,
 				KEY_SERVICE_SERVICEADDRESS, KEY_SERVICE_SERVICELAT, KEY_SERVICE_SERVICELONG,
-				KEY_SERVICE_SERVICECATEGORYNAME, KEY_SERVICE_SERVICECATEGORYICONURL };
-		String[] projectionSummary={ KEY_SERVICE_SERVICECATEGORYNAME, KEY_SERVICE_SERVICECATEGORYICONURL };
+				KEY_SERVICE_SERVICECATEGORYNAME, KEY_SERVICE_SERVICECATEGORYICONURL, KEY_SERVICE_SERVICECATEGORYNUM };
+		String[] projectionSummary={ KEY_SERVICE_SERVICECATEGORYNUM };
 		if(mGroupBy==null) {
 			return projectionDetail;
 		} else {
@@ -321,4 +376,18 @@ public class ItemService extends SunriverDataItem implements IFavoriteItem {
 		}
 	}
 
+
+	@Override
+	public SunriverDataItem findItemHavingId(int id) {
+		for(Object item: fetchDataFromDatabase()) {
+			if(((ItemService)item).getServiceID()==id) {
+				return (SunriverDataItem)item;
+			}
+		}
+		return null;
+	}	
+	@Override
+	public int getOrdinalForFavorites() {return 5;}
+	@Override
+	public int getId() {return getServiceID();}
 }

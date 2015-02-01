@@ -125,7 +125,7 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 	}
 
 	@Override
-	protected void initializeHolder(View view) {
+	protected void initializeHolder(View view, int position) {
 		mCalendarPageHolder=new CalendarPageHolder();
 		mCalendarPageHolder.name = (TextView)view.findViewById(R.id.calendar_name); 
 		mCalendarPageHolder.date = (TextView)view.findViewById(R.id.calendar_date); 
@@ -136,7 +136,7 @@ public class ListViewAdapterForCalendarPage extends ListViewAdapterRemoteData {
 		}
 
 	@Override
-	protected void setViewHolder(View view) {
+	protected void setViewHolder(View view, int pos) {
 		mCalendarPageHolder=(CalendarPageHolder)view.getTag();
 	}
 	public class CustomComparator implements Comparator<ItemCalendar> {

@@ -8,4 +8,7 @@ public interface IFavoriteItem {
 	String getFavoritesItemIdentifierColumnName();
 	String[] getFavoritesItemIdentifierValue();
 	FavoriteItemType getFavoriteItemType();
+	SunriverDataItem findItemHavingId(int id);
+	int getOrdinalForFavorites();
+	int getId();
 }

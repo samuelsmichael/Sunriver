@@ -1,6 +1,7 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -26,7 +27,16 @@ public class ItemHospitality extends SunriverDataItem implements IFavoriteItem {
 	public static final String DATABASE_TABLE_HOSPITALITY = "hospitality";	
 	public static final String DATE_LAST_UPDATED="date_last_updated_hospitality";
 	private SimpleDateFormat simpleFormatter;
-
+	public static ArrayList<Object> mLastDataFetch;
+	
+	@Override
+	public ArrayList<Object> fetchDataFromDatabase() {
+		if(mLastDataFetch==null) {
+			mLastDataFetch=super.fetchDataFromDatabase();
+		}
+		return mLastDataFetch;
+	}
+	
 
 	public int getSrHospitalityID() {
 		return srHospitalityID;
@@ -236,5 +246,19 @@ public class ItemHospitality extends SunriverDataItem implements IFavoriteItem {
 	@Override
 	protected String getOrderBy() {
 		return null;
+	}
+
+	@Override
+	public SunriverDataItem findItemHavingId(int id) {
+		for(Object item: fetchDataFromDatabase()) {
+			if(((ItemHospitality)item).getSrHospitalityID()==id) {
+				return (SunriverDataItem)item;
+			}
+		}
+		return null;
 	}	
+	@Override
+	public int getOrdinalForFavorites() {return 6;}
+	@Override
+	public int getId() {return getSrHospitalityID();}
 }

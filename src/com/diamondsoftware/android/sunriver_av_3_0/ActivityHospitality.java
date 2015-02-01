@@ -51,7 +51,8 @@ public class ActivityHospitality extends AbstractActivityForListViewsScrollingIm
 		CurrentHospitalityItem=(ItemHospitality)mListViewAdapter.mData.get(position);
 		Intent intent=new Intent(this,ActivityHospitalityDetail.class)
 		.putExtra("ItemPosition", position);
-	startActivity(intent);	}
+		startActivity(intent);	
+	}
 	@Override
 	protected void childOnCreate() {
 	}

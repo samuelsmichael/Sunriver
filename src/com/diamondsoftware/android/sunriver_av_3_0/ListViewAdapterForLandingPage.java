@@ -29,7 +29,7 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
 	}	
 
 	@Override
-	protected void initializeHolder(View view) {
+	protected void initializeHolder(View view, int position) {
 		mLandingPageHolder=new LandingPageHolder();
         mLandingPageHolder.name = (TextView)view.findViewById(R.id.name); 
         mLandingPageHolder.description = (TextView)view.findViewById(R.id.description); 
@@ -37,7 +37,7 @@ public class ListViewAdapterForLandingPage extends ListViewAdapterLocalData {
         view.setTag(mLandingPageHolder);
 	}
 	@Override
-	protected void setViewHolder(View view) {
+	protected void setViewHolder(View view, int pos) {
 		mLandingPageHolder=(LandingPageHolder)view.getTag();
 		
 	}	

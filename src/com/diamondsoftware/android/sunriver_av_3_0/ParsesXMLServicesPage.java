@@ -8,7 +8,7 @@ import java.util.HashMap;
  * This class only writes 1 record for each category
  */
 public class ParsesXMLServicesPage extends ParsesXMLServices {
-	HashMap<String,String> doneCategories=new HashMap<String,String>();
+	HashMap<Integer,Integer> doneCategories=new HashMap<Integer,Integer>();
 
 	public ParsesXMLServicesPage(String dummy) {
 		super(dummy);
@@ -19,9 +19,9 @@ public class ParsesXMLServicesPage extends ParsesXMLServices {
 		if(itemService.getServiceCategoryName().trim().isEmpty()) {
 			return false;
 		}
-		boolean containsKey=doneCategories.containsKey(itemService.getServiceCategoryName());
+		boolean containsKey=doneCategories.containsKey(itemService.getServiceCategory());
 		if(!containsKey) {
-			doneCategories.put(itemService.getServiceCategoryName(), itemService.getServiceCategoryName());
+			doneCategories.put(itemService.getServiceCategory(), itemService.getServiceCategory());
 		}
 		return !containsKey;
 	}

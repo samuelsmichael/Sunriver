@@ -1,6 +1,7 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -41,7 +42,16 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	private double srCalLong;
 	private boolean isApproved;
 	private SimpleDateFormat simpleFormatter;
-
+	public static ArrayList<Object> mLastDataFetch;
+	
+	@Override
+	public ArrayList<Object> fetchDataFromDatabase() {
+		if(mLastDataFetch==null) {
+			mLastDataFetch=super.fetchDataFromDatabase();
+		}
+		return mLastDataFetch;
+	}
+	
 	
 	public String getFavoritesItemIdentifierColumnName() {
 		return KEY_CALENDAR_SRACTID;
@@ -306,4 +316,19 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	protected String getOrderBy() {
 		return null;
 	}
+
+	@Override
+	public SunriverDataItem findItemHavingId(int id) {
+		for(Object item: fetchDataFromDatabase()) {
+			if(((ItemCalendar)item).getSrCalId()==id) {
+				return (SunriverDataItem)item;
+			}
+		}
+		return null;
+	}	
+	@Override
+	public int getOrdinalForFavorites() {return 3;}
+	
+	@Override
+	public int getId() {return getSrCalId();}
 }

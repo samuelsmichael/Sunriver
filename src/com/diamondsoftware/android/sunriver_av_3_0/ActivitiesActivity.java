@@ -58,7 +58,8 @@ public class ActivitiesActivity extends AbstractActivityForListViewsScrollingIma
 		CurrentActivityItem=(ItemActivity)mListViewAdapter.mData.get(position);
 		Intent intent=new Intent(this,ActivitiesDetailActivity.class)
 		.putExtra("ItemPosition", position);
-	startActivity(intent);	}
+		startActivity(intent);	
+	}
 	@Override
 	protected void childOnCreate() {
 	}

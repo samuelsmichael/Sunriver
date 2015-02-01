@@ -78,15 +78,15 @@ public class ListViewAdapterForServicesDetailPage extends ListViewAdapterLocalDa
 		}
 
 		@Override
-		protected void initializeHolder(View view) {
+		protected void initializeHolder(View view, int position) {
 			mServicesPageHolder=new ServicesPageHolder();
 			mServicesPageHolder.name = (TextView)view.findViewById(R.id.services_name);
 			mServicesPageHolder.description=(TextView)view.findViewById(R.id.services_description);
 			view.setTag(mServicesPageHolder);
-			}
+		}
 
 		@Override
-		protected void setViewHolder(View view) {
+		protected void setViewHolder(View view, int pos) {
 			mServicesPageHolder=(ServicesPageHolder)view.getTag();
 		}
 

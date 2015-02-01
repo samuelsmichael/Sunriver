@@ -22,17 +22,17 @@ public abstract class ListViewAdapter extends BaseAdapter {
 	static class DidYouKnowImagePageHolder {
 		ImageView mImageView;
 	}
-	private DidYouKnowImagePageHolder mDidYouKnowImagePageHolder;
+	protected DidYouKnowImagePageHolder mDidYouKnowImagePageHolder;
     protected Activity mActivity;
     protected static LayoutInflater mInflater=null;
     public ArrayList<Object> mData=null;
     public boolean mImageScrollsWithList;
     
     protected abstract int getLayoutResource();
-    protected abstract void initializeHolder(View view);
+    protected abstract void initializeHolder(View view, int position);
     protected abstract ArrayList<Object> childGetData() throws Exception;
     protected abstract void childMapData(int position, View view ) throws Exception ;
-    protected abstract void setViewHolder(View view);
+    protected abstract void setViewHolder(View view, int position);
     
 	private String getPREFS_NAME() {
 		return mActivity.getApplicationContext().getPackageName() + "_preferences";
@@ -119,13 +119,13 @@ public abstract class ListViewAdapter extends BaseAdapter {
             	vi.setTag(mDidYouKnowImagePageHolder);
             } else {
                 vi = mInflater.inflate(getLayoutResource(), parent, false);
-                initializeHolder(vi);            	
+                initializeHolder(vi,position);            	
             }
         } else {
             if(position==0 && mImageScrollsWithList) {
             	mDidYouKnowImagePageHolder=(DidYouKnowImagePageHolder)vi.getTag();            	
             } else {
-	        	setViewHolder(vi);
+	        	setViewHolder(vi,position);
             }
         }
         try {

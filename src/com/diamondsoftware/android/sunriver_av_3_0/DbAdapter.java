@@ -22,14 +22,14 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 26;
+	private static final int DATABASE_VERSION = 31;
 	public static enum FavoriteItemType {
-		Activity,
-		Calendar,
-		Hospitality,
-		Service,
 		EatAndTreat,
 		Retail,
+		Calendar,
+		Activity,
+		Service,
+		Hospitality,
 		Unknown
 	}
 	public static final String DATABASE_TABLE_FAVORITES = "Favorites";
@@ -94,8 +94,8 @@ public class DbAdapter {
 	private boolean aServicesItemByThisTitleExists(String title) {
 		
 		ArrayList<Object> serviceItems;
-		if(ItemService.mLastDataFetch!=null) {
-			serviceItems=ItemService.mLastDataFetch;
+		if(ItemService.mLastDataFetchDetail2!=null) {
+			serviceItems=ItemService.mLastDataFetchDetail2;
 		} else {
 			serviceItems=new ItemService().fetchDataFromDatabase();
 		}
@@ -112,6 +112,16 @@ public class DbAdapter {
 		return areThereAnyFavoritesForThisCategory(FavoriteItemType.Service) && aServicesItemByThisTitleExists(title);
 	}
 	
+	public synchronized Cursor getAllFavorites() {
+		return getSqlDb().query(DATABASE_TABLE_FAVORITES, // table
+				new String[]{KEY_FAVORITES_ROWID,KEY_FAVORITES_ITEM_TYPE,KEY_FAVORITES_ITEM_ID}, // columns to return
+				null, // query where clause
+				null, // values for where clause
+				null, // group the rows
+				null, // filter by row groups
+				null // order by
+		);
+	}
 	
 	public synchronized Cursor getItemsInFavoritesForThisCategory(FavoriteItemType category) {
 		return get(DATABASE_TABLE_FAVORITES,new String[]{KEY_FAVORITES_ITEM_ID},KEY_FAVORITES_ITEM_TYPE,new String[]{String.valueOf(category.ordinal())},null,null);		
@@ -254,6 +264,7 @@ public class DbAdapter {
 				ItemService.KEY_SERVICE_SERVICELONG + " string," +
 				ItemService.KEY_SERVICE_SERVICECATEGORYNAME + " string," +
 				ItemService.KEY_SERVICE_SERVICECATEGORYICONURL + " string," +
+				ItemService.KEY_SERVICE_SERVICECATEGORYNUM + " integer," +
 				ItemService.KEY_SERVICE_SORTORDER + " integer);";
 		private static final String CREATE_TABLE_SELFIE = "create table " + ItemSelfie.DATABASE_TABLE_SELFIE + " (" +
 				ItemSelfie.KEY_SELFIE_ROWID + " integer primary key autoincrement,"+
@@ -286,7 +297,11 @@ public class DbAdapter {
 			} catch (Exception eieio33) {}
 			try {
 				db.execSQL(CREATE_TABLE_SERVICE);
-			} catch (Exception eieio33) {}
+			} catch (Exception eieio33) {
+				eieio33=eieio33;
+				int x=3;
+				int i=x;
+			}
 			try {
 				db.execSQL(CREATE_TABLE_WELCOME);
 			} catch (Exception eieio33) {}
@@ -324,12 +339,16 @@ public class DbAdapter {
 					db.execSQL("DROP TABLE IF EXISTS "+ItemAllHomes.DATABASE_TABLE_ALLHOMES);
 					new ItemAllHomes().forceNewFetch();
 				} else {
-					if(newVersion>=20) {
+					if(newVersion>=20 && newVersion<24) {
 						db.execSQL("DROP INDEX IF EXISTS " + "allhomes_index");
 						db.execSQL("DROP TABLE IF EXISTS "+ItemAllHomes.DATABASE_TABLE_ALLHOMES);
 					} else {
 						if(newVersion==24) {
 							db.execSQL("DROP TABLE IF EXISTS "+ItemHospitality.DATABASE_TABLE_HOSPITALITY);
+						} else {
+							if(newVersion==31) {
+								db.execSQL("DROP TABLE IF EXISTS "+ItemService.DATABASE_TABLE_SERVICE);
+							}
 						}
 					}
 				}

@@ -66,7 +66,7 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
 	}
 
 	@Override
-	protected void initializeHolder(View view) {
+	protected void initializeHolder(View view, int position) {
 		mActivitiesPageHolder=new ActivitiesPageHolder();
 		mActivitiesPageHolder.name=(TextView)view.findViewById(R.id.activities_name);
 		mActivitiesPageHolder.description=(TextView)view.findViewById(R.id.activities_description);
@@ -74,7 +74,7 @@ public class ListViewAdapterForActivitiesPage extends ListViewAdapterRemoteData 
 	}
 
 	@Override
-	protected void setViewHolder(View view) {
+	protected void setViewHolder(View view, int pos) {
 		mActivitiesPageHolder=(ActivitiesPageHolder)view.getTag();
 	}
 

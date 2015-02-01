@@ -58,6 +58,8 @@ public abstract class ParsesXMLServices extends ParsesXML  {
                         	currentItem.setServiceCategoryName(parser.nextText());
                         } else if (name.equalsIgnoreCase(ItemService.KEY_SERVICE_SERVICECATEGORYICONURL)){
                         	currentItem.setServiceCategoryIconURL(parser.nextText());
+                        } else if (name.equalsIgnoreCase(ItemService.KEY_SERVICE_SERVICECATEGORYNUM)){
+                        	currentItem.setServiceCategory(Integer.valueOf(parser.nextText()));
                         };
                     }
                     break;

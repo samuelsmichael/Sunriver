@@ -41,7 +41,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		if(mIsFavorite) {
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
-			ActivityHospitality.CurrentHospitalityItem.putIsFavorite(false);
+			getMyItem().putIsFavorite(false);
 			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Hospitality)) {
 				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
 			}
@@ -49,16 +49,32 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);
-			ActivityHospitality.CurrentHospitalityItem.putIsFavorite(true);			
+			getMyItem().putIsFavorite(true);			
 		}
 		invalidateOptionsMenu();
 	}
 	
-	
+	ItemHospitality myItem=null;
+	ItemHospitality getMyItem() {
+		if(myItem!=null) {
+			return myItem;
+		} else {
+			myItem=ActivityHospitality.CurrentHospitalityItem;
+			if(myItem==null) {
+				myItem=ActivityFavorites.CurrentHospitalityItem;
+			}
+			return myItem;
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName());
+
+		if(getMyItem()!=null) {
+			setTitle(getMyItem().getSrHospitalityName());
+		} else {
+			setTitle("Where to Stay");
+		}
 		setContentView(R.layout.activity_hospitalitydetail);
 		
 
@@ -80,7 +96,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		String mAddressVerbiage="";
 		mFavorite=(ImageView)findViewById(R.id.ibtn_hospitality_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
-		if(ActivityHospitality.CurrentHospitalityItem.getIsFavorite()) {
+		if(getMyItem().getIsFavorite()) {
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mIsFavorite=true;
 		} else {
@@ -98,8 +114,8 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			public void onClick(View v) {
 				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
-				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName());
-				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ActivityHospitality.CurrentHospitalityItem.toString());
+				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getMyItem().getSrHospitalityName());
+				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getMyItem().toString());
 				ActivityHospitalityDetail.this.startActivity(Intent.createChooser(sharingIntent, "Share via"));
 				googleAnalyticsShare();
 			}
@@ -111,18 +127,18 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(ActivityHospitalityDetail.this,Maps.class)
-					.putExtra("GoToLocationLatitude", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLat())
-					.putExtra("GoToLocationLongitude", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLong())
+					.putExtra("GoToLocationLatitude", getMyItem().getSrHospitalityLat())
+					.putExtra("GoToLocationLongitude", getMyItem().getSrHospitalityLong())
 						.putExtra("HeresYourIcon", R.drawable.route_destination)
-						.putExtra("GoToLocationTitle", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName())
-						.putExtra("GoToLocationSnippet", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityDescription())
-						.putExtra("GoToLocationURL", ActivityHospitality.CurrentHospitalityItem.getSrHospitalityUrlWebsite())
+						.putExtra("GoToLocationTitle", getMyItem().getSrHospitalityName())
+						.putExtra("GoToLocationSnippet", getMyItem().getSrHospitalityDescription())
+						.putExtra("GoToLocationURL", getMyItem().getSrHospitalityUrlWebsite())
 						.putExtra("GoogleAnalysticsAction",getGoogleAnalyticsLabel());
 				ActivityHospitalityDetail.this.startActivity(intent);
 			}
 		});
 
-		mAddressVerbiage=ActivityHospitality.CurrentHospitalityItem.getSrHospitalityAddress().trim();
+		mAddressVerbiage=getMyItem().getSrHospitalityAddress().trim();
 		if(mAddressVerbiage.isEmpty()) {
 		    mAddress.setTextSize(10);
 			mAddressVerbiage="Navigate there";
@@ -132,16 +148,16 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		
 		mSoundUrl.setLinkTextColor(Color.parseColor("#B6D5E0"));
 		mAddress.setLinkTextColor(Color.parseColor("#B6D5E0"));
-		name=(String) ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName();
-		latitude=ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLat();
-		longitude=ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLong();
+		name=(String) getMyItem().getSrHospitalityName();
+		latitude=getMyItem().getSrHospitalityLat();
+		longitude=getMyItem().getSrHospitalityLong();
 		mName.setText(name);
-		mDescription.setText(ActivityHospitality.CurrentHospitalityItem.getSrHospitalityDescription());
+		mDescription.setText(getMyItem().getSrHospitalityDescription());
 		mDescription.setMovementMethod(new ScrollingMovementMethod());
-		mPhone.setText(ActivityHospitality.CurrentHospitalityItem.getSrHospitalityPhone());
+		mPhone.setText(getMyItem().getSrHospitalityPhone());
 		
 		/* is it local, or remote*/
-		String imageUrl=ActivityHospitality.CurrentHospitalityItem.getSrHospitalityUrlImage();
+		String imageUrl=getMyItem().getSrHospitalityUrlImage();
 		if(imageUrl!=null && !imageUrl.trim().equals("")) {
 			if(imageUrl.indexOf("/")>=0) {
 				mImageLoader=new ImageLoaderRemote(this,true,1f);
@@ -153,7 +169,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			mImageUrl.getLayoutParams().height=10;
 		}
 		
-		final String webUrl=ActivityHospitality.CurrentHospitalityItem.getSrHospitalityUrlWebsite();
+		final String webUrl=getMyItem().getSrHospitalityUrlWebsite();
 		if(webUrl!=null && webUrl.length()>0) {
 			mWebUrl.setOnClickListener(new View.OnClickListener() {
 				
@@ -186,7 +202,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		    		} else {
 		    			navigateMe = new Intent(
 		    					android.content.Intent.ACTION_VIEW, 
-		    					Uri.parse("geo:0,0?q="+ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLat()+","+ ActivityHospitality.CurrentHospitalityItem.getSrHospitalityLong() +" (" + name + ")"));
+		    					Uri.parse("geo:0,0?q="+getMyItem().getSrHospitalityLat()+","+ getMyItem().getSrHospitalityLong() +" (" + name + ")"));
 		    		}		        	
 	    		    if(Utils.canHandleIntent(ActivityHospitalityDetail.this,navigateMe)) {
 		    			navigateMe.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -241,7 +257,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 
 	@Override
 	protected String getGoogleAnalyticsLabel() {
-		return ActivityHospitality.CurrentHospitalityItem.getSrHospitalityName();
+		return getMyItem().getSrHospitalityName();
 	}
 
 	public void googleAnalyticsNavigateThere() {

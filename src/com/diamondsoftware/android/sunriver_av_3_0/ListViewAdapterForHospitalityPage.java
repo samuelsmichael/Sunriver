@@ -66,7 +66,7 @@ public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData
 	}
 
 	@Override
-	protected void initializeHolder(View view) {
+	protected void initializeHolder(View view, int position) {
 		mHospitalityPageHolder=new HospitalityPageHolder();
 		mHospitalityPageHolder.name=(TextView)view.findViewById(R.id.hospitality_name);
 		mHospitalityPageHolder.description=(TextView)view.findViewById(R.id.hospitality_description);
@@ -74,7 +74,7 @@ public class ListViewAdapterForHospitalityPage extends ListViewAdapterRemoteData
 	}
 
 	@Override
-	protected void setViewHolder(View view) {
+	protected void setViewHolder(View view,int pos) {
 		mHospitalityPageHolder=(HospitalityPageHolder)view.getTag();
 	}
 

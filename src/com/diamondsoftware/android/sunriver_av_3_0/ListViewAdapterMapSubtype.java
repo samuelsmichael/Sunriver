@@ -39,7 +39,7 @@ public class ListViewAdapterMapSubtype extends ListViewAdapterLocalData {
 	}
 
 	@Override
-	protected void initializeHolder(View view) {
+	protected void initializeHolder(View view, int position) {
 		this.mEatsAndTreatsHolder=new EatsAndTreatsHolder();
 		mEatsAndTreatsHolder.name=(TextView)view.findViewById(R.id.eatsandtreats_name);
 		mEatsAndTreatsHolder.description=(TextView)view.findViewById(R.id.eatsandtreats_description);
@@ -85,10 +85,11 @@ public class ListViewAdapterMapSubtype extends ListViewAdapterLocalData {
         	iconName="sunriverlogoopaque";
         }		
         ImageView thumb_image=(ImageView)view.findViewById(R.id.eatsandtreats_list_image);
-        imageLoader.displayImage(iconName,thumb_image);	}
+        imageLoader.displayImage(iconName,thumb_image);	
+	}
 
 	@Override
-	protected void setViewHolder(View view) {
+	protected void setViewHolder(View view,int position) {
 		mEatsAndTreatsHolder=(EatsAndTreatsHolder)view.getTag();
 	}
 

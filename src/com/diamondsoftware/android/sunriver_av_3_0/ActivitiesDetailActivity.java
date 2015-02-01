@@ -43,7 +43,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		if(mIsFavorite) {
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
-			ActivitiesActivity.CurrentActivityItem.putIsFavorite(false);
+			getMyItem().putIsFavorite(false);
 			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Activity)) {
 				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
 			}
@@ -52,15 +52,32 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		} else {
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);
-			ActivitiesActivity.CurrentActivityItem.putIsFavorite(true);			
+			getMyItem().putIsFavorite(true);			
 		}
 		invalidateOptionsMenu();
 	}
 
+	ItemActivity myItem=null;
+	ItemActivity getMyItem() {
+		if(myItem!=null) {
+			return myItem;
+		} else {
+			myItem=ActivitiesActivity.CurrentActivityItem;
+			if(myItem==null) {
+				myItem=ActivityFavorites.CurrentActivityItem;
+			}
+
+			return myItem;
+		}
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setTitle(ActivitiesActivity.CurrentActivityItem.getSrActName());
+		if(getMyItem()!=null) {
+			setTitle(getMyItem().getSrActName());
+		} else {
+			setTitle("Activity");
+		}
 		setContentView(R.layout.activity_activitydetail);
 		
 
@@ -75,7 +92,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		mShare=(Button)findViewById(R.id.activitydetailshare);		
 		mFavorite=(ImageView)findViewById(R.id.ibtn_activity_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
-		if(ActivitiesActivity.CurrentActivityItem.getIsFavorite()) {
+		if(getMyItem().getIsFavorite()) {
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mIsFavorite=true;
 		} else {
@@ -100,9 +117,9 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			public void onClick(View v) {
 				Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
 				sharingIntent.setType("text/plain");
-				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, ActivitiesActivity.CurrentActivityItem.getSrActName());
+				sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getMyItem().getSrActName());
 				//TODO: ItemActivity.tostring
-				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, ActivitiesActivity.CurrentActivityItem.toString());
+				sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, getMyItem().toString());
 				ActivitiesDetailActivity.this.startActivity(Intent.createChooser(sharingIntent, "Share via"));
 				googleAnalyticsShare();
 			}
@@ -114,18 +131,18 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			@Override
 			public void onClick(View v) {
 				Intent intent=new Intent(ActivitiesDetailActivity.this,Maps.class)
-					.putExtra("GoToLocationLatitude", ActivitiesActivity.CurrentActivityItem.getSrActLat())
-					.putExtra("GoToLocationLongitude", ActivitiesActivity.CurrentActivityItem.getSrActLong())
+					.putExtra("GoToLocationLatitude", getMyItem().getSrActLat())
+					.putExtra("GoToLocationLongitude", getMyItem().getSrActLong())
 						.putExtra("HeresYourIcon", R.drawable.route_destination)
-						.putExtra("GoToLocationTitle", ActivitiesActivity.CurrentActivityItem.getSrActName())
-						.putExtra("GoToLocationSnippet", ActivitiesActivity.CurrentActivityItem.getSrActDescription())
-						.putExtra("GoToLocationURL", ActivitiesActivity.CurrentActivityItem.getSrActLinks())
+						.putExtra("GoToLocationTitle", getMyItem().getSrActName())
+						.putExtra("GoToLocationSnippet", getMyItem().getSrActDescription())
+						.putExtra("GoToLocationURL", getMyItem().getSrActLinks())
 						.putExtra("GoogleAnalysticsAction",getGoogleAnalyticsLabel());
 				ActivitiesDetailActivity.this.startActivity(intent);
 			}
 		});
 
-		mAddressVerbiage=ActivitiesActivity.CurrentActivityItem.getSrActAddress().trim();
+		mAddressVerbiage=getMyItem().getSrActAddress().trim();
 		if(mAddressVerbiage.isEmpty()) {
 		    mAddress.setTextSize(10);
 			mAddressVerbiage="Navigate there";
@@ -135,15 +152,15 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		
 		mSoundUrl.setLinkTextColor(Color.parseColor("#B6D5E0"));
 		mAddress.setLinkTextColor(Color.parseColor("#B6D5E0"));
-		name=(String) ActivitiesActivity.CurrentActivityItem.getSrActName();
-		latitude=ActivitiesActivity.CurrentActivityItem.getSrActLat();
-		longitude=ActivitiesActivity.CurrentActivityItem.getSrActLong();
+		name=(String) getMyItem().getSrActName();
+		latitude=getMyItem().getSrActLat();
+		longitude=getMyItem().getSrActLong();
 		mName.setText(name);
-		mDescription.setText(ActivitiesActivity.CurrentActivityItem.getSrActDescription());
+		mDescription.setText(getMyItem().getSrActDescription());
 		mDescription.setMovementMethod(new ScrollingMovementMethod());
 		
 		/* is it local, or remote*/
-		String imageUrl=ActivitiesActivity.CurrentActivityItem.getSrActUrlImage();
+		String imageUrl=getMyItem().getSrActUrlImage();
 		if(imageUrl!=null && !imageUrl.trim().equals("")) {
 			if(imageUrl.indexOf("/")>=0) {
 				mImageLoader=new ImageLoaderRemote(this,true,1f);
@@ -155,7 +172,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			mImageUrl.getLayoutParams().height=10;
 		}
 		
-		final String webUrl=ActivitiesActivity.CurrentActivityItem.getSrActLinks();
+		final String webUrl=getMyItem().getSrActLinks();
 		if(webUrl!=null && webUrl.length()>0) {
 			mWebUrl.setOnClickListener(new View.OnClickListener() {
 				
@@ -188,7 +205,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 		    		} else {
 		    			navigateMe = new Intent(
 		    					android.content.Intent.ACTION_VIEW, 
-		    					Uri.parse("geo:0,0?q="+ActivitiesActivity.CurrentActivityItem.getSrActLat()+","+ ActivitiesActivity.CurrentActivityItem.getSrActLong() +" (" + name + ")"));
+		    					Uri.parse("geo:0,0?q="+getMyItem().getSrActLat()+","+ getMyItem().getSrActLong() +" (" + name + ")"));
 		    		}		        	
 	    		    if(Utils.canHandleIntent(ActivitiesDetailActivity.this,navigateMe)) {
 		    			navigateMe.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -284,7 +301,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 
 	@Override
 	protected String getGoogleAnalyticsLabel() {
-		return ActivitiesActivity.CurrentActivityItem.getSrActName();
+		return getMyItem().getSrActName();
 	}
 
 	@Override

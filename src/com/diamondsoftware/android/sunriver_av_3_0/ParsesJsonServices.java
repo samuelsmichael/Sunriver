@@ -33,6 +33,7 @@ public class ParsesJsonServices extends ParsesJson {
 			String categoryName=jsonObject.getString(ItemService.KEY_SERVICE_SERVICECATEGORYNAME);
 			item.setServiceCategoryName(categoryName);
 			item.setServiceCategoryIconURL(jsonObject.getString(ItemService.KEY_SERVICE_SERVICECATEGORYICONURL));
+			item.setServiceCategory(jsonObject.getInt(ItemService.KEY_SERVICE_SERVICECATEGORYNUM));
 			item.setSortOrder(ItemService.deriveSortOrder(item.getServiceCategoryName()));
 			if(categoryName == null || categoryName.equals("")) {
 				int bkhere=3;

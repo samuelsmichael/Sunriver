@@ -48,8 +48,10 @@ import android.view.MenuItem;
 			} else {
 				if(dbAdapter.areThereAnyFavorites()) {
 					miFavorites.setIcon(R.drawable.favoriteon_actionbar);
+					miFavorites.setVisible(true);
 				} else {
 					miFavorites.setIcon(R.drawable.favoriteoff_actionbar);
+					miFavorites.setVisible(false);
 				}		
 			}
 			miFavorites.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -82,7 +84,9 @@ import android.view.MenuItem;
 	            return true;
 	        case R.id.menufavorites:
 	        	if(whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown)) { // is Home Page
-	        		//TODO:  bring up favorites page
+	    			Intent intent = new Intent(AbstractActivityForMenu.this, ActivityFavorites.class);
+	    			startActivity(intent);
+
 	        	} else {
 	        		if(getImViewingFavorites()) {
 	        			miFavorites.setIcon(R.drawable.favoriteoff);

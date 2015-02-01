@@ -34,11 +34,11 @@ public class ListViewAdapterForServicesPage extends ListViewAdapterRemoteData {
 				
 				
 				/*
-				 * Load up values so that the query looks at all records, but groups by category name
+				 * Load up values so that the query looks at all records, but groups by category id
 				 */
 				ItemService.mColumnNameForWhereClause=null;
 				ItemService.mColumnValuesForWhereClause=null;
-				ItemService.mGroupBy=	ItemService.KEY_SERVICE_SERVICECATEGORYNAME + "," + ItemService.KEY_SERVICE_SERVICECATEGORYICONURL;			
+				ItemService.mGroupBy=	ItemService.KEY_SERVICE_SERVICECATEGORYNUM;			
 				
 				String defaultValue=mActivity.getResources().getString(R.string.urlservicesjson);			
 				String uri=getSharedPreferences().getString("urlservicesjson", defaultValue);
@@ -72,14 +72,14 @@ public class ListViewAdapterForServicesPage extends ListViewAdapterRemoteData {
 		}
 
 		@Override
-		protected void initializeHolder(View view) {
+		protected void initializeHolder(View view, int position) {
 			mServicesPageHolder=new ServicesPageHolder();
 			mServicesPageHolder.name = (TextView)view.findViewById(R.id.services_category_name); 
 			view.setTag(mServicesPageHolder);
 			}
 
 		@Override
-		protected void setViewHolder(View view) {
+		protected void setViewHolder(View view, int pos) {
 			mServicesPageHolder=(ServicesPageHolder)view.getTag();
 		}
 

@@ -341,4 +341,34 @@ public class ItemLocation extends SunriverDataItem implements IFavoriteItem {
 	protected String getOrderBy() {
 		return null;
 	}
+
+	@Override
+	public SunriverDataItem findItemHavingId(int id) {
+		for(Hashtable ht :MainActivity.LocationData) {
+			for (Object al: ht.values()) {
+				ArrayList<Object> aroo = (ArrayList<Object>)al;
+				for (Object theElement :aroo) {
+					ItemLocation location=(ItemLocation)theElement;
+					if(location.getmId()==id) { // restaurants
+						return location;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	@Override
+	public int getId() {return this.getmId();}
+	@Override
+	public int getOrdinalForFavorites() {
+		if(getmCategory()==1) {
+			return 1;
+		} else {
+			if(getmCategory()==3){
+				return 2;
+			} else {
+				return 0;		
+			}
+		}
+	}
 }
