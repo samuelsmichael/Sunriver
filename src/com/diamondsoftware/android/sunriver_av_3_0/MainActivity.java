@@ -24,6 +24,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -97,10 +98,32 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	protected int getImageId() {
 		return R.id.activity_main_image;
 	}
+	
+	// generate a random URL for pictures. The set of items to pick from is the ArrayList SplashPage.TheItemWelcomes
+	public String getRandomWelcomeImageURL() {
+		try {
+			ArrayList<Object> qualifyingItems=new ArrayList<Object>();
+			for (Object obj :((GlobalState)getApplicationContext()).TheItemWelcomes) {
+				if(((ItemWelcome)obj).isInRotation() && !TextUtils.isEmpty(((ItemWelcome)obj).getWelcomeURL() )) {
+					qualifyingItems.add(obj);
+				}
+			}
+			if(qualifyingItems.size()<=0) {
+				qualifyingItems.add(((GlobalState)getApplicationContext()).TheItemWelcomes.get(0));
+			}
+			double randomNumber=Math.random();
+			double factor=1d/(double)qualifyingItems.size();
+			int element=(int)(randomNumber/factor);
+			return ((ItemWelcome)qualifyingItems.get(element)).getWelcomeURL();
+		} catch (Exception e) {
+			return "http://www.srfeed.com/res/pics/welcome/Welcome.jpg";
+		}
+	}
+
 	@Override
 	protected String getImageURL() {
-		if(((GlobalState)getApplicationContext()).TheItemWelcome!=null) {
-			return ((GlobalState)getApplicationContext()).TheItemWelcome.getWelcomeURL();
+		if(((GlobalState)getApplicationContext()).TheItemWelcomes!=null) {
+			return getRandomWelcomeImageURL();
 		}
 		return null;
 	}

@@ -16,7 +16,7 @@ public class GlobalState extends Application {
 	public static ArrayList<Object> TheItemsEmergency=null;
 	public ItemAlert theItemAlert=null;
 	public static ItemUpdate TheItemUpdate=null;
-	public  ItemWelcome TheItemWelcome=null;
+	public  ArrayList<Object> TheItemWelcomes=null;
 	public  ArrayList<Object> TheItemsSelfie=null;
 	public  ArrayList<Object> TheItemsDidYouKnow=null;
 	public  ArrayList<Object> TheItemsGISLayers=null;

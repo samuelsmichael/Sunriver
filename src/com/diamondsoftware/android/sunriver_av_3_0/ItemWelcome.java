@@ -8,7 +8,20 @@ import android.database.Cursor;
 public class ItemWelcome extends SunriverDataItem {
 	private int welcomeID;
 	private String welcomeURL;
+	private boolean isInRotation;
 
+	/**
+	 * @return the isInRotation
+	 */
+	public boolean isInRotation() {
+		return isInRotation;
+	}
+	/**
+	 * @param isInRotation the isInRotation to set
+	 */
+	public void setInRotation(boolean isInRotation) {
+		this.isInRotation = isInRotation;
+	}
 	public static final String DATABASE_TABLE_WELCOME = "welcome";
 	public static final String DATE_LAST_UPDATED = "date_last_updated_welcome";
 	public static final String KEY_WELCOME_ROWID = "_id";

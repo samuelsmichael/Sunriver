@@ -14,11 +14,15 @@ public class ParsesJsonWelcome extends ParsesJson {
 	protected ArrayList<Object> parse(String jsonString) throws Exception {
 		ArrayList<Object> items = new ArrayList<Object>();
 		JSONArray jsonArray = new JSONArray(jsonString);
-		JSONObject jsonObject = jsonArray.getJSONObject(0);
-		ItemWelcome item=new ItemWelcome();
-		item.setWelcomeID(jsonObject.getInt("welcomeID"));
-		item.setWelcomeURL(jsonObject.getString("welcomeURL"));
-		items.add(item);
+		int c=jsonArray.length();
+		for(int i=0;i<c;i++) {
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+			ItemWelcome item=new ItemWelcome();
+			item.setWelcomeID(jsonObject.getInt("welcomeID"));
+			item.setWelcomeURL(jsonObject.getString("welcomeURL"));
+			item.setInRotation(jsonObject.getBoolean("isInRotation"));
+			items.add(item);
+		}
 		return items;
 	}
 

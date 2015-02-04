@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -79,6 +80,15 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			mCountDownTimer.start();
 		}
 	}
+	private boolean iveNotDoneRefreshOfWelcomesAfterDBChange() {
+		return !((GlobalState)getApplication()).sharedPreferences.getBoolean("DidRebuildOfWelcomeDueToDBChange", false);
+	}
+	private void indicateDidRefreshOfWelcomesAfterDBChange() {
+		Editor editor=((GlobalState)getApplication()).sharedPreferences.edit();
+		editor.putBoolean("DidRebuildOfWelcomeDueToDBChange", true);
+		editor.commit();
+	}
+	
 	public void doFinish() {
 		if(mCountDownTimer!=null) {
 			mCountDownTimer.cancel();
@@ -105,7 +115,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	private void initialize() {
 		((GlobalState)getApplicationContext()).theItemAlert=null;
 		GlobalState.TheItemUpdate=null;
-		((GlobalState)getApplicationContext()).TheItemWelcome=null;
+		((GlobalState)getApplicationContext()).TheItemWelcomes=null;
         incrementMCountItemsLeft();
 		new AcquireDataRemotelyAsynchronously("update", this, this);
 	}
@@ -203,13 +213,14 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							new AcquireDataRemotelyAsynchronously("emergency",this,this);
 							/* Don't need to fetch Welcome data if it's not expired */
 							ItemWelcome itemWelcome=new ItemWelcome();
-							if(itemWelcome.isDataExpired()) {
+							if((DbAdapter.DATABASE_VERSION==32 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
+								indicateDidRefreshOfWelcomesAfterDBChange();
 						        incrementMCountItemsLeft();
 								new AcquireDataRemotelyAsynchronously("welcome", this, this);
 							} else {
 								ArrayList<Object> items=itemWelcome.fetchDataFromDatabase();
 								if(items!=null&&items.size()>0) {
-									((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)items.get(0);
+									((GlobalState)getApplicationContext()).TheItemWelcomes=items;
 								}
 							}
 							ItemSelfie itemSelfie=new ItemSelfie();
@@ -241,7 +252,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							ArrayList<Object> items=new ItemWelcome().fetchDataFromDatabase();
 							if(items!=null&&items.size()>0) {
-								((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)items.get(0);
+								((GlobalState)getApplicationContext()).TheItemWelcomes=items;
 							}
 							ArrayList<Object> items2 = new ItemSelfie().fetchDataFromDatabase();
 							if(items2!=null && items2.size()>0) {
@@ -253,9 +264,11 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 						} else {
 							if(name.equalsIgnoreCase("welcome")) {
 								if(data!=null && data.size()>0) {
-									((GlobalState)getApplicationContext()).TheItemWelcome=(ItemWelcome)data.get(0);
+									((GlobalState)getApplicationContext()).TheItemWelcomes=data;
 									GlobalState.gotInternet=true;
-									((GlobalState)getApplicationContext()).TheItemWelcome.setLastDateReadToNow();
+									for(Object iw : ((GlobalState)getApplicationContext()).TheItemWelcomes) {
+										((ItemWelcome)iw).setLastDateReadToNow();
+									}
 								}
 							} else {
 								if(name.equalsIgnoreCase("gislayers")) {

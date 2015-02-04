@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	private static final int DATABASE_VERSION = 31;
+	public static final int DATABASE_VERSION = 32;
 	public static enum FavoriteItemType {
 		EatAndTreat,
 		Retail,
@@ -346,8 +346,9 @@ public class DbAdapter {
 						if(newVersion==24) {
 							db.execSQL("DROP TABLE IF EXISTS "+ItemHospitality.DATABASE_TABLE_HOSPITALITY);
 						} else {
-							if(newVersion==31) {
+							if(newVersion==32) {
 								db.execSQL("DROP TABLE IF EXISTS "+ItemService.DATABASE_TABLE_SERVICE);
+								db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
 							}
 						}
 					}
