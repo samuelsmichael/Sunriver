@@ -2,49 +2,97 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.IOException;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 
 import org.xmlpull.v1.XmlPullParserException;
+
+import com.diamondsoftware.android.sunriver_av_3_0.ListViewAdapterForCalendarPage.CustomComparator;
 
 
 import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemoteData {
-		static class ServicesPageHolder {
+		private SimpleDateFormat simpleFormatter;
+		private String mSearchString;
+		private String mSearchAfterDate;
+		static class CalendarSummaryPageHolder {
 	        TextView name ; 
 		}
-		private ServicesPageHolder mServicesPageHolder;
-		public ListViewAdapterForCalendarSummaryPage(Activity a) {
+		private CalendarSummaryPageHolder mCalendarSummaryPageHolder;
+		public ListViewAdapterForCalendarSummaryPage(Activity a, String searchString, String searchAfterDate) {
 			super(a,true);
+	        simpleFormatter = new SimpleDateFormat("EEE, MMM d", Locale.getDefault());
+			mSearchString=searchString;
+			mSearchAfterDate=searchAfterDate;
 		}
 
 		@Override
 		protected int getLayoutResource() {
-			return R.layout.services_listitem;
+			return R.layout.calendar_listitem_summary;
 		}
 
 		@Override
 		protected ArrayList<Object> childGetData() throws IOException, XmlPullParserException {
 			try {
 				
+				String defaultValue=mActivity.getResources().getString(R.string.urlcalendarjson);			
+				String uri=getSharedPreferences().getString("urlcalendarjson", defaultValue);
 				
-				/*
-				 * Load up values so that the query looks at all records, but groups by category id
-				 */
-				ItemService.mColumnNameForWhereClause=null;
-				ItemService.mColumnValuesForWhereClause=null;
-				ItemService.mGroupBy=	ItemService.KEY_SERVICE_SERVICECATEGORYNUM;			
-				
-				String defaultValue=mActivity.getResources().getString(R.string.urlservicesjson);			
-				String uri=getSharedPreferences().getString("urlservicesjson", defaultValue);
-				return new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonServices(), uri ),new ItemService()).procureTheData();
-// Local data				return new XMLReaderFromAndroidAssets(mActivity, new ParsesXMLServicesPage(), "services.xml").parse();
-
+				try {
+					ArrayList beforeFiltering=new SRWebServiceData( new JsonReaderFromRemotelyAcquiredJson(new ParsesJsonCalendar(), uri ),new ItemCalendar()).procureTheData();
+					ArrayList afterFiltering=new ArrayList<Object>();
+					java.util.Calendar dateAfter=null;
+					java.util.Calendar today2=new java.util.GregorianCalendar();
+					today2.set(Calendar.HOUR_OF_DAY, 0);
+					today2.set(Calendar.MINUTE, 0);
+					today2.set(Calendar.SECOND, 0);
+					today2.set(Calendar.MILLISECOND, 0);
+					try {
+						dateAfter=Utils.toDateFromMMdashDDdashYYYY(mSearchAfterDate);
+					} catch (Exception e) {}
+					Object x=mSearchString;
+					for(Object obj : beforeFiltering) {
+						ItemCalendar itemCalendar=(ItemCalendar)obj;
+						GregorianCalendar itsDate=itemCalendar.getSrCalDate();
+						int todayStringMonth=today2.get(Calendar.MONTH);
+						int todayStringDay=today2.get(Calendar.DAY_OF_MONTH);
+						int itsStringMonth=itsDate.get(Calendar.MONTH);
+						int itsStringDay=itsDate.get(Calendar.DAY_OF_MONTH);
+						if(itemCalendar.getSrCalName().indexOf("Anglers")!=-1) {
+							int bkhere=3;
+							int bkthere=bkhere;
+						}
+		            	if((itsDate.after(today2)) &&
+		            			(mSearchAfterDate==null || mSearchAfterDate.trim().isEmpty() || dateAfter.before(itemCalendar.getSrCalDate()))) { // there was a search after date, and our event is equal to or after that
+		            		if( /* Search string isn't empty, and it's found in either the event's name or description */
+		            				mSearchString == null || mSearchString.trim().isEmpty() || (
+		                				(itemCalendar.getSrCalDescription().toLowerCase(Locale.getDefault()).indexOf(mSearchString.toLowerCase(Locale.getDefault()))!=-1 
+		                					||
+		                				itemCalendar.getSrCalName().toLowerCase(Locale.getDefault()).indexOf(mSearchString.toLowerCase(Locale.getDefault()))!=-1) )
+		                				) {                    				
+		            				afterFiltering.add(itemCalendar);
+		            		}
+		            	}				
+					}
+					Collections.sort(afterFiltering, new CustomComparator());
+					ArrayList<Object> aL2= ItemCalendar.filterIfNecessary(afterFiltering);
+					return aL2;
+				} catch (Exception e) {
+					Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_LONG).show();
+					return new ArrayList<Object>();
+				}
 			} catch (Exception e) {
 				return new ArrayList<Object>();
 			}
@@ -54,33 +102,27 @@ public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemote
 		protected void childMapData(int position, View view) throws IOException,
 				XmlPullParserException {
         
-	        ItemService serviceItem =(ItemService)getData().get(position);
-	        mServicesPageHolder.name.setText(serviceItem.getServiceCategoryName());
-	       
-	        String iconName=serviceItem.getServiceCategoryIconURL();
-	        ImageLoader imageLoader;
-	        if(iconName!=null && iconName.indexOf("/")!=-1) {
-	        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
-	        } else {
-	        	imageLoader=new ImageLoaderLocal(mActivity,false);
-	        }
-	        if(iconName.trim().equals("")) {
-	        	iconName="sunriverlogoopaque";
-	        }
-	        ImageView thumb_image=(ImageView)view.findViewById(R.id.services_list_image);
-	        imageLoader.displayImage(iconName,thumb_image);
+	        ItemCalendar calendarItem =(ItemCalendar)getData().get(position);
+	        mCalendarSummaryPageHolder.name.setText(calendarItem.getSrCalName());
+	        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
+	        thumb_image.setImageResource(ItemCalendar.iconsByMonth[(int)calendarItem.getSrCalLat()]);
 		}
 
 		@Override
 		protected void initializeHolder(View view, int position) {
-			mServicesPageHolder=new ServicesPageHolder();
-			mServicesPageHolder.name = (TextView)view.findViewById(R.id.services_category_name); 
-			view.setTag(mServicesPageHolder);
+			mCalendarSummaryPageHolder=new CalendarSummaryPageHolder();
+			mCalendarSummaryPageHolder.name = (TextView)view.findViewById(R.id.calendarsummary_category_name); 
+			view.setTag(mCalendarSummaryPageHolder);
 			}
 
 		@Override
 		protected void setViewHolder(View view, int pos) {
-			mServicesPageHolder=(ServicesPageHolder)view.getTag();
+			mCalendarSummaryPageHolder=(CalendarSummaryPageHolder)view.getTag();
 		}
-
+		public class CustomComparator implements Comparator<ItemCalendar> {
+		    @Override
+		    public int compare(ItemCalendar o1, ItemCalendar o2) {
+		        return o1.getSrCalDate().compareTo(o2.getSrCalDate());
+		    }
+		}
 	}

@@ -4,6 +4,8 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Hashtable;
@@ -13,6 +15,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+import com.diamondsoftware.android.sunriver_av_3_0.ListViewAdapterForCalendarPage.CustomComparator;
 
 public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	public static final String DATABASE_TABLE_CALENDAR = "calendar";
@@ -32,6 +35,20 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	public static final String KEY_CALENDAR_ISAPPROVED = "isApproved";
 	public static final String KEY_CALENDAR_SRACTADDRESS = "srCalAddress";
 	
+	public static int[] iconsByMonth = new int[] {
+		R.drawable.sr_cal_month_01,
+		R.drawable.sr_cal_month_02,
+		R.drawable.sr_cal_month_03,
+		R.drawable.sr_cal_month_04,
+		R.drawable.sr_cal_month_05,
+		R.drawable.sr_cal_month_06,
+		R.drawable.sr_cal_month_07,
+		R.drawable.sr_cal_month_08,
+		R.drawable.sr_cal_month_09,
+		R.drawable.sr_cal_month_10,
+		R.drawable.sr_cal_month_11,
+		R.drawable.sr_cal_month_12
+	};
 	public static boolean amGroupingByMonthYear=false;
 	public static String justThisYYYYMM=null;
 	private int srCalId;
@@ -54,22 +71,25 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 		if(mLastDataFetch==null) {
 			mLastDataFetch=super.fetchDataFromDatabase();
 		}
-		return filterIfNecessary(mLastDataFetch);
+		return mLastDataFetch;
 	}
 	
-	public ArrayList<Object> filterIfNecessary( ArrayList<Object> al) {
+	public static ArrayList<Object> filterIfNecessary( ArrayList<Object> al) {
 		if(amGroupingByMonthYear) {
-			ArrayList<Object> newAl=new ArrayList<Object>();
+			ArrayList newAl=new ArrayList();
 			Hashtable<String,String> gotTheseOnes=new Hashtable<String,String>();
 			for(Object itemCalendar: al ) {
 				if(!gotTheseOnes.contains(((ItemCalendar)itemCalendar).getYYYYMM())) {
 					gotTheseOnes.put(((ItemCalendar)itemCalendar).getYYYYMM(), ((ItemCalendar)itemCalendar).getYYYYMM());
 					ItemCalendar ic=new ItemCalendar();
 					ic.setSrCalName(((ItemCalendar)itemCalendar).getSummaryName());
+					ic.setSrCalLat(((ItemCalendar)itemCalendar).getSrCalDate().get(Calendar.MONTH)); // we'll use this field so we can produce the correct icon
+					ic.setSrCalLong(((ItemCalendar)itemCalendar).getSrCalDate().get(Calendar.YEAR));
 					newAl.add(ic);
 				}
 			}
-			return newAl;
+			Collections.sort(newAl, new MyCustomComparator());
+			return newAl;//.sort();
 		} else {
 			if(justThisYYYYMM==null) {
 				return al;
@@ -78,8 +98,20 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 			}
 		}
 	}
-	
-	public ArrayList<Object> filterByThisYYYYMM(String YYYYMM,ArrayList<Object> al) {
+	public static class MyCustomComparator implements Comparator<ItemCalendar> {
+	    @Override
+	    public int compare(ItemCalendar o1, ItemCalendar o2) {
+	    	if(o1.getSrCalLong()==o2.getSrCalLong()) {    		
+	    		return 
+	    			o1.getSrCalLat()>o2.getSrCalLat()?1
+	    			:o1.getSrCalLat()<o2.getSrCalLat()?-1:0;
+	    	}
+    		return 
+	    			o1.getSrCalLong()>o2.getSrCalLong()?1
+	    			:o1.getSrCalLong()<o2.getSrCalLong()?-1:0;
+	    }
+	}
+	public static ArrayList<Object> filterByThisYYYYMM(String YYYYMM,ArrayList<Object> al) {
 		ArrayList<Object> retValue=new ArrayList<Object>();
 		for(Object itemCalendar: al) {
 			if( ((ItemCalendar)itemCalendar).getYYYYMM().equals(YYYYMM)  ) {

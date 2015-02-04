@@ -41,12 +41,12 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 
 	@Override
 	protected int getViewId() {
-		return R.layout.activity_calendar;
+		return R.layout.activity_calendar_summary;
 	}
 
 	@Override
 	protected ListViewAdapter getListViewAdapter() {
-		mListViewAdapter=new ListViewAdapterForCalendarSummaryPage(this);
+		mListViewAdapter=new ListViewAdapterForCalendarSummaryPage(this,mSearchString,mSearchAfterDate);
 		return mListViewAdapter;
 	}
 
@@ -54,9 +54,9 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		ItemCalendar calendarItem=(ItemCalendar)mListViewAdapter.mData.get(position);
-    	mPopup=new PopupCalendarDetail(this,calendarItem);
-    	mPopup.createPopup();
-
+		ItemCalendar.justThisYYYYMM=String.valueOf((int)calendarItem.getSrCalLong()) + String.valueOf((int)calendarItem.getSrCalLat()+1);
+		Intent intent=new Intent(this,CalendarActivity.class);
+		startActivity(intent);
 	}
 	/*
 	 * (non-Javadoc)
@@ -116,7 +116,7 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 	}
 	@Override
 	public boolean doYouDoFavorites() {
-		return true;
+		return false;
 	}
 
 	@Override

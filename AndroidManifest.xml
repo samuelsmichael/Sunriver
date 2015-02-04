@@ -132,6 +132,10 @@
             android:label="@string/title_activity_calendar" >
         </activity>
         <activity
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.CalendarActivitySummary"
+            android:label="@string/title_activity_calendar" >
+        </activity>
+        <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityHospitality"
             android:label="@string/title_activity_hospitality" >
         </activity>

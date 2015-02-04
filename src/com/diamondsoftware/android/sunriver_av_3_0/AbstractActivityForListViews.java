@@ -135,25 +135,26 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		mAdapter.notifyDataSetChanged();
 	}
 	private void filterDataForFavorites() {
-		ArrayList<Object> newData=new ArrayList<Object>();
-		ArrayList<Integer> favorites=new ArrayList<Integer>();
-		DbAdapter dbAdapter=new DbAdapter(this);
-		Cursor cursor=dbAdapter.getItemsInFavoritesForThisCategory(whatsYourFavoriteItemType());
-		while(cursor.moveToNext()) {
-			favorites.add(cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_ID)));
-		}
-		cursor.close();
-		ArrayList<Object> items=mAdapter.getData();
-		for(Object item :items) {
-			FavoriteItemType itemsFavoriteItemType=((IFavoriteItem)item).getFavoriteItemType();
-			FavoriteItemType viewsFavoriteItemType=whatsYourFavoriteItemType();
-			int thisItemsId=Integer.valueOf(((IFavoriteItem)item).getFavoritesItemIdentifierValue()[0]);
-			if(itemsFavoriteItemType==viewsFavoriteItemType &&  favorites.contains(thisItemsId)) {
-				newData.add(item);
+		if(this.doYouDoFavorites()) {
+			ArrayList<Object> newData=new ArrayList<Object>();
+			ArrayList<Integer> favorites=new ArrayList<Integer>();
+			DbAdapter dbAdapter=new DbAdapter(this);
+			Cursor cursor=dbAdapter.getItemsInFavoritesForThisCategory(whatsYourFavoriteItemType());
+			while(cursor.moveToNext()) {
+				favorites.add(cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_ID)));
 			}
+			cursor.close();
+			ArrayList<Object> items=mAdapter.getData();
+			for(Object item :items) {
+				FavoriteItemType itemsFavoriteItemType=((IFavoriteItem)item).getFavoriteItemType();
+				FavoriteItemType viewsFavoriteItemType=whatsYourFavoriteItemType();
+				int thisItemsId=Integer.valueOf(((IFavoriteItem)item).getFavoritesItemIdentifierValue()[0]);
+				if(itemsFavoriteItemType==viewsFavoriteItemType &&  favorites.contains(thisItemsId)) {
+					newData.add(item);
+				}
+			}
+			mAdapter.mData=newData;
 		}
-		mAdapter.mData=newData;
-
 	}
 	/*
 	 * gotMyData() is called when the ListViewAdapter has finished fetching data.  If we're dealing with a ListViewAdapterLocalData,

@@ -23,11 +23,6 @@ import android.widget.Toast;
  */
 
 public class CalendarActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
-	private EditText mEditViewSearch=null; 
-	private EditText mEditViewSearchAfterDate=null; 
-	private Button mButtonRefresh;
-	private String mSearchString;
-	private String mSearchAfterDate;
 	private ListViewAdapter mListViewAdapter;
 	private boolean mIsFavorite;
 	private ImageButton mFavorite;
@@ -46,7 +41,7 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 
 	@Override
 	protected ListViewAdapter getListViewAdapter() {
-		mListViewAdapter=new ListViewAdapterForCalendarPage(this,mSearchString,mSearchAfterDate);
+		mListViewAdapter=new ListViewAdapterForCalendarPage(this);
 		return mListViewAdapter;
 	}
 
@@ -67,40 +62,7 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 	 */
 	@Override
 	protected void childOnCreate() {
-		mEditViewSearch=(EditText)findViewById(R.id.calendar_controlpanel_search);
-		mEditViewSearchAfterDate=(EditText)findViewById(R.id.calendar_controlpanel_fromdate);
-		mButtonRefresh=(Button)findViewById(R.id.calendar_search_btn);
-		mSearchString=mSharedPreferences.getString("CalendarSearchString", "").trim();
-		mEditViewSearch.setText(mSearchString);
-		mSearchAfterDate=mSharedPreferences.getString("CalendarSearchAfterDate", "").trim();
-		mEditViewSearchAfterDate.setText(mSearchAfterDate);		
-		/* Don't want the keyboard to popup automatically */
-		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
-		
-		mButtonRefresh.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				try {
-					/* Remember values */
-					Editor editor=CalendarActivity.this.mSharedPreferences.edit();
-					editor.putString("CalendarSearchString", mEditViewSearch.getText().toString().trim());
-					editor.commit();					
-					/* But make sure that the keyed date is in the correct format */
-					if(!mEditViewSearchAfterDate.getText().toString().trim().equals("")) {
-						Utils.toDateFromMMdashDDdashYYYY(mEditViewSearchAfterDate.getText().toString().trim());
-					}
-					editor.putString("CalendarSearchAfterDate", mEditViewSearchAfterDate.getText().toString().trim());
-					editor.commit();
-					Intent intent=new Intent(CalendarActivity.this,CalendarActivity.class);
-					CalendarActivity.this.startActivity(intent);
-					CalendarActivity.this.finish();
-				} catch (Exception e) {
-					Toast.makeText(CalendarActivity.this.getApplicationContext(), R.string.invalid_searchdateafter_msg, Toast.LENGTH_LONG).show();
-				}
-			}
-		});
-		
+		ItemCalendar.amGroupingByMonthYear=false;
 	}
 
 	@Override

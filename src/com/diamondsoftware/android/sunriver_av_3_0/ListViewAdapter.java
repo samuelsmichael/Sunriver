@@ -25,7 +25,7 @@ public abstract class ListViewAdapter extends BaseAdapter {
 	protected DidYouKnowImagePageHolder mDidYouKnowImagePageHolder;
     protected Activity mActivity;
     protected static LayoutInflater mInflater=null;
-    public ArrayList<Object> mData=null;
+    protected ArrayList<Object> mData=null;
     public boolean mImageScrollsWithList;
     
     protected abstract int getLayoutResource();
