@@ -78,7 +78,7 @@ public class ListViewAdapterForFavorites extends ListViewAdapterLocalData {
                 	: ((IFavoriteItem)mData.get(position-1)).getOrdinalForFavorites()==3?mInflater.inflate(R.layout.calendar_listitem, parent, false)
                 	: ((IFavoriteItem)mData.get(position-1)).getOrdinalForFavorites()==4?mInflater.inflate(R.layout.activity_listitem2, parent, false)
                 	: ((IFavoriteItem)mData.get(position-1)).getOrdinalForFavorites()==5?mInflater.inflate(R.layout.servicesdetail_listitem, parent, false)
-                	: ((IFavoriteItem)mData.get(position-1)).getOrdinalForFavorites()==6?mInflater.inflate(R.id.hospitalitylist, parent, false):null;
+                	: ((IFavoriteItem)mData.get(position-1)).getOrdinalForFavorites()==6?mInflater.inflate(R.layout.activity_listitemhospitality, parent, false):null;
                 if(vi!=null) {
                 	initializeHolder(vi,position-1);
                 }
@@ -186,6 +186,7 @@ public class ListViewAdapterForFavorites extends ListViewAdapterLocalData {
 		int hospitality = DbAdapter.FavoriteItemType.Hospitality.ordinal();
 		int retail=DbAdapter.FavoriteItemType.Retail.ordinal();
 		int service=DbAdapter.FavoriteItemType.Service.ordinal();
+		ItemService.mColumnValuesForWhereClause=null;
 		while(cuFavorites.moveToNext()) {
 			int itemType=cuFavorites.getInt(cuFavorites.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_TYPE));
 			int itemId=cuFavorites.getInt(cuFavorites.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_ID));

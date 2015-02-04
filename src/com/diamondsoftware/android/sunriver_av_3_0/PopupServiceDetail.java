@@ -61,6 +61,7 @@ public class PopupServiceDetail extends Popups2  implements GoogleAnalyticsRecor
 			mIsFavorite=true;
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mItemService.putIsFavorite(true);			
+			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
 		}
 		mActivity.invalidateOptionsMenu();
 	}

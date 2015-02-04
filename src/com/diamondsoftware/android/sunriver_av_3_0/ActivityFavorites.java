@@ -68,6 +68,7 @@ public class ActivityFavorites extends
 					mPopup.createPopup();
 				} else {
 					if(ifi.getOrdinalForFavorites()==4) {
+						ActivitiesActivity.CurrentActivityItem=null;
 						CurrentActivityItem=(ItemActivity)mListViewAdapter.mData.get(position);
 						Intent intent=new Intent(this,ActivitiesDetailActivity.class)
 						.putExtra("ItemPosition", position);
@@ -79,6 +80,7 @@ public class ActivityFavorites extends
 					    	mPopup.createPopup();
 					    } else {
 							if(ifi.getOrdinalForFavorites()==6) {
+								ActivityHospitality.CurrentHospitalityItem=null;
 								CurrentHospitalityItem=(ItemHospitality)mListViewAdapter.mData.get(position);
 								Intent intent=new Intent(this,ActivityHospitalityDetail.class)
 								.putExtra("ItemPosition", position);

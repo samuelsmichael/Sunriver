@@ -119,7 +119,7 @@ public class DbAdapter {
 				null, // values for where clause
 				null, // group the rows
 				null, // filter by row groups
-				null // order by
+				KEY_FAVORITES_ITEM_TYPE // order by
 		);
 	}
 	

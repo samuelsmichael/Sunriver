@@ -1,9 +1,12 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Hashtable;
 import java.util.Locale;
 
 import android.content.ContentValues;
@@ -28,7 +31,9 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	public static final String KEY_CALENDAR_SRACTLONG = "srCalLong";
 	public static final String KEY_CALENDAR_ISAPPROVED = "isApproved";
 	public static final String KEY_CALENDAR_SRACTADDRESS = "srCalAddress";
-
+	
+	public static boolean amGroupingByMonthYear=false;
+	public static String justThisYYYYMM=null;
 	private int srCalId;
 	private String srCalName;
 	private String srCalDescription;
@@ -49,9 +54,55 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 		if(mLastDataFetch==null) {
 			mLastDataFetch=super.fetchDataFromDatabase();
 		}
-		return mLastDataFetch;
+		return filterIfNecessary(mLastDataFetch);
 	}
 	
+	public ArrayList<Object> filterIfNecessary( ArrayList<Object> al) {
+		if(amGroupingByMonthYear) {
+			ArrayList<Object> newAl=new ArrayList<Object>();
+			Hashtable<String,String> gotTheseOnes=new Hashtable<String,String>();
+			for(Object itemCalendar: al ) {
+				if(!gotTheseOnes.contains(((ItemCalendar)itemCalendar).getYYYYMM())) {
+					gotTheseOnes.put(((ItemCalendar)itemCalendar).getYYYYMM(), ((ItemCalendar)itemCalendar).getYYYYMM());
+					ItemCalendar ic=new ItemCalendar();
+					ic.setSrCalName(((ItemCalendar)itemCalendar).getSummaryName());
+					newAl.add(ic);
+				}
+			}
+			return newAl;
+		} else {
+			if(justThisYYYYMM==null) {
+				return al;
+			} else {
+				return filterByThisYYYYMM(justThisYYYYMM,al);
+			}
+		}
+	}
+	
+	public ArrayList<Object> filterByThisYYYYMM(String YYYYMM,ArrayList<Object> al) {
+		ArrayList<Object> retValue=new ArrayList<Object>();
+		for(Object itemCalendar: al) {
+			if( ((ItemCalendar)itemCalendar).getYYYYMM().equals(YYYYMM)  ) {
+				retValue.add(itemCalendar);
+			}
+		}
+		return retValue;
+	}
+	
+	public String getSummaryName() {
+		return
+				getMonthForInt(srCalDate.get(Calendar.MONTH)) + " " + String.valueOf(srCalDate.get(Calendar.YEAR));
+	}
+	
+	  String getMonthForInt(int num) {
+	        String month = "wrong";
+	        DateFormatSymbols dfs = new DateFormatSymbols();
+	        String[] months = dfs.getMonths();
+	        if (num >= 0 && num <= 11 ) {
+	            month = months[num];
+	        }
+	        return month;
+	    }
 	
 	public String getFavoritesItemIdentifierColumnName() {
 		return KEY_CALENDAR_SRACTID;
@@ -171,6 +222,17 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 		return srCalDate;
 	}
 
+	public String getYYYYMM() {
+		int year = srCalDate.get(GregorianCalendar.YEAR);
+		int month = srCalDate.get(GregorianCalendar.MONTH)+1; 
+		return String.valueOf(year)+String.valueOf(month);
+	}
+	
+	public String getMM() {
+		int month = srCalDate.get(GregorianCalendar.MONTH)+1; 
+		return String.valueOf(month);
+	}
+	
 	public void setSrCalDate(GregorianCalendar srCalDate) {
 		this.srCalDate = srCalDate;
 	}

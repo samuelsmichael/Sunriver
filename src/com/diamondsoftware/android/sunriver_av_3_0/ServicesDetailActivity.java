@@ -70,6 +70,17 @@ public class ServicesDetailActivity extends AbstractActivityForListViewsScrollin
 	public boolean doYouDoFavorites() {
 		return true;
 	}
+	
+	private boolean myPageIsFiltering() {
+		return MainActivity.mSingleton.mDbAdapter.areThereAnyFavoritesForThisServicesTitle(getTitle().toString());
+	}
+	
+	protected boolean getImViewingFavorites() {
+		return 
+			mSharedPreferences.getBoolean(String.valueOf(whatsYourFavoriteItemType()), false) 
+			&& 
+			myPageIsFiltering();
+	}
 
 	@Override
 	public FavoriteItemType whatsYourFavoriteItemType() {

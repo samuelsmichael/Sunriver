@@ -116,7 +116,7 @@
     <string name="title_activity_services">Sunriver Services</string>
     <string name="title_activity_servicesdetail">Sunriver Services Detail</string>
     <string name="title_activity_activitiesdetail">Sunriver Activity Detail</string>
-    <string name="title_activity_hospitalitydetail">Sunriver Hospitality Detail</string>
+    <string name="title_activity_hospitalitydetail">Sunriver Where to Stay</string>
     <string name="location_popup_restaurants">Restaurants</string>
     <string name="location_popup_retail">Shopping</string>
     <string name="key_in_your_resort_address">Key in your Sunriver Address</string>
