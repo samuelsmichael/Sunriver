@@ -166,7 +166,11 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	public void gotMyData(String name, ArrayList<Object> data) {
 		hookDoSomethingWithTheDataIfYouWant(data);
 		if(getImViewingFavorites()) {
-			filterDataForFavorites();
+			if(((GlobalState)getApplication()).getDbAdapter().areThereAnyFavoritesForThisCategory(whatsYourFavoriteItemType())) {
+				filterDataForFavorites();
+			} else {
+				this.setImViewingFavorites(false);
+			}
 		}
         mList.setAdapter(mAdapter);
 	}

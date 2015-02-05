@@ -346,7 +346,7 @@ public class DbAdapter {
 						if(newVersion==24) {
 							db.execSQL("DROP TABLE IF EXISTS "+ItemHospitality.DATABASE_TABLE_HOSPITALITY);
 						} else {
-							if(newVersion==32) {
+							if(newVersion>=32 && oldVersion<32) {
 								db.execSQL("DROP TABLE IF EXISTS "+ItemService.DATABASE_TABLE_SERVICE);
 								db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
 							}
