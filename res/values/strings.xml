@@ -35,7 +35,10 @@
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
   		  	<string name="urlmapjson">http://srfeed.com/Map.aspx</string>
    		 	<string name="urlcalendarjson">http://srfeed.com/Calendar.aspx</string>
-
+   		 	<string name="urltipsjson">http://srfeed.com/tips.aspx</string>
+   		 	<string name="urltipsjsontestlocal">http://10.0.0.253/sunriverwebapp/tips.aspx</string>
+   		 	<string name="urltipsjsontestremote">http://listplus.no-ip.org/sunriverwebapp/tips.aspx</string>
+   		 			 	
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>
@@ -76,6 +79,7 @@
     <string name="aboutustermsandconditionsheading">Click here to view our Terms and Conditions</string>
     <string name="aboutustitle">Sunriver App</string>
     <string name="contactusstring">Contact Us</string>
+    <string name="settingsstring">Settings</string>
     <string name="emailto">MobileApp@srowners.com</string>
     <string name="map_offline_url4">http://tiledbasemaps.arcgis.com/arcgis/rest/services/NatGeo_World_Map/MapServer</string>
     <string name="wtf">wtf</string>
@@ -164,6 +168,10 @@
     <string name="title_activity_scanner">Sunriver QR Code Reader</string>
     <string name="defaultstartonreboot_title_list_preference">Start Automatically</string>
     <string name="startonreboot_summary_list_preference">With this setting on (recommended), the system will, when the phone is started, begin the necessary reminder background processes automatically.</string>
+    <string name="show_home_page_tips_title">Show application-level tips</string>
+    <string name="show_home_page_tips_summary">With this setting on, the system will display helpful tips on getting the best usage out of your Sunriver app.</string>
+    <string name="show_selfie_page_tips_title">Show selfie page tips</string>
+    <string name="show_selfie_page_tips_summary">With this setting on, the system will display helpful tips on getting the best usage out of your Selfie feature of Sunriver.</string>
     
 
 </resources>

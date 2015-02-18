@@ -160,6 +160,11 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
 			imageLoader.displayImage(imageURL,mImageView);
 		}
+		if(mSharedPreferences.getBoolean("show_home_page_tips", true)) {
+			Intent intent=new Intent(MainActivity.this,ActivityTipsHomePage.class);
+			startActivity(intent);
+		}
+
  	}
 
 	@Override

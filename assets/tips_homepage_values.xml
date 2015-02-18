@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <items>
+	<item>
+ 	    <tipsID>1</tipsID>
+ 	    <tipsURL>http://10.0.0.253/commuteralert/images/sunriverimg1.jpg</tipsURL>
+ 	    <tipsAndroidOrder>1</tipsAndroidOrder>
+ 	    <tipsAppleOrder>2</tipsAppleOrder>
+ 	</item>
+	<item>
+ 	    <tipsID>2</tipsID>
+ 	    <tipsURL>http://10.0.0.253/commuteralert/images/sunriverimg2.jpg</tipsURL>
+ 	    <tipsAndroidOrder>3</tipsAndroidOrder>
+ 	    <tipsAppleOrder>1</tipsAppleOrder>
+ 	</item>
+	<item>
+ 	    <tipsID>3</tipsID>
+ 	    <tipsURL>http://10.0.0.253/commuteralert/images/sunriverimg3.jpg</tipsURL>
+ 	    <tipsAndroidOrder>2</tipsAndroidOrder>
+ 	    <tipsAppleOrder>3</tipsAppleOrder>
+ 	</item>
+</items>

@@ -2,6 +2,8 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -40,7 +42,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	private synchronized int getMCountItemsLeft() {
 		return mCountItemsLeft;
 	}
-	private synchronized void incrementMCountItemsLeft() {
+	private synchronized void incrementMCountItemsLeft(String name) {
 		mCountItemsLeft++;
 	}
 	private synchronized void decrementMCountItemsLeft() {
@@ -50,12 +52,12 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	    @Override
 	    public void run() {
 	    	decrementMCountItemsLeft();
-	    	anAsynchronousActionCompleted();
+	    	anAsynchronousActionCompleted("timer");
 	    }
 	};
 	
 	boolean wereFinishing=false;
-	private synchronized void anAsynchronousActionCompleted() {
+	private synchronized void anAsynchronousActionCompleted(String name) {
 		if(getMCountItemsLeft()<=0 && !wereFinishing) {
 			wereFinishing=true;
 			mCountDownTimer=
@@ -104,10 +106,13 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
         int secondsDelayed = 1;
         mHandler=new Handler();
         // we'll wait at least 1 second; but we won't return until all asynchronous data fetches have completed
+        incrementMCountItemsLeft("timer"); // for timer
+
         mHandler.postDelayed(myRunnable, secondsDelayed * 1000);      
+        incrementMCountItemsLeft("alert"); // for alert
+        incrementMCountItemsLeft("emergency"); // for Emergency
+        incrementMCountItemsLeft("HomePage tips"); // for HomePage tips
 		initialize();
-        incrementMCountItemsLeft(); // for alert
-        incrementMCountItemsLeft(); // for Emergency
 
         ArcGISRuntime.setClientId("p7sflEMVP6Pb9okf");
 	}
@@ -116,8 +121,10 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		((GlobalState)getApplicationContext()).theItemAlert=null;
 		GlobalState.TheItemUpdate=null;
 		((GlobalState)getApplicationContext()).TheItemWelcomes=null;
-        incrementMCountItemsLeft();
+        incrementMCountItemsLeft("update");
 		new AcquireDataRemotelyAsynchronously("update", this, this);
+		new AcquireDataRemotelyAsynchronously("tipsremotehomepage",this,this);
+
 	}
 
 	private SplashPageProgressViewManager getSplashPageProgressViewManager() {
@@ -164,7 +171,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							SharedPreferences.Editor editor = GlobalState.sharedPreferences.edit();
 							editor.putString("EmergenciesFromLastFetch", sb.toString());
 							editor.commit();
-							incrementMCountItemsLeft();
+							incrementMCountItemsLeft("emergencymaps");
 							new AcquireDataRemotelyAsynchronously("emergencymaps",this,this);
 						} else {
 							SharedPreferences.Editor editor = GlobalState.sharedPreferences.edit();
@@ -206,16 +213,17 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					 */
 					if(name.equalsIgnoreCase("update")) {
 						if(data!=null && data.size()>0) {
-							GlobalState.TheItemUpdate=(ItemUpdate)data.get(0);
-							GlobalState.gotInternet=true;		
-					        incrementMCountItemsLeft(); // because finally is going to decrement it; and this shouldn't take part in keeping Splash page open.
 							new AcquireDataRemotelyAsynchronously("alert", this, this);
 							new AcquireDataRemotelyAsynchronously("emergency",this,this);
+
+							GlobalState.TheItemUpdate=(ItemUpdate)data.get(0);
+							GlobalState.gotInternet=true;		
+					        //?incrementMCountItemsLeft(); // because finally is going to decrement it; and this shouldn't take part in keeping Splash page open.
 							/* Don't need to fetch Welcome data if it's not expired */
 							ItemWelcome itemWelcome=new ItemWelcome();
 							if((DbAdapter.DATABASE_VERSION==32 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
 								indicateDidRefreshOfWelcomesAfterDBChange();
-						        incrementMCountItemsLeft();
+						        incrementMCountItemsLeft("welcome");
 								new AcquireDataRemotelyAsynchronously("welcome", this, this);
 							} else {
 								ArrayList<Object> items=itemWelcome.fetchDataFromDatabase();
@@ -260,6 +268,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							}
 							((GlobalState)getApplicationContext()).TheItemsDidYouKnow= new ItemDidYouKnow().fetchDataFromDatabase();
 							((GlobalState)getApplicationContext()).TheItemsGISLayers=new ItemGISLayers().fetchDataFromDatabase();
+							new AcquireDataRemotelyAsynchronously("alert", this, this);
+							new AcquireDataRemotelyAsynchronously("emergency",this,this);
 						}
 						} else {
 							if(name.equalsIgnoreCase("welcome")) {
@@ -294,6 +304,48 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 											if(data != null) {
 												((ItemSelfie)((GlobalState)getApplicationContext()).TheItemsSelfie.get(0)).setLastDateReadToNow();
 											}
+										} else {
+											if(name.equalsIgnoreCase("tipstesthomepage")) {
+												if(data!=null) {
+													doDecrement=true;
+													Collections.sort(data,new Comparator<Object>() {
+	
+														@Override
+														public int compare(
+																Object lhs,
+																Object rhs) {
+															return 
+																	((ItemTip)lhs).getTipsAndroidOrder()>((ItemTip)rhs).getTipsAndroidOrder()?1
+																	:((ItemTip)lhs).getTipsAndroidOrder()<((ItemTip)rhs).getTipsAndroidOrder()?-1:0;
+														}
+														
+													});
+													((GlobalState)getApplicationContext()).TheItemsTipsHomePage=data;
+												}
+											} else {
+												if(name.equalsIgnoreCase("tipsremotehomepage")) {
+													if(data==null || data.size()==0) {
+														// For purposes of testing, if there's nothing in the real database, then use sample data
+														new AcquireDataRemotelyAsynchronously("tipstesthomepage",this,this);	
+														doDecrement=false;
+													} else {
+														doDecrement=true;
+														Collections.sort(data,new Comparator<Object>() {
+		
+															@Override
+															public int compare(
+																	Object lhs,
+																	Object rhs) {
+																return 
+																		((ItemTip)lhs).getTipsAndroidOrder()>((ItemTip)rhs).getTipsAndroidOrder()?1
+																		:((ItemTip)lhs).getTipsAndroidOrder()<((ItemTip)rhs).getTipsAndroidOrder()?-1:0;
+															}
+															
+														});
+														((GlobalState)getApplicationContext()).TheItemsTipsHomePage=data;
+													}
+												}
+											}
 										}
 									}
 								}
@@ -305,7 +357,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 		} finally {
 			if(doDecrement) {
 				decrementMCountItemsLeft();
-	        	anAsynchronousActionCompleted();
+	        	anAsynchronousActionCompleted(name);
 			}
 		}
 	}	
@@ -433,6 +485,29 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 											int bkthere=bkhere;
 										} finally {
 										}		
+									} else {
+										if(name.equalsIgnoreCase("tipsremotehomepage")) {
+											try {
+/* Use this when you've incorporated Tips.aspx into your site	String defaultValue=getResources().getString(R.string.urltipsjson); */
+/* Use this when you're still using my web site*/	String defaultValue=getResources().getString(R.string.urltipsjsontestremote);
+// This one is for my testing in my office			String defaultValue=getResources().getString(R.string.urltipsjsontestlocal);
+												
+												String uri=GlobalState.sharedPreferences.getString("urltipsjson", defaultValue);
+												ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+														new ParsesJsonTips(),
+														uri).parse();
+												return data;
+											} catch (Exception e) {
+											} finally {
+											}		
+										} else {
+											if(name.equalsIgnoreCase("tipstesthomepage")) {
+												try {
+													return new XMLReaderFromAndroidAssets(this, new ParsesXMLTips(null), "tips_homepage_values.xml").parse();
+												} catch (Exception e) {
+												}
+											}
+										}
 									}
 								}
 							}

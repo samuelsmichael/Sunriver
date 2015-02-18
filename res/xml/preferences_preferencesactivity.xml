@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<PreferenceCategory
+		android:title="Tips"
+		android:summary="The Sunriver App has many features. Set tips to come on in order to learn about them!"
+	>
+	  <CheckBoxPreference
+		  	android:key="show_home_page_tips"
+		  	android:defaultValue="true"
+		  	android:title="@string/show_home_page_tips_title"
+		  	android:summary="@string/show_home_page_tips_summary"
+	  ></CheckBoxPreference>
+	  <CheckBoxPreference
+		  	android:key="show_selfie_page_tips"
+		  	android:defaultValue="true"
+		  	android:title="@string/show_selfie_page_tips_title"
+		  	android:summary="@string/show_selfie_page_tips_summary"
+	  ></CheckBoxPreference>
+	  	  	    
+	</PreferenceCategory>    
+	    		
+
+</PreferenceScreen>

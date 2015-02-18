@@ -20,6 +20,7 @@ public class GlobalState extends Application {
 	public  ArrayList<Object> TheItemsSelfie=null;
 	public  ArrayList<Object> TheItemsDidYouKnow=null;
 	public  ArrayList<Object> TheItemsGISLayers=null;
+	public ArrayList<Object> TheItemsTipsHomePage=null;
 	public static boolean gotInternet=false;
 	public static SharedPreferences sharedPreferences=null;
 	private static DbAdapter mDbAdapter=null;

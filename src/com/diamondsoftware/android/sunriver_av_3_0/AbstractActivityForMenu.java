@@ -59,8 +59,10 @@ import android.view.MenuItem;
 		
 	    MenuItem miAboutUs= menu.add(android.view.Menu.NONE,R.id.menuaboutus,100,getString(R.string.aboutusstring));
 	    miAboutUs.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-	    MenuItem miContactUs= menu.add(android.view.Menu.NONE,R.id.menucontactus,100,getString(R.string.contactusstring));
+	    MenuItem miContactUs= menu.add(android.view.Menu.NONE,R.id.menucontactus,110,getString(R.string.contactusstring));
 	    miContactUs.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+	    MenuItem miSettings= menu.add(android.view.Menu.NONE,R.id.menusettings,120,getString(R.string.settingsstring));
+	    miSettings.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 	    
 	    return true;
 	}
@@ -68,6 +70,9 @@ import android.view.MenuItem;
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
 	    switch (item.getItemId()) {
+	    	case R.id.menusettings:
+		    	startActivity(new Intent(this,Preferences.class));
+		    	return true;
 	        case R.id.menuaboutus:
 	            new PopupAboutUs(this).createPopup();
 	            return true;

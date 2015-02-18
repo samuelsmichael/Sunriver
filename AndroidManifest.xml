@@ -63,9 +63,18 @@
 
         </activity>
         <activity
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityTipsHomePage"
+            android:theme="@style/Theme.Transparent" 
+            >
+        </activity>
+        
+        <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityFavorites"
             android:label="@string/title_activity_ActivityFavorites" >
 
+        </activity>
+        <activity
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.Preferences" >
         </activity>
         <activity
             android:name="com.diamondsoftware.android.sunriver_av_3_0.WebCam1" >

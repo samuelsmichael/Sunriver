@@ -10,6 +10,12 @@
 			  	android:summary="Each period of this amount of time, the system will check the Sunriver Emergency Alert database for updates"
 			  ></EditTextPreference>
    			  <EditTextPreference
+			  	android:key="urltipsjson"
+			  	android:defaultValue="@string/urltipsjson"
+			  	android:title="Tips Data URL"
+			  	android:summary="URL used to fetch the Tips data"
+			  ></EditTextPreference>
+			<EditTextPreference
 			  	android:key="urlselfiejson"
 			  	android:defaultValue="@string/urlselfiejson"
 			  	android:title="Selfie Data URL"
