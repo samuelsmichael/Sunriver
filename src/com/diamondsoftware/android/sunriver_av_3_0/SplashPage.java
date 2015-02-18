@@ -27,6 +27,7 @@ import android.os.Handler;
  * The public static variables theItemAlert, and gotInternet are used elsewhere.
  */
 public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously {
+	private boolean FAKE_HOMEPAGE_TIPS_DATA_ALLOWED=true;
 	private Handler mHandler;
 	private int mCountItemsLeft=0;
 	private SplashPageProgressViewManager mSplashPageProgressViewManager;
@@ -324,7 +325,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 												}
 											} else {
 												if(name.equalsIgnoreCase("tipsremotehomepage")) {
-													if(data==null || data.size()==0) {
+													if((data==null || data.size()==0) && FAKE_HOMEPAGE_TIPS_DATA_ALLOWED) {
 														// For purposes of testing, if there's nothing in the real database, then use sample data
 														new AcquireDataRemotelyAsynchronously("tipstesthomepage",this,this);	
 														doDecrement=false;
@@ -488,8 +489,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 									} else {
 										if(name.equalsIgnoreCase("tipsremotehomepage")) {
 											try {
-/* Use this when you've incorporated Tips.aspx into your site	String defaultValue=getResources().getString(R.string.urltipsjson); */
+/* Use this when you've incorporated Tips.aspx into your site	String defaultValue=getResou	rces().getString(R.string.urltipsjson); */
 /* Use this when you're still using my web site*/	String defaultValue=getResources().getString(R.string.urltipsjsontestremote);
+
 // This one is for my testing in my office			String defaultValue=getResources().getString(R.string.urltipsjsontestlocal);
 												
 												String uri=GlobalState.sharedPreferences.getString("urltipsjson", defaultValue);
@@ -505,6 +507,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 												try {
 													return new XMLReaderFromAndroidAssets(this, new ParsesXMLTips(null), "tips_homepage_values.xml").parse();
 												} catch (Exception e) {
+													return new ArrayList<Object>();
 												}
 											}
 										}

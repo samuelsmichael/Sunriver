@@ -254,6 +254,11 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 				buttonTakePicture.setEnabled(false);
 				camera.autoFocus(myAutoFocusCallback);
 			}});
+		if(mSharedPreferences.getBoolean("show_selfie_page_tips", true)) {
+			Intent intent=new Intent(this,ActivityTipsSelfiePage.class);
+			startActivity(intent);
+		}
+
 	}
 
 	public void setmIndexIntoSelfieImages(int index) {

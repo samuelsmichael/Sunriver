@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <items>
+	<item>
+ 	    <tipsID>100</tipsID>
+ 	    <tipsURL>http://listplus.no-ip.org/commuteralert/images/sunriverimg4.jpg</tipsURL>
+ 	    <tipsAndroidOrder>100</tipsAndroidOrder>
+ 	    <tipsAppleOrder>100</tipsAppleOrder>
+ 	</item>
+	<item>
+ 	    <tipsID>102</tipsID>
+ 	    <tipsURL>http://listplus.no-ip.org/commuteralert/images/sunriverimg5.jpg</tipsURL>
+ 	    <tipsAndroidOrder>200</tipsAndroidOrder>
+ 	    <tipsAppleOrder>200</tipsAppleOrder>
+ 	</item>
+</items>
