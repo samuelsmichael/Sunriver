@@ -66,6 +66,15 @@
     <string name="arcgis_userid">seabaseballfan</string>
     <string name="arcgis_password">Wp_p18mm</string>
     
+    <!-- Crash Reports -->
+    <string name="crash_toast_text">Sunriver Navigator has crashed. Standby while an error report is formatted.</string>
+    <string name="crash_dialog_comment_prompt">You might add your comments about the problem below:</string>
+    <string name="crash_dialog_ok_toast2">Thank you!</string>
+    <string name="crash_dialog_title">Sunriver Navigator has crashed</string>
+    <string name="crash_dialog_text">An unexpected error occurred forcing the
+    application to stop. Please help us fix this by sending us error data,
+    all you have to do is click OK.  The data will be formatted into an email</string>
+    
     <string name="aboutusstring">About Us</string>
     <string name="favoritesstring">Favorites</string>
     <string name="weatherchoosertitle">Choose next page:</string>

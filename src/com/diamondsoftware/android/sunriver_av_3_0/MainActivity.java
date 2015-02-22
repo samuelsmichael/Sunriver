@@ -233,6 +233,13 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			Intent intent = new Intent(MainActivity.this, ActivityHospitality.class);
 			startActivity(intent);
 		}
+		if(id==1001) {
+			
+			int x=0;
+			int y=3;
+			int z=y/x;
+			
+		}
 		if (id == 300) {
 			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Events");
 			Intent intent = new Intent(MainActivity.this, CalendarActivitySummary.class);

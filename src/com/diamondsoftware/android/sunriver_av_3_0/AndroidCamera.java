@@ -32,9 +32,13 @@ import android.hardware.Camera.ShutterCallback;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore.Images.Media;
 import android.util.TypedValue;
+import android.view.GestureDetector;
+import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -49,6 +53,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
 
 
@@ -57,7 +63,9 @@ import android.widget.Toast;
  * Class for managing all of the Selfie operations.
  *
  */
-public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHolder.Callback{
+public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHolder.Callback, CameraImplementer {
+	private GestureDetector gestureDetector;
+    View.OnTouchListener gestureListener;
 	static int maxZoom;
 	static int currentZoom;
 	static boolean canZoom;
@@ -74,6 +82,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 	int numCameras;
 	static int currentCameraId=Camera.CameraInfo.CAMERA_FACING_BACK;
 	static String uriOfLastPictureTaken=null;
+	View mViewControl=null;
 
 	Button buttonTakePicture;
 	Button buttonPickSelfie;
@@ -86,11 +95,79 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 	final int RESULT_SAVEIMAGE = 0;
 	static int dipToPixel;
 
+	private void setNewSelfieOverlay(int whichItem) {
+		setmIndexIntoSelfieImages(whichItem);
+		AndroidCamera.viewBeingRemoved=mIndexIntoSelfieImages;
+		// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
+		// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
+		new ImageLoaderRemote(getActivity(), false, 1).displayImage(
+				((ItemSelfie)((GlobalState)getActivity().getApplicationContext()).TheItemsSelfie.get(whichItem)).getOverlayPortCamURL(), null);
+
+		new CountDownTimer(500, 500) {
+
+			public void onTick(long millisUntilFinished) {
+				int b=3;
+			}
+
+			public void onFinish() {
+				int bkhere=3;
+				int bkh=bkhere;
+				AndroidCamera.mSingleton.runOnUiThread(new Runnable() {
+					public void run() {
+						setCameraDisplayOrientation(AndroidCamera.this,0,AndroidCamera.camera,AndroidCamera.overlayView);
+						computeWhichOverlayControl();
+					}
+				});										    	         
+			}
+		}.start();
+	}
+	private void onLeftSwipe() {
+		if(mIndexIntoSelfieImages<(getCountSelfieOverlays()-1)) {
+			setNewSelfieOverlay(mIndexIntoSelfieImages+1);
+		}
+	}
+	private void onRightSwipe() {
+		if(mIndexIntoSelfieImages>0) {
+			setNewSelfieOverlay(mIndexIntoSelfieImages-1);
+		}
+	}	
+	private int getCountSelfieOverlays() {
+		if (((GlobalState)getApplicationContext()).TheItemsSelfie!=null) {
+			return ((GlobalState)getApplicationContext()).TheItemsSelfie.size();
+		} else {
+			return 0;
+		}
+	}
+	private void computeWhichOverlayControl() {
+		// Show "which overlay" control
+        TableRow tr=(TableRow)mViewControl.findViewById(R.id.tr01);
+        tr.removeAllViews();
+        
+        for(int i=0;i<getCountSelfieOverlays();i++) {
+        	ImageView iv=new ImageView(getActivity().getApplicationContext());
+        	if(mIndexIntoSelfieImages==i) {
+        		iv.setImageResource(R.drawable.selfieitemchosen3);
+        	} else {
+        		iv.setImageResource(R.drawable.selfieitemnotchosen3);
+        	}
+        	tr.addView(iv);        	
+        }
+		mViewControl.invalidate();
+	}
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		
+	    gestureDetector = new GestureDetector(new SwipeGestureDetector());
+	    gestureListener = new View.OnTouchListener() {
+	        public boolean onTouch(View v, MotionEvent event) {
+	            return gestureDetector.onTouchEvent(event);
+	        }
+	    };		
+		
+		
 		// Used for converting dip (used in layout sizes ... specifically the "last photo taken" ... to pixels ... for creating a thumbnail
 		dipToPixel=(int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 50, getResources().getDisplayMetrics());
 		mSingleton=this;
@@ -115,6 +192,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 		// Set up the view for the camera
 		surfaceView =  new SurfaceView(this);
 		surfaceView.getHolder().setFormat(PixelFormat.TRANSPARENT);
+
 		addContentView(surfaceView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 		addContentView(overlayView, new LayoutParams(LayoutParams.FILL_PARENT,LayoutParams.FILL_PARENT));
 		surfaceHolder = surfaceView.getHolder();
@@ -123,12 +201,14 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 		
 		// Set up the controls view (zoom, switch direction, take picture, pick overlay)
 		controlInflater = LayoutInflater.from(getBaseContext());
-		View viewControl = controlInflater.inflate(R.layout.control, null);
+		mViewControl = controlInflater.inflate(R.layout.control, null);
+		mViewControl.setOnTouchListener(gestureListener);
 		LayoutParams layoutParamsControl
 		= new LayoutParams(LayoutParams.FILL_PARENT,
 				LayoutParams.FILL_PARENT);	
-		this.addContentView(viewControl, layoutParamsControl);
-
+		this.addContentView(mViewControl, layoutParamsControl);
+		computeWhichOverlayControl();
+		
 		// Add action to the controls
 		buttonTakePicture = (Button)findViewById(R.id.takepicture);
 		buttonTakePicture.setOnClickListener(new Button.OnClickListener(){
@@ -380,7 +460,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						timingDontClearCamera=false;
 					}
 					// Code called when camera orientation changes.
-					public static void setCameraDisplayOrientation(Activity activity,
+					public void setCameraDisplayOrientation(Activity activity,
 							int cameraId, Camera camera, ImageView overlayView) {
 						android.hardware.Camera.CameraInfo info =
 								new android.hardware.Camera.CameraInfo();
@@ -556,7 +636,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 				        	.setTitle("Pick Selfie image")
 				        	.setView(listViewItems);
 					        Dialog theDialog=builder.create();
-					        SelfieDialogOnClickListener listener=new SelfieDialogOnClickListener(theDialog,original,mActivity);
+					        SelfieDialogOnClickListener listener=new SelfieDialogOnClickListener(theDialog,original,(CameraImplementer) mActivity);
 					        listViewItems.setOnItemClickListener(listener);
 							return theDialog;
 						}
@@ -574,4 +654,41 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 					@Override
 					public void rebuildListBasedOnFavoritesSetting() {
 					}
+
+					@Override
+					public Activity getActivity() {
+						return this;
+					}
+					private class SwipeGestureDetector extends SimpleOnGestureListener {
+					    private static final int SWIPE_MIN_DISTANCE = 50;
+					    private static final int SWIPE_MAX_OFF_PATH = 200;
+					    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+
+					    @Override
+					    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
+					            float velocityY) {
+					        try {
+					            float diffAbs = Math.abs(e1.getY() - e2.getY());
+					            float diff = e1.getX() - e2.getX();
+
+					            if (diffAbs > SWIPE_MAX_OFF_PATH)
+					                return false;
+
+					            // Left swipe
+					            if (diff > SWIPE_MIN_DISTANCE
+					                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+					                AndroidCamera.this.onLeftSwipe();
+					            } 
+					            // Right swipe
+					            else if (-diff > SWIPE_MIN_DISTANCE
+					                    && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+					                AndroidCamera.this.onRightSwipe();
+					            }
+					        } catch (Exception e) {
+					           
+					        }
+					        return false;
+					    }
+
+					}					
 }

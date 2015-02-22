@@ -9,8 +9,8 @@ import android.widget.AdapterView.OnItemClickListener;
 public class SelfieDialogOnClickListener implements OnItemClickListener {
 	private Dialog mDialog;
 	private int mOriginal;
-	private AndroidCamera mAndroidCamera;
-	public SelfieDialogOnClickListener(Dialog dialog, int original, AndroidCamera androidCamera) {
+	private CameraImplementer mAndroidCamera;
+	public SelfieDialogOnClickListener(Dialog dialog, int original, CameraImplementer androidCamera) {
 		mDialog=dialog;
 		mOriginal=original;
 		mAndroidCamera = androidCamera;
@@ -24,8 +24,8 @@ public class SelfieDialogOnClickListener implements OnItemClickListener {
 			AndroidCamera.viewBeingRemoved=mOriginal;
 			// A special bitmap is used when blending the selfie image in portrait mode.  Cause it to be loaded into the cache.
 			// Note that setting the imageView parameter to null makes it so it's loaded into the cache, but not shown anywhere.
-			new ImageLoaderRemote(mAndroidCamera, false, 1).displayImage(
-					((ItemSelfie)((GlobalState)mAndroidCamera.getApplicationContext()).TheItemsSelfie.get(whichItem)).getOverlayPortCamURL(), null);
+			new ImageLoaderRemote(mAndroidCamera.getActivity(), false, 1).displayImage(
+					((ItemSelfie)((GlobalState)mAndroidCamera.getActivity().getApplicationContext()).TheItemsSelfie.get(whichItem)).getOverlayPortCamURL(), null);
 
 			new CountDownTimer(500, 500) {
 
@@ -38,7 +38,7 @@ public class SelfieDialogOnClickListener implements OnItemClickListener {
 					int bkh=bkhere;
 					AndroidCamera.mSingleton.runOnUiThread(new Runnable() {
 						public void run() {
-							mAndroidCamera.setCameraDisplayOrientation(AndroidCamera.mSingleton,0,AndroidCamera.camera,AndroidCamera.overlayView);
+							mAndroidCamera.setCameraDisplayOrientation(mAndroidCamera.getActivity(),0,AndroidCamera.camera,AndroidCamera.overlayView);
 						}
 					});										    	         
 				}

@@ -45,7 +45,20 @@
 					 android:layout_alignParentRight="true"
 					 android:layout_margin="10px"
 					 />
-				
+				<TableLayout android:id="@+id/tl01"
+				    	android:layout_width="wrap_content"
+				    	android:layout_height="wrap_content"
+				    	android:layout_below="@+id/flipperspective"
+				    	android:layout_alignParentRight="true"
+				    >
+				    <TableRow android:id="@+id/tr01" 
+				        android:padding="5dp"
+				        
+				    >
+				        
+				    </TableRow>
+				</TableLayout>    
+    
  
 		 </RelativeLayout> 		
    		 <RelativeLayout 

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
  <items>
 	<item>
+ 	    <id>1001</id>
+ 	    <name>Force Crash</name>
+ 	    <description>Test the crash-detection software</description>
+ 	    <iconname>sr_map_big</iconname>
+ 	    <isstylemarquee>false</isstylemarquee>
+ 	</item>
+     	<item>
  	    <id>100</id>
  	    <name>Maps</name>
  	    <description>Navigate our roads &amp; pathways</description>
