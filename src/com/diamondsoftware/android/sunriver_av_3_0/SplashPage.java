@@ -222,7 +222,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					        //?incrementMCountItemsLeft(); // because finally is going to decrement it; and this shouldn't take part in keeping Splash page open.
 							/* Don't need to fetch Welcome data if it's not expired */
 							ItemWelcome itemWelcome=new ItemWelcome();
-							if((DbAdapter.DATABASE_VERSION==32 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
+							if((DbAdapter.DATABASE_VERSION==36 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
 								indicateDidRefreshOfWelcomesAfterDBChange();
 						        incrementMCountItemsLeft("welcome");
 								new AcquireDataRemotelyAsynchronously("welcome", this, this);

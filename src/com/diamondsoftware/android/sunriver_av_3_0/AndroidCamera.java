@@ -18,6 +18,7 @@ import android.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -334,7 +335,8 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 				buttonTakePicture.setEnabled(false);
 				camera.autoFocus(myAutoFocusCallback);
 			}});
-		if(mSharedPreferences.getBoolean("show_selfie_page_tips", true)) {
+		
+		if(getResources().getConfiguration().orientation==Configuration.ORIENTATION_PORTRAIT&&mSharedPreferences.getBoolean("show_selfie_page_tips", true)) {
 			Intent intent=new Intent(this,ActivityTipsSelfiePage.class);
 			startActivity(intent);
 		}

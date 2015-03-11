@@ -27,6 +27,7 @@ public class ItemWelcome extends SunriverDataItem {
 	public static final String KEY_WELCOME_ROWID = "_id";
 	public static final String KEY_WELCOME_WELCOMEID = "welcomeID";
 	public static final String KEY_WELCOME_WELCOMEURL = "welcomeURL";
+	public static final String KEY_WELCOME_ISINROTATION = "isInRotation";
 	
 	
 	public ItemWelcome() {
@@ -34,7 +35,7 @@ public class ItemWelcome extends SunriverDataItem {
 	protected ItemWelcome(Cursor cursor) {
 		this.setWelcomeID(cursor.getInt(cursor.getColumnIndex(KEY_WELCOME_WELCOMEID)));
 		setWelcomeURL(cursor.getString(cursor.getColumnIndex(KEY_WELCOME_WELCOMEURL)));
-		
+		this.setInRotation(cursor.getInt(cursor.getColumnIndex(this.KEY_WELCOME_ISINROTATION))!=0);
 	}
 
 	public int getWelcomeID() {
@@ -73,11 +74,12 @@ public class ItemWelcome extends SunriverDataItem {
 	protected void loadWriteItemToDatabaseContentValuesTo(ContentValues values) {
 		values.put(KEY_WELCOME_WELCOMEID, this.getWelcomeID());
 		values.put(KEY_WELCOME_WELCOMEURL, getWelcomeURL());
+		values.put(KEY_WELCOME_ISINROTATION, isInRotation());
 	}
 
 	@Override
 	protected String[] getProjectionForFetch() {
-		String[] projection = {KEY_WELCOME_WELCOMEID, KEY_WELCOME_WELCOMEURL };
+		String[] projection = {KEY_WELCOME_WELCOMEID, KEY_WELCOME_WELCOMEURL, KEY_WELCOME_ISINROTATION };
 		return projection;
 	}
 

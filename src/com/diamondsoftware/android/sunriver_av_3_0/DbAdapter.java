@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	public static final int DATABASE_VERSION = 32;
+	public static final int DATABASE_VERSION = 36;
 	public static enum FavoriteItemType {
 		EatAndTreat,
 		Retail,
@@ -190,7 +190,8 @@ public class DbAdapter {
 		private static final String CREATE_TABLE_WELCOME = "create table " + ItemWelcome.DATABASE_TABLE_WELCOME +" (" +
 				ItemWelcome.KEY_WELCOME_ROWID + " integer primary key autoincrement," +
 				ItemWelcome.KEY_WELCOME_WELCOMEID + " integer," +
-				ItemWelcome.KEY_WELCOME_WELCOMEURL + " string ); ";
+				ItemWelcome.KEY_WELCOME_WELCOMEURL + " string," +
+				ItemWelcome.KEY_WELCOME_ISINROTATION + " bit);";
 		private static final String CREATE_TABLE_GISLAYERS = "create table " + ItemGISLayers.DATABASE_TABLE_GISLAYERS + " (" +
 				ItemGISLayers.KEY_GISLAYERS_ROWID + " integer primary key autoincrement," +
 				ItemGISLayers.KEY_GISLAYERS_ISBIKEPATHS + " bit," +
@@ -349,6 +350,11 @@ public class DbAdapter {
 							if(newVersion>=32 && oldVersion<32) {
 								db.execSQL("DROP TABLE IF EXISTS "+ItemService.DATABASE_TABLE_SERVICE);
 								db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
+							} else {
+								if(newVersion>=36 && oldVersion<36) {
+									db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
+									new ItemWelcome().forceNewFetch();
+								}
 							}
 						}
 					}
