@@ -40,7 +40,8 @@ public class GlobalState extends Application {
 	public ArrayList<Object> TheItemsTipsHomePage=null;
 	public ArrayList<Object> TheItemsEventPics=null;
 	public ArrayList<Object> TheItemsPromotedEvents=null;
-	public ArrayList<Object> TheItemsNewsFeeds=null;
+	public ArrayList<ItemPromotedEventNormalized> TheItemsPromotedEventsNormalized=null;
+	public ItemNewsFeed theItemNewsFeed=null;
 	public static boolean gotInternet=false;
 	public static SharedPreferences sharedPreferences=null;
 	private static DbAdapter mDbAdapter=null;

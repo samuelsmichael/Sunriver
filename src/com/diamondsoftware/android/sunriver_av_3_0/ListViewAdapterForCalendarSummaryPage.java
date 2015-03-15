@@ -88,6 +88,11 @@ public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemote
 					}
 					Collections.sort(afterFiltering, new CustomComparator());
 					ArrayList<Object> aL2= ItemCalendar.filterIfNecessary(afterFiltering);
+					if( ((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized!=null && ((GlobalState)mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.size()>0  ) {
+						for(int i=((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.size()-1;i>=0;i--) {
+							aL2.add(0,((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.get(i));
+						}
+					}
 					return aL2;
 				} catch (Exception e) {
 					Toast.makeText(mActivity, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -102,10 +107,17 @@ public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemote
 		protected void childMapData(int position, View view) throws IOException,
 				XmlPullParserException {
         
-	        ItemCalendar calendarItem =(ItemCalendar)getData().get(position);
-	        mCalendarSummaryPageHolder.name.setText(calendarItem.getSrCalName());
-	        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
-	        thumb_image.setImageResource(ItemCalendar.iconsByMonth[(int)calendarItem.getSrCalLat()]);
+			if(getData().get(position) instanceof ItemCalendar) {
+		        ItemCalendar calendarItem =(ItemCalendar)getData().get(position);
+		        mCalendarSummaryPageHolder.name.setText(calendarItem.getSrCalName());
+		        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
+		        thumb_image.setImageResource(ItemCalendar.iconsByMonth[(int)calendarItem.getSrCalLat()]);
+			} else {
+		        ItemPromotedEventNormalized promotedEvent =(ItemPromotedEventNormalized)getData().get(position);
+		        mCalendarSummaryPageHolder.name.setText(promotedEvent.getPromotedEventsName());
+		        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
+		        thumb_image.setImageResource(R.drawable.sunriverlogoopaque);
+			}
 		}
 
 		@Override

@@ -9,6 +9,10 @@ public class ItemPromotedEventCategory {
 	private String promotedCatURLForIconImage;
 	private ArrayList<ItemPromotedEventDetail> promotedEventDetails;
 	
+	public void addDetailItem(ItemPromotedEventDetail iped) {
+		promotedEventDetails.add(iped);
+	}
+	
 	/**
 	 * @return the promotedCatID
 	 */

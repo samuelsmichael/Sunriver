@@ -1,6 +1,11 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -361,6 +366,67 @@ public class ItemPromotedEvent extends SunriverDataItem {
 	@Override
 	protected String getOrderBy() {
 		return null;
+	}
+
+	public static ArrayList<ItemPromotedEventNormalized> normalize(ArrayList<Object> data) {
+		Hashtable<Integer,ItemPromotedEventNormalized> penz=new Hashtable<Integer,ItemPromotedEventNormalized>();		
+		for(Object promotedEventLine: data) {
+			ItemPromotedEvent pe = (ItemPromotedEvent)promotedEventLine;
+			ItemPromotedEventNormalized pen = penz.get(pe.promotedEventsID);
+			if(pen==null) {
+				pen=new ItemPromotedEventNormalized();
+				pen.setCategories(new ArrayList<ItemPromotedEventCategory>());
+				pen.setIsOnPromotedEvents(pe.getIsOnPromotedEvents());
+				pen.setPromotedEventPictureURL(pe.getPromotedEventPictureURL());
+				pen.setPromotedEventsID(pe.getPromotedEventsID());
+				pen.setPromotedEventsName(pe.getPromotedEventsName());
+				penz.put(pe.promotedEventsID, pen);				
+			}
+			ItemPromotedEventCategory ipec=new ItemPromotedEventCategory();
+			ipec.setPromotedCatID(pe.getPromotedCatID());
+			ipec.setPromotedCatName(pe.getPromotedCatName());
+			ipec.setPromotedCatSortOrder(pe.getPromotedCatSortOrder());
+			ipec.setPromotedCatURLForIconImage(pe.getPromotedCatURLForIconImage());
+			ipec.setPromotedEventDetails(new ArrayList<ItemPromotedEventDetail>());
+			ItemPromotedEventCategory theIpec=pen.findCategory(ipec);
+			if(theIpec==null) {				
+				pen.getCategories().add(ipec);
+			} else {
+				ipec=theIpec;
+			}
+			ItemPromotedEventDetail iped = new ItemPromotedEventDetail();
+			iped.setPromotedEventsDetailsAddress(pe.getPromotedEventsDetailsAddress());
+			iped.setPromotedEventsDetailsDescription(pe.getPromotedEventsDetailsDescription());
+			iped.setPromotedEventsDetailsID(pe.getPromotedEventsDetailsID());
+			iped.setPromotedEventsDetailsTelephone(pe.getPromotedEventsDetailsTelephone());
+			iped.setPromotedEventsDetailsTitle(pe.getPromotedEventsDetailsTitle());
+			iped.setPromotedEventsDetailsURLDocDownload(pe.getPromotedEventsDetailsURLDocDownload());
+			iped.setPromotedEventsDetailsWebsite(pe.getPromotedEventsDetailsWebsite());
+			ipec.addDetailItem(iped);
+		}
+		Enumeration<ItemPromotedEventNormalized> eipen=penz.elements();
+		while(eipen.hasMoreElements()) {
+			ItemPromotedEventNormalized ipen=eipen.nextElement();
+			ipen.getCategories();
+			Collections.sort(ipen.getCategories(),new Comparator<ItemPromotedEventCategory>() {
+
+				@Override
+				public int compare(ItemPromotedEventCategory lhs,
+						ItemPromotedEventCategory rhs) {
+					if(lhs.getPromotedCatSortOrder()>rhs.getPromotedCatSortOrder()) {
+						return 1;
+					} else {
+						if(lhs.getPromotedCatSortOrder()<rhs.getPromotedCatSortOrder()) {
+							return -1;
+						} else {
+							return 0;
+						}
+					}
+				}
+
+			});
+		}
+		return Collections.list(penz.elements());
 	}
 
 }

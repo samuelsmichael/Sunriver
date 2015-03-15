@@ -125,7 +125,8 @@ public abstract class Popups2 {
 			}
 			mWindowManager.addView(mPopup, lp);
 	    } catch (Exception e) {
-    		
+    		int bkhere=3;
+    		int bkthere=bkhere;
     	}
 	}
 	protected String getGoogleAnalyticsCategory() {

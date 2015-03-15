@@ -280,6 +280,10 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Alert");
 			new PopupAlert(this, ((GlobalState)getApplicationContext()).theItemAlert).createPopup();
 		}
+		if( id==98) {
+			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - News Item");
+			new PopupNewsFeed(this, ((GlobalState)getApplicationContext()).theItemNewsFeed).createPopup();
+		}
 		if(id>=100000) { // Emergency
 			ItemEmergency itemEmergency=GlobalState.getEmergencyItemWhoseIdIs((int)(id-100000));
 			if(itemEmergency!=null) {
@@ -443,7 +447,23 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	
 	@Override
 	protected void hookDoSomethingWithTheDataIfYouWant(ArrayList<Object> data) {
-		
+		if( 
+				(((GlobalState)getApplicationContext()).theItemNewsFeed!=null && 
+						((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedTitle()!=null && 
+					!((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedTitle().trim().isEmpty())
+				|| 
+				(((GlobalState)getApplicationContext()).theItemNewsFeed!=null && 
+						((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedDescription()!=null && 
+					!((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedDescription().trim().isEmpty())) 
+			{
+				ItemLandingPage newsFeedItem=new ItemLandingPage();
+				newsFeedItem.setDescription(((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedTitle());
+				newsFeedItem.setmIsStyleMarquee(false);
+				newsFeedItem.setName("News item");
+				newsFeedItem.setId(98);
+				newsFeedItem.setIconName("alertnew");
+				data.add(0,newsFeedItem);
+			}
 		if( 
 			(((GlobalState)getApplicationContext()).theItemAlert!=null && 
 					((GlobalState)getApplicationContext()).theItemAlert.getmALTitle()!=null && 

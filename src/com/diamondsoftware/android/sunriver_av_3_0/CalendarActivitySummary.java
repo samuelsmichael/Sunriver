@@ -63,10 +63,14 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		ItemCalendar calendarItem=(ItemCalendar)mListViewAdapter.mData.get(position);
-		ItemCalendar.justThisYYYYMM=String.valueOf((int)calendarItem.getSrCalLong()) + String.valueOf((int)calendarItem.getSrCalLat()+1);
-		Intent intent=new Intent(this,CalendarActivity.class);
-		startActivity(intent);
+		if(mListViewAdapter.mData.get(position) instanceof ItemCalendar) {
+			ItemCalendar calendarItem=(ItemCalendar)mListViewAdapter.mData.get(position);
+			ItemCalendar.justThisYYYYMM=String.valueOf((int)calendarItem.getSrCalLong()) + String.valueOf((int)calendarItem.getSrCalLat()+1);
+			Intent intent=new Intent(this,CalendarActivity.class);
+			startActivity(intent);
+		} else {
+			//TODO create a 2-layered list ... like Services ... but it should be much simpler
+		}
 	}
 	/*
 	 * (non-Javadoc)

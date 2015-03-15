@@ -120,6 +120,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 	/* Start things out by fetching the "update" data */
 	private void initialize() {
 		((GlobalState)getApplicationContext()).theItemAlert=null;
+		((GlobalState)getApplicationContext()).theItemNewsFeed=null;
 		GlobalState.TheItemUpdate=null;
 		((GlobalState)getApplicationContext()).TheItemWelcomes=null;
         incrementMCountItemsLeft("update");
@@ -365,7 +366,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 												} else {
 													if(name.equalsIgnoreCase("newsFeeds")) {
 														doDecrement=true;
-														((GlobalState)getApplicationContext()).TheItemsNewsFeeds=data;
+														if(data!=null && data.size()>0) {
+															((GlobalState)getApplicationContext()).theItemNewsFeed=(ItemNewsFeed)data.get(0);
+														}
 													} else {
 														if(name.equalsIgnoreCase("eventpic")) {
 															doDecrement=false; // I never incremented eventpic, due to the fact that MainActivity isn't dependent on this data
@@ -379,6 +382,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 																doDecrement=false; // I never incremented promotedevnt, due to the fact that MainActivity isn't dependent on this data
 																if(data!=null && data.size()>0) {
 																	((GlobalState)getApplicationContext()).TheItemsPromotedEvents=data;
+																	((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized=ItemPromotedEvent.normalize(data);
 																	GlobalState.gotInternet=true;
 																	((ItemPromotedEvent)((GlobalState)getApplicationContext()).TheItemsPromotedEvents.get(0)).setLastDateReadToNow();
 																}	
