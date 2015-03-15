@@ -368,7 +368,7 @@ public class ItemPromotedEvent extends SunriverDataItem {
 		return null;
 	}
 
-	public static ArrayList<ItemPromotedEventNormalized> normalize(ArrayList<Object> data) {
+	public static Hashtable<Integer,ItemPromotedEventNormalized> normalize(ArrayList<Object> data) {
 		Hashtable<Integer,ItemPromotedEventNormalized> penz=new Hashtable<Integer,ItemPromotedEventNormalized>();		
 		for(Object promotedEventLine: data) {
 			ItemPromotedEvent pe = (ItemPromotedEvent)promotedEventLine;
@@ -426,7 +426,12 @@ public class ItemPromotedEvent extends SunriverDataItem {
 
 			});
 		}
-		return Collections.list(penz.elements());
+		ArrayList<ItemPromotedEventNormalized> aL = Collections.list(penz.elements());
+		Hashtable<Integer,ItemPromotedEventNormalized> ht=new Hashtable<Integer,ItemPromotedEventNormalized>();
+		for(ItemPromotedEventNormalized ipen : aL) {
+			ht.put(ipen.getPromotedEventsID(), ipen);
+		}
+		return ht;
 	}
 
 }

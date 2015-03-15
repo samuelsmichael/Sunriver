@@ -53,7 +53,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 	protected abstract void childOnItemClick(AdapterView<?> parent, View view,
             int position, long id);
 	// Perform any subclass-specific OnCreate functions.  Note: must call super.childOnCreate();
-	protected abstract void childOnCreate();
+	protected abstract void childOnCreate(Bundle savedInstanceState);
 	/*
 	 * Get the id of the ImageView where a picture is going to be placed, if any
 	 */
@@ -97,7 +97,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		
 		setContentView(getViewId());
 		mImageView=(ImageView)this.findViewById(getImageId());
-		childOnCreate();
+		childOnCreate(savedInstanceState);
         mList=(ListView)findViewById(getListViewId());
         
         /*

@@ -133,6 +133,7 @@
     <string name="resortlothint">Number</string>
     <string name="resortlanehint">Street name</string>
     <string name="title_activity_maps">Sunriver Maps</string>
+    <string name="title_ActivityForPromotedEventCategories">Promoted Event - </string>
     <string name="title_activity_ActivityFavorites">Sunriver Favorites</string>
     <string name="title_activity_webcams">Sunriver Webcams</string>
     <string name="title_activity_services">Sunriver Services</string>

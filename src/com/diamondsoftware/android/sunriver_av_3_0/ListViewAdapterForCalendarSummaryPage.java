@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
@@ -89,8 +90,9 @@ public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemote
 					Collections.sort(afterFiltering, new CustomComparator());
 					ArrayList<Object> aL2= ItemCalendar.filterIfNecessary(afterFiltering);
 					if( ((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized!=null && ((GlobalState)mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.size()>0  ) {
-						for(int i=((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.size()-1;i>=0;i--) {
-							aL2.add(0,((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.get(i));
+						Enumeration<ItemPromotedEventNormalized> en=((GlobalState) this.mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.elements();
+						while(en.hasMoreElements()) {
+							aL2.add(0,en.nextElement());
 						}
 					}
 					return aL2;

@@ -145,8 +145,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	}
 	
 	@Override
-	protected void childOnCreate() {
-		super.childOnCreate();
+	protected void childOnCreate(Bundle savedInstanceState) {
+		super.childOnCreate(savedInstanceState);
 		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Home Page");
 		android_id=Secure.getString(getContentResolver(),
                 Secure.ANDROID_ID);
@@ -459,7 +459,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				ItemLandingPage newsFeedItem=new ItemLandingPage();
 				newsFeedItem.setDescription(((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedTitle());
 				newsFeedItem.setmIsStyleMarquee(false);
-				newsFeedItem.setName("News item");
+				newsFeedItem.setName("News Feed");
 				newsFeedItem.setId(98);
 				newsFeedItem.setIconName("alertnew");
 				data.add(0,newsFeedItem);

@@ -6,6 +6,7 @@ import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -69,7 +70,10 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 			Intent intent=new Intent(this,CalendarActivity.class);
 			startActivity(intent);
 		} else {
-			//TODO create a 2-layered list ... like Services ... but it should be much simpler
+			ItemPromotedEventNormalized ipen=(ItemPromotedEventNormalized)mListViewAdapter.mData.get(position);
+			Intent intent=new Intent(this,ActivityForPromotedEventCategories.class)
+				.putExtra(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID, ipen.getPromotedEventsID());
+			startActivity(intent);
 		}
 	}
 	/*
@@ -80,7 +84,7 @@ public class CalendarActivitySummary extends AbstractActivityForListViewsScrolli
 	 * data persistence (SharedPreferences)) need to be applied before attaching the List View
 	 */
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 		ItemCalendar.amGroupingByMonthYear=true;
 		mEditViewSearch=(EditText)findViewById(R.id.calendar_controlpanel_search);
 		mEditViewSearchAfterDate=(EditText)findViewById(R.id.calendar_controlpanel_fromdate);

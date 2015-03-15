@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -51,7 +52,7 @@ public class ServicesDetailActivity extends AbstractActivityForListViewsScrollin
 	 * The "ItemPosition" represents the category level position.
 	 */
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 		mItemService=(ItemService)ServicesActivity.Services.get(getIntent().getIntExtra("ItemPosition", 0));
 		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Services Category - "+mItemService.getServiceCategoryName());
 

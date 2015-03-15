@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 /*
@@ -53,7 +54,7 @@ public class ServicesActivity extends AbstractActivityForListViewsScrollingImage
 	}
 
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 	}
 	@Override
 	public boolean doYouDoFavorites() {

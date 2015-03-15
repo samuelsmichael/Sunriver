@@ -6,6 +6,7 @@ import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 import android.content.Intent;
 import android.content.SharedPreferences.Editor;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -71,7 +72,7 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 	 * data persistence (SharedPreferences)) need to be applied before attaching the List View
 	 */
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 		ItemCalendar.amGroupingByMonthYear=false;
 	}
 

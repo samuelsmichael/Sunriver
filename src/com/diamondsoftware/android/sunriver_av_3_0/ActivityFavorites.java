@@ -3,6 +3,7 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -95,9 +96,7 @@ public class ActivityFavorites extends
 	}
 
 	@Override
-	protected void childOnCreate() {
-		// TODO Auto-generated method stub
-
+	protected void childOnCreate(Bundle savedInstanceState) {
 	}
 
 	@Override

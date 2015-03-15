@@ -2,6 +2,7 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -34,7 +35,7 @@ public abstract class ActivityThatIsASubtypeOfMaps extends AbstractActivityForLi
 	}
 
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 
 	}
 

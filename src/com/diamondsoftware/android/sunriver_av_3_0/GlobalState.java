@@ -2,6 +2,7 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
@@ -40,7 +41,7 @@ public class GlobalState extends Application {
 	public ArrayList<Object> TheItemsTipsHomePage=null;
 	public ArrayList<Object> TheItemsEventPics=null;
 	public ArrayList<Object> TheItemsPromotedEvents=null;
-	public ArrayList<ItemPromotedEventNormalized> TheItemsPromotedEventsNormalized=null;
+	public Hashtable<Integer,ItemPromotedEventNormalized> TheItemsPromotedEventsNormalized=null;
 	public ItemNewsFeed theItemNewsFeed=null;
 	public static boolean gotInternet=false;
 	public static SharedPreferences sharedPreferences=null;

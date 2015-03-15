@@ -61,7 +61,7 @@ public class ActivitiesActivity extends AbstractActivityForListViewsScrollingIma
 		startActivity(intent);	
 	}
 	@Override
-	protected void childOnCreate() {
+	protected void childOnCreate(Bundle savedInstanceState) {
 	}
 
 	@Override
