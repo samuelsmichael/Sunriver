@@ -38,7 +38,16 @@
    		 	<string name="urltipsjson">http://srfeed.com/tips.aspx</string>
    		 	<string name="urltipsjsontestlocal">http://10.0.0.253/sunriverwebapp/tips.aspx</string>
    		 	<string name="urltipsjsontestremote">http://listplus.no-ip.org/sunriverwebapp/tips.aspx</string>
-   		 			 	
+   		 	<string name="urlnewsfeedsjson">http://srfeed.com/NewsFeeds.aspx</string>
+   		 	<string name="urlnewsfeedsjsontestlocal">http://10.0.0.253/sunriverwebapp/NewsFeeds.aspx</string>
+   		 	<string name="urlnewsfeedstestremote">http://listplus.no-ip.org/sunriverwebapp/NewsFeeds.aspx</string>
+   		 	<string name="urleventpicjson">http://srfeed.com/EventPics.aspx</string>
+   		 	<string name="urleventpicjsontestlocal">http://10.0.0.253/sunriverwebapp/EventPics.aspx</string>
+   		 	<string name="urleventpictestremote">http://listplus.no-ip.org/sunriverwebapp/EventPics.aspx</string>
+   		 	<string name="urlpromotedeventjson">http://srfeed.com/PromotedEvents.aspx</string>
+   		 	<string name="urlpromotedeventjsontestlocal">http://10.0.0.253/sunriverwebapp/PromotedEvents.aspx</string>
+   		 	<string name="urlpromotedeventtestremote">http://listplus.no-ip.org/sunriverwebapp/PromotedEvents.aspx</string>
+   		 			 			 			 			 	
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>

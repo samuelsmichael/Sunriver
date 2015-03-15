@@ -91,7 +91,7 @@ import android.view.MenuItem;
 	        	if(whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown)) { // is Home Page
 	    			Intent intent = new Intent(AbstractActivityForMenu.this, ActivityFavorites.class);
 	    			startActivity(intent);
-
+	    			((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Favorites");
 	        	} else {
 	        		if(getImViewingFavorites()) {
 	        			miFavorites.setIcon(R.drawable.favoriteoff);

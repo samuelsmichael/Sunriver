@@ -11,7 +11,12 @@ public class ItemUpdate {
 	public GregorianCalendar getUpdateDidYouKnow() {
 		return new GregorianCalendar();
 	}
-	
+	public GregorianCalendar getEventPics() {
+		return new GregorianCalendar();
+	}	
+	public GregorianCalendar getPromotedEvent() {
+		return new GregorianCalendar();
+	}
 	
 	private int updateID;
 	private GregorianCalendar updateCalendar;

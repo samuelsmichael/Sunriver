@@ -7,16 +7,15 @@ import java.util.Comparator;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.esri.android.runtime.ArcGISRuntime;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+
+import com.esri.android.runtime.ArcGISRuntime;
 
 /*
  * Brings up a splash image and manages the procuring of necessary initialization data,
@@ -112,6 +111,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
         mHandler.postDelayed(myRunnable, secondsDelayed * 1000);      
         incrementMCountItemsLeft("alert"); // for alert
         incrementMCountItemsLeft("emergency"); // for Emergency
+        incrementMCountItemsLeft("newsFeeds"); // for newsFeeds
         incrementMCountItemsLeft("HomePage tips"); // for HomePage tips
 		initialize();
 
@@ -125,6 +125,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
         incrementMCountItemsLeft("update");
 		new AcquireDataRemotelyAsynchronously("update", this, this);
 		new AcquireDataRemotelyAsynchronously("tipsremotehomepage",this,this);
+		new AcquireDataRemotelyAsynchronously("newsFeeds", this, this);
 
 	}
 
@@ -222,7 +223,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					        //?incrementMCountItemsLeft(); // because finally is going to decrement it; and this shouldn't take part in keeping Splash page open.
 							/* Don't need to fetch Welcome data if it's not expired */
 							ItemWelcome itemWelcome=new ItemWelcome();
-							if((DbAdapter.DATABASE_VERSION==36 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
+							if((DbAdapter.DATABASE_VERSION==40 && iveNotDoneRefreshOfWelcomesAfterDBChange()) || itemWelcome.isDataExpired()) {
 								indicateDidRefreshOfWelcomesAfterDBChange();
 						        incrementMCountItemsLeft("welcome");
 								new AcquireDataRemotelyAsynchronously("welcome", this, this);
@@ -258,6 +259,22 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							} else {
 								((GlobalState)getApplicationContext()).TheItemsDidYouKnow= itemDidYouKnow.fetchDataFromDatabase();
 							}
+							/* Don't need to fetch EventPics data if it's not expired */
+							ItemEventPic itemEventPic = new ItemEventPic();
+							if(itemEventPic.isDataExpired()) {
+								// I'm not incrementingMCountItemsLeft, as it is okay to proceed to MainActivity even if we don't yet have this data
+								new AcquireDataRemotelyAsynchronously("eventpic",this,this);
+							} else {
+								((GlobalState)getApplicationContext()).TheItemsEventPics= itemEventPic.fetchDataFromDatabase();
+							}
+							/* Don't need to fetch PromotedEvents data if it's not expired */
+							ItemPromotedEvent itemPromotedEvent = new ItemPromotedEvent();
+							if(itemPromotedEvent.isDataExpired()) {
+								// I'm not incrementingMCountItemsLeft, as it is okay to proceed to MainActivity even if we don't yet have this data
+								new AcquireDataRemotelyAsynchronously("promotedevent",this,this);
+							} else {
+								((GlobalState)getApplicationContext()).TheItemsPromotedEvents= itemPromotedEvent.fetchDataFromDatabase();
+							}
 						} else {
 							ArrayList<Object> items=new ItemWelcome().fetchDataFromDatabase();
 							if(items!=null&&items.size()>0) {
@@ -283,7 +300,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 								}
 							} else {
 								if(name.equalsIgnoreCase("gislayers")) {
-									doDecrement=false;// I never incremented didyouknow, due to the fact that MainActivity isn't dependent on this data
+									doDecrement=false;// I never incremented gislayers, due to the fact that MainActivity isn't dependent on this data
 									if(data!=null && data.size()>0) {
 										((GlobalState)getApplicationContext()).TheItemsGISLayers=data;
 										GlobalState.gotInternet=true;
@@ -344,6 +361,29 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 															
 														});
 														((GlobalState)getApplicationContext()).TheItemsTipsHomePage=data;
+													}
+												} else {
+													if(name.equalsIgnoreCase("newsFeeds")) {
+														doDecrement=true;
+														((GlobalState)getApplicationContext()).TheItemsNewsFeeds=data;
+													} else {
+														if(name.equalsIgnoreCase("eventpic")) {
+															doDecrement=false; // I never incremented eventpic, due to the fact that MainActivity isn't dependent on this data
+															if(data!=null && data.size()>0) {
+																((GlobalState)getApplicationContext()).TheItemsEventPics=data;
+																GlobalState.gotInternet=true;
+																((ItemEventPic)((GlobalState)getApplicationContext()).TheItemsEventPics.get(0)).setLastDateReadToNow();
+															}	
+														} else {
+															if(name.equalsIgnoreCase("promotedevent")) {
+																doDecrement=false; // I never incremented promotedevnt, due to the fact that MainActivity isn't dependent on this data
+																if(data!=null && data.size()>0) {
+																	((GlobalState)getApplicationContext()).TheItemsPromotedEvents=data;
+																	GlobalState.gotInternet=true;
+																	((ItemPromotedEvent)((GlobalState)getApplicationContext()).TheItemsPromotedEvents.get(0)).setLastDateReadToNow();
+																}	
+															}	
+														}
 													}
 												}
 											}
@@ -489,12 +529,10 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 									} else {
 										if(name.equalsIgnoreCase("tipsremotehomepage")) {
 											try {
-/* Use this when you've incorporated Tips.aspx into your site	String defaultValue=getResou	rces().getString(R.string.urltipsjson); */
-/* Use this when you're still using my web site*/	String defaultValue=getResources().getString(R.string.urltipsjsontestremote);
-
-// This one is for my testing in my office			String defaultValue=getResources().getString(R.string.urltipsjsontestlocal);
+/* Use this when you've incorporated Tips.aspx into your site	String uri=getResources().getString(R.string.urltipsjson); */
+/* Use this when you're still using my web site*/	String uri=getResources().getString(R.string.urltipsjsontestremote);
+/* This one is for my testing in my office			String uri=getResources().getString(R.string.urltipsjsontestlocal); */
 												
-												String uri=GlobalState.sharedPreferences.getString("urltipsjson", defaultValue);
 												ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 														new ParsesJsonTips(),
 														uri).parse();
@@ -508,6 +546,54 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													return new XMLReaderFromAndroidAssets(this, new ParsesXMLTips(null), "tips_homepage_values.xml").parse();
 												} catch (Exception e) {
 													return new ArrayList<Object>();
+												}
+											} else {
+												if(name.equalsIgnoreCase("newsFeeds")) {
+													try {
+													/* Use this when you've incorporated NewsFeeds.aspx into your site	String uri=getResources().getString(R.string.urlnewsfeedsjson); */
+													/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlnewsfeedstestremote);
+													/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlnewsfeedsjsontestlocal); */
+																								
+															ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+																	new ParsesJsonNewsFeeds(),
+																	uri).parse();
+															return data;
+													} catch (Exception e) {
+														e=e;
+													} finally {
+													}		
+												} else {
+													if(name.equalsIgnoreCase("eventpic")) {
+														try {
+														/* Use this when you've incorporated EventPics.aspx into your site	String uri=getResources().getString(R.string.urleventpicjson); */
+														/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urleventpictestremote);
+														/* This one is for my testing in my office		String uri=getResources().getString(R.string.urleventpicjsontestlocal); */
+																									
+																ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+																		new ParsesJsonEventPics(),
+																		uri).parse();
+																return data;
+														} catch (Exception e) {
+															e=e;
+														} finally {
+														}		
+													} else {
+														if(name.equalsIgnoreCase("promotedevent")) {
+															try {
+															/* Use this when you've incorporated PromotedEvents.aspx into your site	String uri=getResources().getString(R.string.urlpromotedeventjson); */
+															/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlpromotedeventtestremote);
+															/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlpromotedeventjsontestlocal); */
+																										
+																	ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+																			new ParsesJsonPromotedEvents(),
+																			uri).parse();
+																	return data;
+															} catch (Exception e) {
+																e=e;
+															} finally {
+															}		
+														}	
+													}
 												}
 											}
 										}

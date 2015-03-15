@@ -27,7 +27,17 @@ public class CalendarActivity extends AbstractActivityForListViewsScrollingImage
 	private boolean mIsFavorite;
 	private ImageButton mFavorite;
 
-	
+	// generate a random URL for pictures. The set of items to pick from is the ArrayList SplashPage.TheItemsEventPics
+	public String getRandomImageURL() {
+		try {
+			double randomNumber=Math.random();
+			double factor=1d/(double)((GlobalState)getApplicationContext()).TheItemsEventPics.size();
+			int element=(int)(randomNumber/factor);
+			return ((ItemEventPic)((GlobalState)getApplicationContext()).TheItemsEventPics.get(element)).getEventPicsURL();
+		} catch (Exception e) {
+			return "http://www.srfeed.com/res/pics/welcome/Welcome.jpg";
+		}
+	}
 
 	@Override
 	protected int getListViewId() {

@@ -7,13 +7,13 @@ import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
 import org.acra.annotation.ReportsCrashes;
 
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.HitBuilders;
-import com.google.android.gms.analytics.Tracker;
-
 import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 // This is the ACRA "crash-detection" software
 @ReportsCrashes(
@@ -38,6 +38,9 @@ public class GlobalState extends Application {
 	public  ArrayList<Object> TheItemsDidYouKnow=null;
 	public  ArrayList<Object> TheItemsGISLayers=null;
 	public ArrayList<Object> TheItemsTipsHomePage=null;
+	public ArrayList<Object> TheItemsEventPics=null;
+	public ArrayList<Object> TheItemsPromotedEvents=null;
+	public ArrayList<Object> TheItemsNewsFeeds=null;
 	public static boolean gotInternet=false;
 	public static SharedPreferences sharedPreferences=null;
 	private static DbAdapter mDbAdapter=null;

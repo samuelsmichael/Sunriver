@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  *
  */
 public class DbAdapter {
-	public static final int DATABASE_VERSION = 36;
+	public static final int DATABASE_VERSION = 40;
 	public static enum FavoriteItemType {
 		EatAndTreat,
 		Retail,
@@ -183,14 +183,36 @@ public class DbAdapter {
 				KEY_FAVORITES_ITEM_TYPE + " integer, " +
 				KEY_FAVORITES_ITEM_ID + " integer);";
 				
+		private static final String CREATE_TABLE_PROMOTEDEVENTS = "create table " + ItemPromotedEvent.DATABASE_TABLE_PROMOTEDEVENT + " (" +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_ID + " integer primary key autoincrement," +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSID + " integer, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSNAME + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_ISONPROMOTEDEVENTS + " bit, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTPICTUREURL + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATID + " integer, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATNAME + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATSORTORDER + " integer, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATURLFORICONIMAGE + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSID + " integer, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSTITLE + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSDESCRIPTION + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSURLDOCDOWNLOAD + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSADDRESS + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSTELEPHONE + " string, " +
+				ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDEVENTSDETAILSWEBSITE + " string );";
+				
 		private static final String CREATE_TABLE_DIDYOUKNOW = "create table " + ItemDidYouKnow.DATABASE_TABLE_DIDYOUKNOW + " ("+
 				ItemDidYouKnow.KEY_DIDYOUKNOW_ROWID + " integer primary key autoincrement," +
 				ItemDidYouKnow.KEY_DIDYOUKNOW_DIDYOUKNOWID + " integer, " +
 				ItemDidYouKnow.KEY_DIDYOUKNOW_DIDYOUKNOWURL + " string);";
+		private static final String CREATE_TABLE_EVENTPICS = "create table " + ItemEventPic.DATABASE_TABLE_EVENTPICS + " ("+
+				ItemEventPic.KEY_EVENTPICS_ROWID + " integer primary key autoincrement," +
+				ItemEventPic.KEY_EVENTPICS_EVENTPICSID + " integer," +
+				ItemEventPic.KEY_EVENTPICS_EVENTPICSURL + " string);";
 		private static final String CREATE_TABLE_WELCOME = "create table " + ItemWelcome.DATABASE_TABLE_WELCOME +" (" +
 				ItemWelcome.KEY_WELCOME_ROWID + " integer primary key autoincrement," +
 				ItemWelcome.KEY_WELCOME_WELCOMEID + " integer," +
-				ItemWelcome.KEY_WELCOME_WELCOMEURL + " string," +
+				ItemWelcome.KEY_WELCOME_WELCOMEURL + " string, " +
 				ItemWelcome.KEY_WELCOME_ISINROTATION + " bit);";
 		private static final String CREATE_TABLE_GISLAYERS = "create table " + ItemGISLayers.DATABASE_TABLE_GISLAYERS + " (" +
 				ItemGISLayers.KEY_GISLAYERS_ROWID + " integer primary key autoincrement," +
@@ -307,6 +329,9 @@ public class DbAdapter {
 				db.execSQL(CREATE_TABLE_WELCOME);
 			} catch (Exception eieio33) {}
 			try {
+				db.execSQL(CREATE_TABLE_PROMOTEDEVENTS);				
+			} catch (Exception ePe) {}
+			try {
 				db.execSQL(CREATE_TABLE_DIDYOUKNOW);
 			} catch (Exception eieieo33) {}
 			try {
@@ -324,6 +349,9 @@ public class DbAdapter {
 			} catch (Exception eieio) {}
 			try {
 				db.execSQL(CREATE_TABLE_FAVORITES);
+			} catch (Exception eieio) {};
+			try {
+				db.execSQL(CREATE_TABLE_EVENTPICS);
 			} catch (Exception eieio) {};
 		}
 
@@ -351,7 +379,7 @@ public class DbAdapter {
 								db.execSQL("DROP TABLE IF EXISTS "+ItemService.DATABASE_TABLE_SERVICE);
 								db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
 							} else {
-								if(newVersion>=36 && oldVersion<36) {
+								if(newVersion>=40 && oldVersion<40) {
 									db.execSQL("DROP TABLE IF EXISTS "+ItemWelcome.DATABASE_TABLE_WELCOME);
 									new ItemWelcome().forceNewFetch();
 								}
