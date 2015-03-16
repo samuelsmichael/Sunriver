@@ -48,7 +48,14 @@ public class ActivityForPromotedEventDetails extends AbstractActivityForListView
 
 	@Override
 	protected void childOnItemClick(AdapterView<?> parent, View view,
-			int position, long id) {
+			int position, long id) {		
+		Intent intent = new Intent(this,ActivityForPromotedEventDetail.class)
+			.putExtra(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID, mPromotedEventsID)
+			.putExtra(ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATID, mPromotedCatID)
+			.putExtra("CATEGORY_INDEX", mCatIndex)
+			.putExtra("DETAIL_INDEX", position);
+		startActivity(intent);
+			
 	}
 
 	@Override

@@ -134,5 +134,11 @@ public class Utils {
 		newCalendar.setTime(parsed);
 		return newCalendar;
 	}
-	
+	public static String objectToString(Object obj) {
+		if(obj == null) {
+			return "";
+		} else {
+			return obj.toString();
+		}
+	}
 }

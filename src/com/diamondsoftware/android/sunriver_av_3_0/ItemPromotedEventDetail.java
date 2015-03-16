@@ -12,6 +12,22 @@ public class ItemPromotedEventDetail {
 	public ItemPromotedEventDetail() {
 		
 	}
+	
+	public String toString(
+			ItemPromotedEventNormalized ipen,
+			ItemPromotedEventCategory ipec,
+			ItemPromotedEventDetail iped
+			) {
+		StringBuilder sb=new StringBuilder();
+		sb.append("Name: " + Utils.objectToString(ipen.getPromotedEventsName())+"\n");
+		sb.append("Category: " + Utils.objectToString(ipec.getPromotedCatName())+"\n");
+		sb.append("Address: " + Utils.objectToString(iped.getPromotedEventsDetailsAddress())+"\n");
+		sb.append("Description: " + Utils.objectToString(iped.getPromotedEventsDetailsDescription())+"\n");
+		sb.append("Telephone: " + Utils.objectToString(iped.getPromotedEventsDetailsTelephone())+"\n");
+		sb.append("Website: " + Utils.objectToString(iped.getPromotedEventsDetailsWebsite())+"\n");
+		sb.append("More information: " + Utils.objectToString(iped.getPromotedEventsDetailsURLDocDownload())+"\n");
+		return sb.toString();
+	}
 
 	/**
 	 * @return the promotedEventsDetailsID

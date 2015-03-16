@@ -65,6 +65,12 @@
         </activity>
         <activity
             android:screenOrientation="portrait"                
+            android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityForPromotedEventDetail"
+            >
+        </activity>
+        
+        <activity
+            android:screenOrientation="portrait"                
             android:name="com.diamondsoftware.android.sunriver_av_3_0.ActivityForPromotedEventCategories"
             android:label="@string/title_ActivityForPromotedEventCategories" >
         </activity>
