@@ -26,7 +26,7 @@ import com.google.android.gms.analytics.Tracker;
         resDialogTitle = R.string.crash_dialog_title, // optional. default is your application name
         resDialogCommentPrompt = R.string.crash_dialog_comment_prompt, // optional. when defined, adds a user text field input with this text resource as a label
         resDialogOkToast = R.string.crash_dialog_ok_toast2,  // optional. displays a Toast message when the user accepts to send a report.
-        mailTo = "MobileApp@srowners.com"	
+        mailTo = "diamondsoftware222@gmail.com;MobileApp@srowners.com"  /*TODO PUBLISH*/	
 )
 
 public class GlobalState extends Application {

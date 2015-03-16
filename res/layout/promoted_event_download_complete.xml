@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"  
+	android:background="@drawable/back_newsfeed"  
+	android:paddingBottom="15dp"
+>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="Download Notification"
+        android:textColor="#1A1F5E"
+        android:textSize="30sp"
+        android:textStyle="bold"
+    />
+
+	<View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+	    android:layout_marginTop="5dp"
+	    android:layout_height="3dp"
+	    android:layout_below="@+id/textView1"
+	    android:background="#1A1F5E"/>    
+    
+    <TextView
+        android:id="@+id/promotedEventDownloadNotificationTitle"
+        android:layout_below="@+id/view1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textColor="#1A1F5E"
+        android:textSize="22sp"
+/>
+
+    	<View
+    	android:id="@+id/view2"
+	    android:layout_width="fill_parent"
+	    android:layout_marginTop="5dp"
+	    android:layout_height="3dp"
+	    android:layout_below="@+id/promotedEventDownloadNotificationTitle"
+	    android:background="#1A1F5E"/>    
+    
+    <TextView
+        android:id="@+id/promotedEventDownloadNotificationDescription"
+        android:layout_below="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textColor="#1A1F5E"
+        android:textSize="14sp"
+        android:paddingLeft="19dip"
+        android:paddingRight="19dip"
+        android:layout_marginTop="11dp"
+ />
+
+    <Button
+        android:id="@+id/promotedEventDownloadNotificationCloseButton"
+        style="?android:attr/buttonStyleSmall" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/promotedEventDownloadNotificationDescription"
+        android:background="#2B339B"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="11dp"
+        android:text="Close" />
+
+	</RelativeLayout>

@@ -59,12 +59,14 @@ public class ActivityForPromotedEventCategories extends AbstractActivityForListV
 
 	@Override
 	protected void childOnCreate(Bundle savedInstanceState) {
-	    if (savedInstanceState != null) {
-	    	mPromotedEventsID = savedInstanceState.getInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID);
-	    } else {
-	    	mPromotedEventsID=getIntent().getExtras().getInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID);
-	    }
-	    setTitle(getTitle()+((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID).getPromotedEventsName());
+		try {
+		    if (savedInstanceState != null) {
+		    	mPromotedEventsID = savedInstanceState.getInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID);
+		    } else {
+		    	mPromotedEventsID=getIntent().getExtras().getInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID);
+		    }
+		    setTitle(getTitle()+((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID).getPromotedEventsName());
+		} catch (Exception ee) {}
 	}
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {

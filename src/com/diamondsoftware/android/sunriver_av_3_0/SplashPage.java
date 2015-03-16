@@ -532,7 +532,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 										}		
 									} else {
 										if(name.equalsIgnoreCase("tipsremotehomepage")) {
-											try {
+											try {/*TODO PUBLISH*/
 /* Use this when you've incorporated Tips.aspx into your site	String uri=getResources().getString(R.string.urltipsjson); */
 /* Use this when you're still using my web site*/	String uri=getResources().getString(R.string.urltipsjsontestremote);
 /* This one is for my testing in my office			String uri=getResources().getString(R.string.urltipsjsontestlocal); */
@@ -552,7 +552,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													return new ArrayList<Object>();
 												}
 											} else {
-												if(name.equalsIgnoreCase("newsFeeds")) {
+												if(name.equalsIgnoreCase("newsFeeds")) {/*TODO PUBLISH*/
 													try {
 													/* Use this when you've incorporated NewsFeeds.aspx into your site	String uri=getResources().getString(R.string.urlnewsfeedsjson); */
 													/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlnewsfeedstestremote);
@@ -567,7 +567,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													} finally {
 													}		
 												} else {
-													if(name.equalsIgnoreCase("eventpic")) {
+													if(name.equalsIgnoreCase("eventpic")) {/*TODO PUBLISH*/
 														try {
 														/* Use this when you've incorporated EventPics.aspx into your site	String uri=getResources().getString(R.string.urleventpicjson); */
 														/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urleventpictestremote);
@@ -582,7 +582,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 														} finally {
 														}		
 													} else {
-														if(name.equalsIgnoreCase("promotedevent")) {
+														if(name.equalsIgnoreCase("promotedevent")) {/*TODO PUBLISH*/
 															try {
 															/* Use this when you've incorporated PromotedEvents.aspx into your site	String uri=getResources().getString(R.string.urlpromotedeventjson); */
 															/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlpromotedeventtestremote);

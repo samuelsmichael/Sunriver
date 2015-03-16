@@ -1,10 +1,15 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
+import java.io.File;
+
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -37,6 +42,8 @@ public class ActivityForPromotedEventDetail extends AbstractActivityForListItemD
 	public String name;
 	double mLatitude=0;
 	double mLongitude=0;
+	public static DownloadManager mDownloadManager=null;
+	public static long mDownloadReference;
 	
 	private ImageLoader mImageLoader=null;	
 	
@@ -85,12 +92,54 @@ public class ActivityForPromotedEventDetail extends AbstractActivityForListItemD
 			mMoreInfo.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-				//TODO download manager	
+					String downloadDoc=getMyItem().getPromotedEventsDetailsURLDocDownload();
+					String downloadPrefix=downloadDoc.toLowerCase().substring(0, 7);
+					if(!downloadPrefix.equals("http://")) {
+						downloadDoc="http://"+downloadDoc;
+					}
+					if(mDownloadManager==null) {
+						mDownloadManager = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+					}
+					Uri Download_Uri = Uri.parse(downloadDoc);
+					DownloadManager.Request request = new DownloadManager.Request(Download_Uri);
+				    //Restrict the types of networks over which this download may proceed.
+				    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE);
+				    //Set whether this download may proceed over a roaming connection.
+				    request.setAllowedOverRoaming(false);
+				    //Set the title of this download, to be displayed in notifications (if enabled).
+				    request.setTitle(getMyItem().getPromotedEventsDetailsTitle());
+				    //Set a description of this download, to be displayed in notifications (if enabled)
+				    request.setDescription(getMyItem().getPromotedEventsDetailsDescription());
+				    //Set the local destination for the downloaded file to a path within the application's external files directory
+				    
+				    
+				    int indexOfLastBar=downloadDoc.lastIndexOf("/");
+				    String fileName;
+				    if(indexOfLastBar<downloadDoc.length()) {
+				    	fileName=downloadDoc.substring(indexOfLastBar+1);
+				    } else {
+				    	fileName=downloadDoc;
+				    }
+				    File dir=new File(android.os.Environment.getExternalStorageDirectory(),"/sunriver/downloads");
+				    if(!dir.exists()) {
+				    	dir.mkdir();
+				    }
+				    File file=new File(dir, fileName);
+			        Uri uri = Uri.fromFile(file);
+			        request.setDestinationUri(uri);
+			        request.setNotificationVisibility(request.VISIBILITY_VISIBLE|request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+			        
+			        
+				    
+				   //Enqueue a new download and same the referenceId
+				   mDownloadReference=mDownloadManager.enqueue(request);
 				}
 			});
 		} else {
 			mMoreInfo.setVisibility(View.GONE);
 		}
+		
+		
 		
 		mAddress.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
 		String mAddressVerbiage="";
@@ -194,6 +243,7 @@ public class ActivityForPromotedEventDetail extends AbstractActivityForListItemD
 			});
 		}	
 	}
+	
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	    savedInstanceState.putInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_ID,mPromotedEventsID);

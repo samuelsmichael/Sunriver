@@ -13,6 +13,7 @@ import android.view.MenuItem;
 	protected MenuItem miFavorites=null;
 	protected SharedPreferences mSharedPreferences;
 	protected DbAdapter mDbAdapter;
+	public static AbstractActivityForMenu CurrentlyOnTop;
 	
 	// SharedPreferences is the mechanism used to persist application-specific data
 	public SharedPreferences getMSharedPreferences() {
@@ -123,6 +124,7 @@ import android.view.MenuItem;
 		super.onCreate(savedInstanceState);
 		mDbAdapter=new DbAdapter(this);
 		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
+		CurrentlyOnTop=this;
 	}
 	@Override
 	protected void onResume() {
