@@ -8,6 +8,36 @@ public class ItemPromotedEventDetail {
 	private String promotedEventsDetailsAddress;
 	private String promotedEventsDetailsTelephone;
 	private String promotedEventsDetailsWebsite;
+	/**
+	 * @return the promotedEventDetailOrder
+	 */
+	public int getPromotedEventDetailOrder() {
+		return promotedEventDetailOrder;
+	}
+
+	/**
+	 * @param promotedEventDetailOrder the promotedEventDetailOrder to set
+	 */
+	public void setPromotedEventDetailOrder(int promotedEventDetailOrder) {
+		this.promotedEventDetailOrder = promotedEventDetailOrder;
+	}
+
+	/**
+	 * @return the promotedEventsDetailIconURL
+	 */
+	public String getPromotedEventsDetailIconURL() {
+		return promotedEventsDetailIconURL;
+	}
+
+	/**
+	 * @param promotedEventsDetailIconURL the promotedEventsDetailIconURL to set
+	 */
+	public void setPromotedEventsDetailIconURL(String promotedEventsDetailIconURL) {
+		this.promotedEventsDetailIconURL = promotedEventsDetailIconURL;
+	}
+
+	private int promotedEventDetailOrder;
+	private String promotedEventsDetailIconURL;
 	
 	public ItemPromotedEventDetail() {
 		

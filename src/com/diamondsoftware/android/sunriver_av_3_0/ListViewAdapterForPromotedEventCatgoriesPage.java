@@ -21,7 +21,11 @@ public class ListViewAdapterForPromotedEventCatgoriesPage extends ListViewAdapte
 		public ListViewAdapterForPromotedEventCatgoriesPage(Activity a, int promotedEventsID) {
 			super(a,true);
 			mPromotedEventsID=promotedEventsID;
-			mItemPromotedEventNormalized=((GlobalState)mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID);
+			try { // for some reason, after shutting down, this method is still getting called
+				mItemPromotedEventNormalized=((GlobalState)mActivity.getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID);
+			} catch (Exception e) {
+				
+			}
 		}
 
 		@Override

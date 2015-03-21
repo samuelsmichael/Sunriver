@@ -109,16 +109,25 @@ public class ListViewAdapterForCalendarSummaryPage extends ListViewAdapterRemote
 		protected void childMapData(int position, View view) throws IOException,
 				XmlPullParserException {
         
+	        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
 			if(getData().get(position) instanceof ItemCalendar) {
 		        ItemCalendar calendarItem =(ItemCalendar)getData().get(position);
 		        mCalendarSummaryPageHolder.name.setText(calendarItem.getSrCalName());
-		        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
 		        thumb_image.setImageResource(ItemCalendar.iconsByMonth[(int)calendarItem.getSrCalLat()]);
 			} else {
 		        ItemPromotedEventNormalized promotedEvent =(ItemPromotedEventNormalized)getData().get(position);
 		        mCalendarSummaryPageHolder.name.setText(promotedEvent.getPromotedEventsName());
-		        ImageView thumb_image=(ImageView)view.findViewById(R.id.calendarsummary_list_image);
-		        thumb_image.setImageResource(R.drawable.sunriverlogoopaque);
+		        String iconName=promotedEvent.getPromotedEventIconURL();
+		        ImageLoader imageLoader;
+		        if(iconName!=null && iconName.indexOf("/")!=-1) {
+		        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
+		        } else {
+		        	imageLoader=new ImageLoaderLocal(mActivity,false);
+		        }
+		        if(iconName.trim().equals("")) {
+		        	iconName="sunriverlogoopaque";
+		        }
+		        imageLoader.displayImage(iconName,thumb_image);		        
 			}
 		}
 

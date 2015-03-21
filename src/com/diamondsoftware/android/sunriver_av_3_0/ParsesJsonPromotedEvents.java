@@ -33,6 +33,9 @@ public class ParsesJsonPromotedEvents extends ParsesJson {
 			item.setPromotedEventsDetailsAddress(jsonObject.getString("promotedEventsDetailsAddress"));
 			item.setPromotedEventsDetailsTelephone(jsonObject.getString("promotedEventsDetailsTelephone"));
 			item.setPromotedEventsDetailsWebsite(jsonObject.getString("promotedEventsDetailsWebsite"));
+			item.setPromotedEventDetailOrder(jsonObject.getInt("promotedEventDetailOrder"));
+			item.setPromotedEventDetailIconURL(jsonObject.getString("promotedEventsDetailIconURL"));
+			item.setPromotedEventIconURL(jsonObject.getString("promotedEventIconURL"));
 			if(item.getIsOnPromotedEvents()) {
 				items.add(item);
 			}

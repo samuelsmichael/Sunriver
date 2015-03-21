@@ -60,10 +60,18 @@ public class ListViewAdapterForPromotedEventDetailsPage extends ListViewAdapterL
 	        mPromotedEventDetailsPageHolder.name.setText(iped.getPromotedEventsDetailsTitle());
 	        mPromotedEventDetailsPageHolder.description.setText(iped.getPromotedEventsDetailsDescription());
 	       
-	        String iconName="sunriverlogoopaque";
-	        ImageLoader imageLoader=new ImageLoaderLocal(mActivity,false);
+	        String iconName=iped.getPromotedEventsDetailIconURL();
+	        ImageLoader imageLoader;
+	        if(iconName!=null && iconName.indexOf("/")!=-1) {
+	        	imageLoader=new ImageLoaderRemote(mActivity,false,1f);
+	        } else {
+	        	imageLoader=new ImageLoaderLocal(mActivity,false);
+	        }
+	        if(iconName.trim().equals("")) {
+	        	iconName="sunriverlogoopaque";
+	        }
 	        ImageView thumb_image=(ImageView)view.findViewById(R.id.promotedeventdetail_list_image);
-	        imageLoader.displayImage(iconName,thumb_image);
+	        imageLoader.displayImage(iconName,thumb_image);		        
 		}
 
 		@Override

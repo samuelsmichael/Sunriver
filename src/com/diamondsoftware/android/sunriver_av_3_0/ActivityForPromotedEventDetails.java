@@ -69,11 +69,12 @@ public class ActivityForPromotedEventDetails extends AbstractActivityForListView
 	    	mPromotedCatID=getIntent().getExtras().getInt(ItemPromotedEvent.KEY_PROMOTEDEVENT_PROMOTEDCATID);
 	    	mCatIndex=getIntent().getExtras().getInt("CATEGORY_INDEX");
 	    }
-				
+	    if(getApplicationContext()!=null && ((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized!=null) { 
 	    setTitle(
 	    		((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID).getPromotedEventsName() + 
 	    		" - " +
 	    		((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized.get(mPromotedEventsID).getCategories().get(mCatIndex).getPromotedCatName());
+	    }
 	}
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {

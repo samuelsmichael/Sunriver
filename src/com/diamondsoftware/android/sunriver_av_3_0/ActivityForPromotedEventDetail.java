@@ -1,8 +1,10 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
+import com.diamondsoftware.android.sunriver_av_3_0.PromotedEventsFileDownloadNotification.FileOpen;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -126,13 +128,18 @@ public class ActivityForPromotedEventDetail extends AbstractActivityForListItemD
 				    }
 				    File file=new File(dir, fileName);
 			        Uri uri = Uri.fromFile(file);
-			        request.setDestinationUri(uri);
-			        request.setNotificationVisibility(request.VISIBILITY_VISIBLE|request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-			        
-			        
-				    
-				   //Enqueue a new download and same the referenceId
-				   mDownloadReference=mDownloadManager.enqueue(request);
+				    if(file.exists()) {
+				    	try {
+							PromotedEventsFileDownloadNotification.FileOpen.openFile(ActivityForPromotedEventDetail.this, file,uri);
+						} catch (IOException e) {
+						}
+				    } else {
+				        request.setDestinationUri(uri);
+				        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE|DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+					    //Enqueue a new download and same the referenceId
+					    mDownloadReference=mDownloadManager.enqueue(request);
+					    Toast.makeText(ActivityForPromotedEventDetail.this, "Information being fetched ... you will be notified when it is complete.", Toast.LENGTH_LONG).show();
+				    }
 				}
 			});
 		} else {

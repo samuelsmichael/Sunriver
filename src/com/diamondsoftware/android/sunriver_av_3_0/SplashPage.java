@@ -379,7 +379,7 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 															}	
 														} else {
 															if(name.equalsIgnoreCase("promotedevent")) {
-																doDecrement=false; // I never incremented promotedevnt, due to the fact that MainActivity isn't dependent on this data
+																doDecrement=false; // I never incremented promotedevent, due to the fact that MainActivity isn't dependent on this data
 																if(data!=null && data.size()>0) {
 																	((GlobalState)getApplicationContext()).TheItemsPromotedEvents=data;
 																	((GlobalState)getApplicationContext()).TheItemsPromotedEventsNormalized=ItemPromotedEvent.normalize(data);

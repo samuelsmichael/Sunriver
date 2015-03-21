@@ -27,6 +27,51 @@ public class ItemPromotedEvent extends SunriverDataItem {
 	private String promotedEventsDetailsAddress;
 	private String promotedEventsDetailsTelephone;
 	private String promotedEventsDetailsWebsite;
+	/**
+	 * @return the promotedEventDetailOrder
+	 */
+	public int getPromotedEventDetailOrder() {
+		return promotedEventDetailOrder;
+	}
+
+	/**
+	 * @param promotedEventDetailOrder the promotedEventDetailOrder to set
+	 */
+	public void setPromotedEventDetailOrder(int promotedEventDetailOrder) {
+		this.promotedEventDetailOrder = promotedEventDetailOrder;
+	}
+
+	/**
+	 * @return the promotedEventDetailIconURL
+	 */
+	public String getPromotedEventDetailIconURL() {
+		return promotedEventDetailIconURL;
+	}
+
+	/**
+	 * @param promotedEventDetailIconURL the promotedEventDetailIconURL to set
+	 */
+	public void setPromotedEventDetailIconURL(String promotedEventDetailIconURL) {
+		this.promotedEventDetailIconURL = promotedEventDetailIconURL;
+	}
+
+	/**
+	 * @return the promotedEventIconURL
+	 */
+	public String getPromotedEventIconURL() {
+		return promotedEventIconURL;
+	}
+
+	/**
+	 * @param promotedEventIconURL the promotedEventIconURL to set
+	 */
+	public void setPromotedEventIconURL(String promotedEventIconURL) {
+		this.promotedEventIconURL = promotedEventIconURL;
+	}
+
+	private int promotedEventDetailOrder; 
+	private String promotedEventDetailIconURL;
+	private String promotedEventIconURL;
 	
 	/**
 	 * @return the promotedEventsDetailsID
@@ -380,6 +425,7 @@ public class ItemPromotedEvent extends SunriverDataItem {
 				pen.setPromotedEventPictureURL(pe.getPromotedEventPictureURL());
 				pen.setPromotedEventsID(pe.getPromotedEventsID());
 				pen.setPromotedEventsName(pe.getPromotedEventsName());
+				pen.setPromotedEventIconURL(pe.getPromotedEventIconURL());
 				penz.put(pe.promotedEventsID, pen);				
 			}
 			ItemPromotedEventCategory ipec=new ItemPromotedEventCategory();
@@ -402,6 +448,8 @@ public class ItemPromotedEvent extends SunriverDataItem {
 			iped.setPromotedEventsDetailsTitle(pe.getPromotedEventsDetailsTitle());
 			iped.setPromotedEventsDetailsURLDocDownload(pe.getPromotedEventsDetailsURLDocDownload());
 			iped.setPromotedEventsDetailsWebsite(pe.getPromotedEventsDetailsWebsite());
+			iped.setPromotedEventDetailOrder(pe.getPromotedEventDetailOrder());
+			iped.setPromotedEventsDetailIconURL(pe.getPromotedEventDetailIconURL());
 			ipec.addDetailItem(iped);
 		}
 		Enumeration<ItemPromotedEventNormalized> eipen=penz.elements();
@@ -425,6 +473,24 @@ public class ItemPromotedEvent extends SunriverDataItem {
 				}
 
 			});
+			for(ItemPromotedEventCategory ipec: ipen.getCategories()) {
+				Collections.sort(ipec.getPromotedEventDetails(), new Comparator<ItemPromotedEventDetail>() {
+
+					@Override
+					public int compare(ItemPromotedEventDetail lhs,	ItemPromotedEventDetail rhs) {
+						if(lhs.getPromotedEventDetailOrder()>lhs.getPromotedEventDetailOrder()) {
+							return 1;
+						} else {
+							if(lhs.getPromotedEventDetailOrder()<lhs.getPromotedEventDetailOrder()) {
+								return -1;
+							} else {
+								return 0;
+							}
+						}
+					}
+					
+				});
+			}
 		}
 		ArrayList<ItemPromotedEventNormalized> aL = Collections.list(penz.elements());
 		Hashtable<Integer,ItemPromotedEventNormalized> ht=new Hashtable<Integer,ItemPromotedEventNormalized>();

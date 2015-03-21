@@ -7,7 +7,8 @@ public class ItemPromotedEventNormalized {
 	private int promotedEventsID;
 	private String promotedEventsName;
 	private Boolean isOnPromotedEvents;
-	
+	private String promotedEventPictureURL;
+	private String promotedEventIconURL;
 	public ItemPromotedEventCategory findCategory(ItemPromotedEventCategory ipec) {
 		for(ItemPromotedEventCategory ipecInCategoriesList: categories) {
 			if(ipecInCategoriesList.getPromotedCatID()==ipec.getPromotedCatID()) {
@@ -30,7 +31,6 @@ public class ItemPromotedEventNormalized {
 		this.categories = categories;
 	}
 
-	private String promotedEventPictureURL;
 	private ArrayList<ItemPromotedEventCategory> categories;
 	
 	/**
@@ -87,5 +87,18 @@ public class ItemPromotedEventNormalized {
 	 */
 	public void setPromotedEventPictureURL(String promotedEventPictureURL) {
 		this.promotedEventPictureURL = promotedEventPictureURL;
+	}
+	
+	/**
+	 * @return the promotedEventIconURL
+	 */
+	public String getPromotedEventIconURL() {
+		return promotedEventIconURL;
+	}
+	/**
+	 * @param promotedEventIconURL the promotedEventIconURL to set
+	 */
+	public void setPromotedEventIconURL(String promotedEventIconURL) {
+		this.promotedEventIconURL = promotedEventIconURL;
 	}
 }
