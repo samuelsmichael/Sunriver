@@ -533,8 +533,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 									} else {
 										if(name.equalsIgnoreCase("tipsremotehomepage")) {
 											try {/*TODO PUBLISH*/
-/* Use this when you've incorporated Tips.aspx into your site	String uri=getResources().getString(R.string.urltipsjson); */
-/* Use this when you're still using my web site*/	String uri=getResources().getString(R.string.urltipsjsontestremote);
+/* Use this when you've incorporated Tips.aspx into your site*/	String uri=getResources().getString(R.string.urltipsjson); 
+/* Use this when you're still using my web site	String uri=getResources().getString(R.string.urltipsjsontestremote);*/
 /* This one is for my testing in my office			String uri=getResources().getString(R.string.urltipsjsontestlocal); */
 												
 												ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
@@ -554,8 +554,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 											} else {
 												if(name.equalsIgnoreCase("newsFeeds")) {/*TODO PUBLISH*/
 													try {
-													/* Use this when you've incorporated NewsFeeds.aspx into your site	String uri=getResources().getString(R.string.urlnewsfeedsjson); */
-													/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlnewsfeedstestremote);
+													/* Use this when you've incorporated NewsFeeds.aspx into your site */	String uri=getResources().getString(R.string.urlnewsfeedsjson); 
+													/*  Use this when you're still using my web site 	String uri=getResources().getString(R.string.urlnewsfeedstestremote); */
 													/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlnewsfeedsjsontestlocal); */
 																								
 															ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
@@ -569,8 +569,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 												} else {
 													if(name.equalsIgnoreCase("eventpic")) {/*TODO PUBLISH*/
 														try {
-														/* Use this when you've incorporated EventPics.aspx into your site	String uri=getResources().getString(R.string.urleventpicjson); */
-														/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urleventpictestremote);
+														/* Use this when you've incorporated EventPics.aspx into your site */	String uri=getResources().getString(R.string.urleventpicjson); 
+														/*  Use this when you're still using my web site 	String uri=getResources().getString(R.string.urleventpictestremote); */
 														/* This one is for my testing in my office		String uri=getResources().getString(R.string.urleventpicjsontestlocal); */
 																									
 																ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
@@ -584,8 +584,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													} else {
 														if(name.equalsIgnoreCase("promotedevent")) {/*TODO PUBLISH*/
 															try {
-															/* Use this when you've incorporated PromotedEvents.aspx into your site	String uri=getResources().getString(R.string.urlpromotedeventjson); */
-															/*  Use this when you're still using my web site */	String uri=getResources().getString(R.string.urlpromotedeventtestremote);
+															/* Use this when you've incorporated PromotedEvents.aspx into your site */	String uri=getResources().getString(R.string.urlpromotedeventjson); 
+															/*  Use this when you're still using my web site String uri=getResources().getString(R.string.urlpromotedeventtestremote); */	
 															/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlpromotedeventjsontestlocal); */
 																										
 																	ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(

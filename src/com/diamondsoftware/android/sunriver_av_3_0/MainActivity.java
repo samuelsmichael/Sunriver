@@ -459,9 +459,9 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				ItemLandingPage newsFeedItem=new ItemLandingPage();
 				newsFeedItem.setDescription(((GlobalState)getApplicationContext()).theItemNewsFeed.getnewsFeedTitle());
 				newsFeedItem.setmIsStyleMarquee(false);
-				newsFeedItem.setName("News Feed");
+				newsFeedItem.setName("Sunriver News Bites");
 				newsFeedItem.setId(98);
-				newsFeedItem.setIconName("alertnew");
+				newsFeedItem.setIconName("srnewsbites");
 				data.add(0,newsFeedItem);
 			}
 		if( 
