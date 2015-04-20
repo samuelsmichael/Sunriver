@@ -6,7 +6,7 @@
     		<!-- Change Feeds for the training databases -->
     		<!-- 1 -->
     		<!-- <string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>  -->
-    		<string name="urlgislayersjson">http://srfeed.com/GISLayert.aspx</string> 
+    		<string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string> 
     		
     		<!-- 2 -->
    			<!-- <string name="urlalertjson">http://srfeed.com/Alert.aspx</string> -->
