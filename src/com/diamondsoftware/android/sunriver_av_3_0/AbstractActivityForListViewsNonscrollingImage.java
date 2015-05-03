@@ -3,23 +3,17 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 import java.util.ArrayList;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 /*
  * Differentiate AbstractActivityForListViews into those whose image doesn't scroll (e.g. - MainActivity)
  */
 public abstract class AbstractActivityForListViewsNonscrollingImage extends
-		AbstractActivityForListViews {
+		AbstractActivityForListViewsWithImages {
+
 
 	public AbstractActivityForListViewsNonscrollingImage() {
 	}
 
-	@Override
-	protected void childOnCreate(Bundle savedInstanceState) {
-        String imageURL=getImageURL();
-		if(imageURL!=null && getImageId()!=0) {
-			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
-			imageLoader.displayImage(imageURL,mImageView);
-		}
-	}
 }

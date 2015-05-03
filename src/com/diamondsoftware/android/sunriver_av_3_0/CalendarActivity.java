@@ -2,20 +2,12 @@ package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
 
-import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
-
-import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 /*
  * Provides support for the ListView-type Activity "Events".  
@@ -23,7 +15,8 @@ import android.widget.Toast;
  * purposes of the overridden methods.
  */
 
-public class CalendarActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
+public class CalendarActivity extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously,
+		DoesNewImageEvery4Or5Seconds {
 	private ListViewAdapter mListViewAdapter;
 	private boolean mIsFavorite;
 	private ImageButton mFavorite;

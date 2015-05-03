@@ -42,7 +42,8 @@ import android.provider.Settings.Secure;
  *  static method for loading geofences once all the locations are loaded.
  *   
  */
-public class MainActivity extends AbstractActivityForListViewsNonscrollingImage implements WaitingForDataAcquiredAsynchronously,DataGetter {
+public class MainActivity extends AbstractActivityForListViewsNonscrollingImage implements WaitingForDataAcquiredAsynchronously,DataGetter,
+			DoesNewImageEvery4Or5Seconds {
 	public static ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>> LocationData = new ArrayList<Hashtable<ItemLocation.LocationType, ArrayList<Object>>>();
 	public static ArrayList<Object> SunriverArray = null;
 	private static boolean AllMapsUriLocationDataIsLoaded=false;
@@ -146,7 +147,6 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	
 	@Override
 	protected void childOnCreate(Bundle savedInstanceState) {
-		super.childOnCreate(savedInstanceState);
 		((GlobalState)getApplicationContext()).gaSendView("Sunriver Navigator - Home Page");
 		android_id=Secure.getString(getContentResolver(),
                 Secure.ANDROID_ID);

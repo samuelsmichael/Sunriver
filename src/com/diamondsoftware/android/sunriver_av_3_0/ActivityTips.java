@@ -80,13 +80,15 @@ public abstract class ActivityTips extends FragmentActivity {
 
 	}
 	private void setNextPosition(int currentPosition) {
-    	Editor editor=mSharedPreferences.edit();
-    	int nextPosition=currentPosition+1;
-    	if(nextPosition>=getItems().size()) {
-    		nextPosition=0;
-    	}
-    	editor.putInt(getLastTipViewedPosition_Key(), nextPosition);
-    	editor.commit();
+		try {
+	    	Editor editor=mSharedPreferences.edit();
+	    	int nextPosition=currentPosition+1;
+	    	if(nextPosition>=getItems().size()) {
+	    		nextPosition=0;
+	    	}
+	    	editor.putInt(getLastTipViewedPosition_Key(), nextPosition);
+	    	editor.commit();
+		} catch (Exception eee) {}
 	}
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary

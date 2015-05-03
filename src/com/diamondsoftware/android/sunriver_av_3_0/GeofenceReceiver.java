@@ -35,27 +35,29 @@ public class GeofenceReceiver extends BroadcastReceiver { //LocalBroadcastManage
     }
 
     private void handleError(Intent intent){
-        // Get the error code
-        int errorCode = LocationClient.getErrorCode(intent);
-
-        // Get the error message
-        String errorMessage = LocationServiceErrorMessages.getErrorString(
-                context, errorCode);
-
-        // Log the error
-        
-        Log.e(GeofenceUtils.APPTAG,
-                context.getString(R.string.geofence_transition_error_detail,
-                        errorMessage));
-
-        // Set the action and error message for the broadcast intent
-        broadcastIntent
-                .setAction(GeofenceUtils.ACTION_GEOFENCE_ERROR)
-                .putExtra(GeofenceUtils.EXTRA_GEOFENCE_STATUS, errorMessage);
-
-        // Broadcast the error *locally* to other components in this app
-        LocalBroadcastManager.getInstance(context).sendBroadcast(
-                broadcastIntent);
+    	try {
+	        // Get the error code
+	        int errorCode = LocationClient.getErrorCode(intent);
+	
+	        // Get the error message
+	        String errorMessage = LocationServiceErrorMessages.getErrorString(
+	                context, errorCode);
+	
+	        // Log the error
+	        
+	        Log.e(GeofenceUtils.APPTAG,
+	                context.getString(R.string.geofence_transition_error_detail,
+	                        errorMessage));
+	
+	        // Set the action and error message for the broadcast intent
+	        broadcastIntent
+	                .setAction(GeofenceUtils.ACTION_GEOFENCE_ERROR)
+	                .putExtra(GeofenceUtils.EXTRA_GEOFENCE_STATUS, errorMessage);
+	
+	        // Broadcast the error *locally* to other components in this app
+	        LocalBroadcastManager.getInstance(context).sendBroadcast(
+	                broadcastIntent);
+    	} catch (Exception eee) {}
     }
 
 

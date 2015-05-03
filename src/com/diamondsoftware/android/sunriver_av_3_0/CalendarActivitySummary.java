@@ -23,7 +23,8 @@ import android.widget.Toast;
  * purposes of the overridden methods.
  */
 
-public class CalendarActivitySummary extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously {
+public class CalendarActivitySummary extends AbstractActivityForListViewsScrollingImage  implements WaitingForDataAcquiredAsynchronously,
+		DoesNewImageEvery4Or5Seconds {
 	private EditText mEditViewSearch=null; 
 	private EditText mEditViewSearchAfterDate=null; 
 	private Button mButtonRefresh;

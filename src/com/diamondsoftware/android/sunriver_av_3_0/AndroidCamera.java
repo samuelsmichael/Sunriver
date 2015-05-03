@@ -81,6 +81,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 	static int mIndexIntoSelfieImages=0;
 	public static int viewBeingRemoved;
 	int numCameras;
+	int currentCameraFacing;
 	static int currentCameraId=Camera.CameraInfo.CAMERA_FACING_BACK;
 	static String uriOfLastPictureTaken=null;
 	View mViewControl=null;
@@ -115,7 +116,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 				int bkh=bkhere;
 				AndroidCamera.mSingleton.runOnUiThread(new Runnable() {
 					public void run() {
-						setCameraDisplayOrientation(AndroidCamera.this,0,AndroidCamera.camera,AndroidCamera.overlayView);
+						setCameraDisplayOrientation(AndroidCamera.this,AndroidCamera.currentCameraId,AndroidCamera.camera,AndroidCamera.overlayView);
 						computeWhichOverlayControl();
 					}
 				});										    	         
@@ -446,8 +447,14 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						maxZoom=params.getMaxZoom();
 						currentZoom=params.getZoom();
 						canZoom=params.isZoomSupported();
+						
+						android.hardware.Camera.CameraInfo info =
+								new android.hardware.Camera.CameraInfo();
+						android.hardware.Camera.getCameraInfo(currentCameraId, info);
+						currentCameraFacing=info.facing;
 
-						setCameraDisplayOrientation(AndroidCamera.this,0,camera,overlayView);
+
+						setCameraDisplayOrientation(AndroidCamera.this,currentCameraId,camera,overlayView);
 					}
 
 					// Cleanup
@@ -518,7 +525,34 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						}
 						camera.setDisplayOrientation(result);
 					}			
+					public enum Direction { VERTICAL, HORIZONTAL, BOTHLL };
 
+					/**
+					    Creates a new bitmap by flipping the specified bitmap
+					    vertically or horizontally.
+					    @param src        Bitmap to flip
+					    @param type       Flip direction (horizontal or vertical)
+					    @return           New bitmap created by flipping the given one
+					                      vertically or horizontally as specified by
+					                      the <code>type</code> parameter or
+					                      the original bitmap if an unknown type
+					                      is specified.
+					**/
+					public static Bitmap flip(Bitmap src, Direction type) {
+					    Matrix matrix = new Matrix();
+
+					    if(type == Direction.VERTICAL) {
+					        matrix.preScale(1.0f, -1.0f);
+					    } else if(type == Direction.HORIZONTAL) {
+					        matrix.preScale(-1.0f, 1.0f); 
+					    } else if (type== Direction.BOTHLL) {
+					    	 matrix.preScale(-1.0f, -1.0f); 
+					    } else {
+					        return src;
+					    }
+
+					    return Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+					}
 					/*
 					 * Performs the operation of creating the final image
 					 */
@@ -532,6 +566,10 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
 						//					try {
 						// this doesn't work because the OutOfMemory error isn't being trapped
 						bitmapCamera=BitmapFactory.decodeByteArray(cameraBytes, 0, cameraBytes.length, options).copy(Bitmap.Config.RGB_565, true);
+						if(((AndroidCamera)activity).currentCameraFacing==Camera.CameraInfo.CAMERA_FACING_FRONT) {
+							//////////////bitmapCamera=flip(bitmapCamera,Direction.VERTICAL);
+							bitmapCamera=flip(bitmapCamera,Direction.HORIZONTAL);
+						}
 						//					break;
 						//			} catch (Exception e) {
 						//			options.inSampleSize++;
