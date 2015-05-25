@@ -10,7 +10,7 @@ import android.widget.AdapterView;
  * Differentiates AbstractActivityForListViews into those whose image at top scrolls along with the list.
  */
 public abstract class AbstractActivityForListViewsScrollingImage extends
-		AbstractActivityForListViews {
+		AbstractActivityForListViewsWithImages {
 
 	public AbstractActivityForListViewsScrollingImage() {
 	}

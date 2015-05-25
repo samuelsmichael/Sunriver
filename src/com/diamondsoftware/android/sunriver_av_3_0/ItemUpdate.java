@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 public class ItemUpdate {
 
 	/*
-	 * For now, we'll force reading it every time.
+	 * We'll force reading it every time.
 	 */
 	public GregorianCalendar getUpdateDidYouKnow() {
 		return new GregorianCalendar();
@@ -28,7 +28,15 @@ public class ItemUpdate {
     private GregorianCalendar updateData;
     private GregorianCalendar updateOverlay;
     private GregorianCalendar updateHospitality;
+    private GregorianCalendar updateLane;
 	
+    public GregorianCalendar getUpdateLane() {
+    	return updateLane;
+    }
+    public void setUpdateLane(GregorianCalendar updateLane) {
+    	this.updateLane=updateLane;
+    }
+    
 	public GregorianCalendar getUpdateHospitality() {
 		return updateHospitality;
 	}

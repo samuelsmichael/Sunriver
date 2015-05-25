@@ -38,7 +38,7 @@ public class SelfieDialogOnClickListener implements OnItemClickListener {
 					int bkh=bkhere;
 					AndroidCamera.mSingleton.runOnUiThread(new Runnable() {
 						public void run() {
-							mAndroidCamera.setCameraDisplayOrientation(mAndroidCamera.getActivity(),0,AndroidCamera.camera,AndroidCamera.overlayView);
+							mAndroidCamera.setCameraDisplayOrientation(mAndroidCamera.getActivity(),AndroidCamera.currentCameraId,AndroidCamera.camera,AndroidCamera.overlayView);
 						}
 					});										    	         
 				}

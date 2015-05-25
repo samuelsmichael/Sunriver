@@ -41,12 +41,14 @@ public class GlobalState extends Application {
 	public ArrayList<Object> TheItemsTipsHomePage=null;
 	public ArrayList<Object> TheItemsEventPics=null;
 	public ArrayList<Object> TheItemsPromotedEvents=null;
+	public ArrayList<Object> TheItemsLane=null;
+	public String[] TheItemsLaneStrings=null;
 	public Hashtable<Integer,ItemPromotedEventNormalized> TheItemsPromotedEventsNormalized=null;
 	public ItemNewsFeed theItemNewsFeed=null;
 	public static boolean gotInternet=false;
 	public static SharedPreferences sharedPreferences=null;
 	private static DbAdapter mDbAdapter=null;
-	private static GlobalState mSingleton;
+	public static GlobalState mSingleton;
 	private GoogleAnalytics mAnalytics;
 	public static String PREFERENCES_LOCATION="com.diamondsoftware.android.sunriver_av_3_0_preferences";
 	

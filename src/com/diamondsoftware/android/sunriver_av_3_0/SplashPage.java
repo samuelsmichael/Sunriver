@@ -260,6 +260,14 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 							} else {
 								((GlobalState)getApplicationContext()).TheItemsDidYouKnow= itemDidYouKnow.fetchDataFromDatabase();
 							}
+							/* Don't need to fetch Lane data if it's not expired */
+							ItemLane itemLane = new ItemLane();
+							if(itemLane.isDataExpired()) {
+								// I'm not incrementingMCountItemsLeft, as it is okay to proceed to MainActivity even if we don't yet have this data
+								new AcquireDataRemotelyAsynchronously("lane",this,this);
+							} else {
+								((GlobalState)getApplicationContext()).TheItemsLane= itemLane.fetchDataFromDatabase();
+							}
 							/* Don't need to fetch EventPics data if it's not expired */
 							ItemEventPic itemEventPic = new ItemEventPic();
 							if(itemEventPic.isDataExpired()) {
@@ -386,7 +394,16 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 																	GlobalState.gotInternet=true;
 																	((ItemPromotedEvent)((GlobalState)getApplicationContext()).TheItemsPromotedEvents.get(0)).setLastDateReadToNow();
 																}	
-															}	
+															} else {
+																if(name.equalsIgnoreCase("lane")) {
+																	doDecrement=false; // I never incremented lane, due to the fact that MainActivity isn't dependent on this data
+																	if(data!=null && data.size()>0) {
+																		((GlobalState)getApplicationContext()).TheItemsLane=data;
+																		GlobalState.gotInternet=true;
+																		((ItemLane)((GlobalState)getApplicationContext()).TheItemsLane.get(0)).setLastDateReadToNow();
+																	}	
+																}	
+															}
 														}
 													}
 												}
@@ -455,11 +472,14 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 					} finally {
 					}
 				} else {
-			if(name.equalsIgnoreCase("update")) {
+			if(name.equalsIgnoreCase("update")) {/*TODO PUBLISH*/
 				try {
-					String defaultValue=getResources().getString(R.string.urlupdatejson);
-					String uri=GlobalState.sharedPreferences.getString("urlupdatejson", defaultValue);
-										
+					
+					/* Use this when you've incorporated Lanes.aspx into your site 	String uri=getResources().getString(R.string.urlupdatejson); */
+					/*  Use this when you're still using my web site String uri=getResources().getString(R.string.urlupdatetestremote); */	
+					/* This one is for my testing in my office	*/	String uri=getResources().getString(R.string.urlupdatejsontestlocal); 
+					
+															
 					ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 						new ParsesJsonUpdate(), 
 						uri).parse();
@@ -532,11 +552,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 										}		
 									} else {
 										if(name.equalsIgnoreCase("tipsremotehomepage")) {
-											try {/*TODO PUBLISH*/
-/* Use this when you've incorporated Tips.aspx into your site*/	String uri=getResources().getString(R.string.urltipsjson); 
-/* Use this when you're still using my web site	String uri=getResources().getString(R.string.urltipsjsontestremote);*/
-/* This one is for my testing in my office			String uri=getResources().getString(R.string.urltipsjsontestlocal); */
-												
+											try {
+												String uri=getResources().getString(R.string.urltipsjson); 												
 												ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 														new ParsesJsonTips(),
 														uri).parse();
@@ -552,13 +569,10 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													return new ArrayList<Object>();
 												}
 											} else {
-												if(name.equalsIgnoreCase("newsFeeds")) {/*TODO PUBLISH*/
+												if(name.equalsIgnoreCase("newsFeeds")) {
 													try {
-													/* Use this when you've incorporated NewsFeeds.aspx into your site */	String uri=getResources().getString(R.string.urlnewsfeedsjson); 
-													/*  Use this when you're still using my web site 	String uri=getResources().getString(R.string.urlnewsfeedstestremote); */
-													/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlnewsfeedsjsontestlocal); */
-																								
-															ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+														String uri=getResources().getString(R.string.urlnewsfeedsjson); 
+														ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 																	new ParsesJsonNewsFeeds(),
 																	uri).parse();
 															return data;
@@ -567,13 +581,11 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 													} finally {
 													}		
 												} else {
-													if(name.equalsIgnoreCase("eventpic")) {/*TODO PUBLISH*/
+													if(name.equalsIgnoreCase("eventpic")) {
 														try {
-														/* Use this when you've incorporated EventPics.aspx into your site */	String uri=getResources().getString(R.string.urleventpicjson); 
-														/*  Use this when you're still using my web site 	String uri=getResources().getString(R.string.urleventpictestremote); */
-														/* This one is for my testing in my office		String uri=getResources().getString(R.string.urleventpicjsontestlocal); */
+															String uri=getResources().getString(R.string.urleventpicjson); 
 																									
-																ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+															ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 																		new ParsesJsonEventPics(),
 																		uri).parse();
 																return data;
@@ -582,13 +594,11 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 														} finally {
 														}		
 													} else {
-														if(name.equalsIgnoreCase("promotedevent")) {/*TODO PUBLISH*/
+														if(name.equalsIgnoreCase("promotedevent")) {
 															try {
-															/* Use this when you've incorporated PromotedEvents.aspx into your site */	String uri=getResources().getString(R.string.urlpromotedeventjson); 
-															/*  Use this when you're still using my web site String uri=getResources().getString(R.string.urlpromotedeventtestremote); */	
-															/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlpromotedeventjsontestlocal); */
-																										
-																	ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+																String uri=getResources().getString(R.string.urlpromotedeventjson); 
+																									
+																ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 																			new ParsesJsonPromotedEvents(),
 																			uri).parse();
 																	return data;
@@ -596,7 +606,23 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 																e=e;
 															} finally {
 															}		
-														}	
+														} else {
+															if(name.equalsIgnoreCase("lane")) {/*TODO PUBLISH*/
+																try {
+																/* Use this when you've incorporated Lanes.aspx into your site 	String uri=getResources().getString(R.string.urllanejson); */
+																/*  Use this when you're still using my web site String uri=getResources().getString(R.string.urllanetestremote); */	
+																/* This one is for my testing in my office	*/	String uri=getResources().getString(R.string.urllanejsontestlocal); 
+																											
+																		ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
+																				new ParsesJsonLane(),
+																				uri).parse();
+																		return data;
+																} catch (Exception e) {
+																	e=e;
+																} finally {
+																}		
+															}															
+														}
 													}
 												}
 											}

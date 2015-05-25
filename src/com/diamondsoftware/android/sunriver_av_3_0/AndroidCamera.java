@@ -156,6 +156,7 @@ public class AndroidCamera extends AbstractActivityForMenu implements SurfaceHol
         }
 		mViewControl.invalidate();
 	}
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

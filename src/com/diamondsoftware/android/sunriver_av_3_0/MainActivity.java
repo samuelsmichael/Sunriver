@@ -564,11 +564,25 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        LayoutInflater inflater = getActivity().getLayoutInflater();
 		        View view = inflater.inflate(R.layout.find_home, null);
 		        AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.resortlane);
+		        String[] lanes=null;
 			     // Get the string array
-				     String[] lanes = getResources().getStringArray(R.array.srlanes_array);
+		        	if(GlobalState.mSingleton.TheItemsLaneStrings==null) {
+		        		ArrayList<String> stringLanes=new ArrayList<String>();
+		        		for(Object itemLane: GlobalState.mSingleton.TheItemsLane) {
+		        			stringLanes.add(((ItemLane)itemLane).getSrLane());
+		        		}
+		        		lanes=new String[stringLanes.size()];
+		        		int i=0;
+		        		for(String stringLane:stringLanes) {
+		        			lanes[i++]=stringLane;
+		        		}
+		        		GlobalState.mSingleton.TheItemsLaneStrings=lanes;
+		        	} else {
+		        		lanes=GlobalState.mSingleton.TheItemsLaneStrings;
+		        	}
 				     // Create the adapter and set it to the AutoCompleteTextView 
 				     ArrayAdapter<String> adapter = 
-				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, lanes);
+				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, (String[])lanes);
 				     textView.setAdapter(adapter);
 		        builder.setView(view);
 	

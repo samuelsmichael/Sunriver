@@ -27,7 +27,9 @@
     		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
     		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
-    		<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
+    		<string name="urlupdatejsontestlocal">http://10.0.0.253/sunriverwebapp/Update.aspx</string>
+    		<string name="urlupdatejsontestremote">>http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
+    				<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
     		<!-- <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> -->
     		
     		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
@@ -47,7 +49,10 @@
    		 	<string name="urlpromotedeventjson">http://srfeed.com/PromotedEvents.aspx</string>
    		 	<string name="urlpromotedeventjsontestlocal">http://10.0.0.253/sunriverwebapp/PromotedEvents.aspx</string>
    		 	<string name="urlpromotedeventtestremote">http://listplus.no-ip.org/sunriverwebapp/PromotedEvents.aspx</string>
-   		 			 			 			 			 	
+   		 	<string name="urllanejson">http://srfeed.com/Lanes.aspx</string>
+   		 	<string name="urllanejsontestlocal">http://10.0.0.253/sunriverwebapp/Lanes.aspx</string>
+   		 	<string name="urllanetestremote">http://listplus.no-ip.org/sunriverwebapp/Lanes.aspx</string>
+   		 			 			 			 			 			 	
     
     <!-- default webservice settings -->
     <string name="urlservices">http://www.srfeed.com/service1.asmx/Services</string>

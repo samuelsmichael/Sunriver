@@ -300,6 +300,9 @@ public class DbAdapter {
 				ItemAllHomes.KEY_ALLHOMES_ROWID + " integer primary key autoincrement," +
 				ItemAllHomes.KEY_ALLHOMES_SUNRIVER_ADDRESS + " string collate nocase," +
 				ItemAllHomes.KEY_ALLHOMES_COUNTY_ADDRESS+ " string );";
+		private static final String CREATE_TABLE_LANES = "create table " + ItemLane.DATABASE_TABLE_LANE + " (" +
+				ItemLane.KEY_LANE_ROWID + " integer primary key autoincrement," +
+				ItemLane.KEY_LANE_SRLANE + " string );";
 
 		private static final String DATABASE_NAME = "data";
 
@@ -352,6 +355,9 @@ public class DbAdapter {
 			} catch (Exception eieio) {};
 			try {
 				db.execSQL(CREATE_TABLE_EVENTPICS);
+			} catch (Exception eieio) {};
+			try {
+				db.execSQL(CREATE_TABLE_LANES);
 			} catch (Exception eieio) {};
 		}
 
