@@ -96,7 +96,11 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 		String mAddressVerbiage="";
 		mFavorite=(ImageView)findViewById(R.id.ibtn_hospitality_favorite);
 		mFavorite.setVisibility(View.VISIBLE);
-		if(getMyItem().getIsFavorite()) {
+		boolean isFavorite=false;
+		try {
+			isFavorite=getMyItem().getIsFavorite();
+		} catch (Exception e) {}
+		if(isFavorite) {
 			mFavorite.setImageResource(R.drawable.favoriteon);
 			mIsFavorite=true;
 		} else {

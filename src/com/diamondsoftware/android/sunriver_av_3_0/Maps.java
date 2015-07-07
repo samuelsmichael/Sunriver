@@ -712,10 +712,12 @@ public class Maps extends AbstractActivityForMenu {
 	 * @param mapPoint
 	 */
 	private void ShowCallout(Graphic graphic, Point mapPoint) {
-		int locationId=Integer.valueOf((String)graphic.getAttributes().get("id"));
-		
-		mPopup = new PopupMapLocation(this, graphic.getAttributes(),false, getItemLocationWhoseIdIs(locationId));
-		mPopup.createPopup();
+		try {
+			int locationId=Integer.valueOf((String)graphic.getAttributes().get("id"));
+			
+			mPopup = new PopupMapLocation(this, graphic.getAttributes(),false, getItemLocationWhoseIdIs(locationId));
+			mPopup.createPopup();
+		} catch (Exception e) {}
 	}
 
 	public void refreshGraphicsLayersVisibility() {

@@ -13,22 +13,22 @@
    			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
    			
    			<!-- 3 -->
-   			<!-- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> -->
-   			<string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	
+   			<string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string>
+   			<!--  <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	 -->
     		
     		<!-- 4 -->
     		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
     		<!-- <string name="urlselfiejson">http://srfeed.com/Overlayt.aspx</string> -->
   		  	
   		  	<!-- 5 -->
-   			<!-- <string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string> -->
-   			<string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string>
+   			<string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string>
+   			<!-- <string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string> -->
    		 
     		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>
     		<string name="urlupdatejson">http://srfeed.com/Update.aspx</string>
     		<string name="urlupdatejsontestlocal">http://10.0.0.253/sunriverwebapp/Update.aspx</string>
-    		<string name="urlupdatejsontestremote">>http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
+    		<string name="urlupdatejsontestremote">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
     				<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
     		<!-- <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> -->
     		
