@@ -475,8 +475,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			if(name.equalsIgnoreCase("update")) {/*TODO PUBLISH*/
 				try {
 					
-					/* Use this when you've incorporated Lanes.aspx into your site  	String uri=getResources().getString(R.string.urlupdatejson); */ 
-					/*  Use this when you're still using my web site */  String uri=getResources().getString(R.string.urlupdatejsontestremote); 	
+					/* Use this when you've incorporated Lanes.aspx into your site */  	String uri=getResources().getString(R.string.urlupdatejson);  
+					/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urlupdatejsontestremote); */ 	
 					/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlupdatejsontestlocal); */ 
 					
 															
@@ -609,8 +609,8 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 														} else {
 															if(name.equalsIgnoreCase("lane")) {/*TODO PUBLISH*/
 																try {
-																/* Use this when you've incorporated Lanes.aspx into your site  	String uri=getResources().getString(R.string.urllanejson); */
-																/*  Use this when you're still using my web site */  String uri=getResources().getString(R.string.urllanetestremote); 	
+																/* Use this when you've incorporated Lanes.aspx into your site */ 	String uri=getResources().getString(R.string.urllanejson); 
+																/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urllanetestremote); 	*/
 																/* This one is for my testing in my office		String uri=getResources().getString(R.string.urllanejsontestlocal); */
 																											
 																		ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
