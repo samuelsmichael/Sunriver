@@ -13,16 +13,16 @@
    			<string name="urlalertjson">http://srfeed.com/Alert.aspx</string>
    			
    			<!-- 3 -->
-   			<!-- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> -->
-   			<string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	
+   			<string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string>
+   			<!-- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	 -->
     		
     		<!-- 4 -->
     		<string name="urlselfiejson">http://srfeed.com/Overlay.aspx</string>
     		<!-- <string name="urlselfiejson">http://srfeed.com/Overlayt.aspx</string> -->
   		  	
   		  	<!-- 5 -->
-   			<!-- <string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string> -->
-   			<string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string>
+   			<string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string>
+   			<!-- <string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string> -->
    		 
     		<string name="urlhospitalityjson">http://srfeed.com/Hospitality.aspx</string>
     		<string name="urlactivityjson">http://srfeed.com/Activity.aspx</string>

@@ -1135,11 +1135,9 @@ containing a value of this type.
         public static final int urldidyouknowjson=0x7f07006f;
         /**  <string name="urlselfiejson">http://srfeed.com/Overlayt.aspx</string> 
  5 
- <string name="urlemergencyjson">http://srfeed.com/Emergency.aspx</string> 
          */
         public static final int urlemergencyjson=0x7f070068;
         /**  3 
- <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMaps.aspx</string> 
          */
         public static final int urlemergencymapsjson=0x7f070066;
         public static final int urleventpicjson=0x7f070078;
@@ -1156,6 +1154,8 @@ containing a value of this type.
  <string name="urlgislayersjson">http://srfeed.com/GISLayers.aspx</string>  
          */
         public static final int urlgislayersjson=0x7f070064;
+        /**  <string name="urlemergencyjson">http://srfeed.com/Emergencyt.aspx</string> 
+         */
         public static final int urlhospitalityjson=0x7f070069;
         public static final int urlmap=0x7f070081;
         public static final int urlmapjson=0x7f070070;
@@ -1167,7 +1167,8 @@ containing a value of this type.
         public static final int urlpromotedeventjsontestlocal=0x7f07007c;
         public static final int urlpromotedeventtestremote=0x7f07007d;
         public static final int urlselfie=0x7f070087;
-        /**  4 
+        /**  <string name="urlemergencymapsjson">http://srfeed.com/EmergencyMapt.aspx</string>	 
+ 4 
          */
         public static final int urlselfiejson=0x7f070067;
         public static final int urlselfieother=0x7f070090;
