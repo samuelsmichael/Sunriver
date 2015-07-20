@@ -1,8 +1,10 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Locale;
 
 import org.acra.ACRA;
 import org.acra.ReportingInteractionMode;
@@ -10,7 +12,10 @@ import org.acra.annotation.ReportsCrashes;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Message;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
@@ -51,7 +56,8 @@ public class GlobalState extends Application {
 	public static GlobalState mSingleton;
 	private GoogleAnalytics mAnalytics;
 	public static String PREFERENCES_LOCATION="com.diamondsoftware.android.sunriver_av_3_0_preferences";
-	
+	private Handler mRefreshDataAtNoonHandler=null;
+
 	public static DbAdapter getDbAdapter() {
 		if(mDbAdapter==null) {
 			mDbAdapter=new DbAdapter(mSingleton.getApplicationContext());
@@ -81,6 +87,39 @@ public class GlobalState extends Application {
 			mDbAdapter=null;
 		}
 	}
+	private class MyRunnable implements Runnable {
+		public long lNow;
+		public long lNewTime;
+		public MyRunnable() {
+	        // If the "alarm clock" is not set, set it to go off at the next Noon hour.
+	        Calendar now=Calendar.getInstance(Locale.getDefault());
+	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
+	        int hour=now.get(Calendar.HOUR_OF_DAY);
+	        int jdhour=12; 
+	        if(hour<jdhour) {
+	        	newTime=Calendar.getInstance(Locale.getDefault());
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        } else {
+	        	newTime.add(Calendar.DAY_OF_YEAR,1);
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        }
+	        lNow=now.getTimeInMillis();
+	        lNewTime=newTime.getTimeInMillis();
+	        if(mRefreshDataAtNoonHandler==null) {
+	        	mRefreshDataAtNoonHandler=new Handler();
+	        }
+	        mRefreshDataAtNoonHandler.postDelayed(this,lNewTime-lNow);
+		}
+		@Override
+		public void run() {
+			new Logger(1,"GlobalState",GlobalState.this).log("It's noon!", 9);
+			//todo: get update					
+			
+			new MyRunnable();  // Start a fresh timer.
+        }
+	}
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -88,11 +127,12 @@ public class GlobalState extends Application {
 		sharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
     	mAnalytics= GoogleAnalytics.getInstance(this);
     	mAnalytics.enableAutoActivityReports(this);
+        mRefreshDataAtNoonHandler=new Handler();
+        new MyRunnable();
 
         // The following line triggers the initialization of ACRA
         ACRA.init(this);
-
-	}
+     }   
 	/**
 	   * Enum used to identify the tracker that needs to be used for tracking.
 	   *

@@ -30,9 +30,10 @@
     		<string name="urlupdatejsontestlocal">http://10.0.0.253/sunriverwebapp/Update.aspx</string>
     		<string name="urlupdatejsontestremote">http://listplus.no-ip.org/sunriverwebapp/Update.aspx</string>
     				<string name="urlservicesjson">http://srfeed.com/Services.aspx</string>
-    		<!-- <string name="urlfindhomejson">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> -->
-    		
+    		<string name="urlfindhomejsontestremote">http://listplus.no-ip.org/SunriverWebApp/FindCountyAddress.aspx</string> 
+    		<string name="urlfindhomejsontestlocal">http://10.0.0.253/SunriverWebApp/FindCountyAddress.aspx</string> 
     		<string name="urlfindhomejson">http://srfeed.com/FindCountyAddress.aspx</string>
+    		
     		<string name="urlwelcomejson">http://srfeed.com/Welcome.aspx</string>
     		<string name="urldidyouknowjson">http://srfeed.com/DidYouKnow.aspx</string>
   		  	<string name="urlmapjson">http://srfeed.com/Map.aspx</string>
@@ -137,6 +138,7 @@
     <string name="btn_tryagain">Try again</string>
     <string name="resortlothint">Number</string>
     <string name="resortlanehint">Street name</string>
+    <string name="resortlanehint2">e.g. 1 Squirrel Ln</string>
     <string name="title_activity_maps">Sunriver Maps</string>
     <string name="title_ActivityForPromotedEventCategories">Promoted Event - </string>
     <string name="title_activity_ActivityFavorites">Sunriver Favorites</string>

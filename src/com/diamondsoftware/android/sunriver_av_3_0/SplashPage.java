@@ -25,7 +25,7 @@ import com.esri.android.runtime.ArcGISRuntime;
  * The page remains around at least 1 second, or until the last background fetch is completed.
  * The public static variables theItemAlert, and gotInternet are used elsewhere.
  */
-public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously {
+public class SplashPage extends Activity implements DataGetter, WaitingForDataAcquiredAsynchronously, DataLoaderClient {
 	private boolean FAKE_HOMEPAGE_TIPS_DATA_ALLOWED=true;
 	private Handler mHandler;
 	private int mCountItemsLeft=0;
@@ -475,9 +475,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 			if(name.equalsIgnoreCase("update")) {/*TODO PUBLISH*/
 				try {
 					
-					/* Use this when you've incorporated Lanes.aspx into your site */  	String uri=getResources().getString(R.string.urlupdatejson);  
+					/* Use this when you've published 7/20/2015 version, or later, of the web app   	String uri=getResources().getString(R.string.urlupdatejson);  */
 					/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urlupdatejsontestremote); */ 	
-					/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlupdatejsontestlocal); */ 
+					/* This one is for my testing in my office	*/	String uri=getResources().getString(R.string.urlupdatejsontestlocal);  
 					
 															
 					ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
@@ -609,9 +609,9 @@ public class SplashPage extends Activity implements DataGetter, WaitingForDataAc
 														} else {
 															if(name.equalsIgnoreCase("lane")) {/*TODO PUBLISH*/
 																try {
-																/* Use this when you've incorporated Lanes.aspx into your site */ 	String uri=getResources().getString(R.string.urllanejson); 
+																/* Use this when you've published 7/20/2015 version, or later, of the web app  	String uri=getResources().getString(R.string.urllanejson);*/ 
 																/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urllanetestremote); 	*/
-																/* This one is for my testing in my office		String uri=getResources().getString(R.string.urllanejsontestlocal); */
+																/* This one is for my testing in my office	*/	String uri=getResources().getString(R.string.urllanejsontestlocal); 
 																											
 																		ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 																				new ParsesJsonLane(),

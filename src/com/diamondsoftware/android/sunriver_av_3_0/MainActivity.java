@@ -562,8 +562,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		        // Get the layout inflater
 		        LayoutInflater inflater = getActivity().getLayoutInflater();
-		        View view = inflater.inflate(R.layout.find_home, null);
-		        AutoCompleteTextView textView = (AutoCompleteTextView) view.findViewById(R.id.resortlane);
+		        View view = inflater.inflate(R.layout.find_home2, null);
+		        EditText textView = (EditText) view.findViewById(R.id.resortlane2);
 		        String[] lanes=null;
 			     // Get the string array
 		        	if(GlobalState.mSingleton.TheItemsLaneStrings==null) {
@@ -581,9 +581,9 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        		lanes=GlobalState.mSingleton.TheItemsLaneStrings;
 		        	}
 				     // Create the adapter and set it to the AutoCompleteTextView 
-				     ArrayAdapter<String> adapter = 
-				             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, (String[])lanes);
-				     textView.setAdapter(adapter);
+//				     ArrayAdapter<String> adapter = 
+	//			             new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_1, (String[])lanes);
+//				     textView.setAdapter(adapter);
 		        builder.setView(view);
 	
 		        // Inflate and set the layout for the dialog
@@ -593,9 +593,9 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 		        builder.setMessage(R.string.key_in_your_resort_address)
 		               .setPositiveButton(R.string.btn_continue, new DialogInterface.OnClickListener() {
 		                   public void onClick(DialogInterface dialog, int id) {
-		                	   final AutoCompleteTextView resortLane=(AutoCompleteTextView)FindHomeDialog.this.getDialog().findViewById(R.id.resortlane);
-		                	   final EditText resortLot=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortlot);
-		                	   new AcquireDataRemotelyAsynchronously(resortLot.getText().toString()+"~"+resortLane.getText().toString(), mMainActivity, mMainActivity);
+		                	   final EditText resortLane=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortlane2);
+//		                	   final EditText resortLot=(EditText)FindHomeDialog.this.getDialog().findViewById(R.id.resortlot);
+		                	   new AcquireDataRemotelyAsynchronously(ascertainLot(resortLane.getText().toString())+"~"+ascertainLane(resortLane.getText().toString()), mMainActivity, mMainActivity);
 		           			   mMainActivity.pd = ProgressDialog.show(mMainActivity,"Searching ...","Searching for "+resortLane.getText().toString(),true,false,null);
 		                	   
 		                  }
@@ -612,6 +612,28 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 	    		return null;
 	    	}
 	    }
+		private String ascertainLane(String address) {
+			try {
+				int indexOfBlank=address.indexOf(" ");
+				String lane=address.substring(0,indexOfBlank);
+				int i=Integer.valueOf(lane);
+				String retValue = address.substring(indexOfBlank+1);
+				return retValue;
+			} catch (Exception e) {
+				return address;
+			}		
+		}
+		private String ascertainLot(String address) {
+			try {
+				int indexOfBlank=address.indexOf(" ");
+				String lane=address.substring(0,indexOfBlank);
+				int i=Integer.valueOf(lane);
+				String retValue=String.valueOf(i);
+				return retValue;
+			} catch (Exception e) {
+				return "";
+			}		
+		}
 	}
 	ProgressDialog pd;
 	String nameFinding=null;
@@ -623,9 +645,13 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				// Add your data
 //		        List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(1);
 //		        nameValuePair.add(new BasicNameValuePair("resortAddress", name));
-				
 				String defaultValue=getResources().getString(R.string.urlfindhomejson);
-				String uri=mSharedPreferences.getString("urlfindhomejson", defaultValue);
+				
+				
+				/*TODO PUBLISH*/
+				/* Use this when you've published 7/20/2015 version, or later, of the web app   	String uri=getResources().getString(R.string.urlfindhomejson);  */
+				/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urlfindhomejsontestremote); */ 	
+				/* This one is for my testing in my office	*/	String uri=getResources().getString(R.string.urlfindhomejsontestlocal);  
 
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 //					nameValuePair,
@@ -638,7 +664,7 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 			} finally {
 			}			
 		return null;
-	}	
+	}
 	@Override
 	public void gotMyData(String name, ArrayList<Object> data) {		
 		if(name==null) {
