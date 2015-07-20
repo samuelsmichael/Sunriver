@@ -1,9 +1,10 @@
 package com.diamondsoftware.android.sunriver_av_3_0;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com.google.android.gms.location.Geofence;
 
 import android.app.Activity;
@@ -14,18 +15,59 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
-public class TimerService extends Service  implements DataGetter, WaitingForDataAcquiredAsynchronously {
+public class TimerService extends Service  implements DataGetter, WaitingForDataAcquiredAsynchronously, DataLoaderClient {
 	private Timer mTimer=null;
 	private SharedPreferences mSharedPreferences=null;
+	private Handler mRefreshDataAtNoonHandler=null;
+	
 
 	private void doS() {
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
 		new AcquireDataRemotelyAsynchronously("emergency",this,this);
 	}
+	
+	private class MyRunnable implements Runnable {
+		public long lNow;
+		public long lNewTime;
+		public MyRunnable() {
+	        // If the "alarm clock" is not set, set it to go off at the next Noon hour.
+	        Calendar now=Calendar.getInstance(Locale.getDefault());
+	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
+	        int hour=now.get(Calendar.HOUR_OF_DAY);
+	        int jdhour=5; 
+	        if(hour<jdhour) {
+	        	newTime=Calendar.getInstance(Locale.getDefault());
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        } else {
+	        	newTime.add(Calendar.DAY_OF_YEAR,1);
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        }
+	        lNow=now.getTimeInMillis();
+	        lNewTime=newTime.getTimeInMillis();
+	        if(mRefreshDataAtNoonHandler==null) {
+	        	mRefreshDataAtNoonHandler=new Handler();
+	        }
+	        mRefreshDataAtNoonHandler.postDelayed(this,lNewTime-lNow);
+		}
+		@Override
+		public void run() {
+			new Logger(1,"GlobalState",TimerService.this).log("It's noon!", 9);
+			if(GlobalState.mSingleton!=null) {
+				DataLoader dataLoader=new DataLoader(TimerService.this,GlobalState.mSingleton);
+				dataLoader.execute();
+				new MyRunnable();  // Start a fresh timer.
+			}
+        }
+	}
+	
+	
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
@@ -40,6 +82,10 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 
 		startTimer2(1000*interval,1000*interval);
 //		logger.log("Timer Service started",999);
+
+        mRefreshDataAtNoonHandler=new Handler();
+
+        new MyRunnable();
 
 		return START_STICKY;
 	}		
@@ -196,6 +242,28 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 		} else {
 		}
 		return data;
+	}
+	@Override
+	public void decrementMCountItemsLeft() {
+	}
+
+	@Override
+	public void anAsynchronousActionCompleted(String xname) {
+	}
+
+	@Override
+	public void amGettingRemoteData(String name) {
+	}
+
+
+	@Override
+	public void incrementMCountItemsLeft(String name) {
+	}
+
+	@Override
+	public void gotMyDataFromDataLoader(String name, ArrayList<Object> data) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
