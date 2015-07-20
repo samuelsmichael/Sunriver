@@ -23,6 +23,8 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	private Timer mTimer=null;
 	private SharedPreferences mSharedPreferences=null;
 	private Handler mRefreshDataAtNoonHandler=null;
+	private long mRefresh;
+	int mCount=0;
 	
 
 	private void doS() {
@@ -39,7 +41,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        Calendar now=Calendar.getInstance(Locale.getDefault());
 	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
 	        int hour=now.get(Calendar.HOUR_OF_DAY);
-	        int jdhour=5; 
+	        int jdhour=12; 
 	        if(hour<jdhour) {
 	        	newTime=Calendar.getInstance(Locale.getDefault());
 	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
@@ -54,7 +56,9 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        if(mRefreshDataAtNoonHandler==null) {
 	        	mRefreshDataAtNoonHandler=new Handler();
 	        }
-	        mRefreshDataAtNoonHandler.postDelayed(this,lNewTime-lNow);
+	        mRefresh=lNewTime-lNow;
+	             
+	        mRefreshDataAtNoonHandler.postDelayed(this,mRefresh);
 		}
 		@Override
 		public void run() {
@@ -262,8 +266,6 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 
 	@Override
 	public void gotMyDataFromDataLoader(String name, ArrayList<Object> data) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
