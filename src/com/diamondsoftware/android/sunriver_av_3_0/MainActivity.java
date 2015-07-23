@@ -152,9 +152,6 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
                 Secure.ANDROID_ID);
 		mGeocodeManager = new GeocodeManager(this);
 		mSingleton=this;
-		// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
-		new  MapsGraphicsLayerLocation(this,null,Color.MAGENTA,12,STYLE.CIRCLE, ItemLocation.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
-		new MapsGraphicsLayerMisc(this,null,Color.DKGRAY,12,STYLE.DIAMOND, ItemLocation.LocationType.SUNRIVER,false).constructGraphicItems();
         String imageURL=getImageURL();
 		if(imageURL!=null && getImageId()!=0) {
 			ImageLoader imageLoader=new ImageLoaderRemote(this,true,1f);
@@ -649,8 +646,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				
 				
 				/*TODO PUBLISH*/
-				/* Use this when you've published 7/20/2015 version, or later, of the web app  */ 	String uri=getResources().getString(R.string.urlfindhomejson);  
-				/*  Use this when you're still using my web site   String uri=getResources().getString(R.string.urlfindhomejsontestremote); */ 	
+				/* Use this when you've published 7/20/2015 version, or later, of the web app   	String uri=getResources().getString(R.string.urlfindhomejson);  */
+				/*  Use this when you're still using my web site */  String uri=getResources().getString(R.string.urlfindhomejsontestremote);  	
 				/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlfindhomejsontestlocal); */ 
 
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(

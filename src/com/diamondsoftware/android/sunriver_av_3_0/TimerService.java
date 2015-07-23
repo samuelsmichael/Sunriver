@@ -43,7 +43,6 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        int hour=now.get(Calendar.HOUR_OF_DAY);
 	        int jdhour=12; 
 	        if(hour<jdhour) {
-	        	newTime=Calendar.getInstance(Locale.getDefault());
 	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
 	        	newTime.set(Calendar.MINUTE, 0);
 	        } else {
@@ -57,7 +56,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        	mRefreshDataAtNoonHandler=new Handler();
 	        }
 	        mRefresh=lNewTime-lNow;
-	             
+	             mRefresh=1000*60*60;
 	        mRefreshDataAtNoonHandler.postDelayed(this,mRefresh);
 		}
 		@Override
@@ -97,6 +96,9 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	@Override
 	public void onDestroy() {
     	stopTimer2();		
+    	if(mRefreshDataAtNoonHandler!=null) {
+    		mRefreshDataAtNoonHandler.removeCallbacksAndMessages(null);
+    	}
 	}
 	
 	private void stopTimer2() {

@@ -8,6 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 
 /**
@@ -63,6 +64,17 @@ public class DbAdapter {
 		}
 		mDbHelper = null;
 		mDb = null;
+	}
+	
+	public boolean existsTable(String tableName) {
+		boolean retValue=false;
+		String sql="SELECT name FROM sqlite_master WHERE type='table' AND name='"+tableName+"'";
+		Cursor cursor =getSqlDb().rawQuery(sql, null);
+		if(cursor.getCount()>0) {
+			retValue=true;
+		}
+		cursor.close();
+		return retValue;
 	}
 	
 	public long insert(String tableName,ContentValues values) {
@@ -150,17 +162,17 @@ public class DbAdapter {
 	
 	public synchronized Cursor get(String tableName, String[] projection, 
 			String columnNameForWhereClause, String[] columnValuesForWhereClause, String groupBy, String sortBy) {
-		String whereClause=columnNameForWhereClause==null?null:(columnNameForWhereClause+"=?");
-		Cursor cu = getSqlDb().query(
-			tableName,				  				// The table to query
-		    projection,                             // The columns to return
-		    whereClause,                           	// The columns for the WHERE clause
-		    columnValuesForWhereClause,             // The values for the WHERE clause
-		    groupBy,                                // group the rows
-		    null,                                   // don't filter by row groups
-		    sortBy	                                // The sort order
-		    );
-		return cu;
+			String whereClause=columnNameForWhereClause==null?null:(columnNameForWhereClause+"=?");
+			Cursor cu = getSqlDb().query(
+				tableName,				  				// The table to query
+			    projection,                             // The columns to return
+			    whereClause,                           	// The columns for the WHERE clause
+			    columnValuesForWhereClause,             // The values for the WHERE clause
+			    groupBy,                                // group the rows
+			    null,                                   // don't filter by row groups
+			    sortBy	                                // The sort order
+			    ); 
+			return cu;
 	}
 	public synchronized void exec(String sql) {
 		getSqlDb().execSQL(sql);
@@ -175,6 +187,7 @@ public class DbAdapter {
 	}
 		
 	private static class DatabaseHelper extends SQLiteOpenHelper {
+		SQLiteDatabase mDb;
 		/**
 		 * Database creation sql statement 
 		 */
@@ -310,8 +323,7 @@ public class DbAdapter {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
-		@Override
-		public void onCreate(SQLiteDatabase db) {
+		public void doTableCreating(SQLiteDatabase db) {
 			try {
 				db.execSQL(CREATE_TABLE_ACTIVITY);
 			} catch (Exception eieio33) {}
@@ -359,6 +371,10 @@ public class DbAdapter {
 			try {
 				db.execSQL(CREATE_TABLE_LANES);
 			} catch (Exception eieio) {};
+		}
+		@Override
+		public void onCreate(SQLiteDatabase db) {
+			doTableCreating(db);
 		}
 
 		@Override

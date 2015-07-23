@@ -24,6 +24,7 @@ public class SplashPage extends Activity implements DataLoaderClient {
 	private SplashPageProgressViewManager mSplashPageProgressViewManager;
 	private CountDownTimer mCountDownTimer;
 	private DataLoader mDataLoader; 
+	public static SplashPage mSingleton;
 
 	@Override
 	protected void onDestroy() {
@@ -95,6 +96,7 @@ public class SplashPage extends Activity implements DataLoaderClient {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		mSingleton=this;
 		this.setContentView(R.layout.activity_splashpage);
         int secondsDelayed = 1;
         mHandler=new Handler();

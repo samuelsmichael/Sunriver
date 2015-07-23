@@ -50,6 +50,10 @@ public abstract class SunriverDataItem implements Cacheable {
 		}
 	}
 
+	protected boolean tableExists() {
+		return GlobalState.getDbAdapter().existsTable(this.getTableName());
+	}
+	
 	@Override
 	public void setLastDateReadToNow() {
 		SharedPreferences sharedPreferences=GlobalState.sharedPreferences;

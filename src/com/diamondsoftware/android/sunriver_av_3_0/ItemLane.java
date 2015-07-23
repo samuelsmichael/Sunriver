@@ -87,9 +87,11 @@ public class ItemLane extends SunriverDataItem {
 	@Override
 	public boolean isDataExpired() {
 		Date lastDateRead=getLastDateRead();
+		//boolean tableExists=tableExists();
+		//tableExists=tableExists;
 		return (
 				GlobalState.TheItemUpdate==null || lastDateRead==null || GlobalState.TheItemUpdate.getUpdateLane()==null ||
-				GlobalState.TheItemUpdate.getUpdateLane().getTime().after(lastDateRead)
+				GlobalState.TheItemUpdate.getUpdateLane().getTime().after(lastDateRead)// || !tableExists()
 		);
 	}
 
