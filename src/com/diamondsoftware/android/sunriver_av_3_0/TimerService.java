@@ -164,7 +164,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	private void startRefreshTimer(long trigger, long interval) {
 		getRefreshTimer().schedule(new TimerTask() {
 			public void run() {
-				mLogger.log("It's noon!", 9);
+	//			mLogger.log("It's noon!", 9);
 				if(GlobalState.mSingleton!=null) {
 					DataLoader dataLoader=new DataLoader(TimerService.this,GlobalState.mSingleton);
 					dataLoader.execute();
