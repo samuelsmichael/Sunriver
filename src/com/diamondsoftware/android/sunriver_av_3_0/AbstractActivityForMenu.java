@@ -12,7 +12,6 @@ import android.view.MenuItem;
 @SuppressLint("Registered") public abstract class AbstractActivityForMenu extends Activity implements IFavoritesList {
 	protected MenuItem miFavorites=null;
 	protected SharedPreferences mSharedPreferences;
-	protected DbAdapter mDbAdapter;
 	public static AbstractActivityForMenu CurrentlyOnTop;
 	
 	// SharedPreferences is the mechanism used to persist application-specific data
@@ -31,7 +30,7 @@ import android.view.MenuItem;
 	public boolean onCreateOptionsMenu(Menu menu) {
 //	    MenuInflater inflater = getMenuInflater();
 //	    inflater.inflate(R.menu.sunriver, menu);
-		DbAdapter dbAdapter=new DbAdapter(this);
+		DbAdapter dbAdapter=GlobalState.getDbAdapter();
 		if(doYouDoFavorites() &&
 				(whatsYourFavoriteItemType().equals(DbAdapter.FavoriteItemType.Unknown) // Home Page
 					?true
@@ -112,17 +111,10 @@ import android.view.MenuItem;
 	protected String getPREFS_NAME() {
 		return getApplicationContext().getPackageName() + "_preferences";
 	}
-	@Override
-	protected void onDestroy() {
-		if(mDbAdapter!=null) {
-			mDbAdapter.close();
-		}
-		super.onDestroy();
-	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mDbAdapter=new DbAdapter(this);
 		mSharedPreferences=getSharedPreferences(getPREFS_NAME(), Activity.MODE_PRIVATE);
 		CurrentlyOnTop=this;
 	}

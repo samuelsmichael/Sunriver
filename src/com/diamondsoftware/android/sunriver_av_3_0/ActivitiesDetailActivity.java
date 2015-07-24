@@ -44,7 +44,7 @@ public class ActivitiesDetailActivity extends AbstractActivityForListItemDetail 
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			getMyItem().putIsFavorite(false);
-			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Activity)) {
+			if(!GlobalState.getDbAdapter().areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Activity)) {
 				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
 			}
 			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();

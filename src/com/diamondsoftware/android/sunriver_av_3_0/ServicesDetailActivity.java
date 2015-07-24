@@ -73,7 +73,7 @@ public class ServicesDetailActivity extends AbstractActivityForListViewsScrollin
 	}
 	
 	private boolean myPageIsFiltering() {
-		return MainActivity.mSingleton.mDbAdapter.areThereAnyFavoritesForThisServicesTitle(getTitle().toString());
+		return GlobalState.getDbAdapter().areThereAnyFavoritesForThisServicesTitle(getTitle().toString());
 	}
 	
 	protected boolean getImViewingFavorites() {

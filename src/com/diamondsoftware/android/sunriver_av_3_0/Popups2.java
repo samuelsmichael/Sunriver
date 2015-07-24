@@ -37,7 +37,7 @@ public abstract class Popups2 {
 	
 	public Popups2(Activity activity) {
 		mActivity=activity;
-		mDbAdapter=new DbAdapter(activity);
+		mDbAdapter=GlobalState.getDbAdapter();
 	}
     public Popups2(){}
 	

@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
-import com.esri.core.symbol.SimpleMarkerSymbol.STYLE;
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -17,23 +13,20 @@ import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.provider.Settings.Secure;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.provider.Settings.Secure;
+
+import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
 
 /**
  *  Manages all of the actions at the home page.
@@ -646,9 +639,9 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				
 				
 				/*TODO PUBLISH*/
-				/* Use this when you've published 7/20/2015 version, or later, of the web app   	String uri=getResources().getString(R.string.urlfindhomejson);  */
-				/*  Use this when you're still using my web site */  String uri=getResources().getString(R.string.urlfindhomejsontestremote);  	
-				/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlfindhomejsontestlocal); */ 
+				/* Use this when you've published 7/20/2015 version, or later, of the web app   */	String uri=getResources().getString(R.string.urlfindhomejson);  
+				/*  Use this when you're still using my web site  String uri=getResources().getString(R.string.urlfindhomejsontestremote);  	*/
+				/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlfindhomejsontestlocal); */  
 
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
 //					nameValuePair,

@@ -21,10 +21,14 @@ import android.support.v4.app.NotificationCompat;
 
 public class TimerService extends Service  implements DataGetter, WaitingForDataAcquiredAsynchronously, DataLoaderClient {
 	private Timer mTimer=null;
+	private Timer mRefreshTimer=null;
 	private SharedPreferences mSharedPreferences=null;
 	private Handler mRefreshDataAtNoonHandler=null;
 	private long mRefresh;
 	int mCount=0;
+	Logger mLogger;
+	long lNow=0;
+	long lNewTime=0;
 	
 
 	private void doS() {
@@ -56,7 +60,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        	mRefreshDataAtNoonHandler=new Handler();
 	        }
 	        mRefresh=lNewTime-lNow;
-	             mRefresh=1000*60*60;
+	            /* for testing*/ mRefresh=1000*60*60;
 	        mRefreshDataAtNoonHandler.postDelayed(this,mRefresh);
 		}
 		@Override
@@ -76,19 +80,42 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
+		mLogger=new Logger(1,"GlobalState",this);
+
 //		Logger logger=new Logger(0,"EmergencyTimer",this);
 //		logger.log("About ready to start Timer Service",999);
 
 		String defaultValue=getResources().getString(R.string.emergencytimerintervalinseconds);
 		mSharedPreferences=getSharedPreferences(getPackageName() + "_preferences", Activity.MODE_PRIVATE);
 		long interval=Long.valueOf(defaultValue);
-
-		startTimer2(1000*interval,1000*interval);
+		
+		if(lNow==0) {
+	        Calendar now=Calendar.getInstance(Locale.getDefault());
+	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
+	        int hour=now.get(Calendar.HOUR_OF_DAY);
+	        int jdhour=12; 
+	        if(hour<jdhour) {
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        } else {
+	        	newTime.add(Calendar.DAY_OF_YEAR,1);
+	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
+	        	newTime.set(Calendar.MINUTE, 0);
+	        }
+	        lNow=now.getTimeInMillis();
+	        lNewTime=newTime.getTimeInMillis();
+	        if(mRefreshDataAtNoonHandler==null) {
+	        	mRefreshDataAtNoonHandler=new Handler();
+	        }
+	        mRefresh=lNewTime-lNow;
+			startTimer2(1000*interval,1000*interval);
+			startRefreshTimer(mRefresh,1000*60*60*24);
+		}
 //		logger.log("Timer Service started",999);
 
         mRefreshDataAtNoonHandler=new Handler();
 
-        new MyRunnable();
+      ///////////////////  new MyRunnable();
 
 		return START_STICKY;
 	}		
@@ -96,9 +123,11 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	@Override
 	public void onDestroy() {
     	stopTimer2();		
+    	stopRefreshTimer();
     	if(mRefreshDataAtNoonHandler!=null) {
     		mRefreshDataAtNoonHandler.removeCallbacksAndMessages(null);
     	}
+    	super.onDestroy();
 	}
 	
 	private void stopTimer2() {
@@ -111,6 +140,15 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 			mTimer = null;
 		}
 	}	
+	private void stopRefreshTimer() {
+		if(mRefreshTimer != null) {
+			try {
+				mRefreshTimer.cancel();
+				mRefreshTimer.purge();
+			} catch (Exception e) {}
+			mRefreshTimer=null;
+		}
+	}
 	private void startTimer2(long trigger, long interval) {
 		getTimer().schedule(new TimerTask() {
 			public void run() {
@@ -123,6 +161,17 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 			}
 		}, trigger, interval);
 	}
+	private void startRefreshTimer(long trigger, long interval) {
+		getRefreshTimer().schedule(new TimerTask() {
+			public void run() {
+				mLogger.log("It's noon!", 9);
+				if(GlobalState.mSingleton!=null) {
+					DataLoader dataLoader=new DataLoader(TimerService.this,GlobalState.mSingleton);
+					dataLoader.execute();
+				}
+			}
+		},trigger,interval);
+	}
 
 	private Timer getTimer() {
 		if (mTimer == null) {
@@ -130,7 +179,12 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 		}
 		return mTimer;
 	}
-
+    private Timer getRefreshTimer() {
+    	if(mRefreshTimer==null) {
+    		mRefreshTimer=new Timer("RefreshTimer");
+    	}
+    	return mRefreshTimer;
+    }
 	public TimerService() {		
 	}
 

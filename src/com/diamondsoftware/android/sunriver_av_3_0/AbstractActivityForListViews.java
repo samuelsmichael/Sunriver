@@ -138,8 +138,7 @@ public abstract class AbstractActivityForListViews extends AbstractActivityForMe
 		if(this.doYouDoFavorites()) {
 			ArrayList<Object> newData=new ArrayList<Object>();
 			ArrayList<Integer> favorites=new ArrayList<Integer>();
-			DbAdapter dbAdapter=new DbAdapter(this);
-			Cursor cursor=dbAdapter.getItemsInFavoritesForThisCategory(whatsYourFavoriteItemType());
+			Cursor cursor=GlobalState.getDbAdapter().getItemsInFavoritesForThisCategory(whatsYourFavoriteItemType());
 			while(cursor.moveToNext()) {
 				favorites.add(cursor.getInt(cursor.getColumnIndex(DbAdapter.KEY_FAVORITES_ITEM_ID)));
 			}

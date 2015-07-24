@@ -42,7 +42,7 @@ public class ActivityHospitalityDetail extends AbstractActivityForListItemDetail
 			mIsFavorite=false;
 			mFavorite.setImageResource(R.drawable.favoriteoff);
 			getMyItem().putIsFavorite(false);
-			if(!mDbAdapter.areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Hospitality)) {
+			if(!GlobalState.getDbAdapter().areThereAnyFavoritesForThisCategory(DbAdapter.FavoriteItemType.Hospitality)) {
 				AbstractActivityForListViews.mSingleton.setImViewingFavorites(false);
 			}
 			AbstractActivityForListViews.mSingleton.rebuildListBasedOnFavoritesSetting();
