@@ -30,14 +30,16 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 	}
 	/* Start things out by fetching the "update" data */
 	public void execute() {
-		if(MainActivity.LocationData!=null) {
+		if(MainActivity.LocationData!=null && (MainActivity.mSingleton!=null || SplashPage.mSingleton!=null)) {
 			new AcquireDataRemotelyAsynchronously("update", this, this);
 			new AcquireDataRemotelyAsynchronously("tipsremotehomepage",this,this);
 			new AcquireDataRemotelyAsynchronously("newsFeeds", this, this);	
-			MainActivity.LocationData.clear();
+			if(MainActivity.mSingleton!=null || SplashPage.mSingleton!=null) {
 			// this will cause the location data to be pre-loaded ... but it's needed here for the GeoFences that support the location alert popups
-			new  MapsGraphicsLayerLocation(MainActivity.mSingleton==null?SplashPage.mSingleton:MainActivity.mSingleton,null,Color.MAGENTA,12,STYLE.CIRCLE, ItemLocation.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
-			new MapsGraphicsLayerMisc(MainActivity.mSingleton==null?SplashPage.mSingleton:MainActivity.mSingleton,null,Color.DKGRAY,12,STYLE.DIAMOND, ItemLocation.LocationType.SUNRIVER,false).constructGraphicItems();
+				MainActivity.LocationData.clear();
+				new  MapsGraphicsLayerLocation(MainActivity.mSingleton==null?SplashPage.mSingleton:MainActivity.mSingleton,null,Color.MAGENTA,12,STYLE.CIRCLE, ItemLocation.LocationType.PERFECT_PICTURE_SPOT,false,MainActivity.PREFERENCES_MAPS_POPUP_PERFECTPICTURESPOTS,false).constructGraphicItems();
+				new MapsGraphicsLayerMisc(MainActivity.mSingleton==null?SplashPage.mSingleton:MainActivity.mSingleton,null,Color.DKGRAY,12,STYLE.DIAMOND, ItemLocation.LocationType.SUNRIVER,false).constructGraphicItems();
+			}
 		}
 	}
 	@Override
@@ -167,7 +169,11 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 								// I'm not incrementingMCountItemsLeft, as it is okay to proceed to MainActivity even if we don't yet have this data
 								new AcquireDataRemotelyAsynchronously("lane",this,this);
 							} else {
-								mGlobalState.TheItemsLane= itemLane.fetchDataFromDatabase();
+								try {
+									mGlobalState.TheItemsLane= itemLane.fetchDataFromDatabase();
+								} catch (Exception e) {
+									
+								}
 							}
 							/* Don't need to fetch EventPics data if it's not expired */
 							ItemEventPic itemEventPic = new ItemEventPic();
@@ -376,8 +382,8 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 			if(name.equalsIgnoreCase("update")) {/*TODO PUBLISH*/
 				try {
 					
-					/* Use this when you've published 7/22/2015 version, or later, of the web app    */	String uri=mGlobalState.getResources().getString(R.string.urlupdatejson); 
-					/*  Use this when you're still using my web site   String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestremote); */ 	
+					/* Use this when you've published 7/22/2015 version, or later, of the web app    	String uri=mGlobalState.getResources().getString(R.string.urlupdatejson); */
+					/*  Use this when you're still using my web site */  String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestremote);  	
 					/* This one is for my testing in my office		String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestlocal);  */
 					
 															
@@ -510,8 +516,8 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 														} else {
 															if(name.equalsIgnoreCase("lane")) {/*TODO PUBLISH*/
 																try {
-																/* Use this when you've published 7/20/2015 version, or later, of the web app */ 	String uri=mGlobalState.getResources().getString(R.string.urllanejson); 
-																/*  Use this when you're still using my web site   String uri=mGlobalState.getResources().getString(R.string.urllanetestremote); */	
+																/* Use this when you've published 7/20/2015 version, or later, of the web app  	String uri=mGlobalState.getResources().getString(R.string.urllanejson); */
+																/*  Use this when you're still using my web site */	  String uri=mGlobalState.getResources().getString(R.string.urllanetestremote); 
 																/* This one is for my testing in my office		String uri=mGlobalState.getResources().getString(R.string.urllanejsontestlocal); */
 																											
 																		ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(
