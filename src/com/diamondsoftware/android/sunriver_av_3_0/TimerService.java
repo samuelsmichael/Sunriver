@@ -29,6 +29,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	Logger mLogger;
 	long lNow=0;
 	long lNewTime=0;
+	private static int lheure=12;
 	
 
 	private void doS() {
@@ -45,7 +46,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        Calendar now=Calendar.getInstance(Locale.getDefault());
 	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
 	        int hour=now.get(Calendar.HOUR_OF_DAY);
-	        int jdhour=13; 
+	        int jdhour=lheure; 
 	        if(hour<jdhour) {
 	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
 	        	newTime.set(Calendar.MINUTE, 0);
@@ -60,7 +61,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        	mRefreshDataAtNoonHandler=new Handler();
 	        }
 	        mRefresh=lNewTime-lNow;
-	            /* for testing*/ mRefresh=1000*60*60;
+	            /* for testing mRefresh=1000*60*60;*/
 	        mRefreshDataAtNoonHandler.postDelayed(this,mRefresh);
 		}
 		@Override
@@ -93,7 +94,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        Calendar now=Calendar.getInstance(Locale.getDefault());
 	        Calendar newTime=Calendar.getInstance(Locale.getDefault());
 	        int hour=now.get(Calendar.HOUR_OF_DAY);
-	        int jdhour=13; 
+	        int jdhour=lheure; 
 	        if(hour<jdhour) {
 	        	newTime.set(Calendar.HOUR_OF_DAY, jdhour);
 	        	newTime.set(Calendar.MINUTE, 0);
