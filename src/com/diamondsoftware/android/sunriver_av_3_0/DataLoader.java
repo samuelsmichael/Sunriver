@@ -382,8 +382,8 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 			if(name.equalsIgnoreCase("update")) {/*TODO PUBLISH*/
 				try {
 					
-					/* Use this when you've published 7/22/2015 version, or later, of the web app    	String uri=mGlobalState.getResources().getString(R.string.urlupdatejson); */
-					/*  Use this when you're still using my web site  */ String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestremote);  	
+					/* Use this when you've published 7/22/2015 version, or later, of the web app    */ 	String uri=mGlobalState.getResources().getString(R.string.urlupdatejson);
+					/*  Use this when you're still using my web site   String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestremote);  */	
 					/* This one is for my testing in my office		String uri=mGlobalState.getResources().getString(R.string.urlupdatejsontestlocal);  */
 					
 															
@@ -516,8 +516,8 @@ public class DataLoader implements  DataGetter, WaitingForDataAcquiredAsynchrono
 														} else {
 															if(name.equalsIgnoreCase("lane")) {/*TODO PUBLISH*/
 																try {
-																/* Use this when you've published 7/20/2015 version, or later, of the web app  	String uri=mGlobalState.getResources().getString(R.string.urllanejson); */
-																/*  Use this when you're still using my web site 	*/  String uri=mGlobalState.getResources().getString(R.string.urllanetestremote); 
+																/* Use this when you've published 7/20/2015 version, or later, of the web app */ 	String uri=mGlobalState.getResources().getString(R.string.urllanejson); 
+																/*  Use this when you're still using my web site 	  String uri=mGlobalState.getResources().getString(R.string.urllanetestremote); */
 																/* This one is for my testing in my office		String uri=mGlobalState.getResources().getString(R.string.urllanejsontestlocal); */
 																											
 																		ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(

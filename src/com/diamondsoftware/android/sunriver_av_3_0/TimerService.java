@@ -29,8 +29,8 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	Logger mLogger;
 	long lNow=0;
 	long lNewTime=0;
-	private static int lheure=18; //12
-	private static long linterval=1000*60*60*1; //=1000*60*60*24;
+	private static int lheure=12; //12
+	private static long linterval=1000*60*60*12; //=1000*60*60*24;
 	
 
 	private void doS() {
@@ -67,7 +67,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 		}
 		@Override
 		public void run() {
-			new Logger(1,"GlobalState",TimerService.this).log("It's noon!", 9);
+			//new Logger(1,"GlobalState",TimerService.this).log("It's noon!", 9);
 			if(GlobalState.mSingleton!=null) {
 				DataLoader dataLoader=new DataLoader(TimerService.this,GlobalState.mSingleton);
 				dataLoader.execute();
@@ -82,7 +82,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandlerTimer(
 				this));
-		mLogger=new Logger(1,"GlobalState",this);
+		//mLogger=new Logger(1,"GlobalState",this);
 
 //		Logger logger=new Logger(0,"EmergencyTimer",this);
 //		logger.log("About ready to start Timer Service",999);
@@ -166,7 +166,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	private void startRefreshTimer(long trigger, long interval) {
 		getRefreshTimer().schedule(new TimerTask() {
 			public void run() {
-				mLogger.log("It's noon!", 9);
+				//mLogger.log("It's noon!", 9);
 				if(GlobalState.mSingleton!=null) {
 					DataLoader dataLoader=new DataLoader(TimerService.this,GlobalState.mSingleton);
 					dataLoader.execute();
