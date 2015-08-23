@@ -639,8 +639,8 @@ public class MainActivity extends AbstractActivityForListViewsNonscrollingImage 
 				
 				
 				/*TODO PUBLISH*/
-				/* Use this when you've published 7/20/2015 version, or later, of the web app   */	String uri=getResources().getString(R.string.urlfindhomejson);  
-				/*  Use this when you're still using my web site  String uri=getResources().getString(R.string.urlfindhomejsontestremote); */ 	
+				/* Use this when you've published 7/20/2015 version, or later, of the web app   	String uri=getResources().getString(R.string.urlfindhomejson); */ 
+				/*  Use this when you're still using my web site */ String uri=getResources().getString(R.string.urlfindhomejsontestremote);  	
 				/* This one is for my testing in my office		String uri=getResources().getString(R.string.urlfindhomejsontestlocal); */  
 
 				ArrayList<Object> data = new JsonReaderFromRemotelyAcquiredJson(

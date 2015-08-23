@@ -29,7 +29,8 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	Logger mLogger;
 	long lNow=0;
 	long lNewTime=0;
-	private static int lheure=12;
+	private static int lheure=18; //12
+	private static long linterval=1000*60*60*1; //=1000*60*60*24;
 	
 
 	private void doS() {
@@ -110,7 +111,7 @@ public class TimerService extends Service  implements DataGetter, WaitingForData
 	        }
 	        mRefresh=lNewTime-lNow;
 			startTimer2(1000*interval,1000*interval);
-			startRefreshTimer(mRefresh,1000*60*60*24);
+			startRefreshTimer(mRefresh,linterval);
 		}
 //		logger.log("Timer Service started",999);
 
