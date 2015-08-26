@@ -15,7 +15,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.diamondsoftware.android.sunriver_av_3_0.DbAdapter.FavoriteItemType;
-import com.diamondsoftware.android.sunriver_av_3_0.ListViewAdapterForCalendarPage.CustomComparator;
 
 public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 	public static final String DATABASE_TABLE_CALENDAR = "calendar";
@@ -92,11 +91,30 @@ public class ItemCalendar extends SunriverDataItem  implements IFavoriteItem {
 			return newAl;//.sort();
 		} else {
 			if(justThisYYYYMM==null) {
-				return al;
+				ArrayList newA1=new ArrayList();
+				for (Object f: al) {
+					newA1.add(f);
+				}
+				Collections.sort(newA1, new MyCustomComparator2());
+				return newA1;
 			} else {
-				return filterByThisYYYYMM(justThisYYYYMM,al);
+				ArrayList newA1=new ArrayList();
+				for (Object f: al) {
+					newA1.add(f);
+				}
+				Collections.sort(newA1, new MyCustomComparator2());
+				return filterByThisYYYYMM(justThisYYYYMM,newA1);
 			}
 		}
+	}
+	public static class MyCustomComparator2 implements Comparator<ItemCalendar> {
+	    @Override
+	    public int compare(ItemCalendar o1, ItemCalendar o2) {
+	    	if(o1.getSrCalDate().getTimeInMillis()>o2.getSrCalDate().getTimeInMillis()) return 1;
+	    	if(o1.getSrCalDate().getTimeInMillis()<o2.getSrCalDate().getTimeInMillis()) return -1;
+	    	if(o1.getSrCalTime()==null || o2.getSrCalTime()==null) return 0;
+	    	return o1.getSrCalTime().compareTo(o2.getSrCalTime());
+	    }
 	}
 	public static class MyCustomComparator implements Comparator<ItemCalendar> {
 	    @Override

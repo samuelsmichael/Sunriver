@@ -11,8 +11,9 @@
 <!-- Treat events as test events and don't send to google -->
 <bool name="ga_dryRun">false</bool>
 <!--  The following value should be replaced with correct property id. /*TODO PUBLISH*/ -->
-<string name="ga_trackingId">UA-50203876-1</string>
+<string name="ga_trackingId">UA-66792622-1</string>
 <!-- Diamond Software's account 	<string name="ga_trackingId">UA-52884112-1</string>-->   
+<!-- Mike Samuels' accounnt <string name="ga_trackingId">UA-66792622-1</string> -->
 <!-- Sunriver's account 	<string name="ga_trackingId">UA-50203876-1</string>-->   
     <!-- Enable automatic Activity measurement -->
     <bool name="ga_autoActivityTracking">false</bool>
